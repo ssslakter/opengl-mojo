@@ -40,6 +40,9 @@ type_map = {
     "bool": "Bool",
 }
 
+enum_types: Dict[str, str] = {}
+
+
 def to_camel_case(s: str) -> str:
     return s[0].lower() + s[1:] if s else s
 
@@ -52,8 +55,10 @@ class Type:
     struct: bool = False
 
     @classmethod
-    def from_string(cls, name: str, type_str: str) -> "Type":
+    def from_xml(cls, type_elem: ET.Element) -> "Type":
         """Factory method to create a Type from name and type string"""
+        name = type_elem.find("name").text
+        type_str = type_elem.text
         if not type_str and "struct" in name:
             clean_name = name.replace("struct ", "")
             return cls(name=clean_name, type="", struct=True)
@@ -85,14 +90,49 @@ struct {name}(Copyable, Movable):
 
 
 @dataclass
-class Enum:
-    """OpenGL enum"""
+class EnumItem:
+    """OpenGL enum item"""
 
     name: str
     value: str
+    groups: List[str] = field(default_factory=list)
+
+    @classmethod
+    def from_xml(cls, enum_elem: ET.Element) -> "EnumItem":
+        name = enum_elem.get("name")
+        value = enum_elem.get("value")
+        return cls(
+            name=name, value=value, groups=enum_elem.attrib.get("group", "").split(",")
+        )
 
     def __str__(self):
         return f"alias {self.name} = {self.value}"
+
+
+enums_template = """
+@fieldwise_init
+@register_passable('trivial')
+struct {name}:
+    var value: {dtype}
+    
+    {aliases}
+"""
+
+
+def generate_enum(name: str, all_enums: List[EnumItem]) -> str:
+    aliases = "\n    ".join(
+        f"alias {e.name} = {name}({e.value})" for e in all_enums if name in e.groups
+    )
+    if not aliases:
+        return ""
+    res = enums_template.format(name=name, dtype=enum_types[name], aliases=aliases)
+    if enum_types[name] == "GLbitfield":
+        res += """
+    @always_inline
+    fn __or__(lhs, rhs: Self) -> Self:
+        return Self(lhs.value | rhs.value)
+"""
+    return res
 
 
 @dataclass
@@ -103,14 +143,46 @@ class CommandParam:
     type: str
     mut: bool
     ptrs: int
+    group: str
+    kind: str
     vecs: Optional[str] = None
+
+    @classmethod
+    def from_xml(cls, param_elem: ET.Element) -> "CommandParam":
+        # FIXME: I think const pointers must be handled differently
+        match_variable = re.compile(
+            r"^(?P<mut>const )?(?P<type>\w+)\s*(?P<ptrs>(?:\*const|\*)*)\s*(?P<name>\w+?)(?:\[(?P<vecs>.*?)\])?$"
+        )
+        param_name_elem = param_elem.find("name")
+        param_name = param_name_elem.text if param_name_elem is not None else "NONAME"
+        match = match_variable.match(
+            ET.tostring(param_elem, method="text", encoding="unicode")
+            .replace("struct", "")
+            .strip()
+        )
+        if param_name in ["ref", "in"]:
+            param_name += "_"
+        vecs_group = match.group("vecs")
+        group, type = param_elem.attrib.get("group"), match.group("type")
+        if group:
+            enum_types[group] = type
+        kind = param_elem.attrib.get("kind")
+        return cls(
+            name=param_name,
+            type=type,
+            mut=match.group("mut") is not None,
+            ptrs=match.group("ptrs").count("*"),
+            vecs=vecs_group if vecs_group else None,
+            group=group,
+            kind=kind,
+        )
 
     def __str__(self):
         """Converts command parameter to Mojo function argument"""
         type = type_map.get(self.type, self.type)
         if self.ptrs > 0:
             type = f"Ptr[{type}]"
-        return f"{self.name}: {type}"
+        return f"{self.name}: {self.group or type}"
 
 
 @dataclass
@@ -129,21 +201,27 @@ class Command:
         if self.return_type != "void":
             res += f" -> {self.return_type}"
         return res
-    
+
     def fn_decl(self):
         res = f'fn {self.mojo_name()}({", ".join(['self'] + [str(p) for p in self.params])})'
         if self.return_type != "void":
             res += f" -> {self.return_type}"
         return res
-        
+
     def fn_call(self):
         return f'{self.mojo_name()}({", ".join([p.name for p in self.params])})'
 
-    def ptr_name(self): return f"fptr_{self.name}"
-    def mojo_name(self): return f"{to_camel_case(self.name[2:])}"
-    def var_name(self): return f"var {self.mojo_name()}: {self.ptr_name()}"
+    def ptr_name(self):
+        return f"fptr_{self.name}"
+
+    def mojo_name(self):
+        return f"{to_camel_case(self.name[2:])}"
+
+    def var_name(self):
+        return f"var {self.mojo_name()}: {self.ptr_name()}"
+
     def load_code(self):
-        return f"{self.mojo_name()} = load_proc('{self.name}', load).bitcast[{self.ptr_name()}]()[]"
+        return f"{self.mojo_name()} = load_proc[{self.ptr_name()}]('{self.name}', load)"
 
 
 @dataclass
@@ -177,11 +255,16 @@ class Feature:
             require=self.require | other.require,
             remove=self.remove | other.remove,
         )
-        
-    def var_name(self): return f"var {self.name.lower()}: {self.name}"
-    
+
+    def var_name(self):
+        return f"var {self.name.lower()}: {self.name}"
+
     def all_fns(self, commands: List[Command]) -> str:
-        return '\n    '.join(f"@always_inline\n    {f.fn_decl()}:\n        return self.{self.name.lower()}.{f.fn_call()}\n" for f in commands if f.name in self.require)
+        return "\n    ".join(
+            f"@always_inline\n    {f.fn_decl()}:\n        return self.{self.name.lower()}.{f.fn_call()}\n"
+            for f in commands
+            if f.name in self.require
+        )
 
 
 def generate_feature_mojo(feature: Feature, commands: List[Command]) -> str:
@@ -198,6 +281,7 @@ struct {feature.name}:
         self.{'\n        self.'.join([f.load_code() for f in funcs])}
 '''
 
+
 def parse_types(root: ET.Element) -> Dict[str, Type]:
     types = {}
     for type_elem in root.findall("types/type"):
@@ -206,19 +290,18 @@ def parse_types(root: ET.Element) -> Dict[str, Type]:
             continue
         name_elem = type_elem.find("name")
         if name_elem is not None and name_elem.text:
-            types[name_elem.text] = Type.from_string(
-                name_elem.text, type_elem.text
-            )
+            type = Type.from_xml(type_elem)
+            types[type.name] = type
     return types
 
-def parse_enums(root: ET.Element) -> Dict[str, Enum]:
+
+def parse_enums(root: ET.Element) -> Dict[str, EnumItem]:
     enums = {}
     for enum_elem in root.findall("enums/enum"):
-        name = enum_elem.attrib.get("alias") or enum_elem.get("name")
-        value = enum_elem.get("value")
-        if name and value:
-            enums[name] = Enum(name=name, value=value)
+        enum = EnumItem.from_xml(enum_elem)
+        enums[enum.name] = enum
     return enums
+
 
 def parse_commands(root: ET.Element) -> Dict[str, Command]:
     commands = {}
@@ -230,41 +313,17 @@ def parse_commands(root: ET.Element) -> Dict[str, Command]:
         name_elem = proto_elem.find("name")
         ptype_elem = proto_elem.find("ptype")
 
-        name = name_elem.text if name_elem is not None else "NONAME"
+        name = name_elem.text
         return_type = ptype_elem.text if ptype_elem is not None else "void"
 
-        params = []
-        # FIXME: I think const pointers must be handled differently
-        match_variable = re.compile(
-            r"^(?P<mut>const )?(?P<type>\w+)\s*(?P<ptrs>(?:\*const|\*)*)\s*(?P<name>\w+?)(?:\[(?P<vecs>.*?)\])?$"
-        )
-        for param_elem in cmd_elem.findall("param"):
-            param_name_elem = param_elem.find("name")
-            param_name = (
-                param_name_elem.text if param_name_elem is not None else "NONAME"
-            )
-            match = match_variable.match(
-                ET.tostring(param_elem, method="text", encoding="unicode")
-                .replace("struct", "")
-                .strip()
-            )
-            if param_name in ["ref", "in"]:
-                param_name += "_"
-            vecs_group = match.group("vecs")
-            params.append(
-                CommandParam(
-                    name=param_name,
-                    type=match.group("type"),
-                    mut=match.group("mut") is not None,
-                    ptrs=match.group("ptrs").count("*"),
-                    vecs=vecs_group if vecs_group else None,
-                )
-            )
+        params = [
+            CommandParam.from_xml(param_elem)
+            for param_elem in cmd_elem.findall("param")
+        ]
 
-        commands[name] = Command(
-            name=name, return_type=return_type, params=params
-        )
+        commands[name] = Command(name=name, return_type=return_type, params=params)
     return commands
+
 
 class OpenGLRegistry:
     def __init__(self, root: ET.Element):
@@ -282,20 +341,18 @@ class OpenGLRegistry:
         }
         self.fix_features_require()
         self.current_features: List[Feature] = []
-        
+
     def fix_features_require(self):
-        '''Remove duplicate require in features'''
+        """Remove duplicate require in features"""
         for api, feats in self.features.items():
             all_symbols = set()
             res = []
             for f in sorted(feats, key=lambda x: x.number):
                 f.require -= all_symbols
-                all_symbols.update(f.require)        
+                all_symbols.update(f.require)
                 res.append(f)
             self.features[api] = res
-        
-                
-    
+
 
 # %%
 def select_opengl_symbols(
@@ -344,30 +401,31 @@ from sys.ffi import _Global, _OwnedDLHandle, _get_dylib_function, c_char, c_ucha
 alias GLDEBUGPROC = fn(source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: Ptr[GLchar], userParam: OpaquePointer)
 """
         )
+        commands = [cmd for cmd in registry.commands.values() if cmd.name in symbols]
+        groups = set(cp.group for cmd in commands for cp in cmd.params if cp.group)
         f.write(
             """
 # ========= ENUMS =========\n\n"""
         )
-        for name, enum in registry.enums.items():
-            if name not in symbols:
-                continue
-            f.write(f"{enum}\n")
+        for name in sorted(groups):
+            f.write(generate_enum(name, registry.enums.values()))
         f.write(
-            f'''
+            f"""
 # ========= COMMANDS =========
 
-alias LoadProc  = fn(owned proc: String) -> OpaquePointer
+alias LoadProc  = fn(owned proc: String) -> fn() -> None
 
-fn load_proc(name: String, load: LoadProc) raises -> OpaquePointer:
-    ptr = load(name)
+@always_inline
+fn load_proc[result_type: AnyTrivialRegType](name: String, load: LoadProc) raises -> result_type:
+    var ptr = Ptr(to=load(name))
     if not ptr:
-        raise Error(String("Failed to load function {{}}").format(name))
-    return ptr
-''')
-        commands = [cmd for cmd in registry.commands.values() if cmd.name in symbols]
+        raise Error("Failed to load function " + name)
+    return ptr.bitcast[result_type]()[]
+"""
+        )
         for feat in registry.current_features:
             f.write(generate_feature_mojo(feat, commands))
-            
+
         f.write(
             f'''
 struct GL:
@@ -382,14 +440,13 @@ struct GL:
         )
 
 
-
 if __name__ == "__main__":
     URL = "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/refs/heads/main/xml/gl.xml"
     OUT_FILE = Path("out/gl.mojo")
     OUT_DIR = OUT_FILE.parent
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    with open(OUT_DIR/'__init__.mojo', 'w') as f:
-        f.write(f'from .gl import *\n')
+    with open(OUT_DIR / "__init__.mojo", "w") as f:
+        f.write(f"from .gl import *\n")
 
     print("Fetching OpenGL registry...")
     with urlopen(URL) as src:
