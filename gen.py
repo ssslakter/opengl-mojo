@@ -40,8 +40,6 @@ type_map = {
     "bool": "Bool",
 }
 
-enum_types: Dict[str, str] = {}
-
 
 def to_camel_case(s: str) -> str:
     return s[0].lower() + s[1:] if s else s
@@ -99,7 +97,7 @@ class EnumItem:
 
     @classmethod
     def from_xml(cls, enum_elem: ET.Element) -> "EnumItem":
-        name = enum_elem.get("name")
+        name = enum_elem.get("name")[3:]
         value = enum_elem.get("value")
         return cls(
             name=name, value=value, groups=enum_elem.attrib.get("group", "").split(",")
@@ -119,14 +117,16 @@ struct {name}:
 """
 
 
-def generate_enum(name: str, all_enums: List[EnumItem]) -> str:
+def generate_enum(name: str, dtype: str, registry: "OpenGLRegistry") -> str:
     aliases = "\n    ".join(
-        f"alias {e.name} = {name}({e.value})" for e in all_enums if name in e.groups
+        f"alias {e.name} = {name}({e.value})"
+        for e in registry.enums.values()
+        if name in e.groups
     )
     if not aliases:
         return ""
-    res = enums_template.format(name=name, dtype=enum_types[name], aliases=aliases)
-    if enum_types[name] == "GLbitfield":
+    res = enums_template.format(name=name, dtype=dtype, aliases=aliases)
+    if dtype == "GLbitfield":
         res += """
     @always_inline
     fn __or__(lhs, rhs: Self) -> Self:
@@ -136,14 +136,37 @@ def generate_enum(name: str, all_enums: List[EnumItem]) -> str:
 
 
 @dataclass
-class CommandParam:
+class CommandEl:
+    """Element of OpenGL command"""
+
+    type: str
+    group: str
+
+
+@dataclass
+class ReturnType(CommandEl):
+    """Return type of OpenGL command"""
+    @classmethod
+    def from_xml(cls, proto_el: ET.Element) -> "ReturnType":
+        return cls(
+            type=getattr(proto_el.find("ptype"), "text", None),
+            group=proto_el.attrib.get("group"),
+        )
+
+    def __bool__(self):
+        return bool(self.type)
+
+    def __str__(self):
+        return self.group or self.type
+
+
+@dataclass
+class CommandParam(CommandEl):
     """Parameter of OpenGL command"""
 
     name: str
-    type: str
     mut: bool
     ptrs: int
-    group: str
     kind: str
     vecs: Optional[str] = None
 
@@ -164,8 +187,6 @@ class CommandParam:
             param_name += "_"
         vecs_group = match.group("vecs")
         group, type = param_elem.attrib.get("group"), match.group("type")
-        if group:
-            enum_types[group] = type
         kind = param_elem.attrib.get("kind")
         return cls(
             name=param_name,
@@ -190,21 +211,37 @@ class Command:
     """OpenGL command"""
 
     name: str
-    return_type: str
+    return_type: ReturnType
     params: List[CommandParam] = field(default_factory=list)
+
+    @classmethod
+    def from_xml(cls, cmd_elem: ET.Element) -> "Command":
+        proto_elem = cmd_elem.find("proto")
+        if proto_elem is None:
+            raise ValueError(f"Command {cmd_elem.find('name').text} has no proto")
+
+        return_type = ReturnType.from_xml(proto_elem)
+
+        params = [
+            CommandParam.from_xml(param_elem)
+            for param_elem in cmd_elem.findall("param")
+        ]
+        return cls(
+            name=proto_elem.find("name").text, return_type=return_type, params=params
+        )
 
     def __str__(self):
         """Converts command to Mojo function declaration"""
         res = (
             f'alias {self.ptr_name()} = fn({", ".join([str(p) for p in self.params])})'
         )
-        if self.return_type != "void":
+        if self.return_type:
             res += f" -> {self.return_type}"
         return res
 
     def fn_decl(self):
         res = f'fn {self.mojo_name()}({", ".join(['self'] + [str(p) for p in self.params])})'
-        if self.return_type != "void":
+        if self.return_type:
             res += f" -> {self.return_type}"
         return res
 
@@ -259,17 +296,17 @@ class Feature:
     def var_name(self):
         return f"var {self.name.lower()}: {self.name}"
 
-    def all_fns(self, commands: List[Command]) -> str:
+    def all_fns(self, registry: "OpenGLRegistry") -> str:
         return "\n    ".join(
             f"@always_inline\n    {f.fn_decl()}:\n        return self.{self.name.lower()}.{f.fn_call()}\n"
-            for f in commands
+            for f in registry.current_commands
             if f.name in self.require
         )
 
 
-def generate_feature_mojo(feature: Feature, commands: List[Command]) -> str:
+def generate_feature_mojo(feature: Feature, registry: "OpenGLRegistry") -> str:
     """Generate Mojo code for a feature"""
-    funcs = [cmd for cmd in commands if cmd.name in feature.require]
+    funcs = [cmd for cmd in registry.current_commands if cmd.name in feature.require]
     return f'''
 {'\n'.join(f"{f}" for f in funcs)}
 
@@ -295,43 +332,24 @@ def parse_types(root: ET.Element) -> Dict[str, Type]:
     return types
 
 
-def parse_enums(root: ET.Element) -> Dict[str, EnumItem]:
-    enums = {}
-    for enum_elem in root.findall("enums/enum"):
-        enum = EnumItem.from_xml(enum_elem)
-        enums[enum.name] = enum
-    return enums
-
-
-def parse_commands(root: ET.Element) -> Dict[str, Command]:
-    commands = {}
-    for cmd_elem in root.findall("commands/command"):
-        proto_elem = cmd_elem.find("proto")
-        if proto_elem is None:
-            continue
-
-        name_elem = proto_elem.find("name")
-        ptype_elem = proto_elem.find("ptype")
-
-        name = name_elem.text
-        return_type = ptype_elem.text if ptype_elem is not None else "void"
-
-        params = [
-            CommandParam.from_xml(param_elem)
-            for param_elem in cmd_elem.findall("param")
-        ]
-
-        commands[name] = Command(name=name, return_type=return_type, params=params)
-    return commands
-
-
 class OpenGLRegistry:
     def __init__(self, root: ET.Element):
         self.apis = set(feat.attrib["api"] for feat in root.findall("feature"))
 
         self.types = parse_types(root)
-        self.enums = parse_enums(root)
-        self.commands = parse_commands(root)
+        self.enums = {
+            enum.name: enum
+            for enum in [
+                EnumItem.from_xml(enum_elem) for enum_elem in root.findall("enums/enum")
+            ]
+        }
+        self.commands = {
+            cmd.name: cmd
+            for cmd in [
+                Command.from_xml(cmd_elem)
+                for cmd_elem in root.findall("commands/command")
+            ]
+        }
         self.features = {
             api: [
                 Feature.from_xml(feat)
@@ -341,6 +359,9 @@ class OpenGLRegistry:
         }
         self.fix_features_require()
         self.current_features: List[Feature] = []
+        self.current_commands: List[Command] = []
+        self.current_enums: List[EnumItem] = []
+        self.current_groups: Dict[str, CommandEl] = {}
 
     def fix_features_require(self):
         """Remove duplicate require in features"""
@@ -353,27 +374,33 @@ class OpenGLRegistry:
                 res.append(f)
             self.features[api] = res
 
+    def select_opengl_symbols(self, api: str, version: str = None, core: bool = True):
+        """Select OpenGL symbols for a given API and version"""
+        if api not in self.features:
+            raise ValueError(
+                f"API {api} does not exist, valid APIs are {', '.join(self.features.keys())}"
+            )
+        if not version:
+            version = self.features[api][-1].number
+        features = [f for f in self.features[api] if f.number <= version]
+        res = sum(features, start=features[0])
+        if core:
+            res.require -= res.remove
+        self.current_features = features
+        self.current_commands = [
+            cmd for cmd in self.commands.values() if cmd.name in res.require
+        ]
+        self.current_enums = [
+            enum for enum in self.enums.values() if enum.name in res.require
+        ]
+        self.current_groups = {
+            cmp.group: cmp
+            for cmd in self.current_commands
+            for cmp in cmd.params + [cmd.return_type]
+            if cmp.group
+        }
 
-# %%
-def select_opengl_symbols(
-    registry: OpenGLRegistry, api: str, version: str = None, core: bool = True
-) -> Tuple[Set[str], List[Feature]]:
-    """Select OpenGL symbols for a given API and version"""
-    if api not in registry.features:
-        raise ValueError(
-            f"API {api} does not exist, valid APIs are {', '.join(registry.features.keys())}"
-        )
-    if not version:
-        version = registry.features[api][-1].number
-    features = [f for f in registry.features[api] if f.number <= version]
-    res = sum(features, start=features[0])
-    if core:
-        res.require -= res.remove
-    registry.current_features = features
-    return res.require
-
-
-def generate_mojo_file(registry: OpenGLRegistry, symbols: Set[str], path: str):
+def generate_mojo_file(registry: OpenGLRegistry, path: str):
     with open(path, "w") as f:
         f.write(
             """
@@ -401,14 +428,12 @@ from sys.ffi import _Global, _OwnedDLHandle, _get_dylib_function, c_char, c_ucha
 alias GLDEBUGPROC = fn(source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: Ptr[GLchar], userParam: OpaquePointer)
 """
         )
-        commands = [cmd for cmd in registry.commands.values() if cmd.name in symbols]
-        groups = set(cp.group for cmd in commands for cp in cmd.params if cp.group)
         f.write(
             """
 # ========= ENUMS =========\n\n"""
         )
-        for name in sorted(groups):
-            f.write(generate_enum(name, registry.enums.values()))
+        for group, cmp in sorted(registry.current_groups.items()):
+            f.write(generate_enum(group, cmp.type, registry))
         f.write(
             f"""
 # ========= COMMANDS =========
@@ -424,7 +449,7 @@ fn load_proc[result_type: AnyTrivialRegType](name: String, load: LoadProc) raise
 """
         )
         for feat in registry.current_features:
-            f.write(generate_feature_mojo(feat, commands))
+            f.write(generate_feature_mojo(feat, registry))
 
         f.write(
             f'''
@@ -435,7 +460,7 @@ struct GL:
     fn __init__(out self, load: LoadProc) raises:
         {'\n        '.join([f'self.{feat.name.lower()} = {feat.name}(load)' for feat in registry.current_features])}
     
-    {'\n    '.join(f"{f.all_fns(commands)}" for f in registry.current_features)}
+    {'\n    '.join(f"{f.all_fns(registry)}" for f in registry.current_features)}
 '''
         )
 
@@ -454,10 +479,9 @@ if __name__ == "__main__":
         root = ET.fromstring(spec)
 
     registry = OpenGLRegistry(root)
-
     print("Resolving OpenGL symbols...")
-    symbols = select_opengl_symbols(registry, "gl", "4.6", core=True)
+    registry.select_opengl_symbols("gl", "4.6", core=True)
 
     print(f"Generating Mojo bindings to {OUT_FILE}...")
-    generate_mojo_file(registry, symbols, OUT_FILE)
+    generate_mojo_file(registry, OUT_FILE)
     print("Done.")
