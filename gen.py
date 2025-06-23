@@ -92,7 +92,7 @@ class EnumItem:
 
     @classmethod
     def from_xml(cls, enum_elem: ET.Element) -> "EnumItem":
-        name = enum_elem.get("name")
+        name = enum_elem.get("name").removeprefix("GL_")
         value = enum_elem.get("value")
         return cls(
             name=name, value=value, groups=enum_elem.attrib.get("group", "").split(",")
@@ -405,7 +405,7 @@ from sys.ffi import _Global, c_char, c_int, c_uint, c_short, c_ushort, c_size_t,
 
 # ========= TYPES =========\n\n"""
         )
-        for type in registry.current_types:
+        for type in sorted(registry.current_types, key=lambda x: x.name):
             f.write(f"{type}\n")
         f.write(
             """
