@@ -44,6 +44,13 @@ type_map = {
 def to_camel_case(s: str) -> str:
     return s[0].lower() + s[1:] if s else s
 
+def to_snake_case(string: str) -> str:
+    special_cases = {}
+    for k, v in special_cases.items():
+        if k not in string: continue
+        string = string.replace(k, v)
+    return re.sub(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", "_", string).lower()
+
 
 @dataclass
 class Type:
@@ -203,7 +210,7 @@ class CommandParam(CommandEl):
         type = type_map.get(self.type, self.type)
         if self.ptrs > 0:
             type = f"Ptr[{type}]"
-        return f"{self.name}: {self.group or type}"
+        return f"{to_snake_case(self.name)}: {self.group or type}"
 
 
 @dataclass
@@ -246,13 +253,13 @@ class Command:
         return res
 
     def fn_call(self):
-        return f'{self.mojo_name()}({", ".join([p.name for p in self.params])})'
+        return f'{self.mojo_name()}({", ".join([to_snake_case(p.name) for p in self.params])})'
 
     def ptr_name(self):
         return f"fptr_{self.name}"
 
     def mojo_name(self):
-        return f"{to_camel_case(self.name[2:])}"
+        return f"{to_snake_case(self.name.removeprefix('gl'))}"
 
     def var_name(self):
         return f"var {self.mojo_name()}: {self.ptr_name()}"
