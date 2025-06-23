@@ -5,9 +5,13 @@ from typing import List, Optional, Dict, Set, Tuple
 from urllib.request import urlopen
 import re
 
+CUSTOM_TYPE_HANDLERS = {
+    "GLboolean": {"outer_type": "Bool", "cast_to_inner": "GLboolean(Int({}))"},
+}
+
 type_map = {
     "void": "NoneType",
-    "intptr_t": "Int",
+    "intptr_t": "c_size_t",
     "char": "c_char",
     "unsigned char": "c_uint",
     "int": "c_int",
@@ -22,33 +26,17 @@ type_map = {
     "float_t": "c_float",
     "double": "c_double",
     "uint8_t": "UInt8",
-    "Uint8": "UInt8",
     "uint16_t": "UInt16",
-    "Uint16": "UInt16",
     "uint32_t": "UInt32",
-    "Uint32": "UInt32",
     "uint64_t": "UInt64",
-    "Uint64": "UInt64",
     "int8_t": "Int8",
-    "Sint8": "Int8",
     "int16_t": "Int16",
-    "Sint16": "Int16",
     "int32_t": "Int32",
-    "Sint32": "Int32",
     "int64_t": "Int64",
-    "Sint64": "Int64",
-    "bool": "Bool",
 }
 
 
-def to_camel_case(s: str) -> str:
-    return s[0].lower() + s[1:] if s else s
-
 def to_snake_case(string: str) -> str:
-    special_cases = {}
-    for k, v in special_cases.items():
-        if k not in string: continue
-        string = string.replace(k, v)
     return re.sub(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", "_", string).lower()
 
 
@@ -104,7 +92,7 @@ class EnumItem:
 
     @classmethod
     def from_xml(cls, enum_elem: ET.Element) -> "EnumItem":
-        name = enum_elem.get("name")[3:]
+        name = enum_elem.get("name")
         value = enum_elem.get("value")
         return cls(
             name=name, value=value, groups=enum_elem.attrib.get("group", "").split(",")
@@ -193,7 +181,7 @@ class CommandParam(CommandEl):
             group=param_elem.attrib.get("group"),
             kind=param_elem.attrib.get("kind"))
 
-    def __str__(self):
+    def to_mojo_arg(self, anon=False):
         """Converts command parameter to Mojo function argument"""
         type = type_map.get(self.type, self.type)
         if self.ptrs:
@@ -201,7 +189,20 @@ class CommandParam(CommandEl):
             for const_modifier in reversed(ptr_tokens):
                 is_mutable = not bool(const_modifier)
                 type = f'Ptr[{type}, mut = {is_mutable}]'
-        return f"{to_snake_case(self.name)}: {self.group or type}"
+        
+        final_type = self.group or type
+        
+        if not anon and not self.ptrs and self.type in CUSTOM_TYPE_HANDLERS:
+            final_type = CUSTOM_TYPE_HANDLERS[self.type]['outer_type']
+            
+        return f"{to_snake_case(self.name)}: {final_type}"
+
+    def get_call_expr(self) -> str:
+        """Returns the expression for calling the function pointer"""
+        snake_name = to_snake_case(self.name)
+        if not self.ptrs and self.type in CUSTOM_TYPE_HANDLERS:
+            return CUSTOM_TYPE_HANDLERS[self.type]['cast_to_inner'].format(snake_name)
+        return snake_name
 
 
 @dataclass
@@ -230,33 +231,34 @@ class Command:
 
     def __str__(self):
         """Converts command to Mojo function declaration"""
-        res = (
-            f'alias {self.ptr_name()} = fn({", ".join([str(p) for p in self.params])})'
-        )
-        if self.return_type:
-            res += f" -> {self.return_type}"
+        call_args = ', '.join(p.get_call_expr() for p in self.params)
+        return f'''
+@always_inline
+{self._fn_str()}:
+    return _{self.name}_ptr.get_or_create_ptr()[]({call_args})
+    '''
+    
+    def _fn_str(self, anon=False):
+        res = 'fn'
+        if not anon: res += f" {self.mojo_name()}"
+        res += f"({', '.join(p.to_mojo_arg(anon=anon) for p in self.params)})"
+        if self.return_type: res += f" -> {self.return_type}"
         return res
 
-    def fn_decl(self):
-        res = f'fn {self.mojo_name()}({", ".join(['self'] + [str(p) for p in self.params])})'
-        if self.return_type:
-            res += f" -> {self.return_type}"
-        return res
-
-    def fn_call(self):
-        return f'{self.mojo_name()}({", ".join([to_snake_case(p.name) for p in self.params])})'
+    def fn_global(self):
+        return f"alias _{self.name}_ptr = global_fn['{self.name}', {self.ptr_name()}]()"
 
     def ptr_name(self):
         return f"fptr_{self.name}"
+    
+    def ptr_decl(self):
+        return f'alias {self.ptr_name()} = {self._fn_str(anon=True)}'
 
     def mojo_name(self):
         return f"{to_snake_case(self.name.removeprefix('gl'))}"
-
-    def var_name(self):
-        return f"var {self.mojo_name()}: {self.ptr_name()}"
-
-    def load_code(self):
-        return f"{self.mojo_name()} = load_proc[{self.ptr_name()}]('{self.name}', load)"
+    
+    def fn_init(self):
+        return f"_{self.name}_ptr.get_or_create_ptr()[] = load_proc[{self.ptr_name()}]('{self.name}', load)"
 
 
 @dataclass
@@ -291,30 +293,11 @@ class Feature:
             remove=self.remove | other.remove,
         )
 
-    def var_name(self):
-        return f"var {self.name.lower()}: {self.name}"
-
-    def all_fns(self, registry: "OpenGLRegistry") -> str:
-        return "\n    ".join(
-            f"@always_inline\n    {f.fn_decl()}:\n        return self.{self.name.lower()}.{f.fn_call()}\n"
-            for f in registry.current_commands
-            if f.name in self.require
-        )
-
-
-def generate_feature_mojo(feature: Feature, registry: "OpenGLRegistry") -> str:
-    """Generate Mojo code for a feature"""
-    funcs = [cmd for cmd in registry.current_commands if cmd.name in feature.require]
-    return f'''
-{'\n'.join(f"{f}" for f in funcs)}
-
-struct {feature.name}:
-    """Functions for gl {feature.number}."""
-    {'\n    '.join(f"{f.var_name()}" for f in funcs)}
-    
-    fn __init__(out self, load: LoadProc) raises:
-        self.{'\n        self.'.join([f.load_code() for f in funcs])}
-'''
+    def init_fns(self, registry: "OpenGLRegistry") -> str:
+        return f'''
+fn init_{self.name.lower()}(load: LoadProc) raises:
+    {'\n    '.join(f.fn_init() for f in registry.current_commands if f.name in self.require)}
+    '''
 
 
 def parse_types(root: ET.Element) -> Dict[str, Type]:
@@ -360,6 +343,7 @@ class OpenGLRegistry:
         self.current_commands: List[Command] = []
         self.current_enums: List[EnumItem] = []
         self.current_groups: Dict[str, CommandEl] = {}
+        self.current_types: List[Type] = []
 
     def fix_features_require(self):
         """Remove duplicate require in features"""
@@ -397,7 +381,9 @@ class OpenGLRegistry:
             for cmp in cmd.params + [cmd.return_type]
             if cmp.group
         }
-
+        types = set(p.type for cmd in self.current_commands for p in [*cmd.params, cmd.return_type])
+        self.current_types = [self.types[t] for t in types if t in self.types]
+        
 def generate_mojo_file(registry: OpenGLRegistry, path: str):
     with open(path, "w") as f:
         f.write(
@@ -415,11 +401,11 @@ from memory import UnsafePointer
 alias Ptr = UnsafePointer
 alias OpaquePointer = UnsafePointer[NoneType]
 
-from sys.ffi import _Global, _OwnedDLHandle, _get_dylib_function, c_char, c_uchar, c_int, c_uint, c_short, c_ushort, c_long, c_long_long, c_size_t, c_ssize_t, c_float, c_double
+from sys.ffi import _Global, c_char, c_int, c_uint, c_short, c_ushort, c_size_t, c_ssize_t, c_float, c_double
 
 # ========= TYPES =========\n\n"""
         )
-        for type in registry.types.values():
+        for type in registry.current_types:
             f.write(f"{type}\n")
         f.write(
             """
@@ -444,23 +430,32 @@ fn load_proc[result_type: AnyTrivialRegType](name: String, load: LoadProc) raise
     if not ptr:
         raise Error("Failed to load function " + name)
     return ptr.bitcast[result_type]()[]
+    
+fn init_fn_ptr[T: AnyTrivialRegType]() -> T:
+    return Ptr(to=UnsafePointer[NoneType]()).bitcast[T]()[]
+
+fn global_fn[name: String, T: AnyTrivialRegType]() -> _Global[name, T, init_fn_ptr[T]]:
+    return _Global[name, T, init_fn_ptr[T]]()
 """
         )
+        ptr_decls = [func.ptr_decl() for func in registry.current_commands]
+        fn_globals = [func.fn_global() for func in registry.current_commands]
+        func_strs = [str(func) for func in registry.current_commands]
+
+        f.write('\n'.join(ptr_decls) + '\n\n')
+        f.write('\n'.join(fn_globals) + '\n\n')
+        f.write('\n'.join(func_strs) + '\n')
+        
         for feat in registry.current_features:
-            f.write(generate_feature_mojo(feat, registry))
+            f.write(feat.init_fns(registry))
 
         f.write(
-            f'''
-struct GL:
-    """Functions for OpenGL."""
-    {'\n    '.join(f"{f.var_name()}" for f in registry.current_features)}
-    
-    fn __init__(out self, load: LoadProc) raises:
-        {'\n        '.join([f'self.{feat.name.lower()} = {feat.name}(load)' for feat in registry.current_features])}
-    
-    {'\n    '.join(f"{f.all_fns(registry)}" for f in registry.current_features)}
-'''
-        )
+            f"""
+# ========= INIT =========
+fn init_opengl(load: LoadProc) raises:
+    {'\n    '.join([f'init_{feat.name.lower()}(load)' for feat in registry.current_features])}
+    """
+)
 
 
 if __name__ == "__main__":
