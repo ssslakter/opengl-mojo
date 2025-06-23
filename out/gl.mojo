@@ -4265,17 +4265,17 @@ alias fptr_glEnable = fn (cap: EnableCap)
 alias fptr_glFinish = fn ()
 alias fptr_glFlush = fn ()
 alias fptr_glFrontFace = fn (mode: FrontFaceDirection)
-alias fptr_glGetBooleanv = fn (pname: GetPName, data: Ptr[GLboolean])
-alias fptr_glGetDoublev = fn (pname: GetPName, data: Ptr[GLdouble])
+alias fptr_glGetBooleanv = fn (pname: GetPName, data: Ptr[GLboolean, mut=True])
+alias fptr_glGetDoublev = fn (pname: GetPName, data: Ptr[GLdouble, mut=True])
 alias fptr_glGetError = fn () -> ErrorCode
-alias fptr_glGetFloatv = fn (pname: GetPName, data: Ptr[GLfloat])
-alias fptr_glGetIntegerv = fn (pname: GetPName, data: Ptr[GLint])
+alias fptr_glGetFloatv = fn (pname: GetPName, data: Ptr[GLfloat, mut=True])
+alias fptr_glGetIntegerv = fn (pname: GetPName, data: Ptr[GLint, mut=True])
 alias fptr_glGetString = fn (name: StringName) -> GLubyte
-alias fptr_glGetTexImage = fn (target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType])
-alias fptr_glGetTexLevelParameterfv = fn (target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat])
-alias fptr_glGetTexLevelParameteriv = fn (target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLint])
-alias fptr_glGetTexParameterfv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLfloat])
-alias fptr_glGetTexParameteriv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint])
+alias fptr_glGetTexImage = fn (target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetTexLevelParameterfv = fn (target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetTexLevelParameteriv = fn (target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLint, mut=True])
+alias fptr_glGetTexParameterfv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetTexParameteriv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint, mut=True])
 alias fptr_glHint = fn (target: HintTarget, mode: HintMode)
 alias fptr_glIsEnabled = fn (cap: EnableCap) -> GLboolean
 alias fptr_glLineWidth = fn (width: GLfloat)
@@ -4285,17 +4285,17 @@ alias fptr_glPixelStorei = fn (pname: PixelStoreParameter, param: GLint)
 alias fptr_glPointSize = fn (size: GLfloat)
 alias fptr_glPolygonMode = fn (face: TriangleFace, mode: PolygonMode)
 alias fptr_glReadBuffer = fn (src: ReadBufferMode)
-alias fptr_glReadPixels = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType])
+alias fptr_glReadPixels = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
 alias fptr_glScissor = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei)
 alias fptr_glStencilFunc = fn (func: StencilFunction, ref_: GLint, mask: GLuint)
 alias fptr_glStencilMask = fn (mask: GLuint)
 alias fptr_glStencilOp = fn (fail: StencilOp, zfail: StencilOp, zpass: StencilOp)
-alias fptr_glTexImage1D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType])
-alias fptr_glTexImage2D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType])
+alias fptr_glTexImage1D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
+alias fptr_glTexImage2D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
 alias fptr_glTexParameterf = fn (target: TextureTarget, pname: TextureParameterName, param: GLfloat)
-alias fptr_glTexParameterfv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLfloat])
+alias fptr_glTexParameterfv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLfloat, mut=True])
 alias fptr_glTexParameteri = fn (target: TextureTarget, pname: TextureParameterName, param: GLint)
-alias fptr_glTexParameteriv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint])
+alias fptr_glTexParameteriv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint, mut=True])
 alias fptr_glViewport = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei)
 
 
@@ -4407,14 +4407,14 @@ alias fptr_glCopyTexImage1D = fn (target: TextureTarget, level: GLint, internalf
 alias fptr_glCopyTexImage2D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, height: GLsizei, border: GLint)
 alias fptr_glCopyTexSubImage1D = fn (target: TextureTarget, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei)
 alias fptr_glCopyTexSubImage2D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei)
-alias fptr_glDeleteTextures = fn (n: GLsizei, textures: Ptr[GLuint])
+alias fptr_glDeleteTextures = fn (n: GLsizei, textures: Ptr[GLuint, mut=True])
 alias fptr_glDrawArrays = fn (mode: PrimitiveType, first: GLint, count: GLsizei)
-alias fptr_glDrawElements = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType])
-alias fptr_glGenTextures = fn (n: GLsizei, textures: Ptr[GLuint])
+alias fptr_glDrawElements = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True])
+alias fptr_glGenTextures = fn (n: GLsizei, textures: Ptr[GLuint, mut=True])
 alias fptr_glIsTexture = fn (texture: GLuint) -> GLboolean
 alias fptr_glPolygonOffset = fn (factor: GLfloat, units: GLfloat)
-alias fptr_glTexSubImage1D = fn (target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType])
-alias fptr_glTexSubImage2D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType])
+alias fptr_glTexSubImage1D = fn (target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
+alias fptr_glTexSubImage2D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
 
 
 struct GL_VERSION_1_1:
@@ -4451,9 +4451,9 @@ struct GL_VERSION_1_1:
 
 
 alias fptr_glCopyTexSubImage3D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei)
-alias fptr_glDrawRangeElements = fn (mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType])
-alias fptr_glTexImage3D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType])
-alias fptr_glTexSubImage3D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType])
+alias fptr_glDrawRangeElements = fn (mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True])
+alias fptr_glTexImage3D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
+alias fptr_glTexSubImage3D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
 
 
 struct GL_VERSION_1_2:
@@ -4472,13 +4472,13 @@ struct GL_VERSION_1_2:
 
 
 alias fptr_glActiveTexture = fn (texture: TextureUnit)
-alias fptr_glCompressedTexImage1D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType])
-alias fptr_glCompressedTexImage2D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType])
-alias fptr_glCompressedTexImage3D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType])
-alias fptr_glCompressedTexSubImage1D = fn (target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType])
-alias fptr_glCompressedTexSubImage2D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType])
-alias fptr_glCompressedTexSubImage3D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType])
-alias fptr_glGetCompressedTexImage = fn (target: TextureTarget, level: GLint, img: Ptr[NoneType])
+alias fptr_glCompressedTexImage1D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=True])
+alias fptr_glCompressedTexImage2D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=True])
+alias fptr_glCompressedTexImage3D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=True])
+alias fptr_glCompressedTexSubImage1D = fn (target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=True])
+alias fptr_glCompressedTexSubImage2D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=True])
+alias fptr_glCompressedTexSubImage3D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=True])
+alias fptr_glGetCompressedTexImage = fn (target: TextureTarget, level: GLint, img: Ptr[NoneType, mut=True])
 alias fptr_glSampleCoverage = fn (value: GLfloat, invert: GLboolean)
 
 
@@ -4510,12 +4510,12 @@ struct GL_VERSION_1_3:
 alias fptr_glBlendColor = fn (red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat)
 alias fptr_glBlendEquation = fn (mode: BlendEquationModeEXT)
 alias fptr_glBlendFuncSeparate = fn (sfactor_rgb: BlendingFactor, dfactor_rgb: BlendingFactor, sfactor_alpha: BlendingFactor, dfactor_alpha: BlendingFactor)
-alias fptr_glMultiDrawArrays = fn (mode: PrimitiveType, first: Ptr[GLint], count: Ptr[GLsizei], drawcount: GLsizei)
-alias fptr_glMultiDrawElements = fn (mode: PrimitiveType, count: Ptr[GLsizei], type: DrawElementsType, indices: Ptr[NoneType], drawcount: GLsizei)
+alias fptr_glMultiDrawArrays = fn (mode: PrimitiveType, first: Ptr[GLint, mut=True], count: Ptr[GLsizei, mut=True], drawcount: GLsizei)
+alias fptr_glMultiDrawElements = fn (mode: PrimitiveType, count: Ptr[GLsizei, mut=True], type: DrawElementsType, indices: Ptr[Ptr[NoneType, mut=True], mut=False], drawcount: GLsizei)
 alias fptr_glPointParameterf = fn (pname: PointParameterNameARB, param: GLfloat)
-alias fptr_glPointParameterfv = fn (pname: PointParameterNameARB, params: Ptr[GLfloat])
+alias fptr_glPointParameterfv = fn (pname: PointParameterNameARB, params: Ptr[GLfloat, mut=True])
 alias fptr_glPointParameteri = fn (pname: PointParameterNameARB, param: GLint)
-alias fptr_glPointParameteriv = fn (pname: PointParameterNameARB, params: Ptr[GLint])
+alias fptr_glPointParameteriv = fn (pname: PointParameterNameARB, params: Ptr[GLint, mut=True])
 
 
 struct GL_VERSION_1_4:
@@ -4545,19 +4545,19 @@ struct GL_VERSION_1_4:
 
 alias fptr_glBeginQuery = fn (target: QueryTarget, id: GLuint)
 alias fptr_glBindBuffer = fn (target: BufferTargetARB, buffer: GLuint)
-alias fptr_glBufferData = fn (target: BufferTargetARB, size: GLsizeiptr, data: Ptr[NoneType], usage: BufferUsageARB)
-alias fptr_glBufferSubData = fn (target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType])
-alias fptr_glDeleteBuffers = fn (n: GLsizei, buffers: Ptr[GLuint])
-alias fptr_glDeleteQueries = fn (n: GLsizei, ids: Ptr[GLuint])
+alias fptr_glBufferData = fn (target: BufferTargetARB, size: GLsizeiptr, data: Ptr[NoneType, mut=True], usage: BufferUsageARB)
+alias fptr_glBufferSubData = fn (target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True])
+alias fptr_glDeleteBuffers = fn (n: GLsizei, buffers: Ptr[GLuint, mut=True])
+alias fptr_glDeleteQueries = fn (n: GLsizei, ids: Ptr[GLuint, mut=True])
 alias fptr_glEndQuery = fn (target: QueryTarget)
-alias fptr_glGenBuffers = fn (n: GLsizei, buffers: Ptr[GLuint])
-alias fptr_glGenQueries = fn (n: GLsizei, ids: Ptr[GLuint])
-alias fptr_glGetBufferParameteriv = fn (target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint])
-alias fptr_glGetBufferPointerv = fn (target: BufferTargetARB, pname: BufferPointerNameARB, params: Ptr[NoneType])
-alias fptr_glGetBufferSubData = fn (target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType])
-alias fptr_glGetQueryObjectiv = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint])
-alias fptr_glGetQueryObjectuiv = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint])
-alias fptr_glGetQueryiv = fn (target: QueryTarget, pname: QueryParameterName, params: Ptr[GLint])
+alias fptr_glGenBuffers = fn (n: GLsizei, buffers: Ptr[GLuint, mut=True])
+alias fptr_glGenQueries = fn (n: GLsizei, ids: Ptr[GLuint, mut=True])
+alias fptr_glGetBufferParameteriv = fn (target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint, mut=True])
+alias fptr_glGetBufferPointerv = fn (target: BufferTargetARB, pname: BufferPointerNameARB, params: Ptr[Ptr[NoneType, mut=True], mut=True])
+alias fptr_glGetBufferSubData = fn (target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True])
+alias fptr_glGetQueryObjectiv = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetQueryObjectuiv = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint, mut=True])
+alias fptr_glGetQueryiv = fn (target: QueryTarget, pname: QueryParameterName, params: Ptr[GLint, mut=True])
 alias fptr_glIsBuffer = fn (buffer: GLuint) -> GLboolean
 alias fptr_glIsQuery = fn (id: GLuint) -> GLboolean
 alias fptr_glMapBuffer = fn (target: BufferTargetARB, access: BufferAccessARB)
@@ -4610,7 +4610,7 @@ struct GL_VERSION_1_5:
 
 
 alias fptr_glAttachShader = fn (program: GLuint, shader: GLuint)
-alias fptr_glBindAttribLocation = fn (program: GLuint, index: GLuint, name: Ptr[GLchar])
+alias fptr_glBindAttribLocation = fn (program: GLuint, index: GLuint, name: Ptr[GLchar, mut=True])
 alias fptr_glBlendEquationSeparate = fn (mode_rgb: BlendEquationModeEXT, mode_alpha: BlendEquationModeEXT)
 alias fptr_glCompileShader = fn (shader: GLuint)
 alias fptr_glCreateProgram = fn () -> GLuint
@@ -4621,87 +4621,87 @@ alias fptr_glDetachShader = fn (program: GLuint, shader: GLuint)
 alias fptr_glDisableVertexAttribArray = fn (index: GLuint)
 alias fptr_glDrawBuffers = fn (n: GLsizei, bufs: DrawBufferMode)
 alias fptr_glEnableVertexAttribArray = fn (index: GLuint)
-alias fptr_glGetActiveAttrib = fn (program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], size: Ptr[GLint], type: AttributeType, name: Ptr[GLchar])
-alias fptr_glGetActiveUniform = fn (program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], size: Ptr[GLint], type: UniformType, name: Ptr[GLchar])
-alias fptr_glGetAttachedShaders = fn (program: GLuint, max_count: GLsizei, count: Ptr[GLsizei], shaders: Ptr[GLuint])
-alias fptr_glGetAttribLocation = fn (program: GLuint, name: Ptr[GLchar]) -> GLint
-alias fptr_glGetProgramInfoLog = fn (program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], info_log: Ptr[GLchar])
-alias fptr_glGetProgramiv = fn (program: GLuint, pname: ProgramPropertyARB, params: Ptr[GLint])
-alias fptr_glGetShaderInfoLog = fn (shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], info_log: Ptr[GLchar])
-alias fptr_glGetShaderSource = fn (shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], source: Ptr[GLchar])
-alias fptr_glGetShaderiv = fn (shader: GLuint, pname: ShaderParameterName, params: Ptr[GLint])
-alias fptr_glGetUniformLocation = fn (program: GLuint, name: Ptr[GLchar]) -> GLint
-alias fptr_glGetUniformfv = fn (program: GLuint, location: GLint, params: Ptr[GLfloat])
-alias fptr_glGetUniformiv = fn (program: GLuint, location: GLint, params: Ptr[GLint])
-alias fptr_glGetVertexAttribPointerv = fn (index: GLuint, pname: VertexAttribPointerPropertyARB, pointer: Ptr[NoneType])
-alias fptr_glGetVertexAttribdv = fn (index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLdouble])
-alias fptr_glGetVertexAttribfv = fn (index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLfloat])
-alias fptr_glGetVertexAttribiv = fn (index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLint])
+alias fptr_glGetActiveAttrib = fn (program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: AttributeType, name: Ptr[GLchar, mut=True])
+alias fptr_glGetActiveUniform = fn (program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: UniformType, name: Ptr[GLchar, mut=True])
+alias fptr_glGetAttachedShaders = fn (program: GLuint, max_count: GLsizei, count: Ptr[GLsizei, mut=True], shaders: Ptr[GLuint, mut=True])
+alias fptr_glGetAttribLocation = fn (program: GLuint, name: Ptr[GLchar, mut=True]) -> GLint
+alias fptr_glGetProgramInfoLog = fn (program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], info_log: Ptr[GLchar, mut=True])
+alias fptr_glGetProgramiv = fn (program: GLuint, pname: ProgramPropertyARB, params: Ptr[GLint, mut=True])
+alias fptr_glGetShaderInfoLog = fn (shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], info_log: Ptr[GLchar, mut=True])
+alias fptr_glGetShaderSource = fn (shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], source: Ptr[GLchar, mut=True])
+alias fptr_glGetShaderiv = fn (shader: GLuint, pname: ShaderParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetUniformLocation = fn (program: GLuint, name: Ptr[GLchar, mut=True]) -> GLint
+alias fptr_glGetUniformfv = fn (program: GLuint, location: GLint, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetUniformiv = fn (program: GLuint, location: GLint, params: Ptr[GLint, mut=True])
+alias fptr_glGetVertexAttribPointerv = fn (index: GLuint, pname: VertexAttribPointerPropertyARB, pointer: Ptr[Ptr[NoneType, mut=True], mut=True])
+alias fptr_glGetVertexAttribdv = fn (index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLdouble, mut=True])
+alias fptr_glGetVertexAttribfv = fn (index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetVertexAttribiv = fn (index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLint, mut=True])
 alias fptr_glIsProgram = fn (program: GLuint) -> GLboolean
 alias fptr_glIsShader = fn (shader: GLuint) -> GLboolean
 alias fptr_glLinkProgram = fn (program: GLuint)
-alias fptr_glShaderSource = fn (shader: GLuint, count: GLsizei, string: Ptr[GLchar], length: Ptr[GLint])
+alias fptr_glShaderSource = fn (shader: GLuint, count: GLsizei, string: Ptr[Ptr[GLchar, mut=True], mut=False], length: Ptr[GLint, mut=True])
 alias fptr_glStencilFuncSeparate = fn (face: TriangleFace, func: StencilFunction, ref_: GLint, mask: GLuint)
 alias fptr_glStencilMaskSeparate = fn (face: TriangleFace, mask: GLuint)
 alias fptr_glStencilOpSeparate = fn (face: TriangleFace, sfail: StencilOp, dpfail: StencilOp, dppass: StencilOp)
 alias fptr_glUniform1f = fn (location: GLint, v0: GLfloat)
-alias fptr_glUniform1fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat])
+alias fptr_glUniform1fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True])
 alias fptr_glUniform1i = fn (location: GLint, v0: GLint)
-alias fptr_glUniform1iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint])
+alias fptr_glUniform1iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint, mut=True])
 alias fptr_glUniform2f = fn (location: GLint, v0: GLfloat, v1: GLfloat)
-alias fptr_glUniform2fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat])
+alias fptr_glUniform2fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True])
 alias fptr_glUniform2i = fn (location: GLint, v0: GLint, v1: GLint)
-alias fptr_glUniform2iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint])
+alias fptr_glUniform2iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint, mut=True])
 alias fptr_glUniform3f = fn (location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat)
-alias fptr_glUniform3fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat])
+alias fptr_glUniform3fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True])
 alias fptr_glUniform3i = fn (location: GLint, v0: GLint, v1: GLint, v2: GLint)
-alias fptr_glUniform3iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint])
+alias fptr_glUniform3iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint, mut=True])
 alias fptr_glUniform4f = fn (location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat, v3: GLfloat)
-alias fptr_glUniform4fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat])
+alias fptr_glUniform4fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True])
 alias fptr_glUniform4i = fn (location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint)
-alias fptr_glUniform4iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint])
-alias fptr_glUniformMatrix2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glUniformMatrix3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glUniformMatrix4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
+alias fptr_glUniform4iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint, mut=True])
+alias fptr_glUniformMatrix2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glUniformMatrix3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glUniformMatrix4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
 alias fptr_glUseProgram = fn (program: GLuint)
 alias fptr_glValidateProgram = fn (program: GLuint)
 alias fptr_glVertexAttrib1d = fn (index: GLuint, x: GLdouble)
-alias fptr_glVertexAttrib1dv = fn (index: GLuint, v: Ptr[GLdouble])
+alias fptr_glVertexAttrib1dv = fn (index: GLuint, v: Ptr[GLdouble, mut=True])
 alias fptr_glVertexAttrib1f = fn (index: GLuint, x: GLfloat)
-alias fptr_glVertexAttrib1fv = fn (index: GLuint, v: Ptr[GLfloat])
+alias fptr_glVertexAttrib1fv = fn (index: GLuint, v: Ptr[GLfloat, mut=True])
 alias fptr_glVertexAttrib1s = fn (index: GLuint, x: GLshort)
-alias fptr_glVertexAttrib1sv = fn (index: GLuint, v: Ptr[GLshort])
+alias fptr_glVertexAttrib1sv = fn (index: GLuint, v: Ptr[GLshort, mut=True])
 alias fptr_glVertexAttrib2d = fn (index: GLuint, x: GLdouble, y: GLdouble)
-alias fptr_glVertexAttrib2dv = fn (index: GLuint, v: Ptr[GLdouble])
+alias fptr_glVertexAttrib2dv = fn (index: GLuint, v: Ptr[GLdouble, mut=True])
 alias fptr_glVertexAttrib2f = fn (index: GLuint, x: GLfloat, y: GLfloat)
-alias fptr_glVertexAttrib2fv = fn (index: GLuint, v: Ptr[GLfloat])
+alias fptr_glVertexAttrib2fv = fn (index: GLuint, v: Ptr[GLfloat, mut=True])
 alias fptr_glVertexAttrib2s = fn (index: GLuint, x: GLshort, y: GLshort)
-alias fptr_glVertexAttrib2sv = fn (index: GLuint, v: Ptr[GLshort])
+alias fptr_glVertexAttrib2sv = fn (index: GLuint, v: Ptr[GLshort, mut=True])
 alias fptr_glVertexAttrib3d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble)
-alias fptr_glVertexAttrib3dv = fn (index: GLuint, v: Ptr[GLdouble])
+alias fptr_glVertexAttrib3dv = fn (index: GLuint, v: Ptr[GLdouble, mut=True])
 alias fptr_glVertexAttrib3f = fn (index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat)
-alias fptr_glVertexAttrib3fv = fn (index: GLuint, v: Ptr[GLfloat])
+alias fptr_glVertexAttrib3fv = fn (index: GLuint, v: Ptr[GLfloat, mut=True])
 alias fptr_glVertexAttrib3s = fn (index: GLuint, x: GLshort, y: GLshort, z: GLshort)
-alias fptr_glVertexAttrib3sv = fn (index: GLuint, v: Ptr[GLshort])
-alias fptr_glVertexAttrib4Nbv = fn (index: GLuint, v: Ptr[GLbyte])
-alias fptr_glVertexAttrib4Niv = fn (index: GLuint, v: Ptr[GLint])
-alias fptr_glVertexAttrib4Nsv = fn (index: GLuint, v: Ptr[GLshort])
+alias fptr_glVertexAttrib3sv = fn (index: GLuint, v: Ptr[GLshort, mut=True])
+alias fptr_glVertexAttrib4Nbv = fn (index: GLuint, v: Ptr[GLbyte, mut=True])
+alias fptr_glVertexAttrib4Niv = fn (index: GLuint, v: Ptr[GLint, mut=True])
+alias fptr_glVertexAttrib4Nsv = fn (index: GLuint, v: Ptr[GLshort, mut=True])
 alias fptr_glVertexAttrib4Nub = fn (index: GLuint, x: GLubyte, y: GLubyte, z: GLubyte, w: GLubyte)
-alias fptr_glVertexAttrib4Nubv = fn (index: GLuint, v: Ptr[GLubyte])
-alias fptr_glVertexAttrib4Nuiv = fn (index: GLuint, v: Ptr[GLuint])
-alias fptr_glVertexAttrib4Nusv = fn (index: GLuint, v: Ptr[GLushort])
-alias fptr_glVertexAttrib4bv = fn (index: GLuint, v: Ptr[GLbyte])
+alias fptr_glVertexAttrib4Nubv = fn (index: GLuint, v: Ptr[GLubyte, mut=True])
+alias fptr_glVertexAttrib4Nuiv = fn (index: GLuint, v: Ptr[GLuint, mut=True])
+alias fptr_glVertexAttrib4Nusv = fn (index: GLuint, v: Ptr[GLushort, mut=True])
+alias fptr_glVertexAttrib4bv = fn (index: GLuint, v: Ptr[GLbyte, mut=True])
 alias fptr_glVertexAttrib4d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble)
-alias fptr_glVertexAttrib4dv = fn (index: GLuint, v: Ptr[GLdouble])
+alias fptr_glVertexAttrib4dv = fn (index: GLuint, v: Ptr[GLdouble, mut=True])
 alias fptr_glVertexAttrib4f = fn (index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat, w: GLfloat)
-alias fptr_glVertexAttrib4fv = fn (index: GLuint, v: Ptr[GLfloat])
-alias fptr_glVertexAttrib4iv = fn (index: GLuint, v: Ptr[GLint])
+alias fptr_glVertexAttrib4fv = fn (index: GLuint, v: Ptr[GLfloat, mut=True])
+alias fptr_glVertexAttrib4iv = fn (index: GLuint, v: Ptr[GLint, mut=True])
 alias fptr_glVertexAttrib4s = fn (index: GLuint, x: GLshort, y: GLshort, z: GLshort, w: GLshort)
-alias fptr_glVertexAttrib4sv = fn (index: GLuint, v: Ptr[GLshort])
-alias fptr_glVertexAttrib4ubv = fn (index: GLuint, v: Ptr[GLubyte])
-alias fptr_glVertexAttrib4uiv = fn (index: GLuint, v: Ptr[GLuint])
-alias fptr_glVertexAttrib4usv = fn (index: GLuint, v: Ptr[GLushort])
-alias fptr_glVertexAttribPointer = fn (index: GLuint, size: GLint, type: VertexAttribPointerType, normalized: GLboolean, stride: GLsizei, pointer: Ptr[NoneType])
+alias fptr_glVertexAttrib4sv = fn (index: GLuint, v: Ptr[GLshort, mut=True])
+alias fptr_glVertexAttrib4ubv = fn (index: GLuint, v: Ptr[GLubyte, mut=True])
+alias fptr_glVertexAttrib4uiv = fn (index: GLuint, v: Ptr[GLuint, mut=True])
+alias fptr_glVertexAttrib4usv = fn (index: GLuint, v: Ptr[GLushort, mut=True])
+alias fptr_glVertexAttribPointer = fn (index: GLuint, size: GLint, type: VertexAttribPointerType, normalized: GLboolean, stride: GLsizei, pointer: Ptr[NoneType, mut=True])
 
 
 struct GL_VERSION_2_0:
@@ -4897,12 +4897,12 @@ struct GL_VERSION_2_0:
         self.vertex_attrib_pointer = load_proc[fptr_glVertexAttribPointer]("glVertexAttribPointer", load)
 
 
-alias fptr_glUniformMatrix2x3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glUniformMatrix2x4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glUniformMatrix3x2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glUniformMatrix3x4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glUniformMatrix4x2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glUniformMatrix4x3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
+alias fptr_glUniformMatrix2x3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glUniformMatrix2x4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glUniformMatrix3x2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glUniformMatrix3x4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glUniformMatrix4x2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glUniformMatrix4x3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
 
 
 struct GL_VERSION_2_1:
@@ -4928,7 +4928,7 @@ alias fptr_glBeginConditionalRender = fn (id: GLuint, mode: ConditionalRenderMod
 alias fptr_glBeginTransformFeedback = fn (primitive_mode: PrimitiveType)
 alias fptr_glBindBufferBase = fn (target: BufferTargetARB, index: GLuint, buffer: GLuint)
 alias fptr_glBindBufferRange = fn (target: BufferTargetARB, index: GLuint, buffer: GLuint, offset: GLintptr, size: GLsizeiptr)
-alias fptr_glBindFragDataLocation = fn (program: GLuint, color: GLuint, name: Ptr[GLchar])
+alias fptr_glBindFragDataLocation = fn (program: GLuint, color: GLuint, name: Ptr[GLchar, mut=True])
 alias fptr_glBindFramebuffer = fn (target: FramebufferTarget, framebuffer: GLuint)
 alias fptr_glBindRenderbuffer = fn (target: RenderbufferTarget, renderbuffer: GLuint)
 alias fptr_glBindVertexArray = fn (array: GLuint)
@@ -4936,13 +4936,13 @@ alias fptr_glBlitFramebuffer = fn (src_x0: GLint, src_y0: GLint, src_x1: GLint, 
 alias fptr_glCheckFramebufferStatus = fn (target: FramebufferTarget) -> FramebufferStatus
 alias fptr_glClampColor = fn (target: ClampColorTargetARB, clamp: ClampColorModeARB)
 alias fptr_glClearBufferfi = fn (buffer: Buffer, drawbuffer: GLint, depth: GLfloat, stencil: GLint)
-alias fptr_glClearBufferfv = fn (buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat])
-alias fptr_glClearBufferiv = fn (buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint])
-alias fptr_glClearBufferuiv = fn (buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint])
+alias fptr_glClearBufferfv = fn (buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat, mut=True])
+alias fptr_glClearBufferiv = fn (buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint, mut=True])
+alias fptr_glClearBufferuiv = fn (buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint, mut=True])
 alias fptr_glColorMaski = fn (index: GLuint, r: GLboolean, g: GLboolean, b: GLboolean, a: GLboolean)
-alias fptr_glDeleteFramebuffers = fn (n: GLsizei, framebuffers: Ptr[GLuint])
-alias fptr_glDeleteRenderbuffers = fn (n: GLsizei, renderbuffers: Ptr[GLuint])
-alias fptr_glDeleteVertexArrays = fn (n: GLsizei, arrays: Ptr[GLuint])
+alias fptr_glDeleteFramebuffers = fn (n: GLsizei, framebuffers: Ptr[GLuint, mut=True])
+alias fptr_glDeleteRenderbuffers = fn (n: GLsizei, renderbuffers: Ptr[GLuint, mut=True])
+alias fptr_glDeleteVertexArrays = fn (n: GLsizei, arrays: Ptr[GLuint, mut=True])
 alias fptr_glDisablei = fn (target: EnableCap, index: GLuint)
 alias fptr_glEnablei = fn (target: EnableCap, index: GLuint)
 alias fptr_glEndConditionalRender = fn ()
@@ -4953,22 +4953,22 @@ alias fptr_glFramebufferTexture1D = fn (target: FramebufferTarget, attachment: F
 alias fptr_glFramebufferTexture2D = fn (target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint)
 alias fptr_glFramebufferTexture3D = fn (target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint, zoffset: GLint)
 alias fptr_glFramebufferTextureLayer = fn (target: FramebufferTarget, attachment: FramebufferAttachment, texture: GLuint, level: GLint, layer: GLint)
-alias fptr_glGenFramebuffers = fn (n: GLsizei, framebuffers: Ptr[GLuint])
-alias fptr_glGenRenderbuffers = fn (n: GLsizei, renderbuffers: Ptr[GLuint])
-alias fptr_glGenVertexArrays = fn (n: GLsizei, arrays: Ptr[GLuint])
+alias fptr_glGenFramebuffers = fn (n: GLsizei, framebuffers: Ptr[GLuint, mut=True])
+alias fptr_glGenRenderbuffers = fn (n: GLsizei, renderbuffers: Ptr[GLuint, mut=True])
+alias fptr_glGenVertexArrays = fn (n: GLsizei, arrays: Ptr[GLuint, mut=True])
 alias fptr_glGenerateMipmap = fn (target: TextureTarget)
-alias fptr_glGetBooleani_v = fn (target: BufferTargetARB, index: GLuint, data: Ptr[GLboolean])
-alias fptr_glGetFragDataLocation = fn (program: GLuint, name: Ptr[GLchar]) -> GLint
-alias fptr_glGetFramebufferAttachmentParameteriv = fn (target: FramebufferTarget, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint])
-alias fptr_glGetIntegeri_v = fn (target: GetPName, index: GLuint, data: Ptr[GLint])
-alias fptr_glGetRenderbufferParameteriv = fn (target: RenderbufferTarget, pname: RenderbufferParameterName, params: Ptr[GLint])
+alias fptr_glGetBooleani_v = fn (target: BufferTargetARB, index: GLuint, data: Ptr[GLboolean, mut=True])
+alias fptr_glGetFragDataLocation = fn (program: GLuint, name: Ptr[GLchar, mut=True]) -> GLint
+alias fptr_glGetFramebufferAttachmentParameteriv = fn (target: FramebufferTarget, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetIntegeri_v = fn (target: GetPName, index: GLuint, data: Ptr[GLint, mut=True])
+alias fptr_glGetRenderbufferParameteriv = fn (target: RenderbufferTarget, pname: RenderbufferParameterName, params: Ptr[GLint, mut=True])
 alias fptr_glGetStringi = fn (name: StringName, index: GLuint) -> GLubyte
-alias fptr_glGetTexParameterIiv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint])
-alias fptr_glGetTexParameterIuiv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLuint])
-alias fptr_glGetTransformFeedbackVarying = fn (program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], size: Ptr[GLsizei], type: AttributeType, name: Ptr[GLchar])
-alias fptr_glGetUniformuiv = fn (program: GLuint, location: GLint, params: Ptr[GLuint])
-alias fptr_glGetVertexAttribIiv = fn (index: GLuint, pname: VertexAttribEnum, params: Ptr[GLint])
-alias fptr_glGetVertexAttribIuiv = fn (index: GLuint, pname: VertexAttribEnum, params: Ptr[GLuint])
+alias fptr_glGetTexParameterIiv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint, mut=True])
+alias fptr_glGetTexParameterIuiv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLuint, mut=True])
+alias fptr_glGetTransformFeedbackVarying = fn (program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLsizei, mut=True], type: AttributeType, name: Ptr[GLchar, mut=True])
+alias fptr_glGetUniformuiv = fn (program: GLuint, location: GLint, params: Ptr[GLuint, mut=True])
+alias fptr_glGetVertexAttribIiv = fn (index: GLuint, pname: VertexAttribEnum, params: Ptr[GLint, mut=True])
+alias fptr_glGetVertexAttribIuiv = fn (index: GLuint, pname: VertexAttribEnum, params: Ptr[GLuint, mut=True])
 alias fptr_glIsEnabledi = fn (target: EnableCap, index: GLuint) -> GLboolean
 alias fptr_glIsFramebuffer = fn (framebuffer: GLuint) -> GLboolean
 alias fptr_glIsRenderbuffer = fn (renderbuffer: GLuint) -> GLboolean
@@ -4976,38 +4976,38 @@ alias fptr_glIsVertexArray = fn (array: GLuint) -> GLboolean
 alias fptr_glMapBufferRange = fn (target: BufferTargetARB, offset: GLintptr, length: GLsizeiptr, access: MapBufferAccessMask)
 alias fptr_glRenderbufferStorage = fn (target: RenderbufferTarget, internalformat: InternalFormat, width: GLsizei, height: GLsizei)
 alias fptr_glRenderbufferStorageMultisample = fn (target: RenderbufferTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei)
-alias fptr_glTexParameterIiv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint])
-alias fptr_glTexParameterIuiv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLuint])
-alias fptr_glTransformFeedbackVaryings = fn (program: GLuint, count: GLsizei, varyings: Ptr[GLchar], buffer_mode: TransformFeedbackBufferMode)
+alias fptr_glTexParameterIiv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glTexParameterIuiv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLuint, mut=True])
+alias fptr_glTransformFeedbackVaryings = fn (program: GLuint, count: GLsizei, varyings: Ptr[Ptr[GLchar, mut=True], mut=False], buffer_mode: TransformFeedbackBufferMode)
 alias fptr_glUniform1ui = fn (location: GLint, v0: GLuint)
-alias fptr_glUniform1uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint])
+alias fptr_glUniform1uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True])
 alias fptr_glUniform2ui = fn (location: GLint, v0: GLuint, v1: GLuint)
-alias fptr_glUniform2uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint])
+alias fptr_glUniform2uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True])
 alias fptr_glUniform3ui = fn (location: GLint, v0: GLuint, v1: GLuint, v2: GLuint)
-alias fptr_glUniform3uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint])
+alias fptr_glUniform3uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True])
 alias fptr_glUniform4ui = fn (location: GLint, v0: GLuint, v1: GLuint, v2: GLuint, v3: GLuint)
-alias fptr_glUniform4uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint])
+alias fptr_glUniform4uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True])
 alias fptr_glVertexAttribI1i = fn (index: GLuint, x: GLint)
-alias fptr_glVertexAttribI1iv = fn (index: GLuint, v: Ptr[GLint])
+alias fptr_glVertexAttribI1iv = fn (index: GLuint, v: Ptr[GLint, mut=True])
 alias fptr_glVertexAttribI1ui = fn (index: GLuint, x: GLuint)
-alias fptr_glVertexAttribI1uiv = fn (index: GLuint, v: Ptr[GLuint])
+alias fptr_glVertexAttribI1uiv = fn (index: GLuint, v: Ptr[GLuint, mut=True])
 alias fptr_glVertexAttribI2i = fn (index: GLuint, x: GLint, y: GLint)
-alias fptr_glVertexAttribI2iv = fn (index: GLuint, v: Ptr[GLint])
+alias fptr_glVertexAttribI2iv = fn (index: GLuint, v: Ptr[GLint, mut=True])
 alias fptr_glVertexAttribI2ui = fn (index: GLuint, x: GLuint, y: GLuint)
-alias fptr_glVertexAttribI2uiv = fn (index: GLuint, v: Ptr[GLuint])
+alias fptr_glVertexAttribI2uiv = fn (index: GLuint, v: Ptr[GLuint, mut=True])
 alias fptr_glVertexAttribI3i = fn (index: GLuint, x: GLint, y: GLint, z: GLint)
-alias fptr_glVertexAttribI3iv = fn (index: GLuint, v: Ptr[GLint])
+alias fptr_glVertexAttribI3iv = fn (index: GLuint, v: Ptr[GLint, mut=True])
 alias fptr_glVertexAttribI3ui = fn (index: GLuint, x: GLuint, y: GLuint, z: GLuint)
-alias fptr_glVertexAttribI3uiv = fn (index: GLuint, v: Ptr[GLuint])
-alias fptr_glVertexAttribI4bv = fn (index: GLuint, v: Ptr[GLbyte])
+alias fptr_glVertexAttribI3uiv = fn (index: GLuint, v: Ptr[GLuint, mut=True])
+alias fptr_glVertexAttribI4bv = fn (index: GLuint, v: Ptr[GLbyte, mut=True])
 alias fptr_glVertexAttribI4i = fn (index: GLuint, x: GLint, y: GLint, z: GLint, w: GLint)
-alias fptr_glVertexAttribI4iv = fn (index: GLuint, v: Ptr[GLint])
-alias fptr_glVertexAttribI4sv = fn (index: GLuint, v: Ptr[GLshort])
-alias fptr_glVertexAttribI4ubv = fn (index: GLuint, v: Ptr[GLubyte])
+alias fptr_glVertexAttribI4iv = fn (index: GLuint, v: Ptr[GLint, mut=True])
+alias fptr_glVertexAttribI4sv = fn (index: GLuint, v: Ptr[GLshort, mut=True])
+alias fptr_glVertexAttribI4ubv = fn (index: GLuint, v: Ptr[GLubyte, mut=True])
 alias fptr_glVertexAttribI4ui = fn (index: GLuint, x: GLuint, y: GLuint, z: GLuint, w: GLuint)
-alias fptr_glVertexAttribI4uiv = fn (index: GLuint, v: Ptr[GLuint])
-alias fptr_glVertexAttribI4usv = fn (index: GLuint, v: Ptr[GLushort])
-alias fptr_glVertexAttribIPointer = fn (index: GLuint, size: GLint, type: VertexAttribIType, stride: GLsizei, pointer: Ptr[NoneType])
+alias fptr_glVertexAttribI4uiv = fn (index: GLuint, v: Ptr[GLuint, mut=True])
+alias fptr_glVertexAttribI4usv = fn (index: GLuint, v: Ptr[GLushort, mut=True])
+alias fptr_glVertexAttribIPointer = fn (index: GLuint, size: GLint, type: VertexAttribIType, stride: GLsizei, pointer: Ptr[NoneType, mut=True])
 
 
 struct GL_VERSION_3_0:
@@ -5187,13 +5187,13 @@ struct GL_VERSION_3_0:
 
 alias fptr_glCopyBufferSubData = fn (read_target: CopyBufferSubDataTarget, write_target: CopyBufferSubDataTarget, read_offset: GLintptr, write_offset: GLintptr, size: GLsizeiptr)
 alias fptr_glDrawArraysInstanced = fn (mode: PrimitiveType, first: GLint, count: GLsizei, instancecount: GLsizei)
-alias fptr_glDrawElementsInstanced = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType], instancecount: GLsizei)
-alias fptr_glGetActiveUniformBlockName = fn (program: GLuint, uniform_block_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], uniform_block_name: Ptr[GLchar])
-alias fptr_glGetActiveUniformBlockiv = fn (program: GLuint, uniform_block_index: GLuint, pname: UniformBlockPName, params: Ptr[GLint])
-alias fptr_glGetActiveUniformName = fn (program: GLuint, uniform_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], uniform_name: Ptr[GLchar])
-alias fptr_glGetActiveUniformsiv = fn (program: GLuint, uniform_count: GLsizei, uniform_indices: Ptr[GLuint], pname: UniformPName, params: Ptr[GLint])
-alias fptr_glGetUniformBlockIndex = fn (program: GLuint, uniform_block_name: Ptr[GLchar]) -> GLuint
-alias fptr_glGetUniformIndices = fn (program: GLuint, uniform_count: GLsizei, uniform_names: Ptr[GLchar], uniform_indices: Ptr[GLuint])
+alias fptr_glDrawElementsInstanced = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True], instancecount: GLsizei)
+alias fptr_glGetActiveUniformBlockName = fn (program: GLuint, uniform_block_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], uniform_block_name: Ptr[GLchar, mut=True])
+alias fptr_glGetActiveUniformBlockiv = fn (program: GLuint, uniform_block_index: GLuint, pname: UniformBlockPName, params: Ptr[GLint, mut=True])
+alias fptr_glGetActiveUniformName = fn (program: GLuint, uniform_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], uniform_name: Ptr[GLchar, mut=True])
+alias fptr_glGetActiveUniformsiv = fn (program: GLuint, uniform_count: GLsizei, uniform_indices: Ptr[GLuint, mut=True], pname: UniformPName, params: Ptr[GLint, mut=True])
+alias fptr_glGetUniformBlockIndex = fn (program: GLuint, uniform_block_name: Ptr[GLchar, mut=True]) -> GLuint
+alias fptr_glGetUniformIndices = fn (program: GLuint, uniform_count: GLsizei, uniform_names: Ptr[Ptr[GLchar, mut=True], mut=False], uniform_indices: Ptr[GLuint, mut=True])
 alias fptr_glPrimitiveRestartIndex = fn (index: GLuint)
 alias fptr_glTexBuffer = fn (target: TextureTarget, internalformat: SizedInternalFormat, buffer: GLuint)
 alias fptr_glUniformBlockBinding = fn (program: GLuint, uniform_block_index: GLuint, uniform_block_binding: GLuint)
@@ -5232,18 +5232,18 @@ struct GL_VERSION_3_1:
 
 alias fptr_glClientWaitSync = fn (sync: GLsync, flags: SyncObjectMask, timeout: GLuint64) -> SyncStatus
 alias fptr_glDeleteSync = fn (sync: GLsync)
-alias fptr_glDrawElementsBaseVertex = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType], basevertex: GLint)
-alias fptr_glDrawElementsInstancedBaseVertex = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType], instancecount: GLsizei, basevertex: GLint)
-alias fptr_glDrawRangeElementsBaseVertex = fn (mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType], basevertex: GLint)
+alias fptr_glDrawElementsBaseVertex = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True], basevertex: GLint)
+alias fptr_glDrawElementsInstancedBaseVertex = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True], instancecount: GLsizei, basevertex: GLint)
+alias fptr_glDrawRangeElementsBaseVertex = fn (mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True], basevertex: GLint)
 alias fptr_glFenceSync = fn (condition: SyncCondition, flags: SyncBehaviorFlags) -> GLsync
 alias fptr_glFramebufferTexture = fn (target: FramebufferTarget, attachment: FramebufferAttachment, texture: GLuint, level: GLint)
-alias fptr_glGetBufferParameteri64v = fn (target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint64])
-alias fptr_glGetInteger64i_v = fn (target: GetPName, index: GLuint, data: Ptr[GLint64])
-alias fptr_glGetInteger64v = fn (pname: GetPName, data: Ptr[GLint64])
-alias fptr_glGetMultisamplefv = fn (pname: GetMultisamplePNameNV, index: GLuint, val: Ptr[GLfloat])
-alias fptr_glGetSynciv = fn (sync: GLsync, pname: SyncParameterName, count: GLsizei, length: Ptr[GLsizei], values: Ptr[GLint])
+alias fptr_glGetBufferParameteri64v = fn (target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint64, mut=True])
+alias fptr_glGetInteger64i_v = fn (target: GetPName, index: GLuint, data: Ptr[GLint64, mut=True])
+alias fptr_glGetInteger64v = fn (pname: GetPName, data: Ptr[GLint64, mut=True])
+alias fptr_glGetMultisamplefv = fn (pname: GetMultisamplePNameNV, index: GLuint, val: Ptr[GLfloat, mut=True])
+alias fptr_glGetSynciv = fn (sync: GLsync, pname: SyncParameterName, count: GLsizei, length: Ptr[GLsizei, mut=True], values: Ptr[GLint, mut=True])
 alias fptr_glIsSync = fn (sync: GLsync) -> GLboolean
-alias fptr_glMultiDrawElementsBaseVertex = fn (mode: PrimitiveType, count: Ptr[GLsizei], type: DrawElementsType, indices: Ptr[NoneType], drawcount: GLsizei, basevertex: Ptr[GLint])
+alias fptr_glMultiDrawElementsBaseVertex = fn (mode: PrimitiveType, count: Ptr[GLsizei, mut=True], type: DrawElementsType, indices: Ptr[Ptr[NoneType, mut=True], mut=False], drawcount: GLsizei, basevertex: Ptr[GLint, mut=True])
 alias fptr_glProvokingVertex = fn (mode: VertexProvokingMode)
 alias fptr_glSampleMaski = fn (mask_number: GLuint, mask: GLbitfield)
 alias fptr_glTexImage2DMultisample = fn (target: TextureTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean)
@@ -5296,64 +5296,64 @@ struct GL_VERSION_3_2:
         self.wait_sync = load_proc[fptr_glWaitSync]("glWaitSync", load)
 
 
-alias fptr_glBindFragDataLocationIndexed = fn (program: GLuint, color_number: GLuint, index: GLuint, name: Ptr[GLchar])
+alias fptr_glBindFragDataLocationIndexed = fn (program: GLuint, color_number: GLuint, index: GLuint, name: Ptr[GLchar, mut=True])
 alias fptr_glBindSampler = fn (unit: GLuint, sampler: GLuint)
 alias fptr_glColorP3ui = fn (type: ColorPointerType, color: GLuint)
-alias fptr_glColorP3uiv = fn (type: ColorPointerType, color: Ptr[GLuint])
+alias fptr_glColorP3uiv = fn (type: ColorPointerType, color: Ptr[GLuint, mut=True])
 alias fptr_glColorP4ui = fn (type: ColorPointerType, color: GLuint)
-alias fptr_glColorP4uiv = fn (type: ColorPointerType, color: Ptr[GLuint])
-alias fptr_glDeleteSamplers = fn (count: GLsizei, samplers: Ptr[GLuint])
-alias fptr_glGenSamplers = fn (count: GLsizei, samplers: Ptr[GLuint])
-alias fptr_glGetFragDataIndex = fn (program: GLuint, name: Ptr[GLchar]) -> GLint
-alias fptr_glGetQueryObjecti64v = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint64])
-alias fptr_glGetQueryObjectui64v = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint64])
-alias fptr_glGetSamplerParameterIiv = fn (sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint])
-alias fptr_glGetSamplerParameterIuiv = fn (sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLuint])
-alias fptr_glGetSamplerParameterfv = fn (sampler: GLuint, pname: SamplerParameterF, params: Ptr[GLfloat])
-alias fptr_glGetSamplerParameteriv = fn (sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint])
+alias fptr_glColorP4uiv = fn (type: ColorPointerType, color: Ptr[GLuint, mut=True])
+alias fptr_glDeleteSamplers = fn (count: GLsizei, samplers: Ptr[GLuint, mut=True])
+alias fptr_glGenSamplers = fn (count: GLsizei, samplers: Ptr[GLuint, mut=True])
+alias fptr_glGetFragDataIndex = fn (program: GLuint, name: Ptr[GLchar, mut=True]) -> GLint
+alias fptr_glGetQueryObjecti64v = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint64, mut=True])
+alias fptr_glGetQueryObjectui64v = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint64, mut=True])
+alias fptr_glGetSamplerParameterIiv = fn (sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint, mut=True])
+alias fptr_glGetSamplerParameterIuiv = fn (sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLuint, mut=True])
+alias fptr_glGetSamplerParameterfv = fn (sampler: GLuint, pname: SamplerParameterF, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetSamplerParameteriv = fn (sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint, mut=True])
 alias fptr_glIsSampler = fn (sampler: GLuint) -> GLboolean
 alias fptr_glMultiTexCoordP1ui = fn (texture: TextureUnit, type: TexCoordPointerType, coords: GLuint)
-alias fptr_glMultiTexCoordP1uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint])
+alias fptr_glMultiTexCoordP1uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=True])
 alias fptr_glMultiTexCoordP2ui = fn (texture: TextureUnit, type: TexCoordPointerType, coords: GLuint)
-alias fptr_glMultiTexCoordP2uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint])
+alias fptr_glMultiTexCoordP2uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=True])
 alias fptr_glMultiTexCoordP3ui = fn (texture: TextureUnit, type: TexCoordPointerType, coords: GLuint)
-alias fptr_glMultiTexCoordP3uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint])
+alias fptr_glMultiTexCoordP3uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=True])
 alias fptr_glMultiTexCoordP4ui = fn (texture: TextureUnit, type: TexCoordPointerType, coords: GLuint)
-alias fptr_glMultiTexCoordP4uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint])
+alias fptr_glMultiTexCoordP4uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=True])
 alias fptr_glNormalP3ui = fn (type: NormalPointerType, coords: GLuint)
-alias fptr_glNormalP3uiv = fn (type: NormalPointerType, coords: Ptr[GLuint])
+alias fptr_glNormalP3uiv = fn (type: NormalPointerType, coords: Ptr[GLuint, mut=True])
 alias fptr_glQueryCounter = fn (id: GLuint, target: QueryCounterTarget)
-alias fptr_glSamplerParameterIiv = fn (sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint])
-alias fptr_glSamplerParameterIuiv = fn (sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLuint])
+alias fptr_glSamplerParameterIiv = fn (sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint, mut=True])
+alias fptr_glSamplerParameterIuiv = fn (sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLuint, mut=True])
 alias fptr_glSamplerParameterf = fn (sampler: GLuint, pname: SamplerParameterF, param: GLfloat)
-alias fptr_glSamplerParameterfv = fn (sampler: GLuint, pname: SamplerParameterF, param: Ptr[GLfloat])
+alias fptr_glSamplerParameterfv = fn (sampler: GLuint, pname: SamplerParameterF, param: Ptr[GLfloat, mut=True])
 alias fptr_glSamplerParameteri = fn (sampler: GLuint, pname: SamplerParameterI, param: GLint)
-alias fptr_glSamplerParameteriv = fn (sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint])
+alias fptr_glSamplerParameteriv = fn (sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint, mut=True])
 alias fptr_glSecondaryColorP3ui = fn (type: ColorPointerType, color: GLuint)
-alias fptr_glSecondaryColorP3uiv = fn (type: ColorPointerType, color: Ptr[GLuint])
+alias fptr_glSecondaryColorP3uiv = fn (type: ColorPointerType, color: Ptr[GLuint, mut=True])
 alias fptr_glTexCoordP1ui = fn (type: TexCoordPointerType, coords: GLuint)
-alias fptr_glTexCoordP1uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint])
+alias fptr_glTexCoordP1uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint, mut=True])
 alias fptr_glTexCoordP2ui = fn (type: TexCoordPointerType, coords: GLuint)
-alias fptr_glTexCoordP2uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint])
+alias fptr_glTexCoordP2uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint, mut=True])
 alias fptr_glTexCoordP3ui = fn (type: TexCoordPointerType, coords: GLuint)
-alias fptr_glTexCoordP3uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint])
+alias fptr_glTexCoordP3uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint, mut=True])
 alias fptr_glTexCoordP4ui = fn (type: TexCoordPointerType, coords: GLuint)
-alias fptr_glTexCoordP4uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint])
+alias fptr_glTexCoordP4uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint, mut=True])
 alias fptr_glVertexAttribDivisor = fn (index: GLuint, divisor: GLuint)
 alias fptr_glVertexAttribP1ui = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: GLuint)
-alias fptr_glVertexAttribP1uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint])
+alias fptr_glVertexAttribP1uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=True])
 alias fptr_glVertexAttribP2ui = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: GLuint)
-alias fptr_glVertexAttribP2uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint])
+alias fptr_glVertexAttribP2uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=True])
 alias fptr_glVertexAttribP3ui = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: GLuint)
-alias fptr_glVertexAttribP3uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint])
+alias fptr_glVertexAttribP3uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=True])
 alias fptr_glVertexAttribP4ui = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: GLuint)
-alias fptr_glVertexAttribP4uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint])
+alias fptr_glVertexAttribP4uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=True])
 alias fptr_glVertexP2ui = fn (type: VertexPointerType, value: GLuint)
-alias fptr_glVertexP2uiv = fn (type: VertexPointerType, value: Ptr[GLuint])
+alias fptr_glVertexP2uiv = fn (type: VertexPointerType, value: Ptr[GLuint, mut=True])
 alias fptr_glVertexP3ui = fn (type: VertexPointerType, value: GLuint)
-alias fptr_glVertexP3uiv = fn (type: VertexPointerType, value: Ptr[GLuint])
+alias fptr_glVertexP3uiv = fn (type: VertexPointerType, value: Ptr[GLuint, mut=True])
 alias fptr_glVertexP4ui = fn (type: VertexPointerType, value: GLuint)
-alias fptr_glVertexP4uiv = fn (type: VertexPointerType, value: Ptr[GLuint])
+alias fptr_glVertexP4uiv = fn (type: VertexPointerType, value: Ptr[GLuint, mut=True])
 
 
 struct GL_VERSION_3_3:
@@ -5485,46 +5485,46 @@ alias fptr_glBlendEquationSeparatei = fn (buf: GLuint, mode_rgb: BlendEquationMo
 alias fptr_glBlendEquationi = fn (buf: GLuint, mode: BlendEquationModeEXT)
 alias fptr_glBlendFuncSeparatei = fn (buf: GLuint, src_rgb: BlendingFactor, dst_rgb: BlendingFactor, src_alpha: BlendingFactor, dst_alpha: BlendingFactor)
 alias fptr_glBlendFunci = fn (buf: GLuint, src: BlendingFactor, dst: BlendingFactor)
-alias fptr_glDeleteTransformFeedbacks = fn (n: GLsizei, ids: Ptr[GLuint])
-alias fptr_glDrawArraysIndirect = fn (mode: PrimitiveType, indirect: Ptr[NoneType])
-alias fptr_glDrawElementsIndirect = fn (mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType])
+alias fptr_glDeleteTransformFeedbacks = fn (n: GLsizei, ids: Ptr[GLuint, mut=True])
+alias fptr_glDrawArraysIndirect = fn (mode: PrimitiveType, indirect: Ptr[NoneType, mut=True])
+alias fptr_glDrawElementsIndirect = fn (mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=True])
 alias fptr_glDrawTransformFeedback = fn (mode: PrimitiveType, id: GLuint)
 alias fptr_glDrawTransformFeedbackStream = fn (mode: PrimitiveType, id: GLuint, stream: GLuint)
 alias fptr_glEndQueryIndexed = fn (target: QueryTarget, index: GLuint)
-alias fptr_glGenTransformFeedbacks = fn (n: GLsizei, ids: Ptr[GLuint])
-alias fptr_glGetActiveSubroutineName = fn (program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], name: Ptr[GLchar])
-alias fptr_glGetActiveSubroutineUniformName = fn (program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], name: Ptr[GLchar])
-alias fptr_glGetActiveSubroutineUniformiv = fn (program: GLuint, shadertype: ShaderType, index: GLuint, pname: SubroutineParameterName, values: Ptr[GLint])
-alias fptr_glGetProgramStageiv = fn (program: GLuint, shadertype: ShaderType, pname: ProgramStagePName, values: Ptr[GLint])
-alias fptr_glGetQueryIndexediv = fn (target: QueryTarget, index: GLuint, pname: QueryParameterName, params: Ptr[GLint])
-alias fptr_glGetSubroutineIndex = fn (program: GLuint, shadertype: ShaderType, name: Ptr[GLchar]) -> GLuint
-alias fptr_glGetSubroutineUniformLocation = fn (program: GLuint, shadertype: ShaderType, name: Ptr[GLchar]) -> GLint
-alias fptr_glGetUniformSubroutineuiv = fn (shadertype: ShaderType, location: GLint, params: Ptr[GLuint])
-alias fptr_glGetUniformdv = fn (program: GLuint, location: GLint, params: Ptr[GLdouble])
+alias fptr_glGenTransformFeedbacks = fn (n: GLsizei, ids: Ptr[GLuint, mut=True])
+alias fptr_glGetActiveSubroutineName = fn (program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], name: Ptr[GLchar, mut=True])
+alias fptr_glGetActiveSubroutineUniformName = fn (program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], name: Ptr[GLchar, mut=True])
+alias fptr_glGetActiveSubroutineUniformiv = fn (program: GLuint, shadertype: ShaderType, index: GLuint, pname: SubroutineParameterName, values: Ptr[GLint, mut=True])
+alias fptr_glGetProgramStageiv = fn (program: GLuint, shadertype: ShaderType, pname: ProgramStagePName, values: Ptr[GLint, mut=True])
+alias fptr_glGetQueryIndexediv = fn (target: QueryTarget, index: GLuint, pname: QueryParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetSubroutineIndex = fn (program: GLuint, shadertype: ShaderType, name: Ptr[GLchar, mut=True]) -> GLuint
+alias fptr_glGetSubroutineUniformLocation = fn (program: GLuint, shadertype: ShaderType, name: Ptr[GLchar, mut=True]) -> GLint
+alias fptr_glGetUniformSubroutineuiv = fn (shadertype: ShaderType, location: GLint, params: Ptr[GLuint, mut=True])
+alias fptr_glGetUniformdv = fn (program: GLuint, location: GLint, params: Ptr[GLdouble, mut=True])
 alias fptr_glIsTransformFeedback = fn (id: GLuint) -> GLboolean
 alias fptr_glMinSampleShading = fn (value: GLfloat)
-alias fptr_glPatchParameterfv = fn (pname: PatchParameterName, values: Ptr[GLfloat])
+alias fptr_glPatchParameterfv = fn (pname: PatchParameterName, values: Ptr[GLfloat, mut=True])
 alias fptr_glPatchParameteri = fn (pname: PatchParameterName, value: GLint)
 alias fptr_glPauseTransformFeedback = fn ()
 alias fptr_glResumeTransformFeedback = fn ()
 alias fptr_glUniform1d = fn (location: GLint, x: GLdouble)
-alias fptr_glUniform1dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble])
+alias fptr_glUniform1dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True])
 alias fptr_glUniform2d = fn (location: GLint, x: GLdouble, y: GLdouble)
-alias fptr_glUniform2dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble])
+alias fptr_glUniform2dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True])
 alias fptr_glUniform3d = fn (location: GLint, x: GLdouble, y: GLdouble, z: GLdouble)
-alias fptr_glUniform3dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble])
+alias fptr_glUniform3dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True])
 alias fptr_glUniform4d = fn (location: GLint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble)
-alias fptr_glUniform4dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble])
-alias fptr_glUniformMatrix2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glUniformMatrix2x3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glUniformMatrix2x4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glUniformMatrix3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glUniformMatrix3x2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glUniformMatrix3x4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glUniformMatrix4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glUniformMatrix4x2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glUniformMatrix4x3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glUniformSubroutinesuiv = fn (shadertype: ShaderType, count: GLsizei, indices: Ptr[GLuint])
+alias fptr_glUniform4dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True])
+alias fptr_glUniformMatrix2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glUniformMatrix2x3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glUniformMatrix2x4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glUniformMatrix3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glUniformMatrix3x2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glUniformMatrix3x4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glUniformMatrix4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glUniformMatrix4x2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glUniformMatrix4x3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glUniformSubroutinesuiv = fn (shadertype: ShaderType, count: GLsizei, indices: Ptr[GLuint, mut=True])
 
 
 struct GL_VERSION_4_0:
@@ -5629,91 +5629,91 @@ struct GL_VERSION_4_0:
 alias fptr_glActiveShaderProgram = fn (pipeline: GLuint, program: GLuint)
 alias fptr_glBindProgramPipeline = fn (pipeline: GLuint)
 alias fptr_glClearDepthf = fn (d: GLfloat)
-alias fptr_glCreateShaderProgramv = fn (type: ShaderType, count: GLsizei, strings: Ptr[GLchar]) -> GLuint
-alias fptr_glDeleteProgramPipelines = fn (n: GLsizei, pipelines: Ptr[GLuint])
-alias fptr_glDepthRangeArrayv = fn (first: GLuint, count: GLsizei, v: Ptr[GLdouble])
+alias fptr_glCreateShaderProgramv = fn (type: ShaderType, count: GLsizei, strings: Ptr[Ptr[GLchar, mut=True], mut=False]) -> GLuint
+alias fptr_glDeleteProgramPipelines = fn (n: GLsizei, pipelines: Ptr[GLuint, mut=True])
+alias fptr_glDepthRangeArrayv = fn (first: GLuint, count: GLsizei, v: Ptr[GLdouble, mut=True])
 alias fptr_glDepthRangeIndexed = fn (index: GLuint, n: GLdouble, f: GLdouble)
 alias fptr_glDepthRangef = fn (n: GLfloat, f: GLfloat)
-alias fptr_glGenProgramPipelines = fn (n: GLsizei, pipelines: Ptr[GLuint])
-alias fptr_glGetDoublei_v = fn (target: GetPName, index: GLuint, data: Ptr[GLdouble])
-alias fptr_glGetFloati_v = fn (target: GetPName, index: GLuint, data: Ptr[GLfloat])
-alias fptr_glGetProgramBinary = fn (program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], binary_format: Ptr[GLenum], binary: Ptr[NoneType])
-alias fptr_glGetProgramPipelineInfoLog = fn (pipeline: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], info_log: Ptr[GLchar])
-alias fptr_glGetProgramPipelineiv = fn (pipeline: GLuint, pname: PipelineParameterName, params: Ptr[GLint])
-alias fptr_glGetShaderPrecisionFormat = fn (shadertype: ShaderType, precisiontype: PrecisionType, range: Ptr[GLint], precision: Ptr[GLint])
-alias fptr_glGetVertexAttribLdv = fn (index: GLuint, pname: VertexAttribEnum, params: Ptr[GLdouble])
+alias fptr_glGenProgramPipelines = fn (n: GLsizei, pipelines: Ptr[GLuint, mut=True])
+alias fptr_glGetDoublei_v = fn (target: GetPName, index: GLuint, data: Ptr[GLdouble, mut=True])
+alias fptr_glGetFloati_v = fn (target: GetPName, index: GLuint, data: Ptr[GLfloat, mut=True])
+alias fptr_glGetProgramBinary = fn (program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], binary_format: Ptr[GLenum, mut=True], binary: Ptr[NoneType, mut=True])
+alias fptr_glGetProgramPipelineInfoLog = fn (pipeline: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], info_log: Ptr[GLchar, mut=True])
+alias fptr_glGetProgramPipelineiv = fn (pipeline: GLuint, pname: PipelineParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetShaderPrecisionFormat = fn (shadertype: ShaderType, precisiontype: PrecisionType, range: Ptr[GLint, mut=True], precision: Ptr[GLint, mut=True])
+alias fptr_glGetVertexAttribLdv = fn (index: GLuint, pname: VertexAttribEnum, params: Ptr[GLdouble, mut=True])
 alias fptr_glIsProgramPipeline = fn (pipeline: GLuint) -> GLboolean
-alias fptr_glProgramBinary = fn (program: GLuint, binary_format: GLenum, binary: Ptr[NoneType], length: GLsizei)
+alias fptr_glProgramBinary = fn (program: GLuint, binary_format: GLenum, binary: Ptr[NoneType, mut=True], length: GLsizei)
 alias fptr_glProgramParameteri = fn (program: GLuint, pname: ProgramParameterPName, value: GLint)
 alias fptr_glProgramUniform1d = fn (program: GLuint, location: GLint, v0: GLdouble)
-alias fptr_glProgramUniform1dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble])
+alias fptr_glProgramUniform1dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True])
 alias fptr_glProgramUniform1f = fn (program: GLuint, location: GLint, v0: GLfloat)
-alias fptr_glProgramUniform1fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat])
+alias fptr_glProgramUniform1fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True])
 alias fptr_glProgramUniform1i = fn (program: GLuint, location: GLint, v0: GLint)
-alias fptr_glProgramUniform1iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint])
+alias fptr_glProgramUniform1iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=True])
 alias fptr_glProgramUniform1ui = fn (program: GLuint, location: GLint, v0: GLuint)
-alias fptr_glProgramUniform1uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint])
+alias fptr_glProgramUniform1uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True])
 alias fptr_glProgramUniform2d = fn (program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble)
-alias fptr_glProgramUniform2dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble])
+alias fptr_glProgramUniform2dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True])
 alias fptr_glProgramUniform2f = fn (program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat)
-alias fptr_glProgramUniform2fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat])
+alias fptr_glProgramUniform2fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True])
 alias fptr_glProgramUniform2i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint)
-alias fptr_glProgramUniform2iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint])
+alias fptr_glProgramUniform2iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=True])
 alias fptr_glProgramUniform2ui = fn (program: GLuint, location: GLint, v0: GLuint, v1: GLuint)
-alias fptr_glProgramUniform2uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint])
+alias fptr_glProgramUniform2uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True])
 alias fptr_glProgramUniform3d = fn (program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble, v2: GLdouble)
-alias fptr_glProgramUniform3dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble])
+alias fptr_glProgramUniform3dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True])
 alias fptr_glProgramUniform3f = fn (program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat)
-alias fptr_glProgramUniform3fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat])
+alias fptr_glProgramUniform3fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True])
 alias fptr_glProgramUniform3i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint, v2: GLint)
-alias fptr_glProgramUniform3iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint])
+alias fptr_glProgramUniform3iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=True])
 alias fptr_glProgramUniform3ui = fn (program: GLuint, location: GLint, v0: GLuint, v1: GLuint, v2: GLuint)
-alias fptr_glProgramUniform3uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint])
+alias fptr_glProgramUniform3uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True])
 alias fptr_glProgramUniform4d = fn (program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble, v2: GLdouble, v3: GLdouble)
-alias fptr_glProgramUniform4dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble])
+alias fptr_glProgramUniform4dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True])
 alias fptr_glProgramUniform4f = fn (program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat, v3: GLfloat)
-alias fptr_glProgramUniform4fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat])
+alias fptr_glProgramUniform4fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True])
 alias fptr_glProgramUniform4i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint)
-alias fptr_glProgramUniform4iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint])
+alias fptr_glProgramUniform4iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=True])
 alias fptr_glProgramUniform4ui = fn (program: GLuint, location: GLint, v0: GLuint, v1: GLuint, v2: GLuint, v3: GLuint)
-alias fptr_glProgramUniform4uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint])
-alias fptr_glProgramUniformMatrix2dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glProgramUniformMatrix2fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glProgramUniformMatrix2x3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glProgramUniformMatrix2x3fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glProgramUniformMatrix2x4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glProgramUniformMatrix2x4fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glProgramUniformMatrix3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glProgramUniformMatrix3fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glProgramUniformMatrix3x2dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glProgramUniformMatrix3x2fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glProgramUniformMatrix3x4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glProgramUniformMatrix3x4fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glProgramUniformMatrix4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glProgramUniformMatrix4fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glProgramUniformMatrix4x2dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glProgramUniformMatrix4x2fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
-alias fptr_glProgramUniformMatrix4x3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble])
-alias fptr_glProgramUniformMatrix4x3fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat])
+alias fptr_glProgramUniform4uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True])
+alias fptr_glProgramUniformMatrix2dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glProgramUniformMatrix2fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glProgramUniformMatrix2x3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glProgramUniformMatrix2x3fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glProgramUniformMatrix2x4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glProgramUniformMatrix2x4fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glProgramUniformMatrix3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glProgramUniformMatrix3fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glProgramUniformMatrix3x2dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glProgramUniformMatrix3x2fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glProgramUniformMatrix3x4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glProgramUniformMatrix3x4fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glProgramUniformMatrix4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glProgramUniformMatrix4fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glProgramUniformMatrix4x2dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glProgramUniformMatrix4x2fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
+alias fptr_glProgramUniformMatrix4x3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True])
+alias fptr_glProgramUniformMatrix4x3fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True])
 alias fptr_glReleaseShaderCompiler = fn ()
-alias fptr_glScissorArrayv = fn (first: GLuint, count: GLsizei, v: Ptr[GLint])
+alias fptr_glScissorArrayv = fn (first: GLuint, count: GLsizei, v: Ptr[GLint, mut=True])
 alias fptr_glScissorIndexed = fn (index: GLuint, left: GLint, bottom: GLint, width: GLsizei, height: GLsizei)
-alias fptr_glScissorIndexedv = fn (index: GLuint, v: Ptr[GLint])
-alias fptr_glShaderBinary = fn (count: GLsizei, shaders: Ptr[GLuint], binary_format: ShaderBinaryFormat, binary: Ptr[NoneType], length: GLsizei)
+alias fptr_glScissorIndexedv = fn (index: GLuint, v: Ptr[GLint, mut=True])
+alias fptr_glShaderBinary = fn (count: GLsizei, shaders: Ptr[GLuint, mut=True], binary_format: ShaderBinaryFormat, binary: Ptr[NoneType, mut=True], length: GLsizei)
 alias fptr_glUseProgramStages = fn (pipeline: GLuint, stages: UseProgramStageMask, program: GLuint)
 alias fptr_glValidateProgramPipeline = fn (pipeline: GLuint)
 alias fptr_glVertexAttribL1d = fn (index: GLuint, x: GLdouble)
-alias fptr_glVertexAttribL1dv = fn (index: GLuint, v: Ptr[GLdouble])
+alias fptr_glVertexAttribL1dv = fn (index: GLuint, v: Ptr[GLdouble, mut=True])
 alias fptr_glVertexAttribL2d = fn (index: GLuint, x: GLdouble, y: GLdouble)
-alias fptr_glVertexAttribL2dv = fn (index: GLuint, v: Ptr[GLdouble])
+alias fptr_glVertexAttribL2dv = fn (index: GLuint, v: Ptr[GLdouble, mut=True])
 alias fptr_glVertexAttribL3d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble)
-alias fptr_glVertexAttribL3dv = fn (index: GLuint, v: Ptr[GLdouble])
+alias fptr_glVertexAttribL3dv = fn (index: GLuint, v: Ptr[GLdouble, mut=True])
 alias fptr_glVertexAttribL4d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble)
-alias fptr_glVertexAttribL4dv = fn (index: GLuint, v: Ptr[GLdouble])
-alias fptr_glVertexAttribLPointer = fn (index: GLuint, size: GLint, type: VertexAttribLType, stride: GLsizei, pointer: Ptr[NoneType])
-alias fptr_glViewportArrayv = fn (first: GLuint, count: GLsizei, v: Ptr[GLfloat])
+alias fptr_glVertexAttribL4dv = fn (index: GLuint, v: Ptr[GLdouble, mut=True])
+alias fptr_glVertexAttribLPointer = fn (index: GLuint, size: GLint, type: VertexAttribLType, stride: GLsizei, pointer: Ptr[NoneType, mut=True])
+alias fptr_glViewportArrayv = fn (first: GLuint, count: GLsizei, v: Ptr[GLfloat, mut=True])
 alias fptr_glViewportIndexedf = fn (index: GLuint, x: GLfloat, y: GLfloat, w: GLfloat, h: GLfloat)
-alias fptr_glViewportIndexedfv = fn (index: GLuint, v: Ptr[GLfloat])
+alias fptr_glViewportIndexedfv = fn (index: GLuint, v: Ptr[GLfloat, mut=True])
 
 
 struct GL_VERSION_4_1:
@@ -5901,12 +5901,12 @@ struct GL_VERSION_4_1:
 
 alias fptr_glBindImageTexture = fn (unit: GLuint, texture: GLuint, level: GLint, layered: GLboolean, layer: GLint, access: BufferAccessARB, format: InternalFormat)
 alias fptr_glDrawArraysInstancedBaseInstance = fn (mode: PrimitiveType, first: GLint, count: GLsizei, instancecount: GLsizei, baseinstance: GLuint)
-alias fptr_glDrawElementsInstancedBaseInstance = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType], instancecount: GLsizei, baseinstance: GLuint)
-alias fptr_glDrawElementsInstancedBaseVertexBaseInstance = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType], instancecount: GLsizei, basevertex: GLint, baseinstance: GLuint)
+alias fptr_glDrawElementsInstancedBaseInstance = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True], instancecount: GLsizei, baseinstance: GLuint)
+alias fptr_glDrawElementsInstancedBaseVertexBaseInstance = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True], instancecount: GLsizei, basevertex: GLint, baseinstance: GLuint)
 alias fptr_glDrawTransformFeedbackInstanced = fn (mode: PrimitiveType, id: GLuint, instancecount: GLsizei)
 alias fptr_glDrawTransformFeedbackStreamInstanced = fn (mode: PrimitiveType, id: GLuint, stream: GLuint, instancecount: GLsizei)
-alias fptr_glGetActiveAtomicCounterBufferiv = fn (program: GLuint, buffer_index: GLuint, pname: AtomicCounterBufferPName, params: Ptr[GLint])
-alias fptr_glGetInternalformativ = fn (target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint])
+alias fptr_glGetActiveAtomicCounterBufferiv = fn (program: GLuint, buffer_index: GLuint, pname: AtomicCounterBufferPName, params: Ptr[GLint, mut=True])
+alias fptr_glGetInternalformativ = fn (target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint, mut=True])
 alias fptr_glMemoryBarrier = fn (barriers: MemoryBarrierMask)
 alias fptr_glTexStorage1D = fn (target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei)
 alias fptr_glTexStorage2D = fn (target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei)
@@ -5945,38 +5945,38 @@ struct GL_VERSION_4_2:
 
 
 alias fptr_glBindVertexBuffer = fn (bindingindex: GLuint, buffer: GLuint, offset: GLintptr, stride: GLsizei)
-alias fptr_glClearBufferData = fn (target: BufferStorageTarget, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType])
-alias fptr_glClearBufferSubData = fn (target: BufferTargetARB, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType])
+alias fptr_glClearBufferData = fn (target: BufferStorageTarget, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=True])
+alias fptr_glClearBufferSubData = fn (target: BufferTargetARB, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=True])
 alias fptr_glCopyImageSubData = fn (src_name: GLuint, src_target: CopyImageSubDataTarget, src_level: GLint, src_x: GLint, src_y: GLint, src_z: GLint, dst_name: GLuint, dst_target: CopyImageSubDataTarget, dst_level: GLint, dst_x: GLint, dst_y: GLint, dst_z: GLint, src_width: GLsizei, src_height: GLsizei, src_depth: GLsizei)
-alias fptr_glDebugMessageCallback = fn (callback: GLDEBUGPROC, user_param: Ptr[NoneType])
-alias fptr_glDebugMessageControl = fn (source: DebugSource, type: DebugType, severity: DebugSeverity, count: GLsizei, ids: Ptr[GLuint], enabled: GLboolean)
-alias fptr_glDebugMessageInsert = fn (source: DebugSource, type: DebugType, id: GLuint, severity: DebugSeverity, length: GLsizei, buf: Ptr[GLchar])
+alias fptr_glDebugMessageCallback = fn (callback: GLDEBUGPROC, user_param: Ptr[NoneType, mut=True])
+alias fptr_glDebugMessageControl = fn (source: DebugSource, type: DebugType, severity: DebugSeverity, count: GLsizei, ids: Ptr[GLuint, mut=True], enabled: GLboolean)
+alias fptr_glDebugMessageInsert = fn (source: DebugSource, type: DebugType, id: GLuint, severity: DebugSeverity, length: GLsizei, buf: Ptr[GLchar, mut=True])
 alias fptr_glDispatchCompute = fn (num_groups_x: GLuint, num_groups_y: GLuint, num_groups_z: GLuint)
 alias fptr_glDispatchComputeIndirect = fn (indirect: GLintptr)
 alias fptr_glFramebufferParameteri = fn (target: FramebufferTarget, pname: FramebufferParameterName, param: GLint)
-alias fptr_glGetDebugMessageLog = fn (count: GLuint, buf_size: GLsizei, sources: DebugSource, types: DebugType, ids: Ptr[GLuint], severities: DebugSeverity, lengths: Ptr[GLsizei], message_log: Ptr[GLchar]) -> GLuint
-alias fptr_glGetFramebufferParameteriv = fn (target: FramebufferTarget, pname: FramebufferAttachmentParameterName, params: Ptr[GLint])
-alias fptr_glGetInternalformati64v = fn (target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint64])
-alias fptr_glGetObjectLabel = fn (identifier: ObjectIdentifier, name: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], label: Ptr[GLchar])
-alias fptr_glGetObjectPtrLabel = fn (ptr: Ptr[NoneType], buf_size: GLsizei, length: Ptr[GLsizei], label: Ptr[GLchar])
-alias fptr_glGetProgramInterfaceiv = fn (program: GLuint, program_interface: ProgramInterface, pname: ProgramInterfacePName, params: Ptr[GLint])
-alias fptr_glGetProgramResourceIndex = fn (program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar]) -> GLuint
-alias fptr_glGetProgramResourceLocation = fn (program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar]) -> GLint
-alias fptr_glGetProgramResourceLocationIndex = fn (program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar]) -> GLint
-alias fptr_glGetProgramResourceName = fn (program: GLuint, program_interface: ProgramInterface, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], name: Ptr[GLchar])
-alias fptr_glGetProgramResourceiv = fn (program: GLuint, program_interface: ProgramInterface, index: GLuint, prop_count: GLsizei, props: ProgramResourceProperty, count: GLsizei, length: Ptr[GLsizei], params: Ptr[GLint])
+alias fptr_glGetDebugMessageLog = fn (count: GLuint, buf_size: GLsizei, sources: DebugSource, types: DebugType, ids: Ptr[GLuint, mut=True], severities: DebugSeverity, lengths: Ptr[GLsizei, mut=True], message_log: Ptr[GLchar, mut=True]) -> GLuint
+alias fptr_glGetFramebufferParameteriv = fn (target: FramebufferTarget, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetInternalformati64v = fn (target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint64, mut=True])
+alias fptr_glGetObjectLabel = fn (identifier: ObjectIdentifier, name: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], label: Ptr[GLchar, mut=True])
+alias fptr_glGetObjectPtrLabel = fn (ptr: Ptr[NoneType, mut=True], buf_size: GLsizei, length: Ptr[GLsizei, mut=True], label: Ptr[GLchar, mut=True])
+alias fptr_glGetProgramInterfaceiv = fn (program: GLuint, program_interface: ProgramInterface, pname: ProgramInterfacePName, params: Ptr[GLint, mut=True])
+alias fptr_glGetProgramResourceIndex = fn (program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar, mut=True]) -> GLuint
+alias fptr_glGetProgramResourceLocation = fn (program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar, mut=True]) -> GLint
+alias fptr_glGetProgramResourceLocationIndex = fn (program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar, mut=True]) -> GLint
+alias fptr_glGetProgramResourceName = fn (program: GLuint, program_interface: ProgramInterface, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], name: Ptr[GLchar, mut=True])
+alias fptr_glGetProgramResourceiv = fn (program: GLuint, program_interface: ProgramInterface, index: GLuint, prop_count: GLsizei, props: ProgramResourceProperty, count: GLsizei, length: Ptr[GLsizei, mut=True], params: Ptr[GLint, mut=True])
 alias fptr_glInvalidateBufferData = fn (buffer: GLuint)
 alias fptr_glInvalidateBufferSubData = fn (buffer: GLuint, offset: GLintptr, length: GLsizeiptr)
 alias fptr_glInvalidateFramebuffer = fn (target: FramebufferTarget, num_attachments: GLsizei, attachments: InvalidateFramebufferAttachment)
 alias fptr_glInvalidateSubFramebuffer = fn (target: FramebufferTarget, num_attachments: GLsizei, attachments: InvalidateFramebufferAttachment, x: GLint, y: GLint, width: GLsizei, height: GLsizei)
 alias fptr_glInvalidateTexImage = fn (texture: GLuint, level: GLint)
 alias fptr_glInvalidateTexSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei)
-alias fptr_glMultiDrawArraysIndirect = fn (mode: PrimitiveType, indirect: Ptr[NoneType], drawcount: GLsizei, stride: GLsizei)
-alias fptr_glMultiDrawElementsIndirect = fn (mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType], drawcount: GLsizei, stride: GLsizei)
-alias fptr_glObjectLabel = fn (identifier: ObjectIdentifier, name: GLuint, length: GLsizei, label: Ptr[GLchar])
-alias fptr_glObjectPtrLabel = fn (ptr: Ptr[NoneType], length: GLsizei, label: Ptr[GLchar])
+alias fptr_glMultiDrawArraysIndirect = fn (mode: PrimitiveType, indirect: Ptr[NoneType, mut=True], drawcount: GLsizei, stride: GLsizei)
+alias fptr_glMultiDrawElementsIndirect = fn (mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=True], drawcount: GLsizei, stride: GLsizei)
+alias fptr_glObjectLabel = fn (identifier: ObjectIdentifier, name: GLuint, length: GLsizei, label: Ptr[GLchar, mut=True])
+alias fptr_glObjectPtrLabel = fn (ptr: Ptr[NoneType, mut=True], length: GLsizei, label: Ptr[GLchar, mut=True])
 alias fptr_glPopDebugGroup = fn ()
-alias fptr_glPushDebugGroup = fn (source: DebugSource, id: GLuint, length: GLsizei, message: Ptr[GLchar])
+alias fptr_glPushDebugGroup = fn (source: DebugSource, id: GLuint, length: GLsizei, message: Ptr[GLchar, mut=True])
 alias fptr_glShaderStorageBlockBinding = fn (program: GLuint, storage_block_index: GLuint, storage_block_binding: GLuint)
 alias fptr_glTexBufferRange = fn (target: TextureTarget, internalformat: SizedInternalFormat, buffer: GLuint, offset: GLintptr, size: GLsizeiptr)
 alias fptr_glTexStorage2DMultisample = fn (target: TextureTarget, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean)
@@ -6082,15 +6082,15 @@ struct GL_VERSION_4_3:
         self.vertex_binding_divisor = load_proc[fptr_glVertexBindingDivisor]("glVertexBindingDivisor", load)
 
 
-alias fptr_glBindBuffersBase = fn (target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint])
-alias fptr_glBindBuffersRange = fn (target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint], offsets: Ptr[GLintptr], sizes: Ptr[GLsizeiptr])
-alias fptr_glBindImageTextures = fn (first: GLuint, count: GLsizei, textures: Ptr[GLuint])
-alias fptr_glBindSamplers = fn (first: GLuint, count: GLsizei, samplers: Ptr[GLuint])
-alias fptr_glBindTextures = fn (first: GLuint, count: GLsizei, textures: Ptr[GLuint])
-alias fptr_glBindVertexBuffers = fn (first: GLuint, count: GLsizei, buffers: Ptr[GLuint], offsets: Ptr[GLintptr], strides: Ptr[GLsizei])
-alias fptr_glBufferStorage = fn (target: BufferStorageTarget, size: GLsizeiptr, data: Ptr[NoneType], flags: BufferStorageMask)
-alias fptr_glClearTexImage = fn (texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, data: Ptr[NoneType])
-alias fptr_glClearTexSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, data: Ptr[NoneType])
+alias fptr_glBindBuffersBase = fn (target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=True])
+alias fptr_glBindBuffersRange = fn (target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=True], offsets: Ptr[GLintptr, mut=True], sizes: Ptr[GLsizeiptr, mut=True])
+alias fptr_glBindImageTextures = fn (first: GLuint, count: GLsizei, textures: Ptr[GLuint, mut=True])
+alias fptr_glBindSamplers = fn (first: GLuint, count: GLsizei, samplers: Ptr[GLuint, mut=True])
+alias fptr_glBindTextures = fn (first: GLuint, count: GLsizei, textures: Ptr[GLuint, mut=True])
+alias fptr_glBindVertexBuffers = fn (first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=True], offsets: Ptr[GLintptr, mut=True], strides: Ptr[GLsizei, mut=True])
+alias fptr_glBufferStorage = fn (target: BufferStorageTarget, size: GLsizeiptr, data: Ptr[NoneType, mut=True], flags: BufferStorageMask)
+alias fptr_glClearTexImage = fn (texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=True])
+alias fptr_glClearTexSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=True])
 
 
 struct GL_VERSION_4_4:
@@ -6121,87 +6121,87 @@ struct GL_VERSION_4_4:
 alias fptr_glBindTextureUnit = fn (unit: GLuint, texture: GLuint)
 alias fptr_glBlitNamedFramebuffer = fn (read_framebuffer: GLuint, draw_framebuffer: GLuint, src_x0: GLint, src_y0: GLint, src_x1: GLint, src_y1: GLint, dst_x0: GLint, dst_y0: GLint, dst_x1: GLint, dst_y1: GLint, mask: ClearBufferMask, filter: BlitFramebufferFilter)
 alias fptr_glCheckNamedFramebufferStatus = fn (framebuffer: GLuint, target: FramebufferTarget) -> FramebufferStatus
-alias fptr_glClearNamedBufferData = fn (buffer: GLuint, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType])
-alias fptr_glClearNamedBufferSubData = fn (buffer: GLuint, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType])
+alias fptr_glClearNamedBufferData = fn (buffer: GLuint, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=True])
+alias fptr_glClearNamedBufferSubData = fn (buffer: GLuint, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=True])
 alias fptr_glClearNamedFramebufferfi = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, depth: GLfloat, stencil: GLint)
-alias fptr_glClearNamedFramebufferfv = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat])
-alias fptr_glClearNamedFramebufferiv = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint])
-alias fptr_glClearNamedFramebufferuiv = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint])
+alias fptr_glClearNamedFramebufferfv = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat, mut=True])
+alias fptr_glClearNamedFramebufferiv = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint, mut=True])
+alias fptr_glClearNamedFramebufferuiv = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint, mut=True])
 alias fptr_glClipControl = fn (origin: ClipControlOrigin, depth: ClipControlDepth)
-alias fptr_glCompressedTextureSubImage1D = fn (texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType])
-alias fptr_glCompressedTextureSubImage2D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType])
-alias fptr_glCompressedTextureSubImage3D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType])
+alias fptr_glCompressedTextureSubImage1D = fn (texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=True])
+alias fptr_glCompressedTextureSubImage2D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=True])
+alias fptr_glCompressedTextureSubImage3D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=True])
 alias fptr_glCopyNamedBufferSubData = fn (read_buffer: GLuint, write_buffer: GLuint, read_offset: GLintptr, write_offset: GLintptr, size: GLsizeiptr)
 alias fptr_glCopyTextureSubImage1D = fn (texture: GLuint, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei)
 alias fptr_glCopyTextureSubImage2D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei)
 alias fptr_glCopyTextureSubImage3D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei)
-alias fptr_glCreateBuffers = fn (n: GLsizei, buffers: Ptr[GLuint])
-alias fptr_glCreateFramebuffers = fn (n: GLsizei, framebuffers: Ptr[GLuint])
-alias fptr_glCreateProgramPipelines = fn (n: GLsizei, pipelines: Ptr[GLuint])
-alias fptr_glCreateQueries = fn (target: QueryTarget, n: GLsizei, ids: Ptr[GLuint])
-alias fptr_glCreateRenderbuffers = fn (n: GLsizei, renderbuffers: Ptr[GLuint])
-alias fptr_glCreateSamplers = fn (n: GLsizei, samplers: Ptr[GLuint])
-alias fptr_glCreateTextures = fn (target: TextureTarget, n: GLsizei, textures: Ptr[GLuint])
-alias fptr_glCreateTransformFeedbacks = fn (n: GLsizei, ids: Ptr[GLuint])
-alias fptr_glCreateVertexArrays = fn (n: GLsizei, arrays: Ptr[GLuint])
+alias fptr_glCreateBuffers = fn (n: GLsizei, buffers: Ptr[GLuint, mut=True])
+alias fptr_glCreateFramebuffers = fn (n: GLsizei, framebuffers: Ptr[GLuint, mut=True])
+alias fptr_glCreateProgramPipelines = fn (n: GLsizei, pipelines: Ptr[GLuint, mut=True])
+alias fptr_glCreateQueries = fn (target: QueryTarget, n: GLsizei, ids: Ptr[GLuint, mut=True])
+alias fptr_glCreateRenderbuffers = fn (n: GLsizei, renderbuffers: Ptr[GLuint, mut=True])
+alias fptr_glCreateSamplers = fn (n: GLsizei, samplers: Ptr[GLuint, mut=True])
+alias fptr_glCreateTextures = fn (target: TextureTarget, n: GLsizei, textures: Ptr[GLuint, mut=True])
+alias fptr_glCreateTransformFeedbacks = fn (n: GLsizei, ids: Ptr[GLuint, mut=True])
+alias fptr_glCreateVertexArrays = fn (n: GLsizei, arrays: Ptr[GLuint, mut=True])
 alias fptr_glDisableVertexArrayAttrib = fn (vaobj: GLuint, index: GLuint)
 alias fptr_glEnableVertexArrayAttrib = fn (vaobj: GLuint, index: GLuint)
 alias fptr_glFlushMappedNamedBufferRange = fn (buffer: GLuint, offset: GLintptr, length: GLsizeiptr)
 alias fptr_glGenerateTextureMipmap = fn (texture: GLuint)
-alias fptr_glGetCompressedTextureImage = fn (texture: GLuint, level: GLint, buf_size: GLsizei, pixels: Ptr[NoneType])
-alias fptr_glGetCompressedTextureSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, buf_size: GLsizei, pixels: Ptr[NoneType])
+alias fptr_glGetCompressedTextureImage = fn (texture: GLuint, level: GLint, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetCompressedTextureSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True])
 alias fptr_glGetGraphicsResetStatus = fn () -> GraphicsResetStatus
-alias fptr_glGetNamedBufferParameteri64v = fn (buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint64])
-alias fptr_glGetNamedBufferParameteriv = fn (buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint])
-alias fptr_glGetNamedBufferPointerv = fn (buffer: GLuint, pname: BufferPointerNameARB, params: Ptr[NoneType])
-alias fptr_glGetNamedBufferSubData = fn (buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType])
-alias fptr_glGetNamedFramebufferAttachmentParameteriv = fn (framebuffer: GLuint, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint])
-alias fptr_glGetNamedFramebufferParameteriv = fn (framebuffer: GLuint, pname: GetFramebufferParameter, param: Ptr[GLint])
-alias fptr_glGetNamedRenderbufferParameteriv = fn (renderbuffer: GLuint, pname: RenderbufferParameterName, params: Ptr[GLint])
+alias fptr_glGetNamedBufferParameteri64v = fn (buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint64, mut=True])
+alias fptr_glGetNamedBufferParameteriv = fn (buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint, mut=True])
+alias fptr_glGetNamedBufferPointerv = fn (buffer: GLuint, pname: BufferPointerNameARB, params: Ptr[Ptr[NoneType, mut=True], mut=True])
+alias fptr_glGetNamedBufferSubData = fn (buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True])
+alias fptr_glGetNamedFramebufferAttachmentParameteriv = fn (framebuffer: GLuint, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetNamedFramebufferParameteriv = fn (framebuffer: GLuint, pname: GetFramebufferParameter, param: Ptr[GLint, mut=True])
+alias fptr_glGetNamedRenderbufferParameteriv = fn (renderbuffer: GLuint, pname: RenderbufferParameterName, params: Ptr[GLint, mut=True])
 alias fptr_glGetQueryBufferObjecti64v = fn (id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr)
 alias fptr_glGetQueryBufferObjectiv = fn (id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr)
 alias fptr_glGetQueryBufferObjectui64v = fn (id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr)
 alias fptr_glGetQueryBufferObjectuiv = fn (id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr)
-alias fptr_glGetTextureImage = fn (texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType])
-alias fptr_glGetTextureLevelParameterfv = fn (texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat])
-alias fptr_glGetTextureLevelParameteriv = fn (texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLint])
-alias fptr_glGetTextureParameterIiv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint])
-alias fptr_glGetTextureParameterIuiv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLuint])
-alias fptr_glGetTextureParameterfv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLfloat])
-alias fptr_glGetTextureParameteriv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint])
-alias fptr_glGetTextureSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType])
-alias fptr_glGetTransformFeedbacki64_v = fn (xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint64])
-alias fptr_glGetTransformFeedbacki_v = fn (xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint])
-alias fptr_glGetTransformFeedbackiv = fn (xfb: GLuint, pname: TransformFeedbackPName, param: Ptr[GLint])
-alias fptr_glGetVertexArrayIndexed64iv = fn (vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint64])
-alias fptr_glGetVertexArrayIndexediv = fn (vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint])
-alias fptr_glGetVertexArrayiv = fn (vaobj: GLuint, pname: VertexArrayPName, param: Ptr[GLint])
-alias fptr_glGetnColorTable = fn (target: ColorTableTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, table: Ptr[NoneType])
-alias fptr_glGetnCompressedTexImage = fn (target: TextureTarget, lod: GLint, buf_size: GLsizei, pixels: Ptr[NoneType])
-alias fptr_glGetnConvolutionFilter = fn (target: ConvolutionTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, image: Ptr[NoneType])
-alias fptr_glGetnHistogram = fn (target: HistogramTarget, reset: GLboolean, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType])
-alias fptr_glGetnMapdv = fn (target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLdouble])
-alias fptr_glGetnMapfv = fn (target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLfloat])
-alias fptr_glGetnMapiv = fn (target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLint])
-alias fptr_glGetnMinmax = fn (target: MinmaxTarget, reset: GLboolean, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType])
-alias fptr_glGetnPixelMapfv = fn (map: PixelMap, buf_size: GLsizei, values: Ptr[GLfloat])
-alias fptr_glGetnPixelMapuiv = fn (map: PixelMap, buf_size: GLsizei, values: Ptr[GLuint])
-alias fptr_glGetnPixelMapusv = fn (map: PixelMap, buf_size: GLsizei, values: Ptr[GLushort])
-alias fptr_glGetnPolygonStipple = fn (buf_size: GLsizei, pattern: Ptr[GLubyte])
-alias fptr_glGetnSeparableFilter = fn (target: SeparableTarget, format: PixelFormat, type: PixelType, row_buf_size: GLsizei, row: Ptr[NoneType], column_buf_size: GLsizei, column: Ptr[NoneType], span: Ptr[NoneType])
-alias fptr_glGetnTexImage = fn (target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType])
-alias fptr_glGetnUniformdv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLdouble])
-alias fptr_glGetnUniformfv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLfloat])
-alias fptr_glGetnUniformiv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLint])
-alias fptr_glGetnUniformuiv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLuint])
+alias fptr_glGetTextureImage = fn (texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetTextureLevelParameterfv = fn (texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetTextureLevelParameteriv = fn (texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLint, mut=True])
+alias fptr_glGetTextureParameterIiv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint, mut=True])
+alias fptr_glGetTextureParameterIuiv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLuint, mut=True])
+alias fptr_glGetTextureParameterfv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetTextureParameteriv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint, mut=True])
+alias fptr_glGetTextureSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetTransformFeedbacki64_v = fn (xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint64, mut=True])
+alias fptr_glGetTransformFeedbacki_v = fn (xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint, mut=True])
+alias fptr_glGetTransformFeedbackiv = fn (xfb: GLuint, pname: TransformFeedbackPName, param: Ptr[GLint, mut=True])
+alias fptr_glGetVertexArrayIndexed64iv = fn (vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint64, mut=True])
+alias fptr_glGetVertexArrayIndexediv = fn (vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint, mut=True])
+alias fptr_glGetVertexArrayiv = fn (vaobj: GLuint, pname: VertexArrayPName, param: Ptr[GLint, mut=True])
+alias fptr_glGetnColorTable = fn (target: ColorTableTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, table: Ptr[NoneType, mut=True])
+alias fptr_glGetnCompressedTexImage = fn (target: TextureTarget, lod: GLint, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetnConvolutionFilter = fn (target: ConvolutionTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, image: Ptr[NoneType, mut=True])
+alias fptr_glGetnHistogram = fn (target: HistogramTarget, reset: GLboolean, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType, mut=True])
+alias fptr_glGetnMapdv = fn (target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLdouble, mut=True])
+alias fptr_glGetnMapfv = fn (target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLfloat, mut=True])
+alias fptr_glGetnMapiv = fn (target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLint, mut=True])
+alias fptr_glGetnMinmax = fn (target: MinmaxTarget, reset: GLboolean, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType, mut=True])
+alias fptr_glGetnPixelMapfv = fn (map: PixelMap, buf_size: GLsizei, values: Ptr[GLfloat, mut=True])
+alias fptr_glGetnPixelMapuiv = fn (map: PixelMap, buf_size: GLsizei, values: Ptr[GLuint, mut=True])
+alias fptr_glGetnPixelMapusv = fn (map: PixelMap, buf_size: GLsizei, values: Ptr[GLushort, mut=True])
+alias fptr_glGetnPolygonStipple = fn (buf_size: GLsizei, pattern: Ptr[GLubyte, mut=True])
+alias fptr_glGetnSeparableFilter = fn (target: SeparableTarget, format: PixelFormat, type: PixelType, row_buf_size: GLsizei, row: Ptr[NoneType, mut=True], column_buf_size: GLsizei, column: Ptr[NoneType, mut=True], span: Ptr[NoneType, mut=True])
+alias fptr_glGetnTexImage = fn (target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetnUniformdv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLdouble, mut=True])
+alias fptr_glGetnUniformfv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetnUniformiv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLint, mut=True])
+alias fptr_glGetnUniformuiv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLuint, mut=True])
 alias fptr_glInvalidateNamedFramebufferData = fn (framebuffer: GLuint, num_attachments: GLsizei, attachments: FramebufferAttachment)
 alias fptr_glInvalidateNamedFramebufferSubData = fn (framebuffer: GLuint, num_attachments: GLsizei, attachments: FramebufferAttachment, x: GLint, y: GLint, width: GLsizei, height: GLsizei)
 alias fptr_glMapNamedBuffer = fn (buffer: GLuint, access: BufferAccessARB)
 alias fptr_glMapNamedBufferRange = fn (buffer: GLuint, offset: GLintptr, length: GLsizeiptr, access: MapBufferAccessMask)
 alias fptr_glMemoryBarrierByRegion = fn (barriers: MemoryBarrierMask)
-alias fptr_glNamedBufferData = fn (buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType], usage: VertexBufferObjectUsage)
-alias fptr_glNamedBufferStorage = fn (buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType], flags: BufferStorageMask)
-alias fptr_glNamedBufferSubData = fn (buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType])
+alias fptr_glNamedBufferData = fn (buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType, mut=True], usage: VertexBufferObjectUsage)
+alias fptr_glNamedBufferStorage = fn (buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType, mut=True], flags: BufferStorageMask)
+alias fptr_glNamedBufferSubData = fn (buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True])
 alias fptr_glNamedFramebufferDrawBuffer = fn (framebuffer: GLuint, buf: ColorBuffer)
 alias fptr_glNamedFramebufferDrawBuffers = fn (framebuffer: GLuint, n: GLsizei, bufs: ColorBuffer)
 alias fptr_glNamedFramebufferParameteri = fn (framebuffer: GLuint, pname: FramebufferParameterName, param: GLint)
@@ -6211,24 +6211,24 @@ alias fptr_glNamedFramebufferTexture = fn (framebuffer: GLuint, attachment: Fram
 alias fptr_glNamedFramebufferTextureLayer = fn (framebuffer: GLuint, attachment: FramebufferAttachment, texture: GLuint, level: GLint, layer: GLint)
 alias fptr_glNamedRenderbufferStorage = fn (renderbuffer: GLuint, internalformat: InternalFormat, width: GLsizei, height: GLsizei)
 alias fptr_glNamedRenderbufferStorageMultisample = fn (renderbuffer: GLuint, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei)
-alias fptr_glReadnPixels = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, data: Ptr[NoneType])
+alias fptr_glReadnPixels = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, data: Ptr[NoneType, mut=True])
 alias fptr_glTextureBarrier = fn ()
 alias fptr_glTextureBuffer = fn (texture: GLuint, internalformat: SizedInternalFormat, buffer: GLuint)
 alias fptr_glTextureBufferRange = fn (texture: GLuint, internalformat: SizedInternalFormat, buffer: GLuint, offset: GLintptr, size: GLsizeiptr)
-alias fptr_glTextureParameterIiv = fn (texture: GLuint, pname: TextureParameterName, params: Ptr[GLint])
-alias fptr_glTextureParameterIuiv = fn (texture: GLuint, pname: TextureParameterName, params: Ptr[GLuint])
+alias fptr_glTextureParameterIiv = fn (texture: GLuint, pname: TextureParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glTextureParameterIuiv = fn (texture: GLuint, pname: TextureParameterName, params: Ptr[GLuint, mut=True])
 alias fptr_glTextureParameterf = fn (texture: GLuint, pname: TextureParameterName, param: GLfloat)
-alias fptr_glTextureParameterfv = fn (texture: GLuint, pname: TextureParameterName, param: Ptr[GLfloat])
+alias fptr_glTextureParameterfv = fn (texture: GLuint, pname: TextureParameterName, param: Ptr[GLfloat, mut=True])
 alias fptr_glTextureParameteri = fn (texture: GLuint, pname: TextureParameterName, param: GLint)
-alias fptr_glTextureParameteriv = fn (texture: GLuint, pname: TextureParameterName, param: Ptr[GLint])
+alias fptr_glTextureParameteriv = fn (texture: GLuint, pname: TextureParameterName, param: Ptr[GLint, mut=True])
 alias fptr_glTextureStorage1D = fn (texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei)
 alias fptr_glTextureStorage2D = fn (texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei)
 alias fptr_glTextureStorage2DMultisample = fn (texture: GLuint, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean)
 alias fptr_glTextureStorage3D = fn (texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei)
 alias fptr_glTextureStorage3DMultisample = fn (texture: GLuint, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: GLboolean)
-alias fptr_glTextureSubImage1D = fn (texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType])
-alias fptr_glTextureSubImage2D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType])
-alias fptr_glTextureSubImage3D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType])
+alias fptr_glTextureSubImage1D = fn (texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
+alias fptr_glTextureSubImage2D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
+alias fptr_glTextureSubImage3D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
 alias fptr_glTransformFeedbackBufferBase = fn (xfb: GLuint, index: GLuint, buffer: GLuint)
 alias fptr_glTransformFeedbackBufferRange = fn (xfb: GLuint, index: GLuint, buffer: GLuint, offset: GLintptr, size: GLsizeiptr)
 alias fptr_glUnmapNamedBuffer = fn (buffer: GLuint) -> GLboolean
@@ -6239,7 +6239,7 @@ alias fptr_glVertexArrayAttribLFormat = fn (vaobj: GLuint, attribindex: GLuint, 
 alias fptr_glVertexArrayBindingDivisor = fn (vaobj: GLuint, bindingindex: GLuint, divisor: GLuint)
 alias fptr_glVertexArrayElementBuffer = fn (vaobj: GLuint, buffer: GLuint)
 alias fptr_glVertexArrayVertexBuffer = fn (vaobj: GLuint, bindingindex: GLuint, buffer: GLuint, offset: GLintptr, stride: GLsizei)
-alias fptr_glVertexArrayVertexBuffers = fn (vaobj: GLuint, first: GLuint, count: GLsizei, buffers: Ptr[GLuint], offsets: Ptr[GLintptr], strides: Ptr[GLsizei])
+alias fptr_glVertexArrayVertexBuffers = fn (vaobj: GLuint, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=True], offsets: Ptr[GLintptr, mut=True], strides: Ptr[GLsizei, mut=True])
 
 
 struct GL_VERSION_4_5:
@@ -6493,10 +6493,10 @@ struct GL_VERSION_4_5:
         self.vertex_array_vertex_buffers = load_proc[fptr_glVertexArrayVertexBuffers]("glVertexArrayVertexBuffers", load)
 
 
-alias fptr_glMultiDrawArraysIndirectCount = fn (mode: PrimitiveType, indirect: Ptr[NoneType], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei)
-alias fptr_glMultiDrawElementsIndirectCount = fn (mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei)
+alias fptr_glMultiDrawArraysIndirectCount = fn (mode: PrimitiveType, indirect: Ptr[NoneType, mut=True], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei)
+alias fptr_glMultiDrawElementsIndirectCount = fn (mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=True], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei)
 alias fptr_glPolygonOffsetClamp = fn (factor: GLfloat, units: GLfloat, clamp: GLfloat)
-alias fptr_glSpecializeShader = fn (shader: GLuint, p_entry_point: Ptr[GLchar], num_specialization_constants: GLuint, p_constant_index: Ptr[GLuint], p_constant_value: Ptr[GLuint])
+alias fptr_glSpecializeShader = fn (shader: GLuint, p_entry_point: Ptr[GLchar, mut=True], num_specialization_constants: GLuint, p_constant_index: Ptr[GLuint, mut=True], p_constant_value: Ptr[GLuint, mut=True])
 
 
 struct GL_VERSION_4_6:
@@ -6623,11 +6623,11 @@ struct GL:
         return self.gl_version_1_0.front_face(mode)
 
     @always_inline
-    fn get_booleanv(self, pname: GetPName, data: Ptr[GLboolean]):
+    fn get_booleanv(self, pname: GetPName, data: Ptr[GLboolean, mut=True]):
         return self.gl_version_1_0.get_booleanv(pname, data)
 
     @always_inline
-    fn get_doublev(self, pname: GetPName, data: Ptr[GLdouble]):
+    fn get_doublev(self, pname: GetPName, data: Ptr[GLdouble, mut=True]):
         return self.gl_version_1_0.get_doublev(pname, data)
 
     @always_inline
@@ -6635,11 +6635,11 @@ struct GL:
         return self.gl_version_1_0.get_error()
 
     @always_inline
-    fn get_floatv(self, pname: GetPName, data: Ptr[GLfloat]):
+    fn get_floatv(self, pname: GetPName, data: Ptr[GLfloat, mut=True]):
         return self.gl_version_1_0.get_floatv(pname, data)
 
     @always_inline
-    fn get_integerv(self, pname: GetPName, data: Ptr[GLint]):
+    fn get_integerv(self, pname: GetPName, data: Ptr[GLint, mut=True]):
         return self.gl_version_1_0.get_integerv(pname, data)
 
     @always_inline
@@ -6647,23 +6647,23 @@ struct GL:
         return self.gl_version_1_0.get_string(name)
 
     @always_inline
-    fn get_tex_image(self, target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType]):
+    fn get_tex_image(self, target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_1_0.get_tex_image(target, level, format, type, pixels)
 
     @always_inline
-    fn get_tex_level_parameterfv(self, target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat]):
+    fn get_tex_level_parameterfv(self, target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]):
         return self.gl_version_1_0.get_tex_level_parameterfv(target, level, pname, params)
 
     @always_inline
-    fn get_tex_level_parameteriv(self, target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLint]):
+    fn get_tex_level_parameteriv(self, target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]):
         return self.gl_version_1_0.get_tex_level_parameteriv(target, level, pname, params)
 
     @always_inline
-    fn get_tex_parameterfv(self, target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLfloat]):
+    fn get_tex_parameterfv(self, target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]):
         return self.gl_version_1_0.get_tex_parameterfv(target, pname, params)
 
     @always_inline
-    fn get_tex_parameteriv(self, target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint]):
+    fn get_tex_parameteriv(self, target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint, mut=True]):
         return self.gl_version_1_0.get_tex_parameteriv(target, pname, params)
 
     @always_inline
@@ -6703,7 +6703,7 @@ struct GL:
         return self.gl_version_1_0.read_buffer(src)
 
     @always_inline
-    fn read_pixels(self, x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType]):
+    fn read_pixels(self, x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_1_0.read_pixels(x, y, width, height, format, type, pixels)
 
     @always_inline
@@ -6723,11 +6723,11 @@ struct GL:
         return self.gl_version_1_0.stencil_op(fail, zfail, zpass)
 
     @always_inline
-    fn tex_image1_d(self, target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType]):
+    fn tex_image1_d(self, target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_1_0.tex_image1_d(target, level, internalformat, width, border, format, type, pixels)
 
     @always_inline
-    fn tex_image2_d(self, target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType]):
+    fn tex_image2_d(self, target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_1_0.tex_image2_d(target, level, internalformat, width, height, border, format, type, pixels)
 
     @always_inline
@@ -6735,7 +6735,7 @@ struct GL:
         return self.gl_version_1_0.tex_parameterf(target, pname, param)
 
     @always_inline
-    fn tex_parameterfv(self, target: TextureTarget, pname: TextureParameterName, params: Ptr[GLfloat]):
+    fn tex_parameterfv(self, target: TextureTarget, pname: TextureParameterName, params: Ptr[GLfloat, mut=True]):
         return self.gl_version_1_0.tex_parameterfv(target, pname, params)
 
     @always_inline
@@ -6743,7 +6743,7 @@ struct GL:
         return self.gl_version_1_0.tex_parameteri(target, pname, param)
 
     @always_inline
-    fn tex_parameteriv(self, target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint]):
+    fn tex_parameteriv(self, target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_1_0.tex_parameteriv(target, pname, params)
 
     @always_inline
@@ -6771,7 +6771,7 @@ struct GL:
         return self.gl_version_1_1.copy_tex_sub_image2_d(target, level, xoffset, yoffset, x, y, width, height)
 
     @always_inline
-    fn delete_textures(self, n: GLsizei, textures: Ptr[GLuint]):
+    fn delete_textures(self, n: GLsizei, textures: Ptr[GLuint, mut=True]):
         return self.gl_version_1_1.delete_textures(n, textures)
 
     @always_inline
@@ -6779,11 +6779,11 @@ struct GL:
         return self.gl_version_1_1.draw_arrays(mode, first, count)
 
     @always_inline
-    fn draw_elements(self, mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType]):
+    fn draw_elements(self, mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True]):
         return self.gl_version_1_1.draw_elements(mode, count, type, indices)
 
     @always_inline
-    fn gen_textures(self, n: GLsizei, textures: Ptr[GLuint]):
+    fn gen_textures(self, n: GLsizei, textures: Ptr[GLuint, mut=True]):
         return self.gl_version_1_1.gen_textures(n, textures)
 
     @always_inline
@@ -6795,11 +6795,11 @@ struct GL:
         return self.gl_version_1_1.polygon_offset(factor, units)
 
     @always_inline
-    fn tex_sub_image1_d(self, target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType]):
+    fn tex_sub_image1_d(self, target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_1_1.tex_sub_image1_d(target, level, xoffset, width, format, type, pixels)
 
     @always_inline
-    fn tex_sub_image2_d(self, target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType]):
+    fn tex_sub_image2_d(self, target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_1_1.tex_sub_image2_d(target, level, xoffset, yoffset, width, height, format, type, pixels)
 
     @always_inline
@@ -6807,15 +6807,15 @@ struct GL:
         return self.gl_version_1_2.copy_tex_sub_image3_d(target, level, xoffset, yoffset, zoffset, x, y, width, height)
 
     @always_inline
-    fn draw_range_elements(self, mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType]):
+    fn draw_range_elements(self, mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True]):
         return self.gl_version_1_2.draw_range_elements(mode, start, end, count, type, indices)
 
     @always_inline
-    fn tex_image3_d(self, target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType]):
+    fn tex_image3_d(self, target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_1_2.tex_image3_d(target, level, internalformat, width, height, depth, border, format, type, pixels)
 
     @always_inline
-    fn tex_sub_image3_d(self, target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType]):
+    fn tex_sub_image3_d(self, target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_1_2.tex_sub_image3_d(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 
     @always_inline
@@ -6823,31 +6823,31 @@ struct GL:
         return self.gl_version_1_3.active_texture(texture)
 
     @always_inline
-    fn compressed_tex_image1_d(self, target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType]):
+    fn compressed_tex_image1_d(self, target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=True]):
         return self.gl_version_1_3.compressed_tex_image1_d(target, level, internalformat, width, border, image_size, data)
 
     @always_inline
-    fn compressed_tex_image2_d(self, target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType]):
+    fn compressed_tex_image2_d(self, target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=True]):
         return self.gl_version_1_3.compressed_tex_image2_d(target, level, internalformat, width, height, border, image_size, data)
 
     @always_inline
-    fn compressed_tex_image3_d(self, target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType]):
+    fn compressed_tex_image3_d(self, target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=True]):
         return self.gl_version_1_3.compressed_tex_image3_d(target, level, internalformat, width, height, depth, border, image_size, data)
 
     @always_inline
-    fn compressed_tex_sub_image1_d(self, target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType]):
+    fn compressed_tex_sub_image1_d(self, target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=True]):
         return self.gl_version_1_3.compressed_tex_sub_image1_d(target, level, xoffset, width, format, image_size, data)
 
     @always_inline
-    fn compressed_tex_sub_image2_d(self, target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType]):
+    fn compressed_tex_sub_image2_d(self, target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=True]):
         return self.gl_version_1_3.compressed_tex_sub_image2_d(target, level, xoffset, yoffset, width, height, format, image_size, data)
 
     @always_inline
-    fn compressed_tex_sub_image3_d(self, target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType]):
+    fn compressed_tex_sub_image3_d(self, target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=True]):
         return self.gl_version_1_3.compressed_tex_sub_image3_d(target, level, xoffset, yoffset, zoffset, width, height, depth, format, image_size, data)
 
     @always_inline
-    fn get_compressed_tex_image(self, target: TextureTarget, level: GLint, img: Ptr[NoneType]):
+    fn get_compressed_tex_image(self, target: TextureTarget, level: GLint, img: Ptr[NoneType, mut=True]):
         return self.gl_version_1_3.get_compressed_tex_image(target, level, img)
 
     @always_inline
@@ -6867,11 +6867,11 @@ struct GL:
         return self.gl_version_1_4.blend_func_separate(sfactor_rgb, dfactor_rgb, sfactor_alpha, dfactor_alpha)
 
     @always_inline
-    fn multi_draw_arrays(self, mode: PrimitiveType, first: Ptr[GLint], count: Ptr[GLsizei], drawcount: GLsizei):
+    fn multi_draw_arrays(self, mode: PrimitiveType, first: Ptr[GLint, mut=True], count: Ptr[GLsizei, mut=True], drawcount: GLsizei):
         return self.gl_version_1_4.multi_draw_arrays(mode, first, count, drawcount)
 
     @always_inline
-    fn multi_draw_elements(self, mode: PrimitiveType, count: Ptr[GLsizei], type: DrawElementsType, indices: Ptr[NoneType], drawcount: GLsizei):
+    fn multi_draw_elements(self, mode: PrimitiveType, count: Ptr[GLsizei, mut=True], type: DrawElementsType, indices: Ptr[Ptr[NoneType, mut=True], mut=False], drawcount: GLsizei):
         return self.gl_version_1_4.multi_draw_elements(mode, count, type, indices, drawcount)
 
     @always_inline
@@ -6879,7 +6879,7 @@ struct GL:
         return self.gl_version_1_4.point_parameterf(pname, param)
 
     @always_inline
-    fn point_parameterfv(self, pname: PointParameterNameARB, params: Ptr[GLfloat]):
+    fn point_parameterfv(self, pname: PointParameterNameARB, params: Ptr[GLfloat, mut=True]):
         return self.gl_version_1_4.point_parameterfv(pname, params)
 
     @always_inline
@@ -6887,7 +6887,7 @@ struct GL:
         return self.gl_version_1_4.point_parameteri(pname, param)
 
     @always_inline
-    fn point_parameteriv(self, pname: PointParameterNameARB, params: Ptr[GLint]):
+    fn point_parameteriv(self, pname: PointParameterNameARB, params: Ptr[GLint, mut=True]):
         return self.gl_version_1_4.point_parameteriv(pname, params)
 
     @always_inline
@@ -6899,19 +6899,19 @@ struct GL:
         return self.gl_version_1_5.bind_buffer(target, buffer)
 
     @always_inline
-    fn buffer_data(self, target: BufferTargetARB, size: GLsizeiptr, data: Ptr[NoneType], usage: BufferUsageARB):
+    fn buffer_data(self, target: BufferTargetARB, size: GLsizeiptr, data: Ptr[NoneType, mut=True], usage: BufferUsageARB):
         return self.gl_version_1_5.buffer_data(target, size, data, usage)
 
     @always_inline
-    fn buffer_sub_data(self, target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType]):
+    fn buffer_sub_data(self, target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True]):
         return self.gl_version_1_5.buffer_sub_data(target, offset, size, data)
 
     @always_inline
-    fn delete_buffers(self, n: GLsizei, buffers: Ptr[GLuint]):
+    fn delete_buffers(self, n: GLsizei, buffers: Ptr[GLuint, mut=True]):
         return self.gl_version_1_5.delete_buffers(n, buffers)
 
     @always_inline
-    fn delete_queries(self, n: GLsizei, ids: Ptr[GLuint]):
+    fn delete_queries(self, n: GLsizei, ids: Ptr[GLuint, mut=True]):
         return self.gl_version_1_5.delete_queries(n, ids)
 
     @always_inline
@@ -6919,35 +6919,35 @@ struct GL:
         return self.gl_version_1_5.end_query(target)
 
     @always_inline
-    fn gen_buffers(self, n: GLsizei, buffers: Ptr[GLuint]):
+    fn gen_buffers(self, n: GLsizei, buffers: Ptr[GLuint, mut=True]):
         return self.gl_version_1_5.gen_buffers(n, buffers)
 
     @always_inline
-    fn gen_queries(self, n: GLsizei, ids: Ptr[GLuint]):
+    fn gen_queries(self, n: GLsizei, ids: Ptr[GLuint, mut=True]):
         return self.gl_version_1_5.gen_queries(n, ids)
 
     @always_inline
-    fn get_buffer_parameteriv(self, target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint]):
+    fn get_buffer_parameteriv(self, target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint, mut=True]):
         return self.gl_version_1_5.get_buffer_parameteriv(target, pname, params)
 
     @always_inline
-    fn get_buffer_pointerv(self, target: BufferTargetARB, pname: BufferPointerNameARB, params: Ptr[NoneType]):
+    fn get_buffer_pointerv(self, target: BufferTargetARB, pname: BufferPointerNameARB, params: Ptr[Ptr[NoneType, mut=True], mut=True]):
         return self.gl_version_1_5.get_buffer_pointerv(target, pname, params)
 
     @always_inline
-    fn get_buffer_sub_data(self, target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType]):
+    fn get_buffer_sub_data(self, target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True]):
         return self.gl_version_1_5.get_buffer_sub_data(target, offset, size, data)
 
     @always_inline
-    fn get_query_objectiv(self, id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint]):
+    fn get_query_objectiv(self, id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_1_5.get_query_objectiv(id, pname, params)
 
     @always_inline
-    fn get_query_objectuiv(self, id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint]):
+    fn get_query_objectuiv(self, id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint, mut=True]):
         return self.gl_version_1_5.get_query_objectuiv(id, pname, params)
 
     @always_inline
-    fn get_queryiv(self, target: QueryTarget, pname: QueryParameterName, params: Ptr[GLint]):
+    fn get_queryiv(self, target: QueryTarget, pname: QueryParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_1_5.get_queryiv(target, pname, params)
 
     @always_inline
@@ -6971,7 +6971,7 @@ struct GL:
         return self.gl_version_2_0.attach_shader(program, shader)
 
     @always_inline
-    fn bind_attrib_location(self, program: GLuint, index: GLuint, name: Ptr[GLchar]):
+    fn bind_attrib_location(self, program: GLuint, index: GLuint, name: Ptr[GLchar, mut=True]):
         return self.gl_version_2_0.bind_attrib_location(program, index, name)
 
     @always_inline
@@ -7015,67 +7015,67 @@ struct GL:
         return self.gl_version_2_0.enable_vertex_attrib_array(index)
 
     @always_inline
-    fn get_active_attrib(self, program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], size: Ptr[GLint], type: AttributeType, name: Ptr[GLchar]):
+    fn get_active_attrib(self, program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: AttributeType, name: Ptr[GLchar, mut=True]):
         return self.gl_version_2_0.get_active_attrib(program, index, buf_size, length, size, type, name)
 
     @always_inline
-    fn get_active_uniform(self, program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], size: Ptr[GLint], type: UniformType, name: Ptr[GLchar]):
+    fn get_active_uniform(self, program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: UniformType, name: Ptr[GLchar, mut=True]):
         return self.gl_version_2_0.get_active_uniform(program, index, buf_size, length, size, type, name)
 
     @always_inline
-    fn get_attached_shaders(self, program: GLuint, max_count: GLsizei, count: Ptr[GLsizei], shaders: Ptr[GLuint]):
+    fn get_attached_shaders(self, program: GLuint, max_count: GLsizei, count: Ptr[GLsizei, mut=True], shaders: Ptr[GLuint, mut=True]):
         return self.gl_version_2_0.get_attached_shaders(program, max_count, count, shaders)
 
     @always_inline
-    fn get_attrib_location(self, program: GLuint, name: Ptr[GLchar]) -> GLint:
+    fn get_attrib_location(self, program: GLuint, name: Ptr[GLchar, mut=True]) -> GLint:
         return self.gl_version_2_0.get_attrib_location(program, name)
 
     @always_inline
-    fn get_program_info_log(self, program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], info_log: Ptr[GLchar]):
+    fn get_program_info_log(self, program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], info_log: Ptr[GLchar, mut=True]):
         return self.gl_version_2_0.get_program_info_log(program, buf_size, length, info_log)
 
     @always_inline
-    fn get_programiv(self, program: GLuint, pname: ProgramPropertyARB, params: Ptr[GLint]):
+    fn get_programiv(self, program: GLuint, pname: ProgramPropertyARB, params: Ptr[GLint, mut=True]):
         return self.gl_version_2_0.get_programiv(program, pname, params)
 
     @always_inline
-    fn get_shader_info_log(self, shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], info_log: Ptr[GLchar]):
+    fn get_shader_info_log(self, shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], info_log: Ptr[GLchar, mut=True]):
         return self.gl_version_2_0.get_shader_info_log(shader, buf_size, length, info_log)
 
     @always_inline
-    fn get_shader_source(self, shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], source: Ptr[GLchar]):
+    fn get_shader_source(self, shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], source: Ptr[GLchar, mut=True]):
         return self.gl_version_2_0.get_shader_source(shader, buf_size, length, source)
 
     @always_inline
-    fn get_shaderiv(self, shader: GLuint, pname: ShaderParameterName, params: Ptr[GLint]):
+    fn get_shaderiv(self, shader: GLuint, pname: ShaderParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_2_0.get_shaderiv(shader, pname, params)
 
     @always_inline
-    fn get_uniform_location(self, program: GLuint, name: Ptr[GLchar]) -> GLint:
+    fn get_uniform_location(self, program: GLuint, name: Ptr[GLchar, mut=True]) -> GLint:
         return self.gl_version_2_0.get_uniform_location(program, name)
 
     @always_inline
-    fn get_uniformfv(self, program: GLuint, location: GLint, params: Ptr[GLfloat]):
+    fn get_uniformfv(self, program: GLuint, location: GLint, params: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.get_uniformfv(program, location, params)
 
     @always_inline
-    fn get_uniformiv(self, program: GLuint, location: GLint, params: Ptr[GLint]):
+    fn get_uniformiv(self, program: GLuint, location: GLint, params: Ptr[GLint, mut=True]):
         return self.gl_version_2_0.get_uniformiv(program, location, params)
 
     @always_inline
-    fn get_vertex_attrib_pointerv(self, index: GLuint, pname: VertexAttribPointerPropertyARB, pointer: Ptr[NoneType]):
+    fn get_vertex_attrib_pointerv(self, index: GLuint, pname: VertexAttribPointerPropertyARB, pointer: Ptr[Ptr[NoneType, mut=True], mut=True]):
         return self.gl_version_2_0.get_vertex_attrib_pointerv(index, pname, pointer)
 
     @always_inline
-    fn get_vertex_attribdv(self, index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLdouble]):
+    fn get_vertex_attribdv(self, index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLdouble, mut=True]):
         return self.gl_version_2_0.get_vertex_attribdv(index, pname, params)
 
     @always_inline
-    fn get_vertex_attribfv(self, index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLfloat]):
+    fn get_vertex_attribfv(self, index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.get_vertex_attribfv(index, pname, params)
 
     @always_inline
-    fn get_vertex_attribiv(self, index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLint]):
+    fn get_vertex_attribiv(self, index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLint, mut=True]):
         return self.gl_version_2_0.get_vertex_attribiv(index, pname, params)
 
     @always_inline
@@ -7091,7 +7091,7 @@ struct GL:
         return self.gl_version_2_0.link_program(program)
 
     @always_inline
-    fn shader_source(self, shader: GLuint, count: GLsizei, string: Ptr[GLchar], length: Ptr[GLint]):
+    fn shader_source(self, shader: GLuint, count: GLsizei, string: Ptr[Ptr[GLchar, mut=True], mut=False], length: Ptr[GLint, mut=True]):
         return self.gl_version_2_0.shader_source(shader, count, string, length)
 
     @always_inline
@@ -7111,7 +7111,7 @@ struct GL:
         return self.gl_version_2_0.uniform1f(location, v0)
 
     @always_inline
-    fn uniform1fv(self, location: GLint, count: GLsizei, value: Ptr[GLfloat]):
+    fn uniform1fv(self, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.uniform1fv(location, count, value)
 
     @always_inline
@@ -7119,7 +7119,7 @@ struct GL:
         return self.gl_version_2_0.uniform1i(location, v0)
 
     @always_inline
-    fn uniform1iv(self, location: GLint, count: GLsizei, value: Ptr[GLint]):
+    fn uniform1iv(self, location: GLint, count: GLsizei, value: Ptr[GLint, mut=True]):
         return self.gl_version_2_0.uniform1iv(location, count, value)
 
     @always_inline
@@ -7127,7 +7127,7 @@ struct GL:
         return self.gl_version_2_0.uniform2f(location, v0, v1)
 
     @always_inline
-    fn uniform2fv(self, location: GLint, count: GLsizei, value: Ptr[GLfloat]):
+    fn uniform2fv(self, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.uniform2fv(location, count, value)
 
     @always_inline
@@ -7135,7 +7135,7 @@ struct GL:
         return self.gl_version_2_0.uniform2i(location, v0, v1)
 
     @always_inline
-    fn uniform2iv(self, location: GLint, count: GLsizei, value: Ptr[GLint]):
+    fn uniform2iv(self, location: GLint, count: GLsizei, value: Ptr[GLint, mut=True]):
         return self.gl_version_2_0.uniform2iv(location, count, value)
 
     @always_inline
@@ -7143,7 +7143,7 @@ struct GL:
         return self.gl_version_2_0.uniform3f(location, v0, v1, v2)
 
     @always_inline
-    fn uniform3fv(self, location: GLint, count: GLsizei, value: Ptr[GLfloat]):
+    fn uniform3fv(self, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.uniform3fv(location, count, value)
 
     @always_inline
@@ -7151,7 +7151,7 @@ struct GL:
         return self.gl_version_2_0.uniform3i(location, v0, v1, v2)
 
     @always_inline
-    fn uniform3iv(self, location: GLint, count: GLsizei, value: Ptr[GLint]):
+    fn uniform3iv(self, location: GLint, count: GLsizei, value: Ptr[GLint, mut=True]):
         return self.gl_version_2_0.uniform3iv(location, count, value)
 
     @always_inline
@@ -7159,7 +7159,7 @@ struct GL:
         return self.gl_version_2_0.uniform4f(location, v0, v1, v2, v3)
 
     @always_inline
-    fn uniform4fv(self, location: GLint, count: GLsizei, value: Ptr[GLfloat]):
+    fn uniform4fv(self, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.uniform4fv(location, count, value)
 
     @always_inline
@@ -7167,19 +7167,19 @@ struct GL:
         return self.gl_version_2_0.uniform4i(location, v0, v1, v2, v3)
 
     @always_inline
-    fn uniform4iv(self, location: GLint, count: GLsizei, value: Ptr[GLint]):
+    fn uniform4iv(self, location: GLint, count: GLsizei, value: Ptr[GLint, mut=True]):
         return self.gl_version_2_0.uniform4iv(location, count, value)
 
     @always_inline
-    fn uniform_matrix2fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn uniform_matrix2fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.uniform_matrix2fv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix3fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn uniform_matrix3fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.uniform_matrix3fv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix4fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn uniform_matrix4fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.uniform_matrix4fv(location, count, transpose, value)
 
     @always_inline
@@ -7195,7 +7195,7 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib1d(index, x)
 
     @always_inline
-    fn vertex_attrib1dv(self, index: GLuint, v: Ptr[GLdouble]):
+    fn vertex_attrib1dv(self, index: GLuint, v: Ptr[GLdouble, mut=True]):
         return self.gl_version_2_0.vertex_attrib1dv(index, v)
 
     @always_inline
@@ -7203,7 +7203,7 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib1f(index, x)
 
     @always_inline
-    fn vertex_attrib1fv(self, index: GLuint, v: Ptr[GLfloat]):
+    fn vertex_attrib1fv(self, index: GLuint, v: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.vertex_attrib1fv(index, v)
 
     @always_inline
@@ -7211,7 +7211,7 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib1s(index, x)
 
     @always_inline
-    fn vertex_attrib1sv(self, index: GLuint, v: Ptr[GLshort]):
+    fn vertex_attrib1sv(self, index: GLuint, v: Ptr[GLshort, mut=True]):
         return self.gl_version_2_0.vertex_attrib1sv(index, v)
 
     @always_inline
@@ -7219,7 +7219,7 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib2d(index, x, y)
 
     @always_inline
-    fn vertex_attrib2dv(self, index: GLuint, v: Ptr[GLdouble]):
+    fn vertex_attrib2dv(self, index: GLuint, v: Ptr[GLdouble, mut=True]):
         return self.gl_version_2_0.vertex_attrib2dv(index, v)
 
     @always_inline
@@ -7227,7 +7227,7 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib2f(index, x, y)
 
     @always_inline
-    fn vertex_attrib2fv(self, index: GLuint, v: Ptr[GLfloat]):
+    fn vertex_attrib2fv(self, index: GLuint, v: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.vertex_attrib2fv(index, v)
 
     @always_inline
@@ -7235,7 +7235,7 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib2s(index, x, y)
 
     @always_inline
-    fn vertex_attrib2sv(self, index: GLuint, v: Ptr[GLshort]):
+    fn vertex_attrib2sv(self, index: GLuint, v: Ptr[GLshort, mut=True]):
         return self.gl_version_2_0.vertex_attrib2sv(index, v)
 
     @always_inline
@@ -7243,7 +7243,7 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib3d(index, x, y, z)
 
     @always_inline
-    fn vertex_attrib3dv(self, index: GLuint, v: Ptr[GLdouble]):
+    fn vertex_attrib3dv(self, index: GLuint, v: Ptr[GLdouble, mut=True]):
         return self.gl_version_2_0.vertex_attrib3dv(index, v)
 
     @always_inline
@@ -7251,7 +7251,7 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib3f(index, x, y, z)
 
     @always_inline
-    fn vertex_attrib3fv(self, index: GLuint, v: Ptr[GLfloat]):
+    fn vertex_attrib3fv(self, index: GLuint, v: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.vertex_attrib3fv(index, v)
 
     @always_inline
@@ -7259,19 +7259,19 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib3s(index, x, y, z)
 
     @always_inline
-    fn vertex_attrib3sv(self, index: GLuint, v: Ptr[GLshort]):
+    fn vertex_attrib3sv(self, index: GLuint, v: Ptr[GLshort, mut=True]):
         return self.gl_version_2_0.vertex_attrib3sv(index, v)
 
     @always_inline
-    fn vertex_attrib4_nbv(self, index: GLuint, v: Ptr[GLbyte]):
+    fn vertex_attrib4_nbv(self, index: GLuint, v: Ptr[GLbyte, mut=True]):
         return self.gl_version_2_0.vertex_attrib4_nbv(index, v)
 
     @always_inline
-    fn vertex_attrib4_niv(self, index: GLuint, v: Ptr[GLint]):
+    fn vertex_attrib4_niv(self, index: GLuint, v: Ptr[GLint, mut=True]):
         return self.gl_version_2_0.vertex_attrib4_niv(index, v)
 
     @always_inline
-    fn vertex_attrib4_nsv(self, index: GLuint, v: Ptr[GLshort]):
+    fn vertex_attrib4_nsv(self, index: GLuint, v: Ptr[GLshort, mut=True]):
         return self.gl_version_2_0.vertex_attrib4_nsv(index, v)
 
     @always_inline
@@ -7279,19 +7279,19 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib4_nub(index, x, y, z, w)
 
     @always_inline
-    fn vertex_attrib4_nubv(self, index: GLuint, v: Ptr[GLubyte]):
+    fn vertex_attrib4_nubv(self, index: GLuint, v: Ptr[GLubyte, mut=True]):
         return self.gl_version_2_0.vertex_attrib4_nubv(index, v)
 
     @always_inline
-    fn vertex_attrib4_nuiv(self, index: GLuint, v: Ptr[GLuint]):
+    fn vertex_attrib4_nuiv(self, index: GLuint, v: Ptr[GLuint, mut=True]):
         return self.gl_version_2_0.vertex_attrib4_nuiv(index, v)
 
     @always_inline
-    fn vertex_attrib4_nusv(self, index: GLuint, v: Ptr[GLushort]):
+    fn vertex_attrib4_nusv(self, index: GLuint, v: Ptr[GLushort, mut=True]):
         return self.gl_version_2_0.vertex_attrib4_nusv(index, v)
 
     @always_inline
-    fn vertex_attrib4bv(self, index: GLuint, v: Ptr[GLbyte]):
+    fn vertex_attrib4bv(self, index: GLuint, v: Ptr[GLbyte, mut=True]):
         return self.gl_version_2_0.vertex_attrib4bv(index, v)
 
     @always_inline
@@ -7299,7 +7299,7 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib4d(index, x, y, z, w)
 
     @always_inline
-    fn vertex_attrib4dv(self, index: GLuint, v: Ptr[GLdouble]):
+    fn vertex_attrib4dv(self, index: GLuint, v: Ptr[GLdouble, mut=True]):
         return self.gl_version_2_0.vertex_attrib4dv(index, v)
 
     @always_inline
@@ -7307,11 +7307,11 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib4f(index, x, y, z, w)
 
     @always_inline
-    fn vertex_attrib4fv(self, index: GLuint, v: Ptr[GLfloat]):
+    fn vertex_attrib4fv(self, index: GLuint, v: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_0.vertex_attrib4fv(index, v)
 
     @always_inline
-    fn vertex_attrib4iv(self, index: GLuint, v: Ptr[GLint]):
+    fn vertex_attrib4iv(self, index: GLuint, v: Ptr[GLint, mut=True]):
         return self.gl_version_2_0.vertex_attrib4iv(index, v)
 
     @always_inline
@@ -7319,47 +7319,47 @@ struct GL:
         return self.gl_version_2_0.vertex_attrib4s(index, x, y, z, w)
 
     @always_inline
-    fn vertex_attrib4sv(self, index: GLuint, v: Ptr[GLshort]):
+    fn vertex_attrib4sv(self, index: GLuint, v: Ptr[GLshort, mut=True]):
         return self.gl_version_2_0.vertex_attrib4sv(index, v)
 
     @always_inline
-    fn vertex_attrib4ubv(self, index: GLuint, v: Ptr[GLubyte]):
+    fn vertex_attrib4ubv(self, index: GLuint, v: Ptr[GLubyte, mut=True]):
         return self.gl_version_2_0.vertex_attrib4ubv(index, v)
 
     @always_inline
-    fn vertex_attrib4uiv(self, index: GLuint, v: Ptr[GLuint]):
+    fn vertex_attrib4uiv(self, index: GLuint, v: Ptr[GLuint, mut=True]):
         return self.gl_version_2_0.vertex_attrib4uiv(index, v)
 
     @always_inline
-    fn vertex_attrib4usv(self, index: GLuint, v: Ptr[GLushort]):
+    fn vertex_attrib4usv(self, index: GLuint, v: Ptr[GLushort, mut=True]):
         return self.gl_version_2_0.vertex_attrib4usv(index, v)
 
     @always_inline
-    fn vertex_attrib_pointer(self, index: GLuint, size: GLint, type: VertexAttribPointerType, normalized: GLboolean, stride: GLsizei, pointer: Ptr[NoneType]):
+    fn vertex_attrib_pointer(self, index: GLuint, size: GLint, type: VertexAttribPointerType, normalized: GLboolean, stride: GLsizei, pointer: Ptr[NoneType, mut=True]):
         return self.gl_version_2_0.vertex_attrib_pointer(index, size, type, normalized, stride, pointer)
 
     @always_inline
-    fn uniform_matrix2x3fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn uniform_matrix2x3fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_1.uniform_matrix2x3fv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix2x4fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn uniform_matrix2x4fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_1.uniform_matrix2x4fv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix3x2fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn uniform_matrix3x2fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_1.uniform_matrix3x2fv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix3x4fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn uniform_matrix3x4fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_1.uniform_matrix3x4fv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix4x2fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn uniform_matrix4x2fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_1.uniform_matrix4x2fv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix4x3fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn uniform_matrix4x3fv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_2_1.uniform_matrix4x3fv(location, count, transpose, value)
 
     @always_inline
@@ -7379,7 +7379,7 @@ struct GL:
         return self.gl_version_3_0.bind_buffer_range(target, index, buffer, offset, size)
 
     @always_inline
-    fn bind_frag_data_location(self, program: GLuint, color: GLuint, name: Ptr[GLchar]):
+    fn bind_frag_data_location(self, program: GLuint, color: GLuint, name: Ptr[GLchar, mut=True]):
         return self.gl_version_3_0.bind_frag_data_location(program, color, name)
 
     @always_inline
@@ -7411,15 +7411,15 @@ struct GL:
         return self.gl_version_3_0.clear_bufferfi(buffer, drawbuffer, depth, stencil)
 
     @always_inline
-    fn clear_bufferfv(self, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat]):
+    fn clear_bufferfv(self, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_3_0.clear_bufferfv(buffer, drawbuffer, value)
 
     @always_inline
-    fn clear_bufferiv(self, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint]):
+    fn clear_bufferiv(self, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint, mut=True]):
         return self.gl_version_3_0.clear_bufferiv(buffer, drawbuffer, value)
 
     @always_inline
-    fn clear_bufferuiv(self, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint]):
+    fn clear_bufferuiv(self, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.clear_bufferuiv(buffer, drawbuffer, value)
 
     @always_inline
@@ -7427,15 +7427,15 @@ struct GL:
         return self.gl_version_3_0.color_maski(index, r, g, b, a)
 
     @always_inline
-    fn delete_framebuffers(self, n: GLsizei, framebuffers: Ptr[GLuint]):
+    fn delete_framebuffers(self, n: GLsizei, framebuffers: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.delete_framebuffers(n, framebuffers)
 
     @always_inline
-    fn delete_renderbuffers(self, n: GLsizei, renderbuffers: Ptr[GLuint]):
+    fn delete_renderbuffers(self, n: GLsizei, renderbuffers: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.delete_renderbuffers(n, renderbuffers)
 
     @always_inline
-    fn delete_vertex_arrays(self, n: GLsizei, arrays: Ptr[GLuint]):
+    fn delete_vertex_arrays(self, n: GLsizei, arrays: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.delete_vertex_arrays(n, arrays)
 
     @always_inline
@@ -7479,15 +7479,15 @@ struct GL:
         return self.gl_version_3_0.framebuffer_texture_layer(target, attachment, texture, level, layer)
 
     @always_inline
-    fn gen_framebuffers(self, n: GLsizei, framebuffers: Ptr[GLuint]):
+    fn gen_framebuffers(self, n: GLsizei, framebuffers: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.gen_framebuffers(n, framebuffers)
 
     @always_inline
-    fn gen_renderbuffers(self, n: GLsizei, renderbuffers: Ptr[GLuint]):
+    fn gen_renderbuffers(self, n: GLsizei, renderbuffers: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.gen_renderbuffers(n, renderbuffers)
 
     @always_inline
-    fn gen_vertex_arrays(self, n: GLsizei, arrays: Ptr[GLuint]):
+    fn gen_vertex_arrays(self, n: GLsizei, arrays: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.gen_vertex_arrays(n, arrays)
 
     @always_inline
@@ -7495,23 +7495,23 @@ struct GL:
         return self.gl_version_3_0.generate_mipmap(target)
 
     @always_inline
-    fn get_booleani_v(self, target: BufferTargetARB, index: GLuint, data: Ptr[GLboolean]):
+    fn get_booleani_v(self, target: BufferTargetARB, index: GLuint, data: Ptr[GLboolean, mut=True]):
         return self.gl_version_3_0.get_booleani_v(target, index, data)
 
     @always_inline
-    fn get_frag_data_location(self, program: GLuint, name: Ptr[GLchar]) -> GLint:
+    fn get_frag_data_location(self, program: GLuint, name: Ptr[GLchar, mut=True]) -> GLint:
         return self.gl_version_3_0.get_frag_data_location(program, name)
 
     @always_inline
-    fn get_framebuffer_attachment_parameteriv(self, target: FramebufferTarget, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint]):
+    fn get_framebuffer_attachment_parameteriv(self, target: FramebufferTarget, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_3_0.get_framebuffer_attachment_parameteriv(target, attachment, pname, params)
 
     @always_inline
-    fn get_integeri_v(self, target: GetPName, index: GLuint, data: Ptr[GLint]):
+    fn get_integeri_v(self, target: GetPName, index: GLuint, data: Ptr[GLint, mut=True]):
         return self.gl_version_3_0.get_integeri_v(target, index, data)
 
     @always_inline
-    fn get_renderbuffer_parameteriv(self, target: RenderbufferTarget, pname: RenderbufferParameterName, params: Ptr[GLint]):
+    fn get_renderbuffer_parameteriv(self, target: RenderbufferTarget, pname: RenderbufferParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_3_0.get_renderbuffer_parameteriv(target, pname, params)
 
     @always_inline
@@ -7519,27 +7519,27 @@ struct GL:
         return self.gl_version_3_0.get_stringi(name, index)
 
     @always_inline
-    fn get_tex_parameter_iiv(self, target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint]):
+    fn get_tex_parameter_iiv(self, target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint, mut=True]):
         return self.gl_version_3_0.get_tex_parameter_iiv(target, pname, params)
 
     @always_inline
-    fn get_tex_parameter_iuiv(self, target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLuint]):
+    fn get_tex_parameter_iuiv(self, target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.get_tex_parameter_iuiv(target, pname, params)
 
     @always_inline
-    fn get_transform_feedback_varying(self, program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], size: Ptr[GLsizei], type: AttributeType, name: Ptr[GLchar]):
+    fn get_transform_feedback_varying(self, program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLsizei, mut=True], type: AttributeType, name: Ptr[GLchar, mut=True]):
         return self.gl_version_3_0.get_transform_feedback_varying(program, index, buf_size, length, size, type, name)
 
     @always_inline
-    fn get_uniformuiv(self, program: GLuint, location: GLint, params: Ptr[GLuint]):
+    fn get_uniformuiv(self, program: GLuint, location: GLint, params: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.get_uniformuiv(program, location, params)
 
     @always_inline
-    fn get_vertex_attrib_iiv(self, index: GLuint, pname: VertexAttribEnum, params: Ptr[GLint]):
+    fn get_vertex_attrib_iiv(self, index: GLuint, pname: VertexAttribEnum, params: Ptr[GLint, mut=True]):
         return self.gl_version_3_0.get_vertex_attrib_iiv(index, pname, params)
 
     @always_inline
-    fn get_vertex_attrib_iuiv(self, index: GLuint, pname: VertexAttribEnum, params: Ptr[GLuint]):
+    fn get_vertex_attrib_iuiv(self, index: GLuint, pname: VertexAttribEnum, params: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.get_vertex_attrib_iuiv(index, pname, params)
 
     @always_inline
@@ -7571,15 +7571,15 @@ struct GL:
         return self.gl_version_3_0.renderbuffer_storage_multisample(target, samples, internalformat, width, height)
 
     @always_inline
-    fn tex_parameter_iiv(self, target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint]):
+    fn tex_parameter_iiv(self, target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_3_0.tex_parameter_iiv(target, pname, params)
 
     @always_inline
-    fn tex_parameter_iuiv(self, target: TextureTarget, pname: TextureParameterName, params: Ptr[GLuint]):
+    fn tex_parameter_iuiv(self, target: TextureTarget, pname: TextureParameterName, params: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.tex_parameter_iuiv(target, pname, params)
 
     @always_inline
-    fn transform_feedback_varyings(self, program: GLuint, count: GLsizei, varyings: Ptr[GLchar], buffer_mode: TransformFeedbackBufferMode):
+    fn transform_feedback_varyings(self, program: GLuint, count: GLsizei, varyings: Ptr[Ptr[GLchar, mut=True], mut=False], buffer_mode: TransformFeedbackBufferMode):
         return self.gl_version_3_0.transform_feedback_varyings(program, count, varyings, buffer_mode)
 
     @always_inline
@@ -7587,7 +7587,7 @@ struct GL:
         return self.gl_version_3_0.uniform1ui(location, v0)
 
     @always_inline
-    fn uniform1uiv(self, location: GLint, count: GLsizei, value: Ptr[GLuint]):
+    fn uniform1uiv(self, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.uniform1uiv(location, count, value)
 
     @always_inline
@@ -7595,7 +7595,7 @@ struct GL:
         return self.gl_version_3_0.uniform2ui(location, v0, v1)
 
     @always_inline
-    fn uniform2uiv(self, location: GLint, count: GLsizei, value: Ptr[GLuint]):
+    fn uniform2uiv(self, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.uniform2uiv(location, count, value)
 
     @always_inline
@@ -7603,7 +7603,7 @@ struct GL:
         return self.gl_version_3_0.uniform3ui(location, v0, v1, v2)
 
     @always_inline
-    fn uniform3uiv(self, location: GLint, count: GLsizei, value: Ptr[GLuint]):
+    fn uniform3uiv(self, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.uniform3uiv(location, count, value)
 
     @always_inline
@@ -7611,7 +7611,7 @@ struct GL:
         return self.gl_version_3_0.uniform4ui(location, v0, v1, v2, v3)
 
     @always_inline
-    fn uniform4uiv(self, location: GLint, count: GLsizei, value: Ptr[GLuint]):
+    fn uniform4uiv(self, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.uniform4uiv(location, count, value)
 
     @always_inline
@@ -7619,7 +7619,7 @@ struct GL:
         return self.gl_version_3_0.vertex_attrib_i1i(index, x)
 
     @always_inline
-    fn vertex_attrib_i1iv(self, index: GLuint, v: Ptr[GLint]):
+    fn vertex_attrib_i1iv(self, index: GLuint, v: Ptr[GLint, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i1iv(index, v)
 
     @always_inline
@@ -7627,7 +7627,7 @@ struct GL:
         return self.gl_version_3_0.vertex_attrib_i1ui(index, x)
 
     @always_inline
-    fn vertex_attrib_i1uiv(self, index: GLuint, v: Ptr[GLuint]):
+    fn vertex_attrib_i1uiv(self, index: GLuint, v: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i1uiv(index, v)
 
     @always_inline
@@ -7635,7 +7635,7 @@ struct GL:
         return self.gl_version_3_0.vertex_attrib_i2i(index, x, y)
 
     @always_inline
-    fn vertex_attrib_i2iv(self, index: GLuint, v: Ptr[GLint]):
+    fn vertex_attrib_i2iv(self, index: GLuint, v: Ptr[GLint, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i2iv(index, v)
 
     @always_inline
@@ -7643,7 +7643,7 @@ struct GL:
         return self.gl_version_3_0.vertex_attrib_i2ui(index, x, y)
 
     @always_inline
-    fn vertex_attrib_i2uiv(self, index: GLuint, v: Ptr[GLuint]):
+    fn vertex_attrib_i2uiv(self, index: GLuint, v: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i2uiv(index, v)
 
     @always_inline
@@ -7651,7 +7651,7 @@ struct GL:
         return self.gl_version_3_0.vertex_attrib_i3i(index, x, y, z)
 
     @always_inline
-    fn vertex_attrib_i3iv(self, index: GLuint, v: Ptr[GLint]):
+    fn vertex_attrib_i3iv(self, index: GLuint, v: Ptr[GLint, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i3iv(index, v)
 
     @always_inline
@@ -7659,11 +7659,11 @@ struct GL:
         return self.gl_version_3_0.vertex_attrib_i3ui(index, x, y, z)
 
     @always_inline
-    fn vertex_attrib_i3uiv(self, index: GLuint, v: Ptr[GLuint]):
+    fn vertex_attrib_i3uiv(self, index: GLuint, v: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i3uiv(index, v)
 
     @always_inline
-    fn vertex_attrib_i4bv(self, index: GLuint, v: Ptr[GLbyte]):
+    fn vertex_attrib_i4bv(self, index: GLuint, v: Ptr[GLbyte, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i4bv(index, v)
 
     @always_inline
@@ -7671,15 +7671,15 @@ struct GL:
         return self.gl_version_3_0.vertex_attrib_i4i(index, x, y, z, w)
 
     @always_inline
-    fn vertex_attrib_i4iv(self, index: GLuint, v: Ptr[GLint]):
+    fn vertex_attrib_i4iv(self, index: GLuint, v: Ptr[GLint, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i4iv(index, v)
 
     @always_inline
-    fn vertex_attrib_i4sv(self, index: GLuint, v: Ptr[GLshort]):
+    fn vertex_attrib_i4sv(self, index: GLuint, v: Ptr[GLshort, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i4sv(index, v)
 
     @always_inline
-    fn vertex_attrib_i4ubv(self, index: GLuint, v: Ptr[GLubyte]):
+    fn vertex_attrib_i4ubv(self, index: GLuint, v: Ptr[GLubyte, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i4ubv(index, v)
 
     @always_inline
@@ -7687,15 +7687,15 @@ struct GL:
         return self.gl_version_3_0.vertex_attrib_i4ui(index, x, y, z, w)
 
     @always_inline
-    fn vertex_attrib_i4uiv(self, index: GLuint, v: Ptr[GLuint]):
+    fn vertex_attrib_i4uiv(self, index: GLuint, v: Ptr[GLuint, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i4uiv(index, v)
 
     @always_inline
-    fn vertex_attrib_i4usv(self, index: GLuint, v: Ptr[GLushort]):
+    fn vertex_attrib_i4usv(self, index: GLuint, v: Ptr[GLushort, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i4usv(index, v)
 
     @always_inline
-    fn vertex_attrib_i_pointer(self, index: GLuint, size: GLint, type: VertexAttribIType, stride: GLsizei, pointer: Ptr[NoneType]):
+    fn vertex_attrib_i_pointer(self, index: GLuint, size: GLint, type: VertexAttribIType, stride: GLsizei, pointer: Ptr[NoneType, mut=True]):
         return self.gl_version_3_0.vertex_attrib_i_pointer(index, size, type, stride, pointer)
 
     @always_inline
@@ -7707,31 +7707,31 @@ struct GL:
         return self.gl_version_3_1.draw_arrays_instanced(mode, first, count, instancecount)
 
     @always_inline
-    fn draw_elements_instanced(self, mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType], instancecount: GLsizei):
+    fn draw_elements_instanced(self, mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True], instancecount: GLsizei):
         return self.gl_version_3_1.draw_elements_instanced(mode, count, type, indices, instancecount)
 
     @always_inline
-    fn get_active_uniform_block_name(self, program: GLuint, uniform_block_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], uniform_block_name: Ptr[GLchar]):
+    fn get_active_uniform_block_name(self, program: GLuint, uniform_block_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], uniform_block_name: Ptr[GLchar, mut=True]):
         return self.gl_version_3_1.get_active_uniform_block_name(program, uniform_block_index, buf_size, length, uniform_block_name)
 
     @always_inline
-    fn get_active_uniform_blockiv(self, program: GLuint, uniform_block_index: GLuint, pname: UniformBlockPName, params: Ptr[GLint]):
+    fn get_active_uniform_blockiv(self, program: GLuint, uniform_block_index: GLuint, pname: UniformBlockPName, params: Ptr[GLint, mut=True]):
         return self.gl_version_3_1.get_active_uniform_blockiv(program, uniform_block_index, pname, params)
 
     @always_inline
-    fn get_active_uniform_name(self, program: GLuint, uniform_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], uniform_name: Ptr[GLchar]):
+    fn get_active_uniform_name(self, program: GLuint, uniform_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], uniform_name: Ptr[GLchar, mut=True]):
         return self.gl_version_3_1.get_active_uniform_name(program, uniform_index, buf_size, length, uniform_name)
 
     @always_inline
-    fn get_active_uniformsiv(self, program: GLuint, uniform_count: GLsizei, uniform_indices: Ptr[GLuint], pname: UniformPName, params: Ptr[GLint]):
+    fn get_active_uniformsiv(self, program: GLuint, uniform_count: GLsizei, uniform_indices: Ptr[GLuint, mut=True], pname: UniformPName, params: Ptr[GLint, mut=True]):
         return self.gl_version_3_1.get_active_uniformsiv(program, uniform_count, uniform_indices, pname, params)
 
     @always_inline
-    fn get_uniform_block_index(self, program: GLuint, uniform_block_name: Ptr[GLchar]) -> GLuint:
+    fn get_uniform_block_index(self, program: GLuint, uniform_block_name: Ptr[GLchar, mut=True]) -> GLuint:
         return self.gl_version_3_1.get_uniform_block_index(program, uniform_block_name)
 
     @always_inline
-    fn get_uniform_indices(self, program: GLuint, uniform_count: GLsizei, uniform_names: Ptr[GLchar], uniform_indices: Ptr[GLuint]):
+    fn get_uniform_indices(self, program: GLuint, uniform_count: GLsizei, uniform_names: Ptr[Ptr[GLchar, mut=True], mut=False], uniform_indices: Ptr[GLuint, mut=True]):
         return self.gl_version_3_1.get_uniform_indices(program, uniform_count, uniform_names, uniform_indices)
 
     @always_inline
@@ -7755,15 +7755,15 @@ struct GL:
         return self.gl_version_3_2.delete_sync(sync)
 
     @always_inline
-    fn draw_elements_base_vertex(self, mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType], basevertex: GLint):
+    fn draw_elements_base_vertex(self, mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True], basevertex: GLint):
         return self.gl_version_3_2.draw_elements_base_vertex(mode, count, type, indices, basevertex)
 
     @always_inline
-    fn draw_elements_instanced_base_vertex(self, mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType], instancecount: GLsizei, basevertex: GLint):
+    fn draw_elements_instanced_base_vertex(self, mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True], instancecount: GLsizei, basevertex: GLint):
         return self.gl_version_3_2.draw_elements_instanced_base_vertex(mode, count, type, indices, instancecount, basevertex)
 
     @always_inline
-    fn draw_range_elements_base_vertex(self, mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType], basevertex: GLint):
+    fn draw_range_elements_base_vertex(self, mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True], basevertex: GLint):
         return self.gl_version_3_2.draw_range_elements_base_vertex(mode, start, end, count, type, indices, basevertex)
 
     @always_inline
@@ -7775,23 +7775,23 @@ struct GL:
         return self.gl_version_3_2.framebuffer_texture(target, attachment, texture, level)
 
     @always_inline
-    fn get_buffer_parameteri64v(self, target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint64]):
+    fn get_buffer_parameteri64v(self, target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint64, mut=True]):
         return self.gl_version_3_2.get_buffer_parameteri64v(target, pname, params)
 
     @always_inline
-    fn get_integer64i_v(self, target: GetPName, index: GLuint, data: Ptr[GLint64]):
+    fn get_integer64i_v(self, target: GetPName, index: GLuint, data: Ptr[GLint64, mut=True]):
         return self.gl_version_3_2.get_integer64i_v(target, index, data)
 
     @always_inline
-    fn get_integer64v(self, pname: GetPName, data: Ptr[GLint64]):
+    fn get_integer64v(self, pname: GetPName, data: Ptr[GLint64, mut=True]):
         return self.gl_version_3_2.get_integer64v(pname, data)
 
     @always_inline
-    fn get_multisamplefv(self, pname: GetMultisamplePNameNV, index: GLuint, val: Ptr[GLfloat]):
+    fn get_multisamplefv(self, pname: GetMultisamplePNameNV, index: GLuint, val: Ptr[GLfloat, mut=True]):
         return self.gl_version_3_2.get_multisamplefv(pname, index, val)
 
     @always_inline
-    fn get_synciv(self, sync: GLsync, pname: SyncParameterName, count: GLsizei, length: Ptr[GLsizei], values: Ptr[GLint]):
+    fn get_synciv(self, sync: GLsync, pname: SyncParameterName, count: GLsizei, length: Ptr[GLsizei, mut=True], values: Ptr[GLint, mut=True]):
         return self.gl_version_3_2.get_synciv(sync, pname, count, length, values)
 
     @always_inline
@@ -7799,7 +7799,7 @@ struct GL:
         return self.gl_version_3_2.is_sync(sync)
 
     @always_inline
-    fn multi_draw_elements_base_vertex(self, mode: PrimitiveType, count: Ptr[GLsizei], type: DrawElementsType, indices: Ptr[NoneType], drawcount: GLsizei, basevertex: Ptr[GLint]):
+    fn multi_draw_elements_base_vertex(self, mode: PrimitiveType, count: Ptr[GLsizei, mut=True], type: DrawElementsType, indices: Ptr[Ptr[NoneType, mut=True], mut=False], drawcount: GLsizei, basevertex: Ptr[GLint, mut=True]):
         return self.gl_version_3_2.multi_draw_elements_base_vertex(mode, count, type, indices, drawcount, basevertex)
 
     @always_inline
@@ -7823,7 +7823,7 @@ struct GL:
         return self.gl_version_3_2.wait_sync(sync, flags, timeout)
 
     @always_inline
-    fn bind_frag_data_location_indexed(self, program: GLuint, color_number: GLuint, index: GLuint, name: Ptr[GLchar]):
+    fn bind_frag_data_location_indexed(self, program: GLuint, color_number: GLuint, index: GLuint, name: Ptr[GLchar, mut=True]):
         return self.gl_version_3_3.bind_frag_data_location_indexed(program, color_number, index, name)
 
     @always_inline
@@ -7835,7 +7835,7 @@ struct GL:
         return self.gl_version_3_3.color_p3ui(type, color)
 
     @always_inline
-    fn color_p3uiv(self, type: ColorPointerType, color: Ptr[GLuint]):
+    fn color_p3uiv(self, type: ColorPointerType, color: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.color_p3uiv(type, color)
 
     @always_inline
@@ -7843,43 +7843,43 @@ struct GL:
         return self.gl_version_3_3.color_p4ui(type, color)
 
     @always_inline
-    fn color_p4uiv(self, type: ColorPointerType, color: Ptr[GLuint]):
+    fn color_p4uiv(self, type: ColorPointerType, color: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.color_p4uiv(type, color)
 
     @always_inline
-    fn delete_samplers(self, count: GLsizei, samplers: Ptr[GLuint]):
+    fn delete_samplers(self, count: GLsizei, samplers: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.delete_samplers(count, samplers)
 
     @always_inline
-    fn gen_samplers(self, count: GLsizei, samplers: Ptr[GLuint]):
+    fn gen_samplers(self, count: GLsizei, samplers: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.gen_samplers(count, samplers)
 
     @always_inline
-    fn get_frag_data_index(self, program: GLuint, name: Ptr[GLchar]) -> GLint:
+    fn get_frag_data_index(self, program: GLuint, name: Ptr[GLchar, mut=True]) -> GLint:
         return self.gl_version_3_3.get_frag_data_index(program, name)
 
     @always_inline
-    fn get_query_objecti64v(self, id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint64]):
+    fn get_query_objecti64v(self, id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint64, mut=True]):
         return self.gl_version_3_3.get_query_objecti64v(id, pname, params)
 
     @always_inline
-    fn get_query_objectui64v(self, id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint64]):
+    fn get_query_objectui64v(self, id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint64, mut=True]):
         return self.gl_version_3_3.get_query_objectui64v(id, pname, params)
 
     @always_inline
-    fn get_sampler_parameter_iiv(self, sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint]):
+    fn get_sampler_parameter_iiv(self, sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint, mut=True]):
         return self.gl_version_3_3.get_sampler_parameter_iiv(sampler, pname, params)
 
     @always_inline
-    fn get_sampler_parameter_iuiv(self, sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLuint]):
+    fn get_sampler_parameter_iuiv(self, sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.get_sampler_parameter_iuiv(sampler, pname, params)
 
     @always_inline
-    fn get_sampler_parameterfv(self, sampler: GLuint, pname: SamplerParameterF, params: Ptr[GLfloat]):
+    fn get_sampler_parameterfv(self, sampler: GLuint, pname: SamplerParameterF, params: Ptr[GLfloat, mut=True]):
         return self.gl_version_3_3.get_sampler_parameterfv(sampler, pname, params)
 
     @always_inline
-    fn get_sampler_parameteriv(self, sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint]):
+    fn get_sampler_parameteriv(self, sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint, mut=True]):
         return self.gl_version_3_3.get_sampler_parameteriv(sampler, pname, params)
 
     @always_inline
@@ -7891,7 +7891,7 @@ struct GL:
         return self.gl_version_3_3.multi_tex_coord_p1ui(texture, type, coords)
 
     @always_inline
-    fn multi_tex_coord_p1uiv(self, texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint]):
+    fn multi_tex_coord_p1uiv(self, texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.multi_tex_coord_p1uiv(texture, type, coords)
 
     @always_inline
@@ -7899,7 +7899,7 @@ struct GL:
         return self.gl_version_3_3.multi_tex_coord_p2ui(texture, type, coords)
 
     @always_inline
-    fn multi_tex_coord_p2uiv(self, texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint]):
+    fn multi_tex_coord_p2uiv(self, texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.multi_tex_coord_p2uiv(texture, type, coords)
 
     @always_inline
@@ -7907,7 +7907,7 @@ struct GL:
         return self.gl_version_3_3.multi_tex_coord_p3ui(texture, type, coords)
 
     @always_inline
-    fn multi_tex_coord_p3uiv(self, texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint]):
+    fn multi_tex_coord_p3uiv(self, texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.multi_tex_coord_p3uiv(texture, type, coords)
 
     @always_inline
@@ -7915,7 +7915,7 @@ struct GL:
         return self.gl_version_3_3.multi_tex_coord_p4ui(texture, type, coords)
 
     @always_inline
-    fn multi_tex_coord_p4uiv(self, texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint]):
+    fn multi_tex_coord_p4uiv(self, texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.multi_tex_coord_p4uiv(texture, type, coords)
 
     @always_inline
@@ -7923,7 +7923,7 @@ struct GL:
         return self.gl_version_3_3.normal_p3ui(type, coords)
 
     @always_inline
-    fn normal_p3uiv(self, type: NormalPointerType, coords: Ptr[GLuint]):
+    fn normal_p3uiv(self, type: NormalPointerType, coords: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.normal_p3uiv(type, coords)
 
     @always_inline
@@ -7931,11 +7931,11 @@ struct GL:
         return self.gl_version_3_3.query_counter(id, target)
 
     @always_inline
-    fn sampler_parameter_iiv(self, sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint]):
+    fn sampler_parameter_iiv(self, sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint, mut=True]):
         return self.gl_version_3_3.sampler_parameter_iiv(sampler, pname, param)
 
     @always_inline
-    fn sampler_parameter_iuiv(self, sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLuint]):
+    fn sampler_parameter_iuiv(self, sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.sampler_parameter_iuiv(sampler, pname, param)
 
     @always_inline
@@ -7943,7 +7943,7 @@ struct GL:
         return self.gl_version_3_3.sampler_parameterf(sampler, pname, param)
 
     @always_inline
-    fn sampler_parameterfv(self, sampler: GLuint, pname: SamplerParameterF, param: Ptr[GLfloat]):
+    fn sampler_parameterfv(self, sampler: GLuint, pname: SamplerParameterF, param: Ptr[GLfloat, mut=True]):
         return self.gl_version_3_3.sampler_parameterfv(sampler, pname, param)
 
     @always_inline
@@ -7951,7 +7951,7 @@ struct GL:
         return self.gl_version_3_3.sampler_parameteri(sampler, pname, param)
 
     @always_inline
-    fn sampler_parameteriv(self, sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint]):
+    fn sampler_parameteriv(self, sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint, mut=True]):
         return self.gl_version_3_3.sampler_parameteriv(sampler, pname, param)
 
     @always_inline
@@ -7959,7 +7959,7 @@ struct GL:
         return self.gl_version_3_3.secondary_color_p3ui(type, color)
 
     @always_inline
-    fn secondary_color_p3uiv(self, type: ColorPointerType, color: Ptr[GLuint]):
+    fn secondary_color_p3uiv(self, type: ColorPointerType, color: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.secondary_color_p3uiv(type, color)
 
     @always_inline
@@ -7967,7 +7967,7 @@ struct GL:
         return self.gl_version_3_3.tex_coord_p1ui(type, coords)
 
     @always_inline
-    fn tex_coord_p1uiv(self, type: TexCoordPointerType, coords: Ptr[GLuint]):
+    fn tex_coord_p1uiv(self, type: TexCoordPointerType, coords: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.tex_coord_p1uiv(type, coords)
 
     @always_inline
@@ -7975,7 +7975,7 @@ struct GL:
         return self.gl_version_3_3.tex_coord_p2ui(type, coords)
 
     @always_inline
-    fn tex_coord_p2uiv(self, type: TexCoordPointerType, coords: Ptr[GLuint]):
+    fn tex_coord_p2uiv(self, type: TexCoordPointerType, coords: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.tex_coord_p2uiv(type, coords)
 
     @always_inline
@@ -7983,7 +7983,7 @@ struct GL:
         return self.gl_version_3_3.tex_coord_p3ui(type, coords)
 
     @always_inline
-    fn tex_coord_p3uiv(self, type: TexCoordPointerType, coords: Ptr[GLuint]):
+    fn tex_coord_p3uiv(self, type: TexCoordPointerType, coords: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.tex_coord_p3uiv(type, coords)
 
     @always_inline
@@ -7991,7 +7991,7 @@ struct GL:
         return self.gl_version_3_3.tex_coord_p4ui(type, coords)
 
     @always_inline
-    fn tex_coord_p4uiv(self, type: TexCoordPointerType, coords: Ptr[GLuint]):
+    fn tex_coord_p4uiv(self, type: TexCoordPointerType, coords: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.tex_coord_p4uiv(type, coords)
 
     @always_inline
@@ -8003,7 +8003,7 @@ struct GL:
         return self.gl_version_3_3.vertex_attrib_p1ui(index, type, normalized, value)
 
     @always_inline
-    fn vertex_attrib_p1uiv(self, index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint]):
+    fn vertex_attrib_p1uiv(self, index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.vertex_attrib_p1uiv(index, type, normalized, value)
 
     @always_inline
@@ -8011,7 +8011,7 @@ struct GL:
         return self.gl_version_3_3.vertex_attrib_p2ui(index, type, normalized, value)
 
     @always_inline
-    fn vertex_attrib_p2uiv(self, index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint]):
+    fn vertex_attrib_p2uiv(self, index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.vertex_attrib_p2uiv(index, type, normalized, value)
 
     @always_inline
@@ -8019,7 +8019,7 @@ struct GL:
         return self.gl_version_3_3.vertex_attrib_p3ui(index, type, normalized, value)
 
     @always_inline
-    fn vertex_attrib_p3uiv(self, index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint]):
+    fn vertex_attrib_p3uiv(self, index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.vertex_attrib_p3uiv(index, type, normalized, value)
 
     @always_inline
@@ -8027,7 +8027,7 @@ struct GL:
         return self.gl_version_3_3.vertex_attrib_p4ui(index, type, normalized, value)
 
     @always_inline
-    fn vertex_attrib_p4uiv(self, index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint]):
+    fn vertex_attrib_p4uiv(self, index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.vertex_attrib_p4uiv(index, type, normalized, value)
 
     @always_inline
@@ -8035,7 +8035,7 @@ struct GL:
         return self.gl_version_3_3.vertex_p2ui(type, value)
 
     @always_inline
-    fn vertex_p2uiv(self, type: VertexPointerType, value: Ptr[GLuint]):
+    fn vertex_p2uiv(self, type: VertexPointerType, value: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.vertex_p2uiv(type, value)
 
     @always_inline
@@ -8043,7 +8043,7 @@ struct GL:
         return self.gl_version_3_3.vertex_p3ui(type, value)
 
     @always_inline
-    fn vertex_p3uiv(self, type: VertexPointerType, value: Ptr[GLuint]):
+    fn vertex_p3uiv(self, type: VertexPointerType, value: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.vertex_p3uiv(type, value)
 
     @always_inline
@@ -8051,7 +8051,7 @@ struct GL:
         return self.gl_version_3_3.vertex_p4ui(type, value)
 
     @always_inline
-    fn vertex_p4uiv(self, type: VertexPointerType, value: Ptr[GLuint]):
+    fn vertex_p4uiv(self, type: VertexPointerType, value: Ptr[GLuint, mut=True]):
         return self.gl_version_3_3.vertex_p4uiv(type, value)
 
     @always_inline
@@ -8079,15 +8079,15 @@ struct GL:
         return self.gl_version_4_0.blend_funci(buf, src, dst)
 
     @always_inline
-    fn delete_transform_feedbacks(self, n: GLsizei, ids: Ptr[GLuint]):
+    fn delete_transform_feedbacks(self, n: GLsizei, ids: Ptr[GLuint, mut=True]):
         return self.gl_version_4_0.delete_transform_feedbacks(n, ids)
 
     @always_inline
-    fn draw_arrays_indirect(self, mode: PrimitiveType, indirect: Ptr[NoneType]):
+    fn draw_arrays_indirect(self, mode: PrimitiveType, indirect: Ptr[NoneType, mut=True]):
         return self.gl_version_4_0.draw_arrays_indirect(mode, indirect)
 
     @always_inline
-    fn draw_elements_indirect(self, mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType]):
+    fn draw_elements_indirect(self, mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=True]):
         return self.gl_version_4_0.draw_elements_indirect(mode, type, indirect)
 
     @always_inline
@@ -8103,43 +8103,43 @@ struct GL:
         return self.gl_version_4_0.end_query_indexed(target, index)
 
     @always_inline
-    fn gen_transform_feedbacks(self, n: GLsizei, ids: Ptr[GLuint]):
+    fn gen_transform_feedbacks(self, n: GLsizei, ids: Ptr[GLuint, mut=True]):
         return self.gl_version_4_0.gen_transform_feedbacks(n, ids)
 
     @always_inline
-    fn get_active_subroutine_name(self, program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], name: Ptr[GLchar]):
+    fn get_active_subroutine_name(self, program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], name: Ptr[GLchar, mut=True]):
         return self.gl_version_4_0.get_active_subroutine_name(program, shadertype, index, buf_size, length, name)
 
     @always_inline
-    fn get_active_subroutine_uniform_name(self, program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], name: Ptr[GLchar]):
+    fn get_active_subroutine_uniform_name(self, program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], name: Ptr[GLchar, mut=True]):
         return self.gl_version_4_0.get_active_subroutine_uniform_name(program, shadertype, index, buf_size, length, name)
 
     @always_inline
-    fn get_active_subroutine_uniformiv(self, program: GLuint, shadertype: ShaderType, index: GLuint, pname: SubroutineParameterName, values: Ptr[GLint]):
+    fn get_active_subroutine_uniformiv(self, program: GLuint, shadertype: ShaderType, index: GLuint, pname: SubroutineParameterName, values: Ptr[GLint, mut=True]):
         return self.gl_version_4_0.get_active_subroutine_uniformiv(program, shadertype, index, pname, values)
 
     @always_inline
-    fn get_program_stageiv(self, program: GLuint, shadertype: ShaderType, pname: ProgramStagePName, values: Ptr[GLint]):
+    fn get_program_stageiv(self, program: GLuint, shadertype: ShaderType, pname: ProgramStagePName, values: Ptr[GLint, mut=True]):
         return self.gl_version_4_0.get_program_stageiv(program, shadertype, pname, values)
 
     @always_inline
-    fn get_query_indexediv(self, target: QueryTarget, index: GLuint, pname: QueryParameterName, params: Ptr[GLint]):
+    fn get_query_indexediv(self, target: QueryTarget, index: GLuint, pname: QueryParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_0.get_query_indexediv(target, index, pname, params)
 
     @always_inline
-    fn get_subroutine_index(self, program: GLuint, shadertype: ShaderType, name: Ptr[GLchar]) -> GLuint:
+    fn get_subroutine_index(self, program: GLuint, shadertype: ShaderType, name: Ptr[GLchar, mut=True]) -> GLuint:
         return self.gl_version_4_0.get_subroutine_index(program, shadertype, name)
 
     @always_inline
-    fn get_subroutine_uniform_location(self, program: GLuint, shadertype: ShaderType, name: Ptr[GLchar]) -> GLint:
+    fn get_subroutine_uniform_location(self, program: GLuint, shadertype: ShaderType, name: Ptr[GLchar, mut=True]) -> GLint:
         return self.gl_version_4_0.get_subroutine_uniform_location(program, shadertype, name)
 
     @always_inline
-    fn get_uniform_subroutineuiv(self, shadertype: ShaderType, location: GLint, params: Ptr[GLuint]):
+    fn get_uniform_subroutineuiv(self, shadertype: ShaderType, location: GLint, params: Ptr[GLuint, mut=True]):
         return self.gl_version_4_0.get_uniform_subroutineuiv(shadertype, location, params)
 
     @always_inline
-    fn get_uniformdv(self, program: GLuint, location: GLint, params: Ptr[GLdouble]):
+    fn get_uniformdv(self, program: GLuint, location: GLint, params: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.get_uniformdv(program, location, params)
 
     @always_inline
@@ -8151,7 +8151,7 @@ struct GL:
         return self.gl_version_4_0.min_sample_shading(value)
 
     @always_inline
-    fn patch_parameterfv(self, pname: PatchParameterName, values: Ptr[GLfloat]):
+    fn patch_parameterfv(self, pname: PatchParameterName, values: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_0.patch_parameterfv(pname, values)
 
     @always_inline
@@ -8171,7 +8171,7 @@ struct GL:
         return self.gl_version_4_0.uniform1d(location, x)
 
     @always_inline
-    fn uniform1dv(self, location: GLint, count: GLsizei, value: Ptr[GLdouble]):
+    fn uniform1dv(self, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform1dv(location, count, value)
 
     @always_inline
@@ -8179,7 +8179,7 @@ struct GL:
         return self.gl_version_4_0.uniform2d(location, x, y)
 
     @always_inline
-    fn uniform2dv(self, location: GLint, count: GLsizei, value: Ptr[GLdouble]):
+    fn uniform2dv(self, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform2dv(location, count, value)
 
     @always_inline
@@ -8187,7 +8187,7 @@ struct GL:
         return self.gl_version_4_0.uniform3d(location, x, y, z)
 
     @always_inline
-    fn uniform3dv(self, location: GLint, count: GLsizei, value: Ptr[GLdouble]):
+    fn uniform3dv(self, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform3dv(location, count, value)
 
     @always_inline
@@ -8195,47 +8195,47 @@ struct GL:
         return self.gl_version_4_0.uniform4d(location, x, y, z, w)
 
     @always_inline
-    fn uniform4dv(self, location: GLint, count: GLsizei, value: Ptr[GLdouble]):
+    fn uniform4dv(self, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform4dv(location, count, value)
 
     @always_inline
-    fn uniform_matrix2dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn uniform_matrix2dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform_matrix2dv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix2x3dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn uniform_matrix2x3dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform_matrix2x3dv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix2x4dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn uniform_matrix2x4dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform_matrix2x4dv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix3dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn uniform_matrix3dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform_matrix3dv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix3x2dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn uniform_matrix3x2dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform_matrix3x2dv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix3x4dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn uniform_matrix3x4dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform_matrix3x4dv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix4dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn uniform_matrix4dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform_matrix4dv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix4x2dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn uniform_matrix4x2dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform_matrix4x2dv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_matrix4x3dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn uniform_matrix4x3dv(self, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_0.uniform_matrix4x3dv(location, count, transpose, value)
 
     @always_inline
-    fn uniform_subroutinesuiv(self, shadertype: ShaderType, count: GLsizei, indices: Ptr[GLuint]):
+    fn uniform_subroutinesuiv(self, shadertype: ShaderType, count: GLsizei, indices: Ptr[GLuint, mut=True]):
         return self.gl_version_4_0.uniform_subroutinesuiv(shadertype, count, indices)
 
     @always_inline
@@ -8251,15 +8251,15 @@ struct GL:
         return self.gl_version_4_1.clear_depthf(d)
 
     @always_inline
-    fn create_shader_programv(self, type: ShaderType, count: GLsizei, strings: Ptr[GLchar]) -> GLuint:
+    fn create_shader_programv(self, type: ShaderType, count: GLsizei, strings: Ptr[Ptr[GLchar, mut=True], mut=False]) -> GLuint:
         return self.gl_version_4_1.create_shader_programv(type, count, strings)
 
     @always_inline
-    fn delete_program_pipelines(self, n: GLsizei, pipelines: Ptr[GLuint]):
+    fn delete_program_pipelines(self, n: GLsizei, pipelines: Ptr[GLuint, mut=True]):
         return self.gl_version_4_1.delete_program_pipelines(n, pipelines)
 
     @always_inline
-    fn depth_range_arrayv(self, first: GLuint, count: GLsizei, v: Ptr[GLdouble]):
+    fn depth_range_arrayv(self, first: GLuint, count: GLsizei, v: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.depth_range_arrayv(first, count, v)
 
     @always_inline
@@ -8271,35 +8271,35 @@ struct GL:
         return self.gl_version_4_1.depth_rangef(n, f)
 
     @always_inline
-    fn gen_program_pipelines(self, n: GLsizei, pipelines: Ptr[GLuint]):
+    fn gen_program_pipelines(self, n: GLsizei, pipelines: Ptr[GLuint, mut=True]):
         return self.gl_version_4_1.gen_program_pipelines(n, pipelines)
 
     @always_inline
-    fn get_doublei_v(self, target: GetPName, index: GLuint, data: Ptr[GLdouble]):
+    fn get_doublei_v(self, target: GetPName, index: GLuint, data: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.get_doublei_v(target, index, data)
 
     @always_inline
-    fn get_floati_v(self, target: GetPName, index: GLuint, data: Ptr[GLfloat]):
+    fn get_floati_v(self, target: GetPName, index: GLuint, data: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.get_floati_v(target, index, data)
 
     @always_inline
-    fn get_program_binary(self, program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], binary_format: Ptr[GLenum], binary: Ptr[NoneType]):
+    fn get_program_binary(self, program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], binary_format: Ptr[GLenum, mut=True], binary: Ptr[NoneType, mut=True]):
         return self.gl_version_4_1.get_program_binary(program, buf_size, length, binary_format, binary)
 
     @always_inline
-    fn get_program_pipeline_info_log(self, pipeline: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], info_log: Ptr[GLchar]):
+    fn get_program_pipeline_info_log(self, pipeline: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], info_log: Ptr[GLchar, mut=True]):
         return self.gl_version_4_1.get_program_pipeline_info_log(pipeline, buf_size, length, info_log)
 
     @always_inline
-    fn get_program_pipelineiv(self, pipeline: GLuint, pname: PipelineParameterName, params: Ptr[GLint]):
+    fn get_program_pipelineiv(self, pipeline: GLuint, pname: PipelineParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_1.get_program_pipelineiv(pipeline, pname, params)
 
     @always_inline
-    fn get_shader_precision_format(self, shadertype: ShaderType, precisiontype: PrecisionType, range: Ptr[GLint], precision: Ptr[GLint]):
+    fn get_shader_precision_format(self, shadertype: ShaderType, precisiontype: PrecisionType, range: Ptr[GLint, mut=True], precision: Ptr[GLint, mut=True]):
         return self.gl_version_4_1.get_shader_precision_format(shadertype, precisiontype, range, precision)
 
     @always_inline
-    fn get_vertex_attrib_ldv(self, index: GLuint, pname: VertexAttribEnum, params: Ptr[GLdouble]):
+    fn get_vertex_attrib_ldv(self, index: GLuint, pname: VertexAttribEnum, params: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.get_vertex_attrib_ldv(index, pname, params)
 
     @always_inline
@@ -8307,7 +8307,7 @@ struct GL:
         return self.gl_version_4_1.is_program_pipeline(pipeline)
 
     @always_inline
-    fn program_binary(self, program: GLuint, binary_format: GLenum, binary: Ptr[NoneType], length: GLsizei):
+    fn program_binary(self, program: GLuint, binary_format: GLenum, binary: Ptr[NoneType, mut=True], length: GLsizei):
         return self.gl_version_4_1.program_binary(program, binary_format, binary, length)
 
     @always_inline
@@ -8319,7 +8319,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform1d(program, location, v0)
 
     @always_inline
-    fn program_uniform1dv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble]):
+    fn program_uniform1dv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform1dv(program, location, count, value)
 
     @always_inline
@@ -8327,7 +8327,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform1f(program, location, v0)
 
     @always_inline
-    fn program_uniform1fv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat]):
+    fn program_uniform1fv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform1fv(program, location, count, value)
 
     @always_inline
@@ -8335,7 +8335,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform1i(program, location, v0)
 
     @always_inline
-    fn program_uniform1iv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint]):
+    fn program_uniform1iv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=True]):
         return self.gl_version_4_1.program_uniform1iv(program, location, count, value)
 
     @always_inline
@@ -8343,7 +8343,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform1ui(program, location, v0)
 
     @always_inline
-    fn program_uniform1uiv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint]):
+    fn program_uniform1uiv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True]):
         return self.gl_version_4_1.program_uniform1uiv(program, location, count, value)
 
     @always_inline
@@ -8351,7 +8351,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform2d(program, location, v0, v1)
 
     @always_inline
-    fn program_uniform2dv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble]):
+    fn program_uniform2dv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform2dv(program, location, count, value)
 
     @always_inline
@@ -8359,7 +8359,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform2f(program, location, v0, v1)
 
     @always_inline
-    fn program_uniform2fv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat]):
+    fn program_uniform2fv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform2fv(program, location, count, value)
 
     @always_inline
@@ -8367,7 +8367,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform2i(program, location, v0, v1)
 
     @always_inline
-    fn program_uniform2iv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint]):
+    fn program_uniform2iv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=True]):
         return self.gl_version_4_1.program_uniform2iv(program, location, count, value)
 
     @always_inline
@@ -8375,7 +8375,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform2ui(program, location, v0, v1)
 
     @always_inline
-    fn program_uniform2uiv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint]):
+    fn program_uniform2uiv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True]):
         return self.gl_version_4_1.program_uniform2uiv(program, location, count, value)
 
     @always_inline
@@ -8383,7 +8383,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform3d(program, location, v0, v1, v2)
 
     @always_inline
-    fn program_uniform3dv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble]):
+    fn program_uniform3dv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform3dv(program, location, count, value)
 
     @always_inline
@@ -8391,7 +8391,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform3f(program, location, v0, v1, v2)
 
     @always_inline
-    fn program_uniform3fv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat]):
+    fn program_uniform3fv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform3fv(program, location, count, value)
 
     @always_inline
@@ -8399,7 +8399,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform3i(program, location, v0, v1, v2)
 
     @always_inline
-    fn program_uniform3iv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint]):
+    fn program_uniform3iv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=True]):
         return self.gl_version_4_1.program_uniform3iv(program, location, count, value)
 
     @always_inline
@@ -8407,7 +8407,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform3ui(program, location, v0, v1, v2)
 
     @always_inline
-    fn program_uniform3uiv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint]):
+    fn program_uniform3uiv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True]):
         return self.gl_version_4_1.program_uniform3uiv(program, location, count, value)
 
     @always_inline
@@ -8415,7 +8415,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform4d(program, location, v0, v1, v2, v3)
 
     @always_inline
-    fn program_uniform4dv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble]):
+    fn program_uniform4dv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform4dv(program, location, count, value)
 
     @always_inline
@@ -8423,7 +8423,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform4f(program, location, v0, v1, v2, v3)
 
     @always_inline
-    fn program_uniform4fv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat]):
+    fn program_uniform4fv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform4fv(program, location, count, value)
 
     @always_inline
@@ -8431,7 +8431,7 @@ struct GL:
         return self.gl_version_4_1.program_uniform4i(program, location, v0, v1, v2, v3)
 
     @always_inline
-    fn program_uniform4iv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint]):
+    fn program_uniform4iv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=True]):
         return self.gl_version_4_1.program_uniform4iv(program, location, count, value)
 
     @always_inline
@@ -8439,79 +8439,79 @@ struct GL:
         return self.gl_version_4_1.program_uniform4ui(program, location, v0, v1, v2, v3)
 
     @always_inline
-    fn program_uniform4uiv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint]):
+    fn program_uniform4uiv(self, program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=True]):
         return self.gl_version_4_1.program_uniform4uiv(program, location, count, value)
 
     @always_inline
-    fn program_uniform_matrix2dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn program_uniform_matrix2dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix2dv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix2fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn program_uniform_matrix2fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix2fv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix2x3dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn program_uniform_matrix2x3dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix2x3dv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix2x3fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn program_uniform_matrix2x3fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix2x3fv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix2x4dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn program_uniform_matrix2x4dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix2x4dv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix2x4fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn program_uniform_matrix2x4fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix2x4fv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix3dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn program_uniform_matrix3dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix3dv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix3fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn program_uniform_matrix3fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix3fv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix3x2dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn program_uniform_matrix3x2dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix3x2dv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix3x2fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn program_uniform_matrix3x2fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix3x2fv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix3x4dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn program_uniform_matrix3x4dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix3x4dv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix3x4fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn program_uniform_matrix3x4fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix3x4fv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix4dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn program_uniform_matrix4dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix4dv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix4fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn program_uniform_matrix4fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix4fv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix4x2dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn program_uniform_matrix4x2dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix4x2dv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix4x2fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn program_uniform_matrix4x2fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix4x2fv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix4x3dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble]):
+    fn program_uniform_matrix4x3dv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix4x3dv(program, location, count, transpose, value)
 
     @always_inline
-    fn program_uniform_matrix4x3fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat]):
+    fn program_uniform_matrix4x3fv(self, program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.program_uniform_matrix4x3fv(program, location, count, transpose, value)
 
     @always_inline
@@ -8519,7 +8519,7 @@ struct GL:
         return self.gl_version_4_1.release_shader_compiler()
 
     @always_inline
-    fn scissor_arrayv(self, first: GLuint, count: GLsizei, v: Ptr[GLint]):
+    fn scissor_arrayv(self, first: GLuint, count: GLsizei, v: Ptr[GLint, mut=True]):
         return self.gl_version_4_1.scissor_arrayv(first, count, v)
 
     @always_inline
@@ -8527,11 +8527,11 @@ struct GL:
         return self.gl_version_4_1.scissor_indexed(index, left, bottom, width, height)
 
     @always_inline
-    fn scissor_indexedv(self, index: GLuint, v: Ptr[GLint]):
+    fn scissor_indexedv(self, index: GLuint, v: Ptr[GLint, mut=True]):
         return self.gl_version_4_1.scissor_indexedv(index, v)
 
     @always_inline
-    fn shader_binary(self, count: GLsizei, shaders: Ptr[GLuint], binary_format: ShaderBinaryFormat, binary: Ptr[NoneType], length: GLsizei):
+    fn shader_binary(self, count: GLsizei, shaders: Ptr[GLuint, mut=True], binary_format: ShaderBinaryFormat, binary: Ptr[NoneType, mut=True], length: GLsizei):
         return self.gl_version_4_1.shader_binary(count, shaders, binary_format, binary, length)
 
     @always_inline
@@ -8547,7 +8547,7 @@ struct GL:
         return self.gl_version_4_1.vertex_attrib_l1d(index, x)
 
     @always_inline
-    fn vertex_attrib_l1dv(self, index: GLuint, v: Ptr[GLdouble]):
+    fn vertex_attrib_l1dv(self, index: GLuint, v: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.vertex_attrib_l1dv(index, v)
 
     @always_inline
@@ -8555,7 +8555,7 @@ struct GL:
         return self.gl_version_4_1.vertex_attrib_l2d(index, x, y)
 
     @always_inline
-    fn vertex_attrib_l2dv(self, index: GLuint, v: Ptr[GLdouble]):
+    fn vertex_attrib_l2dv(self, index: GLuint, v: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.vertex_attrib_l2dv(index, v)
 
     @always_inline
@@ -8563,7 +8563,7 @@ struct GL:
         return self.gl_version_4_1.vertex_attrib_l3d(index, x, y, z)
 
     @always_inline
-    fn vertex_attrib_l3dv(self, index: GLuint, v: Ptr[GLdouble]):
+    fn vertex_attrib_l3dv(self, index: GLuint, v: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.vertex_attrib_l3dv(index, v)
 
     @always_inline
@@ -8571,15 +8571,15 @@ struct GL:
         return self.gl_version_4_1.vertex_attrib_l4d(index, x, y, z, w)
 
     @always_inline
-    fn vertex_attrib_l4dv(self, index: GLuint, v: Ptr[GLdouble]):
+    fn vertex_attrib_l4dv(self, index: GLuint, v: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_1.vertex_attrib_l4dv(index, v)
 
     @always_inline
-    fn vertex_attrib_l_pointer(self, index: GLuint, size: GLint, type: VertexAttribLType, stride: GLsizei, pointer: Ptr[NoneType]):
+    fn vertex_attrib_l_pointer(self, index: GLuint, size: GLint, type: VertexAttribLType, stride: GLsizei, pointer: Ptr[NoneType, mut=True]):
         return self.gl_version_4_1.vertex_attrib_l_pointer(index, size, type, stride, pointer)
 
     @always_inline
-    fn viewport_arrayv(self, first: GLuint, count: GLsizei, v: Ptr[GLfloat]):
+    fn viewport_arrayv(self, first: GLuint, count: GLsizei, v: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.viewport_arrayv(first, count, v)
 
     @always_inline
@@ -8587,7 +8587,7 @@ struct GL:
         return self.gl_version_4_1.viewport_indexedf(index, x, y, w, h)
 
     @always_inline
-    fn viewport_indexedfv(self, index: GLuint, v: Ptr[GLfloat]):
+    fn viewport_indexedfv(self, index: GLuint, v: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_1.viewport_indexedfv(index, v)
 
     @always_inline
@@ -8599,11 +8599,11 @@ struct GL:
         return self.gl_version_4_2.draw_arrays_instanced_base_instance(mode, first, count, instancecount, baseinstance)
 
     @always_inline
-    fn draw_elements_instanced_base_instance(self, mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType], instancecount: GLsizei, baseinstance: GLuint):
+    fn draw_elements_instanced_base_instance(self, mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True], instancecount: GLsizei, baseinstance: GLuint):
         return self.gl_version_4_2.draw_elements_instanced_base_instance(mode, count, type, indices, instancecount, baseinstance)
 
     @always_inline
-    fn draw_elements_instanced_base_vertex_base_instance(self, mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType], instancecount: GLsizei, basevertex: GLint, baseinstance: GLuint):
+    fn draw_elements_instanced_base_vertex_base_instance(self, mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=True], instancecount: GLsizei, basevertex: GLint, baseinstance: GLuint):
         return self.gl_version_4_2.draw_elements_instanced_base_vertex_base_instance(mode, count, type, indices, instancecount, basevertex, baseinstance)
 
     @always_inline
@@ -8615,11 +8615,11 @@ struct GL:
         return self.gl_version_4_2.draw_transform_feedback_stream_instanced(mode, id, stream, instancecount)
 
     @always_inline
-    fn get_active_atomic_counter_bufferiv(self, program: GLuint, buffer_index: GLuint, pname: AtomicCounterBufferPName, params: Ptr[GLint]):
+    fn get_active_atomic_counter_bufferiv(self, program: GLuint, buffer_index: GLuint, pname: AtomicCounterBufferPName, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_2.get_active_atomic_counter_bufferiv(program, buffer_index, pname, params)
 
     @always_inline
-    fn get_internalformativ(self, target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint]):
+    fn get_internalformativ(self, target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_2.get_internalformativ(target, internalformat, pname, count, params)
 
     @always_inline
@@ -8643,11 +8643,11 @@ struct GL:
         return self.gl_version_4_3.bind_vertex_buffer(bindingindex, buffer, offset, stride)
 
     @always_inline
-    fn clear_buffer_data(self, target: BufferStorageTarget, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType]):
+    fn clear_buffer_data(self, target: BufferStorageTarget, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=True]):
         return self.gl_version_4_3.clear_buffer_data(target, internalformat, format, type, data)
 
     @always_inline
-    fn clear_buffer_sub_data(self, target: BufferTargetARB, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType]):
+    fn clear_buffer_sub_data(self, target: BufferTargetARB, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=True]):
         return self.gl_version_4_3.clear_buffer_sub_data(target, internalformat, offset, size, format, type, data)
 
     @always_inline
@@ -8655,15 +8655,15 @@ struct GL:
         return self.gl_version_4_3.copy_image_sub_data(src_name, src_target, src_level, src_x, src_y, src_z, dst_name, dst_target, dst_level, dst_x, dst_y, dst_z, src_width, src_height, src_depth)
 
     @always_inline
-    fn debug_message_callback(self, callback: GLDEBUGPROC, user_param: Ptr[NoneType]):
+    fn debug_message_callback(self, callback: GLDEBUGPROC, user_param: Ptr[NoneType, mut=True]):
         return self.gl_version_4_3.debug_message_callback(callback, user_param)
 
     @always_inline
-    fn debug_message_control(self, source: DebugSource, type: DebugType, severity: DebugSeverity, count: GLsizei, ids: Ptr[GLuint], enabled: GLboolean):
+    fn debug_message_control(self, source: DebugSource, type: DebugType, severity: DebugSeverity, count: GLsizei, ids: Ptr[GLuint, mut=True], enabled: GLboolean):
         return self.gl_version_4_3.debug_message_control(source, type, severity, count, ids, enabled)
 
     @always_inline
-    fn debug_message_insert(self, source: DebugSource, type: DebugType, id: GLuint, severity: DebugSeverity, length: GLsizei, buf: Ptr[GLchar]):
+    fn debug_message_insert(self, source: DebugSource, type: DebugType, id: GLuint, severity: DebugSeverity, length: GLsizei, buf: Ptr[GLchar, mut=True]):
         return self.gl_version_4_3.debug_message_insert(source, type, id, severity, length, buf)
 
     @always_inline
@@ -8679,47 +8679,47 @@ struct GL:
         return self.gl_version_4_3.framebuffer_parameteri(target, pname, param)
 
     @always_inline
-    fn get_debug_message_log(self, count: GLuint, buf_size: GLsizei, sources: DebugSource, types: DebugType, ids: Ptr[GLuint], severities: DebugSeverity, lengths: Ptr[GLsizei], message_log: Ptr[GLchar]) -> GLuint:
+    fn get_debug_message_log(self, count: GLuint, buf_size: GLsizei, sources: DebugSource, types: DebugType, ids: Ptr[GLuint, mut=True], severities: DebugSeverity, lengths: Ptr[GLsizei, mut=True], message_log: Ptr[GLchar, mut=True]) -> GLuint:
         return self.gl_version_4_3.get_debug_message_log(count, buf_size, sources, types, ids, severities, lengths, message_log)
 
     @always_inline
-    fn get_framebuffer_parameteriv(self, target: FramebufferTarget, pname: FramebufferAttachmentParameterName, params: Ptr[GLint]):
+    fn get_framebuffer_parameteriv(self, target: FramebufferTarget, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_3.get_framebuffer_parameteriv(target, pname, params)
 
     @always_inline
-    fn get_internalformati64v(self, target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint64]):
+    fn get_internalformati64v(self, target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint64, mut=True]):
         return self.gl_version_4_3.get_internalformati64v(target, internalformat, pname, count, params)
 
     @always_inline
-    fn get_object_label(self, identifier: ObjectIdentifier, name: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], label: Ptr[GLchar]):
+    fn get_object_label(self, identifier: ObjectIdentifier, name: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], label: Ptr[GLchar, mut=True]):
         return self.gl_version_4_3.get_object_label(identifier, name, buf_size, length, label)
 
     @always_inline
-    fn get_object_ptr_label(self, ptr: Ptr[NoneType], buf_size: GLsizei, length: Ptr[GLsizei], label: Ptr[GLchar]):
+    fn get_object_ptr_label(self, ptr: Ptr[NoneType, mut=True], buf_size: GLsizei, length: Ptr[GLsizei, mut=True], label: Ptr[GLchar, mut=True]):
         return self.gl_version_4_3.get_object_ptr_label(ptr, buf_size, length, label)
 
     @always_inline
-    fn get_program_interfaceiv(self, program: GLuint, program_interface: ProgramInterface, pname: ProgramInterfacePName, params: Ptr[GLint]):
+    fn get_program_interfaceiv(self, program: GLuint, program_interface: ProgramInterface, pname: ProgramInterfacePName, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_3.get_program_interfaceiv(program, program_interface, pname, params)
 
     @always_inline
-    fn get_program_resource_index(self, program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar]) -> GLuint:
+    fn get_program_resource_index(self, program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar, mut=True]) -> GLuint:
         return self.gl_version_4_3.get_program_resource_index(program, program_interface, name)
 
     @always_inline
-    fn get_program_resource_location(self, program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar]) -> GLint:
+    fn get_program_resource_location(self, program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar, mut=True]) -> GLint:
         return self.gl_version_4_3.get_program_resource_location(program, program_interface, name)
 
     @always_inline
-    fn get_program_resource_location_index(self, program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar]) -> GLint:
+    fn get_program_resource_location_index(self, program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar, mut=True]) -> GLint:
         return self.gl_version_4_3.get_program_resource_location_index(program, program_interface, name)
 
     @always_inline
-    fn get_program_resource_name(self, program: GLuint, program_interface: ProgramInterface, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei], name: Ptr[GLchar]):
+    fn get_program_resource_name(self, program: GLuint, program_interface: ProgramInterface, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], name: Ptr[GLchar, mut=True]):
         return self.gl_version_4_3.get_program_resource_name(program, program_interface, index, buf_size, length, name)
 
     @always_inline
-    fn get_program_resourceiv(self, program: GLuint, program_interface: ProgramInterface, index: GLuint, prop_count: GLsizei, props: ProgramResourceProperty, count: GLsizei, length: Ptr[GLsizei], params: Ptr[GLint]):
+    fn get_program_resourceiv(self, program: GLuint, program_interface: ProgramInterface, index: GLuint, prop_count: GLsizei, props: ProgramResourceProperty, count: GLsizei, length: Ptr[GLsizei, mut=True], params: Ptr[GLint, mut=True]):
         return self.gl_version_4_3.get_program_resourceiv(program, program_interface, index, prop_count, props, count, length, params)
 
     @always_inline
@@ -8747,19 +8747,19 @@ struct GL:
         return self.gl_version_4_3.invalidate_tex_sub_image(texture, level, xoffset, yoffset, zoffset, width, height, depth)
 
     @always_inline
-    fn multi_draw_arrays_indirect(self, mode: PrimitiveType, indirect: Ptr[NoneType], drawcount: GLsizei, stride: GLsizei):
+    fn multi_draw_arrays_indirect(self, mode: PrimitiveType, indirect: Ptr[NoneType, mut=True], drawcount: GLsizei, stride: GLsizei):
         return self.gl_version_4_3.multi_draw_arrays_indirect(mode, indirect, drawcount, stride)
 
     @always_inline
-    fn multi_draw_elements_indirect(self, mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType], drawcount: GLsizei, stride: GLsizei):
+    fn multi_draw_elements_indirect(self, mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=True], drawcount: GLsizei, stride: GLsizei):
         return self.gl_version_4_3.multi_draw_elements_indirect(mode, type, indirect, drawcount, stride)
 
     @always_inline
-    fn object_label(self, identifier: ObjectIdentifier, name: GLuint, length: GLsizei, label: Ptr[GLchar]):
+    fn object_label(self, identifier: ObjectIdentifier, name: GLuint, length: GLsizei, label: Ptr[GLchar, mut=True]):
         return self.gl_version_4_3.object_label(identifier, name, length, label)
 
     @always_inline
-    fn object_ptr_label(self, ptr: Ptr[NoneType], length: GLsizei, label: Ptr[GLchar]):
+    fn object_ptr_label(self, ptr: Ptr[NoneType, mut=True], length: GLsizei, label: Ptr[GLchar, mut=True]):
         return self.gl_version_4_3.object_ptr_label(ptr, length, label)
 
     @always_inline
@@ -8767,7 +8767,7 @@ struct GL:
         return self.gl_version_4_3.pop_debug_group()
 
     @always_inline
-    fn push_debug_group(self, source: DebugSource, id: GLuint, length: GLsizei, message: Ptr[GLchar]):
+    fn push_debug_group(self, source: DebugSource, id: GLuint, length: GLsizei, message: Ptr[GLchar, mut=True]):
         return self.gl_version_4_3.push_debug_group(source, id, length, message)
 
     @always_inline
@@ -8811,39 +8811,39 @@ struct GL:
         return self.gl_version_4_3.vertex_binding_divisor(bindingindex, divisor)
 
     @always_inline
-    fn bind_buffers_base(self, target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint]):
+    fn bind_buffers_base(self, target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=True]):
         return self.gl_version_4_4.bind_buffers_base(target, first, count, buffers)
 
     @always_inline
-    fn bind_buffers_range(self, target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint], offsets: Ptr[GLintptr], sizes: Ptr[GLsizeiptr]):
+    fn bind_buffers_range(self, target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=True], offsets: Ptr[GLintptr, mut=True], sizes: Ptr[GLsizeiptr, mut=True]):
         return self.gl_version_4_4.bind_buffers_range(target, first, count, buffers, offsets, sizes)
 
     @always_inline
-    fn bind_image_textures(self, first: GLuint, count: GLsizei, textures: Ptr[GLuint]):
+    fn bind_image_textures(self, first: GLuint, count: GLsizei, textures: Ptr[GLuint, mut=True]):
         return self.gl_version_4_4.bind_image_textures(first, count, textures)
 
     @always_inline
-    fn bind_samplers(self, first: GLuint, count: GLsizei, samplers: Ptr[GLuint]):
+    fn bind_samplers(self, first: GLuint, count: GLsizei, samplers: Ptr[GLuint, mut=True]):
         return self.gl_version_4_4.bind_samplers(first, count, samplers)
 
     @always_inline
-    fn bind_textures(self, first: GLuint, count: GLsizei, textures: Ptr[GLuint]):
+    fn bind_textures(self, first: GLuint, count: GLsizei, textures: Ptr[GLuint, mut=True]):
         return self.gl_version_4_4.bind_textures(first, count, textures)
 
     @always_inline
-    fn bind_vertex_buffers(self, first: GLuint, count: GLsizei, buffers: Ptr[GLuint], offsets: Ptr[GLintptr], strides: Ptr[GLsizei]):
+    fn bind_vertex_buffers(self, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=True], offsets: Ptr[GLintptr, mut=True], strides: Ptr[GLsizei, mut=True]):
         return self.gl_version_4_4.bind_vertex_buffers(first, count, buffers, offsets, strides)
 
     @always_inline
-    fn buffer_storage(self, target: BufferStorageTarget, size: GLsizeiptr, data: Ptr[NoneType], flags: BufferStorageMask):
+    fn buffer_storage(self, target: BufferStorageTarget, size: GLsizeiptr, data: Ptr[NoneType, mut=True], flags: BufferStorageMask):
         return self.gl_version_4_4.buffer_storage(target, size, data, flags)
 
     @always_inline
-    fn clear_tex_image(self, texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, data: Ptr[NoneType]):
+    fn clear_tex_image(self, texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=True]):
         return self.gl_version_4_4.clear_tex_image(texture, level, format, type, data)
 
     @always_inline
-    fn clear_tex_sub_image(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, data: Ptr[NoneType]):
+    fn clear_tex_sub_image(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=True]):
         return self.gl_version_4_4.clear_tex_sub_image(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, data)
 
     @always_inline
@@ -8859,11 +8859,11 @@ struct GL:
         return self.gl_version_4_5.check_named_framebuffer_status(framebuffer, target)
 
     @always_inline
-    fn clear_named_buffer_data(self, buffer: GLuint, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType]):
+    fn clear_named_buffer_data(self, buffer: GLuint, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.clear_named_buffer_data(buffer, internalformat, format, type, data)
 
     @always_inline
-    fn clear_named_buffer_sub_data(self, buffer: GLuint, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType]):
+    fn clear_named_buffer_sub_data(self, buffer: GLuint, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.clear_named_buffer_sub_data(buffer, internalformat, offset, size, format, type, data)
 
     @always_inline
@@ -8871,15 +8871,15 @@ struct GL:
         return self.gl_version_4_5.clear_named_framebufferfi(framebuffer, buffer, drawbuffer, depth, stencil)
 
     @always_inline
-    fn clear_named_framebufferfv(self, framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat]):
+    fn clear_named_framebufferfv(self, framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_5.clear_named_framebufferfv(framebuffer, buffer, drawbuffer, value)
 
     @always_inline
-    fn clear_named_framebufferiv(self, framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint]):
+    fn clear_named_framebufferiv(self, framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.clear_named_framebufferiv(framebuffer, buffer, drawbuffer, value)
 
     @always_inline
-    fn clear_named_framebufferuiv(self, framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint]):
+    fn clear_named_framebufferuiv(self, framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.clear_named_framebufferuiv(framebuffer, buffer, drawbuffer, value)
 
     @always_inline
@@ -8887,15 +8887,15 @@ struct GL:
         return self.gl_version_4_5.clip_control(origin, depth)
 
     @always_inline
-    fn compressed_texture_sub_image1_d(self, texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType]):
+    fn compressed_texture_sub_image1_d(self, texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.compressed_texture_sub_image1_d(texture, level, xoffset, width, format, image_size, data)
 
     @always_inline
-    fn compressed_texture_sub_image2_d(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType]):
+    fn compressed_texture_sub_image2_d(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.compressed_texture_sub_image2_d(texture, level, xoffset, yoffset, width, height, format, image_size, data)
 
     @always_inline
-    fn compressed_texture_sub_image3_d(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType]):
+    fn compressed_texture_sub_image3_d(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.compressed_texture_sub_image3_d(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, image_size, data)
 
     @always_inline
@@ -8915,39 +8915,39 @@ struct GL:
         return self.gl_version_4_5.copy_texture_sub_image3_d(texture, level, xoffset, yoffset, zoffset, x, y, width, height)
 
     @always_inline
-    fn create_buffers(self, n: GLsizei, buffers: Ptr[GLuint]):
+    fn create_buffers(self, n: GLsizei, buffers: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.create_buffers(n, buffers)
 
     @always_inline
-    fn create_framebuffers(self, n: GLsizei, framebuffers: Ptr[GLuint]):
+    fn create_framebuffers(self, n: GLsizei, framebuffers: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.create_framebuffers(n, framebuffers)
 
     @always_inline
-    fn create_program_pipelines(self, n: GLsizei, pipelines: Ptr[GLuint]):
+    fn create_program_pipelines(self, n: GLsizei, pipelines: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.create_program_pipelines(n, pipelines)
 
     @always_inline
-    fn create_queries(self, target: QueryTarget, n: GLsizei, ids: Ptr[GLuint]):
+    fn create_queries(self, target: QueryTarget, n: GLsizei, ids: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.create_queries(target, n, ids)
 
     @always_inline
-    fn create_renderbuffers(self, n: GLsizei, renderbuffers: Ptr[GLuint]):
+    fn create_renderbuffers(self, n: GLsizei, renderbuffers: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.create_renderbuffers(n, renderbuffers)
 
     @always_inline
-    fn create_samplers(self, n: GLsizei, samplers: Ptr[GLuint]):
+    fn create_samplers(self, n: GLsizei, samplers: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.create_samplers(n, samplers)
 
     @always_inline
-    fn create_textures(self, target: TextureTarget, n: GLsizei, textures: Ptr[GLuint]):
+    fn create_textures(self, target: TextureTarget, n: GLsizei, textures: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.create_textures(target, n, textures)
 
     @always_inline
-    fn create_transform_feedbacks(self, n: GLsizei, ids: Ptr[GLuint]):
+    fn create_transform_feedbacks(self, n: GLsizei, ids: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.create_transform_feedbacks(n, ids)
 
     @always_inline
-    fn create_vertex_arrays(self, n: GLsizei, arrays: Ptr[GLuint]):
+    fn create_vertex_arrays(self, n: GLsizei, arrays: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.create_vertex_arrays(n, arrays)
 
     @always_inline
@@ -8967,11 +8967,11 @@ struct GL:
         return self.gl_version_4_5.generate_texture_mipmap(texture)
 
     @always_inline
-    fn get_compressed_texture_image(self, texture: GLuint, level: GLint, buf_size: GLsizei, pixels: Ptr[NoneType]):
+    fn get_compressed_texture_image(self, texture: GLuint, level: GLint, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.get_compressed_texture_image(texture, level, buf_size, pixels)
 
     @always_inline
-    fn get_compressed_texture_sub_image(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, buf_size: GLsizei, pixels: Ptr[NoneType]):
+    fn get_compressed_texture_sub_image(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.get_compressed_texture_sub_image(texture, level, xoffset, yoffset, zoffset, width, height, depth, buf_size, pixels)
 
     @always_inline
@@ -8979,31 +8979,31 @@ struct GL:
         return self.gl_version_4_5.get_graphics_reset_status()
 
     @always_inline
-    fn get_named_buffer_parameteri64v(self, buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint64]):
+    fn get_named_buffer_parameteri64v(self, buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint64, mut=True]):
         return self.gl_version_4_5.get_named_buffer_parameteri64v(buffer, pname, params)
 
     @always_inline
-    fn get_named_buffer_parameteriv(self, buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint]):
+    fn get_named_buffer_parameteriv(self, buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.get_named_buffer_parameteriv(buffer, pname, params)
 
     @always_inline
-    fn get_named_buffer_pointerv(self, buffer: GLuint, pname: BufferPointerNameARB, params: Ptr[NoneType]):
+    fn get_named_buffer_pointerv(self, buffer: GLuint, pname: BufferPointerNameARB, params: Ptr[Ptr[NoneType, mut=True], mut=True]):
         return self.gl_version_4_5.get_named_buffer_pointerv(buffer, pname, params)
 
     @always_inline
-    fn get_named_buffer_sub_data(self, buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType]):
+    fn get_named_buffer_sub_data(self, buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.get_named_buffer_sub_data(buffer, offset, size, data)
 
     @always_inline
-    fn get_named_framebuffer_attachment_parameteriv(self, framebuffer: GLuint, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint]):
+    fn get_named_framebuffer_attachment_parameteriv(self, framebuffer: GLuint, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.get_named_framebuffer_attachment_parameteriv(framebuffer, attachment, pname, params)
 
     @always_inline
-    fn get_named_framebuffer_parameteriv(self, framebuffer: GLuint, pname: GetFramebufferParameter, param: Ptr[GLint]):
+    fn get_named_framebuffer_parameteriv(self, framebuffer: GLuint, pname: GetFramebufferParameter, param: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.get_named_framebuffer_parameteriv(framebuffer, pname, param)
 
     @always_inline
-    fn get_named_renderbuffer_parameteriv(self, renderbuffer: GLuint, pname: RenderbufferParameterName, params: Ptr[GLint]):
+    fn get_named_renderbuffer_parameteriv(self, renderbuffer: GLuint, pname: RenderbufferParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.get_named_renderbuffer_parameteriv(renderbuffer, pname, params)
 
     @always_inline
@@ -9023,131 +9023,131 @@ struct GL:
         return self.gl_version_4_5.get_query_buffer_objectuiv(id, buffer, pname, offset)
 
     @always_inline
-    fn get_texture_image(self, texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType]):
+    fn get_texture_image(self, texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.get_texture_image(texture, level, format, type, buf_size, pixels)
 
     @always_inline
-    fn get_texture_level_parameterfv(self, texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat]):
+    fn get_texture_level_parameterfv(self, texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_5.get_texture_level_parameterfv(texture, level, pname, params)
 
     @always_inline
-    fn get_texture_level_parameteriv(self, texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLint]):
+    fn get_texture_level_parameteriv(self, texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.get_texture_level_parameteriv(texture, level, pname, params)
 
     @always_inline
-    fn get_texture_parameter_iiv(self, texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint]):
+    fn get_texture_parameter_iiv(self, texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.get_texture_parameter_iiv(texture, pname, params)
 
     @always_inline
-    fn get_texture_parameter_iuiv(self, texture: GLuint, pname: GetTextureParameter, params: Ptr[GLuint]):
+    fn get_texture_parameter_iuiv(self, texture: GLuint, pname: GetTextureParameter, params: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.get_texture_parameter_iuiv(texture, pname, params)
 
     @always_inline
-    fn get_texture_parameterfv(self, texture: GLuint, pname: GetTextureParameter, params: Ptr[GLfloat]):
+    fn get_texture_parameterfv(self, texture: GLuint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_5.get_texture_parameterfv(texture, pname, params)
 
     @always_inline
-    fn get_texture_parameteriv(self, texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint]):
+    fn get_texture_parameteriv(self, texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.get_texture_parameteriv(texture, pname, params)
 
     @always_inline
-    fn get_texture_sub_image(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType]):
+    fn get_texture_sub_image(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.get_texture_sub_image(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, buf_size, pixels)
 
     @always_inline
-    fn get_transform_feedbacki64_v(self, xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint64]):
+    fn get_transform_feedbacki64_v(self, xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint64, mut=True]):
         return self.gl_version_4_5.get_transform_feedbacki64_v(xfb, pname, index, param)
 
     @always_inline
-    fn get_transform_feedbacki_v(self, xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint]):
+    fn get_transform_feedbacki_v(self, xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.get_transform_feedbacki_v(xfb, pname, index, param)
 
     @always_inline
-    fn get_transform_feedbackiv(self, xfb: GLuint, pname: TransformFeedbackPName, param: Ptr[GLint]):
+    fn get_transform_feedbackiv(self, xfb: GLuint, pname: TransformFeedbackPName, param: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.get_transform_feedbackiv(xfb, pname, param)
 
     @always_inline
-    fn get_vertex_array_indexed64iv(self, vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint64]):
+    fn get_vertex_array_indexed64iv(self, vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint64, mut=True]):
         return self.gl_version_4_5.get_vertex_array_indexed64iv(vaobj, index, pname, param)
 
     @always_inline
-    fn get_vertex_array_indexediv(self, vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint]):
+    fn get_vertex_array_indexediv(self, vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.get_vertex_array_indexediv(vaobj, index, pname, param)
 
     @always_inline
-    fn get_vertex_arrayiv(self, vaobj: GLuint, pname: VertexArrayPName, param: Ptr[GLint]):
+    fn get_vertex_arrayiv(self, vaobj: GLuint, pname: VertexArrayPName, param: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.get_vertex_arrayiv(vaobj, pname, param)
 
     @always_inline
-    fn getn_color_table(self, target: ColorTableTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, table: Ptr[NoneType]):
+    fn getn_color_table(self, target: ColorTableTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, table: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.getn_color_table(target, format, type, buf_size, table)
 
     @always_inline
-    fn getn_compressed_tex_image(self, target: TextureTarget, lod: GLint, buf_size: GLsizei, pixels: Ptr[NoneType]):
+    fn getn_compressed_tex_image(self, target: TextureTarget, lod: GLint, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.getn_compressed_tex_image(target, lod, buf_size, pixels)
 
     @always_inline
-    fn getn_convolution_filter(self, target: ConvolutionTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, image: Ptr[NoneType]):
+    fn getn_convolution_filter(self, target: ConvolutionTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, image: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.getn_convolution_filter(target, format, type, buf_size, image)
 
     @always_inline
-    fn getn_histogram(self, target: HistogramTarget, reset: GLboolean, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType]):
+    fn getn_histogram(self, target: HistogramTarget, reset: GLboolean, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.getn_histogram(target, reset, format, type, buf_size, values)
 
     @always_inline
-    fn getn_mapdv(self, target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLdouble]):
+    fn getn_mapdv(self, target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_5.getn_mapdv(target, query, buf_size, v)
 
     @always_inline
-    fn getn_mapfv(self, target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLfloat]):
+    fn getn_mapfv(self, target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_5.getn_mapfv(target, query, buf_size, v)
 
     @always_inline
-    fn getn_mapiv(self, target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLint]):
+    fn getn_mapiv(self, target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.getn_mapiv(target, query, buf_size, v)
 
     @always_inline
-    fn getn_minmax(self, target: MinmaxTarget, reset: GLboolean, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType]):
+    fn getn_minmax(self, target: MinmaxTarget, reset: GLboolean, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.getn_minmax(target, reset, format, type, buf_size, values)
 
     @always_inline
-    fn getn_pixel_mapfv(self, map: PixelMap, buf_size: GLsizei, values: Ptr[GLfloat]):
+    fn getn_pixel_mapfv(self, map: PixelMap, buf_size: GLsizei, values: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_5.getn_pixel_mapfv(map, buf_size, values)
 
     @always_inline
-    fn getn_pixel_mapuiv(self, map: PixelMap, buf_size: GLsizei, values: Ptr[GLuint]):
+    fn getn_pixel_mapuiv(self, map: PixelMap, buf_size: GLsizei, values: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.getn_pixel_mapuiv(map, buf_size, values)
 
     @always_inline
-    fn getn_pixel_mapusv(self, map: PixelMap, buf_size: GLsizei, values: Ptr[GLushort]):
+    fn getn_pixel_mapusv(self, map: PixelMap, buf_size: GLsizei, values: Ptr[GLushort, mut=True]):
         return self.gl_version_4_5.getn_pixel_mapusv(map, buf_size, values)
 
     @always_inline
-    fn getn_polygon_stipple(self, buf_size: GLsizei, pattern: Ptr[GLubyte]):
+    fn getn_polygon_stipple(self, buf_size: GLsizei, pattern: Ptr[GLubyte, mut=True]):
         return self.gl_version_4_5.getn_polygon_stipple(buf_size, pattern)
 
     @always_inline
-    fn getn_separable_filter(self, target: SeparableTarget, format: PixelFormat, type: PixelType, row_buf_size: GLsizei, row: Ptr[NoneType], column_buf_size: GLsizei, column: Ptr[NoneType], span: Ptr[NoneType]):
+    fn getn_separable_filter(self, target: SeparableTarget, format: PixelFormat, type: PixelType, row_buf_size: GLsizei, row: Ptr[NoneType, mut=True], column_buf_size: GLsizei, column: Ptr[NoneType, mut=True], span: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.getn_separable_filter(target, format, type, row_buf_size, row, column_buf_size, column, span)
 
     @always_inline
-    fn getn_tex_image(self, target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType]):
+    fn getn_tex_image(self, target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.getn_tex_image(target, level, format, type, buf_size, pixels)
 
     @always_inline
-    fn getn_uniformdv(self, program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLdouble]):
+    fn getn_uniformdv(self, program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLdouble, mut=True]):
         return self.gl_version_4_5.getn_uniformdv(program, location, buf_size, params)
 
     @always_inline
-    fn getn_uniformfv(self, program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLfloat]):
+    fn getn_uniformfv(self, program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_5.getn_uniformfv(program, location, buf_size, params)
 
     @always_inline
-    fn getn_uniformiv(self, program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLint]):
+    fn getn_uniformiv(self, program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.getn_uniformiv(program, location, buf_size, params)
 
     @always_inline
-    fn getn_uniformuiv(self, program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLuint]):
+    fn getn_uniformuiv(self, program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.getn_uniformuiv(program, location, buf_size, params)
 
     @always_inline
@@ -9171,15 +9171,15 @@ struct GL:
         return self.gl_version_4_5.memory_barrier_by_region(barriers)
 
     @always_inline
-    fn named_buffer_data(self, buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType], usage: VertexBufferObjectUsage):
+    fn named_buffer_data(self, buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType, mut=True], usage: VertexBufferObjectUsage):
         return self.gl_version_4_5.named_buffer_data(buffer, size, data, usage)
 
     @always_inline
-    fn named_buffer_storage(self, buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType], flags: BufferStorageMask):
+    fn named_buffer_storage(self, buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType, mut=True], flags: BufferStorageMask):
         return self.gl_version_4_5.named_buffer_storage(buffer, size, data, flags)
 
     @always_inline
-    fn named_buffer_sub_data(self, buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType]):
+    fn named_buffer_sub_data(self, buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.named_buffer_sub_data(buffer, offset, size, data)
 
     @always_inline
@@ -9219,7 +9219,7 @@ struct GL:
         return self.gl_version_4_5.named_renderbuffer_storage_multisample(renderbuffer, samples, internalformat, width, height)
 
     @always_inline
-    fn readn_pixels(self, x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, data: Ptr[NoneType]):
+    fn readn_pixels(self, x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, data: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.readn_pixels(x, y, width, height, format, type, buf_size, data)
 
     @always_inline
@@ -9235,11 +9235,11 @@ struct GL:
         return self.gl_version_4_5.texture_buffer_range(texture, internalformat, buffer, offset, size)
 
     @always_inline
-    fn texture_parameter_iiv(self, texture: GLuint, pname: TextureParameterName, params: Ptr[GLint]):
+    fn texture_parameter_iiv(self, texture: GLuint, pname: TextureParameterName, params: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.texture_parameter_iiv(texture, pname, params)
 
     @always_inline
-    fn texture_parameter_iuiv(self, texture: GLuint, pname: TextureParameterName, params: Ptr[GLuint]):
+    fn texture_parameter_iuiv(self, texture: GLuint, pname: TextureParameterName, params: Ptr[GLuint, mut=True]):
         return self.gl_version_4_5.texture_parameter_iuiv(texture, pname, params)
 
     @always_inline
@@ -9247,7 +9247,7 @@ struct GL:
         return self.gl_version_4_5.texture_parameterf(texture, pname, param)
 
     @always_inline
-    fn texture_parameterfv(self, texture: GLuint, pname: TextureParameterName, param: Ptr[GLfloat]):
+    fn texture_parameterfv(self, texture: GLuint, pname: TextureParameterName, param: Ptr[GLfloat, mut=True]):
         return self.gl_version_4_5.texture_parameterfv(texture, pname, param)
 
     @always_inline
@@ -9255,7 +9255,7 @@ struct GL:
         return self.gl_version_4_5.texture_parameteri(texture, pname, param)
 
     @always_inline
-    fn texture_parameteriv(self, texture: GLuint, pname: TextureParameterName, param: Ptr[GLint]):
+    fn texture_parameteriv(self, texture: GLuint, pname: TextureParameterName, param: Ptr[GLint, mut=True]):
         return self.gl_version_4_5.texture_parameteriv(texture, pname, param)
 
     @always_inline
@@ -9279,15 +9279,15 @@ struct GL:
         return self.gl_version_4_5.texture_storage3_d_multisample(texture, samples, internalformat, width, height, depth, fixedsamplelocations)
 
     @always_inline
-    fn texture_sub_image1_d(self, texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType]):
+    fn texture_sub_image1_d(self, texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.texture_sub_image1_d(texture, level, xoffset, width, format, type, pixels)
 
     @always_inline
-    fn texture_sub_image2_d(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType]):
+    fn texture_sub_image2_d(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.texture_sub_image2_d(texture, level, xoffset, yoffset, width, height, format, type, pixels)
 
     @always_inline
-    fn texture_sub_image3_d(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType]):
+    fn texture_sub_image3_d(self, texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
         return self.gl_version_4_5.texture_sub_image3_d(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 
     @always_inline
@@ -9331,15 +9331,15 @@ struct GL:
         return self.gl_version_4_5.vertex_array_vertex_buffer(vaobj, bindingindex, buffer, offset, stride)
 
     @always_inline
-    fn vertex_array_vertex_buffers(self, vaobj: GLuint, first: GLuint, count: GLsizei, buffers: Ptr[GLuint], offsets: Ptr[GLintptr], strides: Ptr[GLsizei]):
+    fn vertex_array_vertex_buffers(self, vaobj: GLuint, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=True], offsets: Ptr[GLintptr, mut=True], strides: Ptr[GLsizei, mut=True]):
         return self.gl_version_4_5.vertex_array_vertex_buffers(vaobj, first, count, buffers, offsets, strides)
 
     @always_inline
-    fn multi_draw_arrays_indirect_count(self, mode: PrimitiveType, indirect: Ptr[NoneType], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei):
+    fn multi_draw_arrays_indirect_count(self, mode: PrimitiveType, indirect: Ptr[NoneType, mut=True], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei):
         return self.gl_version_4_6.multi_draw_arrays_indirect_count(mode, indirect, drawcount, maxdrawcount, stride)
 
     @always_inline
-    fn multi_draw_elements_indirect_count(self, mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei):
+    fn multi_draw_elements_indirect_count(self, mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=True], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei):
         return self.gl_version_4_6.multi_draw_elements_indirect_count(mode, type, indirect, drawcount, maxdrawcount, stride)
 
     @always_inline
@@ -9347,5 +9347,5 @@ struct GL:
         return self.gl_version_4_6.polygon_offset_clamp(factor, units, clamp)
 
     @always_inline
-    fn specialize_shader(self, shader: GLuint, p_entry_point: Ptr[GLchar], num_specialization_constants: GLuint, p_constant_index: Ptr[GLuint], p_constant_value: Ptr[GLuint]):
+    fn specialize_shader(self, shader: GLuint, p_entry_point: Ptr[GLchar, mut=True], num_specialization_constants: GLuint, p_constant_index: Ptr[GLuint, mut=True], p_constant_value: Ptr[GLuint, mut=True]):
         return self.gl_version_4_6.specialize_shader(shader, p_entry_point, num_specialization_constants, p_constant_index, p_constant_value)

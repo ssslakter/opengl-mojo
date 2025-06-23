@@ -172,44 +172,35 @@ class CommandParam(CommandEl):
     """Parameter of OpenGL command"""
 
     name: str
-    mut: bool
     ptrs: int
     kind: str
-    vecs: Optional[str] = None
 
     @classmethod
     def from_xml(cls, param_elem: ET.Element) -> "CommandParam":
-        # FIXME: I think const pointers must be handled differently
-        match_variable = re.compile(
-            r"^(?P<mut>const )?(?P<type>\w+)\s*(?P<ptrs>(?:\*const|\*)*)\s*(?P<name>\w+?)(?:\[(?P<vecs>.*?)\])?$"
-        )
-        param_name_elem = param_elem.find("name")
-        param_name = param_name_elem.text if param_name_elem is not None else "NONAME"
+        match_variable = re.compile(r"^\s*(?P<type>(?:const\s+)?(?:_cl_event|\w+))\s*(?P<raw_ptrs>.*?)\s*(?P<name>\w+)\s*;?\s*$")
         match = match_variable.match(
             ET.tostring(param_elem, method="text", encoding="unicode")
             .replace("struct", "")
             .strip()
         )
+        param_name = match.group("name")
         if param_name in ["ref", "in"]:
             param_name += "_"
-        vecs_group = match.group("vecs")
-        group, type = param_elem.attrib.get("group"), match.group("type")
-        kind = param_elem.attrib.get("kind")
         return cls(
             name=param_name,
-            type=type,
-            mut=match.group("mut") is not None,
-            ptrs=match.group("ptrs").count("*"),
-            vecs=vecs_group if vecs_group else None,
-            group=group,
-            kind=kind,
-        )
+            type=match.group("type").replace("const ", ""),
+            ptrs=match.group("raw_ptrs"),
+            group=param_elem.attrib.get("group"),
+            kind=param_elem.attrib.get("kind"))
 
     def __str__(self):
         """Converts command parameter to Mojo function argument"""
         type = type_map.get(self.type, self.type)
-        if self.ptrs > 0:
-            type = f"Ptr[{type}]"
+        if self.ptrs:
+            ptr_tokens = re.findall(r'\*\s*(const)?', self.ptrs)
+            for const_modifier in reversed(ptr_tokens):
+                is_mutable = not bool(const_modifier)
+                type = f'Ptr[{type}, mut = {is_mutable}]'
         return f"{to_snake_case(self.name)}: {self.group or type}"
 
 
