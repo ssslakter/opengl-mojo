@@ -19,7 +19,7 @@ def main():
     
     sdl.gl_make_current(window, context)
 
-    gl = GL(sdl.gl_get_proc_address)
+    init_opengl(sdl.gl_get_proc_address)
     
     gl.viewport(0, 0, 1024, 768)
     
@@ -31,7 +31,7 @@ def main():
                 running = False
                 break
         
-        gl.clearColor(0.1, 0.2, 0.5, .5)
+        gl.clear_color(0.1, 0.2, 0.5, .5)
         gl.clear(ClearBufferMask.COLOR_BUFFER_BIT)
         sdl.gl_swap_window(window)
     
