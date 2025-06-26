@@ -47,6 +47,21 @@ alias GLDEBUGPROC = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLen
 
 @fieldwise_init
 @register_passable("trivial")
+struct AlphaFunction:
+    var value: GLenum
+
+    alias NEVER = AlphaFunction(0x0200)
+    alias LESS = AlphaFunction(0x0201)
+    alias EQUAL = AlphaFunction(0x0202)
+    alias LEQUAL = AlphaFunction(0x0203)
+    alias GREATER = AlphaFunction(0x0204)
+    alias NOTEQUAL = AlphaFunction(0x0205)
+    alias GEQUAL = AlphaFunction(0x0206)
+    alias ALWAYS = AlphaFunction(0x0207)
+
+
+@fieldwise_init
+@register_passable("trivial")
 struct AtomicCounterBufferPName:
     var value: GLenum
 
@@ -60,6 +75,38 @@ struct AtomicCounterBufferPName:
     alias ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TESS_EVALUATION_SHADER = AtomicCounterBufferPName(0x92C9)
     alias ATOMIC_COUNTER_BUFFER_REFERENCED_BY_GEOMETRY_SHADER = AtomicCounterBufferPName(0x92CA)
     alias ATOMIC_COUNTER_BUFFER_REFERENCED_BY_FRAGMENT_SHADER = AtomicCounterBufferPName(0x92CB)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct AttribMask:
+    var value: GLenum
+
+    alias CURRENT_BIT = AttribMask(0x00000001)
+    alias POINT_BIT = AttribMask(0x00000002)
+    alias LINE_BIT = AttribMask(0x00000004)
+    alias POLYGON_BIT = AttribMask(0x00000008)
+    alias POLYGON_STIPPLE_BIT = AttribMask(0x00000010)
+    alias PIXEL_MODE_BIT = AttribMask(0x00000020)
+    alias LIGHTING_BIT = AttribMask(0x00000040)
+    alias FOG_BIT = AttribMask(0x00000080)
+    alias DEPTH_BUFFER_BIT = AttribMask(0x00000100)
+    alias ACCUM_BUFFER_BIT = AttribMask(0x00000200)
+    alias STENCIL_BUFFER_BIT = AttribMask(0x00000400)
+    alias VIEWPORT_BIT = AttribMask(0x00000800)
+    alias TRANSFORM_BIT = AttribMask(0x00001000)
+    alias ENABLE_BIT = AttribMask(0x00002000)
+    alias COLOR_BUFFER_BIT = AttribMask(0x00004000)
+    alias HINT_BIT = AttribMask(0x00008000)
+    alias EVAL_BIT = AttribMask(0x00010000)
+    alias LIST_BIT = AttribMask(0x00020000)
+    alias TEXTURE_BIT = AttribMask(0x00040000)
+    alias SCISSOR_BIT = AttribMask(0x00080000)
+    alias MULTISAMPLE_BIT = AttribMask(0x20000000)
+    alias MULTISAMPLE_BIT_ARB = AttribMask(0x20000000)
+    alias MULTISAMPLE_BIT_EXT = AttribMask(0x20000000)
+    alias MULTISAMPLE_BIT_3DFX = AttribMask(0x20000000)
+    alias ALL_ATTRIB_BITS = AttribMask(0xFFFFFFFF)
 
 
 @fieldwise_init
@@ -564,11 +611,46 @@ struct ConditionalRenderMode:
 
 @fieldwise_init
 @register_passable("trivial")
+struct ContextFlagMask:
+    var value: GLenum
+
+    alias CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT = ContextFlagMask(0x00000001)
+    alias CONTEXT_FLAG_DEBUG_BIT = ContextFlagMask(0x00000002)
+    alias CONTEXT_FLAG_DEBUG_BIT_KHR = ContextFlagMask(0x00000002)
+    alias CONTEXT_FLAG_ROBUST_ACCESS_BIT = ContextFlagMask(0x00000004)
+    alias CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB = ContextFlagMask(0x00000004)
+    alias CONTEXT_FLAG_NO_ERROR_BIT = ContextFlagMask(0x00000008)
+    alias CONTEXT_FLAG_NO_ERROR_BIT_KHR = ContextFlagMask(0x00000008)
+    alias CONTEXT_FLAG_PROTECTED_CONTENT_BIT_EXT = ContextFlagMask(0x00000010)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct ContextProfileMask:
+    var value: GLenum
+
+    alias CONTEXT_CORE_PROFILE_BIT = ContextProfileMask(0x00000001)
+    alias CONTEXT_COMPATIBILITY_PROFILE_BIT = ContextProfileMask(0x00000002)
+
+
+@fieldwise_init
+@register_passable("trivial")
 struct ConvolutionTarget:
     var value: GLenum
 
     alias CONVOLUTION_1D = ConvolutionTarget(0x8010)
     alias CONVOLUTION_2D = ConvolutionTarget(0x8011)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct ConvolutionTargetEXT:
+    var value: GLenum
+
+    alias CONVOLUTION_1D = ConvolutionTargetEXT(0x8010)
+    alias CONVOLUTION_1D_EXT = ConvolutionTargetEXT(0x8010)
+    alias CONVOLUTION_2D = ConvolutionTargetEXT(0x8011)
+    alias CONVOLUTION_2D_EXT = ConvolutionTargetEXT(0x8011)
 
 
 @fieldwise_init
@@ -666,6 +748,15 @@ struct DepthFunction:
     alias NOTEQUAL = DepthFunction(0x0205)
     alias GEQUAL = DepthFunction(0x0206)
     alias ALWAYS = DepthFunction(0x0207)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct DepthStencilTextureMode:
+    var value: GLenum
+
+    alias STENCIL_INDEX = DepthStencilTextureMode(0x1901)
+    alias DEPTH_COMPONENT = DepthStencilTextureMode(0x1902)
 
 
 @fieldwise_init
@@ -917,6 +1008,26 @@ struct ErrorCode:
     alias TABLE_TOO_LARGE_EXT = ErrorCode(0x8031)
     alias TABLE_TOO_LARGE = ErrorCode(0x8031)
     alias TEXTURE_TOO_LARGE_EXT = ErrorCode(0x8065)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct FogCoordinatePointerType:
+    var value: GLenum
+
+    alias FLOAT = FogCoordinatePointerType(0x1406)
+    alias DOUBLE = FogCoordinatePointerType(0x140A)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct FogMode:
+    var value: GLenum
+
+    alias EXP = FogMode(0x0800)
+    alias EXP2 = FogMode(0x0801)
+    alias LINEAR = FogMode(0x2601)
+    alias FOG_FUNC_SGIS = FogMode(0x812A)
 
 
 @fieldwise_init
@@ -2511,6 +2622,17 @@ struct MapTarget:
 
 @fieldwise_init
 @register_passable("trivial")
+struct MatrixMode:
+    var value: GLenum
+
+    alias MODELVIEW = MatrixMode(0x1700)
+    alias MODELVIEW0_EXT = MatrixMode(0x1700)
+    alias PROJECTION = MatrixMode(0x1701)
+    alias TEXTURE = MatrixMode(0x1702)
+
+
+@fieldwise_init
+@register_passable("trivial")
 struct MemoryBarrierMask:
     var value: GLbitfield
 
@@ -2549,6 +2671,25 @@ struct MemoryBarrierMask:
     @always_inline
     fn __or__(lhs, rhs: Self) -> Self:
         return Self(lhs.value | rhs.value)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct MeshMode1:
+    var value: GLenum
+
+    alias POINT = MeshMode1(0x1B00)
+    alias LINE = MeshMode1(0x1B01)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct MeshMode2:
+    var value: GLenum
+
+    alias POINT = MeshMode2(0x1B00)
+    alias LINE = MeshMode2(0x1B01)
+    alias FILL = MeshMode2(0x1B02)
 
 
 @fieldwise_init
@@ -2601,6 +2742,69 @@ struct PatchParameterName:
 
 @fieldwise_init
 @register_passable("trivial")
+struct PathColorFormat:
+    var value: GLenum
+
+    alias NONE = PathColorFormat(0)
+    alias ALPHA = PathColorFormat(0x1906)
+    alias RGB = PathColorFormat(0x1907)
+    alias RGBA = PathColorFormat(0x1908)
+    alias LUMINANCE = PathColorFormat(0x1909)
+    alias LUMINANCE_ALPHA = PathColorFormat(0x190A)
+    alias INTENSITY = PathColorFormat(0x8049)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct PathFillMode:
+    var value: GLenum
+
+    alias INVERT = PathFillMode(0x150A)
+    alias PATH_FILL_MODE_NV = PathFillMode(0x9080)
+    alias COUNT_UP_NV = PathFillMode(0x9088)
+    alias COUNT_DOWN_NV = PathFillMode(0x9089)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct PathFontStyle:
+    var value: GLenum
+
+    alias BOLD_BIT_NV = PathFontStyle(0x01)
+    alias ITALIC_BIT_NV = PathFontStyle(0x02)
+    alias NONE = PathFontStyle(0)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct PathGenMode:
+    var value: GLenum
+
+    alias NONE = PathGenMode(0)
+    alias EYE_LINEAR = PathGenMode(0x2400)
+    alias OBJECT_LINEAR = PathGenMode(0x2401)
+    alias CONSTANT = PathGenMode(0x8576)
+    alias PATH_OBJECT_BOUNDING_BOX_NV = PathGenMode(0x908A)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct PathTransformType:
+    var value: GLenum
+
+    alias NONE = PathTransformType(0)
+    alias TRANSLATE_X_NV = PathTransformType(0x908E)
+    alias TRANSLATE_Y_NV = PathTransformType(0x908F)
+    alias TRANSLATE_2D_NV = PathTransformType(0x9090)
+    alias TRANSLATE_3D_NV = PathTransformType(0x9091)
+    alias AFFINE_2D_NV = PathTransformType(0x9092)
+    alias AFFINE_3D_NV = PathTransformType(0x9094)
+    alias TRANSPOSE_AFFINE_2D_NV = PathTransformType(0x9096)
+    alias TRANSPOSE_AFFINE_3D_NV = PathTransformType(0x9098)
+
+
+@fieldwise_init
+@register_passable("trivial")
 struct PipelineParameterName:
     var value: GLenum
 
@@ -2611,6 +2815,19 @@ struct PipelineParameterName:
     alias GEOMETRY_SHADER = PipelineParameterName(0x8DD9)
     alias TESS_EVALUATION_SHADER = PipelineParameterName(0x8E87)
     alias TESS_CONTROL_SHADER = PipelineParameterName(0x8E88)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct PixelCopyType:
+    var value: GLenum
+
+    alias COLOR = PixelCopyType(0x1800)
+    alias COLOR_EXT = PixelCopyType(0x1800)
+    alias DEPTH = PixelCopyType(0x1801)
+    alias DEPTH_EXT = PixelCopyType(0x1801)
+    alias STENCIL = PixelCopyType(0x1802)
+    alias STENCIL_EXT = PixelCopyType(0x1802)
 
 
 @fieldwise_init
@@ -3544,6 +3761,29 @@ struct SizedInternalFormat:
 
 @fieldwise_init
 @register_passable("trivial")
+struct SpecialNumbers:
+    var value: GLenum
+
+    alias FALSE = SpecialNumbers(0)
+    alias NO_ERROR = SpecialNumbers(0)
+    alias ZERO = SpecialNumbers(0)
+    alias NONE = SpecialNumbers(0)
+    alias NONE_OES = SpecialNumbers(0)
+    alias TRUE = SpecialNumbers(1)
+    alias ONE = SpecialNumbers(1)
+    alias INVALID_INDEX = SpecialNumbers(0xFFFFFFFF)
+    alias ALL_PIXELS_AMD = SpecialNumbers(0xFFFFFFFF)
+    alias TIMEOUT_IGNORED = SpecialNumbers(0xFFFFFFFFFFFFFFFF)
+    alias TIMEOUT_IGNORED_APPLE = SpecialNumbers(0xFFFFFFFFFFFFFFFF)
+    alias VERSION_ES_CL_1_0 = SpecialNumbers(1)
+    alias VERSION_ES_CM_1_1 = SpecialNumbers(1)
+    alias VERSION_ES_CL_1_1 = SpecialNumbers(1)
+    alias UUID_SIZE_EXT = SpecialNumbers(16)
+    alias LUID_SIZE_EXT = SpecialNumbers(8)
+
+
+@fieldwise_init
+@register_passable("trivial")
 struct StencilFunction:
     var value: GLenum
 
@@ -3663,6 +3903,158 @@ struct TexCoordPointerType:
 
 @fieldwise_init
 @register_passable("trivial")
+struct TextureCompareMode:
+    var value: GLenum
+
+    alias NONE = TextureCompareMode(0)
+    alias COMPARE_R_TO_TEXTURE = TextureCompareMode(0x884E)
+    alias COMPARE_REF_TO_TEXTURE = TextureCompareMode(0x884E)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct TextureEnvMode:
+    var value: GLenum
+
+    alias ADD = TextureEnvMode(0x0104)
+    alias BLEND = TextureEnvMode(0x0BE2)
+    alias REPLACE = TextureEnvMode(0x1E01)
+    alias MODULATE = TextureEnvMode(0x2100)
+    alias DECAL = TextureEnvMode(0x2101)
+    alias REPLACE_EXT = TextureEnvMode(0x8062)
+    alias TEXTURE_ENV_BIAS_SGIX = TextureEnvMode(0x80BE)
+    alias COMBINE = TextureEnvMode(0x8570)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct TextureEnvParameter:
+    var value: GLenum
+
+    alias ALPHA_SCALE = TextureEnvParameter(0x0D1C)
+    alias TEXTURE_ENV_MODE = TextureEnvParameter(0x2200)
+    alias TEXTURE_ENV_COLOR = TextureEnvParameter(0x2201)
+    alias TEXTURE_LOD_BIAS = TextureEnvParameter(0x8501)
+    alias COMBINE = TextureEnvParameter(0x8570)
+    alias COMBINE_ARB = TextureEnvParameter(0x8570)
+    alias COMBINE_EXT = TextureEnvParameter(0x8570)
+    alias COMBINE_RGB = TextureEnvParameter(0x8571)
+    alias COMBINE_RGB_ARB = TextureEnvParameter(0x8571)
+    alias COMBINE_RGB_EXT = TextureEnvParameter(0x8571)
+    alias COMBINE_ALPHA = TextureEnvParameter(0x8572)
+    alias COMBINE_ALPHA_ARB = TextureEnvParameter(0x8572)
+    alias COMBINE_ALPHA_EXT = TextureEnvParameter(0x8572)
+    alias RGB_SCALE = TextureEnvParameter(0x8573)
+    alias RGB_SCALE_ARB = TextureEnvParameter(0x8573)
+    alias RGB_SCALE_EXT = TextureEnvParameter(0x8573)
+    alias ADD_SIGNED = TextureEnvParameter(0x8574)
+    alias ADD_SIGNED_ARB = TextureEnvParameter(0x8574)
+    alias ADD_SIGNED_EXT = TextureEnvParameter(0x8574)
+    alias INTERPOLATE = TextureEnvParameter(0x8575)
+    alias INTERPOLATE_ARB = TextureEnvParameter(0x8575)
+    alias INTERPOLATE_EXT = TextureEnvParameter(0x8575)
+    alias CONSTANT = TextureEnvParameter(0x8576)
+    alias CONSTANT_ARB = TextureEnvParameter(0x8576)
+    alias CONSTANT_EXT = TextureEnvParameter(0x8576)
+    alias CONSTANT_NV = TextureEnvParameter(0x8576)
+    alias PRIMARY_COLOR = TextureEnvParameter(0x8577)
+    alias PRIMARY_COLOR_ARB = TextureEnvParameter(0x8577)
+    alias PRIMARY_COLOR_EXT = TextureEnvParameter(0x8577)
+    alias PREVIOUS = TextureEnvParameter(0x8578)
+    alias PREVIOUS_ARB = TextureEnvParameter(0x8578)
+    alias PREVIOUS_EXT = TextureEnvParameter(0x8578)
+    alias SOURCE0_RGB = TextureEnvParameter(0x8580)
+    alias SOURCE0_RGB_ARB = TextureEnvParameter(0x8580)
+    alias SOURCE0_RGB_EXT = TextureEnvParameter(0x8580)
+    alias SRC0_RGB = TextureEnvParameter(0x8580)
+    alias SOURCE1_RGB = TextureEnvParameter(0x8581)
+    alias SOURCE1_RGB_ARB = TextureEnvParameter(0x8581)
+    alias SOURCE1_RGB_EXT = TextureEnvParameter(0x8581)
+    alias SRC1_RGB = TextureEnvParameter(0x8581)
+    alias SOURCE2_RGB = TextureEnvParameter(0x8582)
+    alias SOURCE2_RGB_ARB = TextureEnvParameter(0x8582)
+    alias SOURCE2_RGB_EXT = TextureEnvParameter(0x8582)
+    alias SRC2_RGB = TextureEnvParameter(0x8582)
+    alias SOURCE3_RGB_NV = TextureEnvParameter(0x8583)
+    alias SOURCE0_ALPHA = TextureEnvParameter(0x8588)
+    alias SOURCE0_ALPHA_ARB = TextureEnvParameter(0x8588)
+    alias SOURCE0_ALPHA_EXT = TextureEnvParameter(0x8588)
+    alias SRC0_ALPHA = TextureEnvParameter(0x8588)
+    alias SOURCE1_ALPHA = TextureEnvParameter(0x8589)
+    alias SOURCE1_ALPHA_ARB = TextureEnvParameter(0x8589)
+    alias SOURCE1_ALPHA_EXT = TextureEnvParameter(0x8589)
+    alias SRC1_ALPHA = TextureEnvParameter(0x8589)
+    alias SRC1_ALPHA_EXT = TextureEnvParameter(0x8589)
+    alias SOURCE2_ALPHA = TextureEnvParameter(0x858A)
+    alias SOURCE2_ALPHA_ARB = TextureEnvParameter(0x858A)
+    alias SOURCE2_ALPHA_EXT = TextureEnvParameter(0x858A)
+    alias SRC2_ALPHA = TextureEnvParameter(0x858A)
+    alias SOURCE3_ALPHA_NV = TextureEnvParameter(0x858B)
+    alias OPERAND0_RGB = TextureEnvParameter(0x8590)
+    alias OPERAND0_RGB_ARB = TextureEnvParameter(0x8590)
+    alias OPERAND0_RGB_EXT = TextureEnvParameter(0x8590)
+    alias OPERAND1_RGB = TextureEnvParameter(0x8591)
+    alias OPERAND1_RGB_ARB = TextureEnvParameter(0x8591)
+    alias OPERAND1_RGB_EXT = TextureEnvParameter(0x8591)
+    alias OPERAND2_RGB = TextureEnvParameter(0x8592)
+    alias OPERAND2_RGB_ARB = TextureEnvParameter(0x8592)
+    alias OPERAND2_RGB_EXT = TextureEnvParameter(0x8592)
+    alias OPERAND3_RGB_NV = TextureEnvParameter(0x8593)
+    alias OPERAND0_ALPHA = TextureEnvParameter(0x8598)
+    alias OPERAND0_ALPHA_ARB = TextureEnvParameter(0x8598)
+    alias OPERAND0_ALPHA_EXT = TextureEnvParameter(0x8598)
+    alias OPERAND1_ALPHA = TextureEnvParameter(0x8599)
+    alias OPERAND1_ALPHA_ARB = TextureEnvParameter(0x8599)
+    alias OPERAND1_ALPHA_EXT = TextureEnvParameter(0x8599)
+    alias OPERAND2_ALPHA = TextureEnvParameter(0x859A)
+    alias OPERAND2_ALPHA_ARB = TextureEnvParameter(0x859A)
+    alias OPERAND2_ALPHA_EXT = TextureEnvParameter(0x859A)
+    alias OPERAND3_ALPHA_NV = TextureEnvParameter(0x859B)
+    alias COORD_REPLACE = TextureEnvParameter(0x8862)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct TextureMagFilter:
+    var value: GLenum
+
+    alias NEAREST = TextureMagFilter(0x2600)
+    alias LINEAR = TextureMagFilter(0x2601)
+    alias LINEAR_DETAIL_SGIS = TextureMagFilter(0x8097)
+    alias LINEAR_DETAIL_ALPHA_SGIS = TextureMagFilter(0x8098)
+    alias LINEAR_DETAIL_COLOR_SGIS = TextureMagFilter(0x8099)
+    alias LINEAR_SHARPEN_SGIS = TextureMagFilter(0x80AD)
+    alias LINEAR_SHARPEN_ALPHA_SGIS = TextureMagFilter(0x80AE)
+    alias LINEAR_SHARPEN_COLOR_SGIS = TextureMagFilter(0x80AF)
+    alias FILTER4_SGIS = TextureMagFilter(0x8146)
+    alias PIXEL_TEX_GEN_Q_CEILING_SGIX = TextureMagFilter(0x8184)
+    alias PIXEL_TEX_GEN_Q_ROUND_SGIX = TextureMagFilter(0x8185)
+    alias PIXEL_TEX_GEN_Q_FLOOR_SGIX = TextureMagFilter(0x8186)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct TextureMinFilter:
+    var value: GLenum
+
+    alias NEAREST = TextureMinFilter(0x2600)
+    alias LINEAR = TextureMinFilter(0x2601)
+    alias NEAREST_MIPMAP_NEAREST = TextureMinFilter(0x2700)
+    alias LINEAR_MIPMAP_NEAREST = TextureMinFilter(0x2701)
+    alias NEAREST_MIPMAP_LINEAR = TextureMinFilter(0x2702)
+    alias LINEAR_MIPMAP_LINEAR = TextureMinFilter(0x2703)
+    alias FILTER4_SGIS = TextureMinFilter(0x8146)
+    alias LINEAR_CLIPMAP_LINEAR_SGIX = TextureMinFilter(0x8170)
+    alias PIXEL_TEX_GEN_Q_CEILING_SGIX = TextureMinFilter(0x8184)
+    alias PIXEL_TEX_GEN_Q_ROUND_SGIX = TextureMinFilter(0x8185)
+    alias PIXEL_TEX_GEN_Q_FLOOR_SGIX = TextureMinFilter(0x8186)
+    alias NEAREST_CLIPMAP_NEAREST_SGIX = TextureMinFilter(0x844D)
+    alias NEAREST_CLIPMAP_LINEAR_SGIX = TextureMinFilter(0x844E)
+    alias LINEAR_CLIPMAP_NEAREST_SGIX = TextureMinFilter(0x844F)
+
+
+@fieldwise_init
+@register_passable("trivial")
 struct TextureParameterName:
     var value: GLenum
 
@@ -3744,6 +4136,19 @@ struct TextureParameterName:
     alias TEXTURE_FOVEATED_CUTOFF_DENSITY_QCOM = TextureParameterName(0x96A0)
     alias TEXTURE_Y_DEGAMMA_QCOM = TextureParameterName(0x9710)
     alias TEXTURE_CBCR_DEGAMMA_QCOM = TextureParameterName(0x9711)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct TextureSwizzle:
+    var value: GLenum
+
+    alias ZERO = TextureSwizzle(0)
+    alias ONE = TextureSwizzle(1)
+    alias RED = TextureSwizzle(0x1903)
+    alias GREEN = TextureSwizzle(0x1904)
+    alias BLUE = TextureSwizzle(0x1905)
+    alias ALPHA = TextureSwizzle(0x1906)
 
 
 @fieldwise_init
@@ -3859,6 +4264,27 @@ struct TextureUnit:
     alias TEXTURE29 = TextureUnit(0x84DD)
     alias TEXTURE30 = TextureUnit(0x84DE)
     alias TEXTURE31 = TextureUnit(0x84DF)
+
+
+@fieldwise_init
+@register_passable("trivial")
+struct TextureWrapMode:
+    var value: GLenum
+
+    alias CLAMP = TextureWrapMode(0x2900)
+    alias REPEAT = TextureWrapMode(0x2901)
+    alias CLAMP_TO_BORDER = TextureWrapMode(0x812D)
+    alias CLAMP_TO_BORDER_ARB = TextureWrapMode(0x812D)
+    alias CLAMP_TO_BORDER_EXT = TextureWrapMode(0x812D)
+    alias CLAMP_TO_BORDER_NV = TextureWrapMode(0x812D)
+    alias CLAMP_TO_BORDER_SGIS = TextureWrapMode(0x812D)
+    alias CLAMP_TO_BORDER_OES = TextureWrapMode(0x812D)
+    alias CLAMP_TO_EDGE = TextureWrapMode(0x812F)
+    alias CLAMP_TO_EDGE_SGIS = TextureWrapMode(0x812F)
+    alias MIRRORED_REPEAT = TextureWrapMode(0x8370)
+    alias MIRRORED_REPEAT_ARB = TextureWrapMode(0x8370)
+    alias MIRRORED_REPEAT_IBM = TextureWrapMode(0x8370)
+    alias MIRRORED_REPEAT_OES = TextureWrapMode(0x8370)
 
 
 @fieldwise_init

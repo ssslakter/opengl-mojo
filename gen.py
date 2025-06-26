@@ -35,6 +35,35 @@ type_map = {
     "int64_t": "Int64",
 }
 
+# Extra useful groups (enums) that are not used in the commands from the specification
+extra_groups = [
+    "AlphaFunction",
+    "AttribMask",
+    "ContextFlagMask",
+    "ContextProfileMask",
+    "ConvolutionTargetEXT",
+    "DepthStencilTextureMode",
+    "FogCoordinatePointerType",
+    "FogMode",
+    "MatrixMode",
+    "MeshMode1",
+    "MeshMode2",
+    "PathColorFormat",
+    "PathFillMode",
+    "PathFontStyle",
+    "PathGenMode",
+    "PathTransformType",
+    "PixelCopyType",
+    "SpecialNumbers",
+    "TextureCompareMode",
+    "TextureEnvMode",
+    "TextureEnvParameter",
+    "TextureMagFilter",
+    "TextureMinFilter",
+    "TextureSwizzle",
+    "TextureWrapMode"
+]
+
 
 def to_snake_case(string: str) -> str:
     return re.sub(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", "_", string).lower()
@@ -92,14 +121,18 @@ class EnumItem:
 
     @classmethod
     def from_xml(cls, enum_elem: ET.Element) -> "EnumItem":
-        name = enum_elem.get("name").removeprefix("GL_")
+        name = enum_elem.get("name")
         value = enum_elem.get("value")
         return cls(
             name=name, value=value, groups=enum_elem.attrib.get("group", "").split(",")
         )
+    
+    @property
+    def mojo_name(self):
+        return self.name.removeprefix("GL_")
 
     def __str__(self):
-        return f"alias {self.name} = {self.value}"
+        return f"alias {self.mojo_name} = {self.value}"
 
 
 enums_template = """
@@ -112,9 +145,12 @@ struct {name}:
 """
 
 
-def generate_enum(name: str, dtype: str, registry: "OpenGLRegistry") -> str:
+def generate_enum(name: str, registry: "OpenGLRegistry") -> str:
+    if not name: return ''
+    dtype = registry.current_groups[name]
+    dtype = dtype.type if dtype else "GLenum"
     aliases = "\n    ".join(
-        f"alias {e.name} = {name}({e.value})"
+        f"alias {e.mojo_name} = {name}({e.value})"
         for e in registry.enums.values()
         if name in e.groups
     )
@@ -341,7 +377,6 @@ class OpenGLRegistry:
         self.fix_features_require()
         self.current_features: List[Feature] = []
         self.current_commands: List[Command] = []
-        self.current_enums: List[EnumItem] = []
         self.current_groups: Dict[str, CommandEl] = {}
         self.current_types: List[Type] = []
 
@@ -372,15 +407,13 @@ class OpenGLRegistry:
         self.current_commands = [
             cmd for cmd in self.commands.values() if cmd.name in res.require
         ]
-        self.current_enums = [
-            enum for enum in self.enums.values() if enum.name in res.require
-        ]
         self.current_groups = {
             cmp.group: cmp
             for cmd in self.current_commands
             for cmp in cmd.params + [cmd.return_type]
             if cmp.group
         }
+        self.current_groups.update({g: None for g in extra_groups})
         types = set(p.type for cmd in self.current_commands for p in [*cmd.params, cmd.return_type])
         self.current_types = [self.types[t] for t in types if t in self.types]
         
@@ -416,8 +449,8 @@ alias GLDEBUGPROC = fn(source: GLenum, type: GLenum, id: GLuint, severity: GLenu
             """
 # ========= ENUMS =========\n\n"""
         )
-        for group, cmp in sorted(registry.current_groups.items()):
-            f.write(generate_enum(group, cmp.type, registry))
+        for group in sorted(registry.current_groups):
+            f.write(generate_enum(group, registry))
         f.write(
             f"""
 # ========= COMMANDS =========
