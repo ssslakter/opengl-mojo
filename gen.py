@@ -142,6 +142,10 @@ struct {name}:
     var value: {dtype}
     
     {aliases}
+    
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 """
 
 

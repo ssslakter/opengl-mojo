@@ -59,6 +59,10 @@ struct AlphaFunction:
     alias GEQUAL = AlphaFunction(0x0206)
     alias ALWAYS = AlphaFunction(0x0207)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -75,6 +79,10 @@ struct AtomicCounterBufferPName:
     alias ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TESS_EVALUATION_SHADER = AtomicCounterBufferPName(0x92C9)
     alias ATOMIC_COUNTER_BUFFER_REFERENCED_BY_GEOMETRY_SHADER = AtomicCounterBufferPName(0x92CA)
     alias ATOMIC_COUNTER_BUFFER_REFERENCED_BY_FRAGMENT_SHADER = AtomicCounterBufferPName(0x92CB)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -107,6 +115,10 @@ struct AttribMask:
     alias MULTISAMPLE_BIT_EXT = AttribMask(0x20000000)
     alias MULTISAMPLE_BIT_3DFX = AttribMask(0x20000000)
     alias ALL_ATTRIB_BITS = AttribMask(0xFFFFFFFF)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -263,6 +275,10 @@ struct AttributeType:
     alias INT_SAMPLER_2D_MULTISAMPLE_ARRAY = AttributeType(0x910C)
     alias UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY = AttributeType(0x910D)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -270,6 +286,10 @@ struct BindTransformFeedbackTarget:
     var value: GLenum
 
     alias TRANSFORM_FEEDBACK = BindTransformFeedbackTarget(0x8E22)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -289,6 +309,10 @@ struct BlendEquationModeEXT:
     alias FUNC_REVERSE_SUBTRACT_EXT = BlendEquationModeEXT(0x800B)
     alias ALPHA_MIN_SGIX = BlendEquationModeEXT(0x8320)
     alias ALPHA_MAX_SGIX = BlendEquationModeEXT(0x8321)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -316,6 +340,10 @@ struct BlendingFactor:
     alias ONE_MINUS_SRC1_COLOR = BlendingFactor(0x88FA)
     alias ONE_MINUS_SRC1_ALPHA = BlendingFactor(0x88FB)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -324,6 +352,10 @@ struct BlitFramebufferFilter:
 
     alias NEAREST = BlitFramebufferFilter(0x2600)
     alias LINEAR = BlitFramebufferFilter(0x2601)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -335,6 +367,10 @@ struct Buffer:
     alias DEPTH = Buffer(0x1801)
     alias STENCIL = Buffer(0x1802)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -344,6 +380,10 @@ struct BufferAccessARB:
     alias READ_ONLY = BufferAccessARB(0x88B8)
     alias WRITE_ONLY = BufferAccessARB(0x88B9)
     alias READ_WRITE = BufferAccessARB(0x88BA)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -365,6 +405,10 @@ struct BufferPNameARB:
     alias BUFFER_MAP_LENGTH = BufferPNameARB(0x9120)
     alias BUFFER_MAP_OFFSET = BufferPNameARB(0x9121)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -373,6 +417,10 @@ struct BufferPointerNameARB:
 
     alias BUFFER_MAP_POINTER = BufferPointerNameARB(0x88BD)
     alias BUFFER_MAP_POINTER_ARB = BufferPointerNameARB(0x88BD)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -396,6 +444,10 @@ struct BufferStorageMask:
     alias MAP_PERSISTENT_BIT_EXT = BufferStorageMask(0x0040)
     alias MAP_COHERENT_BIT = BufferStorageMask(0x0080)
     alias MAP_COHERENT_BIT_EXT = BufferStorageMask(0x0080)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
     @always_inline
     fn __or__(lhs, rhs: Self) -> Self:
@@ -422,6 +474,10 @@ struct BufferStorageTarget:
     alias QUERY_BUFFER = BufferStorageTarget(0x9192)
     alias ATOMIC_COUNTER_BUFFER = BufferStorageTarget(0x92C0)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -444,6 +500,10 @@ struct BufferTargetARB:
     alias QUERY_BUFFER = BufferTargetARB(0x9192)
     alias ATOMIC_COUNTER_BUFFER = BufferTargetARB(0x92C0)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -460,6 +520,10 @@ struct BufferUsageARB:
     alias DYNAMIC_READ = BufferUsageARB(0x88E9)
     alias DYNAMIC_COPY = BufferUsageARB(0x88EA)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -471,6 +535,10 @@ struct ClampColorModeARB:
     alias FIXED_ONLY = ClampColorModeARB(0x891D)
     alias FIXED_ONLY_ARB = ClampColorModeARB(0x891D)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -481,6 +549,10 @@ struct ClampColorTargetARB:
     alias CLAMP_FRAGMENT_COLOR_ARB = ClampColorTargetARB(0x891B)
     alias CLAMP_READ_COLOR = ClampColorTargetARB(0x891C)
     alias CLAMP_READ_COLOR_ARB = ClampColorTargetARB(0x891C)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -495,6 +567,10 @@ struct ClearBufferMask:
     alias COVERAGE_BUFFER_BIT_NV = ClearBufferMask(0x00008000)
 
     @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
+    @always_inline
     fn __or__(lhs, rhs: Self) -> Self:
         return Self(lhs.value | rhs.value)
 
@@ -507,6 +583,10 @@ struct ClipControlDepth:
     alias NEGATIVE_ONE_TO_ONE = ClipControlDepth(0x935E)
     alias ZERO_TO_ONE = ClipControlDepth(0x935F)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -515,6 +595,10 @@ struct ClipControlOrigin:
 
     alias LOWER_LEFT = ClipControlOrigin(0x8CA1)
     alias UPPER_LEFT = ClipControlOrigin(0x8CA2)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -565,6 +649,10 @@ struct ColorBuffer:
     alias COLOR_ATTACHMENT30 = ColorBuffer(0x8CFE)
     alias COLOR_ATTACHMENT31 = ColorBuffer(0x8CFF)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -580,6 +668,10 @@ struct ColorPointerType:
     alias FLOAT = ColorPointerType(0x1406)
     alias DOUBLE = ColorPointerType(0x140A)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -592,6 +684,10 @@ struct ColorTableTarget:
     alias PROXY_COLOR_TABLE = ColorTableTarget(0x80D3)
     alias PROXY_POST_CONVOLUTION_COLOR_TABLE = ColorTableTarget(0x80D4)
     alias PROXY_POST_COLOR_MATRIX_COLOR_TABLE = ColorTableTarget(0x80D5)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -608,6 +704,10 @@ struct ConditionalRenderMode:
     alias QUERY_BY_REGION_WAIT_INVERTED = ConditionalRenderMode(0x8E19)
     alias QUERY_BY_REGION_NO_WAIT_INVERTED = ConditionalRenderMode(0x8E1A)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -623,6 +723,10 @@ struct ContextFlagMask:
     alias CONTEXT_FLAG_NO_ERROR_BIT_KHR = ContextFlagMask(0x00000008)
     alias CONTEXT_FLAG_PROTECTED_CONTENT_BIT_EXT = ContextFlagMask(0x00000010)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -632,6 +736,10 @@ struct ContextProfileMask:
     alias CONTEXT_CORE_PROFILE_BIT = ContextProfileMask(0x00000001)
     alias CONTEXT_COMPATIBILITY_PROFILE_BIT = ContextProfileMask(0x00000002)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -640,6 +748,10 @@ struct ConvolutionTarget:
 
     alias CONVOLUTION_1D = ConvolutionTarget(0x8010)
     alias CONVOLUTION_2D = ConvolutionTarget(0x8011)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -651,6 +763,10 @@ struct ConvolutionTargetEXT:
     alias CONVOLUTION_1D_EXT = ConvolutionTargetEXT(0x8010)
     alias CONVOLUTION_2D = ConvolutionTargetEXT(0x8011)
     alias CONVOLUTION_2D_EXT = ConvolutionTargetEXT(0x8011)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -673,6 +789,10 @@ struct CopyBufferSubDataTarget:
     alias QUERY_BUFFER = CopyBufferSubDataTarget(0x9192)
     alias ATOMIC_COUNTER_BUFFER = CopyBufferSubDataTarget(0x92C0)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -691,6 +811,10 @@ struct CopyImageSubDataTarget:
     alias TEXTURE_2D_MULTISAMPLE = CopyImageSubDataTarget(0x9100)
     alias TEXTURE_2D_MULTISAMPLE_ARRAY = CopyImageSubDataTarget(0x9102)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -702,6 +826,10 @@ struct DebugSeverity:
     alias DEBUG_SEVERITY_HIGH = DebugSeverity(0x9146)
     alias DEBUG_SEVERITY_MEDIUM = DebugSeverity(0x9147)
     alias DEBUG_SEVERITY_LOW = DebugSeverity(0x9148)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -716,6 +844,10 @@ struct DebugSource:
     alias DEBUG_SOURCE_THIRD_PARTY = DebugSource(0x8249)
     alias DEBUG_SOURCE_APPLICATION = DebugSource(0x824A)
     alias DEBUG_SOURCE_OTHER = DebugSource(0x824B)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -734,6 +866,10 @@ struct DebugType:
     alias DEBUG_TYPE_PUSH_GROUP = DebugType(0x8269)
     alias DEBUG_TYPE_POP_GROUP = DebugType(0x826A)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -749,6 +885,10 @@ struct DepthFunction:
     alias GEQUAL = DepthFunction(0x0206)
     alias ALWAYS = DepthFunction(0x0207)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -757,6 +897,10 @@ struct DepthStencilTextureMode:
 
     alias STENCIL_INDEX = DepthStencilTextureMode(0x1901)
     alias DEPTH_COMPONENT = DepthStencilTextureMode(0x1902)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -828,6 +972,10 @@ struct DrawBufferMode:
     alias COLOR_ATTACHMENT30 = DrawBufferMode(0x8CFE)
     alias COLOR_ATTACHMENT31 = DrawBufferMode(0x8CFF)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -837,6 +985,10 @@ struct DrawElementsType:
     alias UNSIGNED_BYTE = DrawElementsType(0x1401)
     alias UNSIGNED_SHORT = DrawElementsType(0x1403)
     alias UNSIGNED_INT = DrawElementsType(0x1405)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -989,6 +1141,10 @@ struct EnableCap:
     alias FRAMEBUFFER_FETCH_NONCOHERENT_QCOM = EnableCap(0x96A2)
     alias SHADING_RATE_PRESERVE_ASPECT_RATIO_QCOM = EnableCap(0x96A5)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -1009,6 +1165,10 @@ struct ErrorCode:
     alias TABLE_TOO_LARGE = ErrorCode(0x8031)
     alias TEXTURE_TOO_LARGE_EXT = ErrorCode(0x8065)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -1017,6 +1177,10 @@ struct FogCoordinatePointerType:
 
     alias FLOAT = FogCoordinatePointerType(0x1406)
     alias DOUBLE = FogCoordinatePointerType(0x140A)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -1028,6 +1192,10 @@ struct FogMode:
     alias EXP2 = FogMode(0x0801)
     alias LINEAR = FogMode(0x2601)
     alias FOG_FUNC_SGIS = FogMode(0x812A)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -1072,6 +1240,10 @@ struct FramebufferAttachment:
     alias STENCIL_ATTACHMENT = FramebufferAttachment(0x8D20)
     alias SHADING_RATE_ATTACHMENT_EXT = FramebufferAttachment(0x96D1)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -1113,6 +1285,10 @@ struct FramebufferAttachmentParameterName:
     alias FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR = FramebufferAttachmentParameterName(0x9630)
     alias FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR = FramebufferAttachmentParameterName(0x9632)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -1124,6 +1300,10 @@ struct FramebufferParameterName:
     alias FRAMEBUFFER_DEFAULT_LAYERS = FramebufferParameterName(0x9312)
     alias FRAMEBUFFER_DEFAULT_SAMPLES = FramebufferParameterName(0x9313)
     alias FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS = FramebufferParameterName(0x9314)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -1141,6 +1321,10 @@ struct FramebufferStatus:
     alias FRAMEBUFFER_INCOMPLETE_MULTISAMPLE = FramebufferStatus(0x8D56)
     alias FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS = FramebufferStatus(0x8DA8)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -1152,6 +1336,10 @@ struct FramebufferTarget:
     alias FRAMEBUFFER = FramebufferTarget(0x8D40)
     alias FRAMEBUFFER_OES = FramebufferTarget(0x8D40)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -1160,6 +1348,10 @@ struct FrontFaceDirection:
 
     alias CW = FrontFaceDirection(0x0900)
     alias CCW = FrontFaceDirection(0x0901)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -1179,6 +1371,10 @@ struct GetFramebufferParameter:
     alias FRAMEBUFFER_DEFAULT_SAMPLES = GetFramebufferParameter(0x9313)
     alias FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS = GetFramebufferParameter(0x9314)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -1188,6 +1384,10 @@ struct GetMultisamplePNameNV:
     alias SAMPLE_POSITION = GetMultisamplePNameNV(0x8E50)
     alias SAMPLE_LOCATION_ARB = GetMultisamplePNameNV(0x8E50)
     alias PROGRAMMABLE_SAMPLE_LOCATION_ARB = GetMultisamplePNameNV(0x9341)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -1809,6 +2009,10 @@ struct GetPName:
     alias SHADER_CORE_TEXEL_RATE_ARM = GetPName(0x96F5)
     alias SHADER_CORE_FMA_RATE_ARM = GetPName(0x96F6)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -1884,6 +2088,10 @@ struct GetTextureParameter:
     alias TEXTURE_Y_DEGAMMA_QCOM = GetTextureParameter(0x9710)
     alias TEXTURE_CBCR_DEGAMMA_QCOM = GetTextureParameter(0x9711)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -1895,6 +2103,10 @@ struct GraphicsResetStatus:
     alias INNOCENT_CONTEXT_RESET = GraphicsResetStatus(0x8254)
     alias UNKNOWN_CONTEXT_RESET = GraphicsResetStatus(0x8255)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -1904,6 +2116,10 @@ struct HintMode:
     alias DONT_CARE = HintMode(0x1100)
     alias FASTEST = HintMode(0x1101)
     alias NICEST = HintMode(0x1102)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -1963,6 +2179,10 @@ struct HintTarget:
     alias MATERIAL_SIDE_HINT_PGI = HintTarget(0x1A22C)
     alias MAX_VERTEX_HINT_PGI = HintTarget(0x1A22D)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -1971,6 +2191,10 @@ struct HistogramTarget:
 
     alias HISTOGRAM = HistogramTarget(0x8024)
     alias PROXY_HISTOGRAM = HistogramTarget(0x8025)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2372,6 +2596,10 @@ struct InternalFormat:
     alias COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x5_OES = InternalFormat(0x93E8)
     alias COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x6_OES = InternalFormat(0x93E9)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -2450,6 +2678,10 @@ struct InternalFormatPName:
     alias IMAGE_FORMAT_COMPATIBILITY_TYPE = InternalFormatPName(0x90C7)
     alias CLEAR_TEXTURE = InternalFormatPName(0x9365)
     alias NUM_SAMPLE_COUNTS = InternalFormatPName(0x9380)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2532,6 +2764,10 @@ struct InvalidateFramebufferAttachment:
     alias STENCIL_ATTACHMENT_EXT = InvalidateFramebufferAttachment(0x8D20)
     alias STENCIL_ATTACHMENT_OES = InvalidateFramebufferAttachment(0x8D20)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -2554,6 +2790,10 @@ struct LogicOp:
     alias OR_INVERTED = LogicOp(0x150D)
     alias NAND = LogicOp(0x150E)
     alias SET = LogicOp(0x150F)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2579,6 +2819,10 @@ struct MapBufferAccessMask:
     alias MAP_COHERENT_BIT_EXT = MapBufferAccessMask(0x0080)
 
     @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
+    @always_inline
     fn __or__(lhs, rhs: Self) -> Self:
         return Self(lhs.value | rhs.value)
 
@@ -2591,6 +2835,10 @@ struct MapQuery:
     alias COEFF = MapQuery(0x0A00)
     alias ORDER = MapQuery(0x0A01)
     alias DOMAIN = MapQuery(0x0A02)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2619,6 +2867,10 @@ struct MapTarget:
     alias GEOMETRY_DEFORMATION_SGIX = MapTarget(0x8194)
     alias TEXTURE_DEFORMATION_SGIX = MapTarget(0x8195)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -2629,6 +2881,10 @@ struct MatrixMode:
     alias MODELVIEW0_EXT = MatrixMode(0x1700)
     alias PROJECTION = MatrixMode(0x1701)
     alias TEXTURE = MatrixMode(0x1702)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2669,6 +2925,10 @@ struct MemoryBarrierMask:
     alias ALL_BARRIER_BITS_EXT = MemoryBarrierMask(0xFFFFFFFF)
 
     @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
+    @always_inline
     fn __or__(lhs, rhs: Self) -> Self:
         return Self(lhs.value | rhs.value)
 
@@ -2681,6 +2941,10 @@ struct MeshMode1:
     alias POINT = MeshMode1(0x1B00)
     alias LINE = MeshMode1(0x1B01)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -2691,6 +2955,10 @@ struct MeshMode2:
     alias LINE = MeshMode2(0x1B01)
     alias FILL = MeshMode2(0x1B02)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -2698,6 +2966,10 @@ struct MinmaxTarget:
     var value: GLenum
 
     alias MINMAX = MinmaxTarget(0x802E)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2710,6 +2982,10 @@ struct NormalPointerType:
     alias INT = NormalPointerType(0x1404)
     alias FLOAT = NormalPointerType(0x1406)
     alias DOUBLE = NormalPointerType(0x140A)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2729,6 +3005,10 @@ struct ObjectIdentifier:
     alias RENDERBUFFER = ObjectIdentifier(0x8D41)
     alias TRANSFORM_FEEDBACK = ObjectIdentifier(0x8E22)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -2738,6 +3018,10 @@ struct PatchParameterName:
     alias PATCH_VERTICES = PatchParameterName(0x8E72)
     alias PATCH_DEFAULT_INNER_LEVEL = PatchParameterName(0x8E73)
     alias PATCH_DEFAULT_OUTER_LEVEL = PatchParameterName(0x8E74)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2753,6 +3037,10 @@ struct PathColorFormat:
     alias LUMINANCE_ALPHA = PathColorFormat(0x190A)
     alias INTENSITY = PathColorFormat(0x8049)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -2764,6 +3052,10 @@ struct PathFillMode:
     alias COUNT_UP_NV = PathFillMode(0x9088)
     alias COUNT_DOWN_NV = PathFillMode(0x9089)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -2773,6 +3065,10 @@ struct PathFontStyle:
     alias BOLD_BIT_NV = PathFontStyle(0x01)
     alias ITALIC_BIT_NV = PathFontStyle(0x02)
     alias NONE = PathFontStyle(0)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2785,6 +3081,10 @@ struct PathGenMode:
     alias OBJECT_LINEAR = PathGenMode(0x2401)
     alias CONSTANT = PathGenMode(0x8576)
     alias PATH_OBJECT_BOUNDING_BOX_NV = PathGenMode(0x908A)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2802,6 +3102,10 @@ struct PathTransformType:
     alias TRANSPOSE_AFFINE_2D_NV = PathTransformType(0x9096)
     alias TRANSPOSE_AFFINE_3D_NV = PathTransformType(0x9098)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -2816,6 +3120,10 @@ struct PipelineParameterName:
     alias TESS_EVALUATION_SHADER = PipelineParameterName(0x8E87)
     alias TESS_CONTROL_SHADER = PipelineParameterName(0x8E88)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -2828,6 +3136,10 @@ struct PixelCopyType:
     alias DEPTH_EXT = PixelCopyType(0x1801)
     alias STENCIL = PixelCopyType(0x1802)
     alias STENCIL_EXT = PixelCopyType(0x1802)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2870,6 +3182,10 @@ struct PixelFormat:
     alias BGR_INTEGER = PixelFormat(0x8D9A)
     alias BGRA_INTEGER = PixelFormat(0x8D9B)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -2886,6 +3202,10 @@ struct PixelMap:
     alias PIXEL_MAP_G_TO_G = PixelMap(0x0C77)
     alias PIXEL_MAP_B_TO_B = PixelMap(0x0C78)
     alias PIXEL_MAP_A_TO_A = PixelMap(0x0C79)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2935,6 +3255,10 @@ struct PixelStoreParameter:
     alias UNPACK_SUBSAMPLE_RATE_SGIX = PixelStoreParameter(0x85A1)
     alias PACK_RESAMPLE_OML = PixelStoreParameter(0x8984)
     alias UNPACK_RESAMPLE_OML = PixelStoreParameter(0x8985)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -2992,6 +3316,10 @@ struct PixelType:
     alias FLOAT_32_UNSIGNED_INT_24_8_REV = PixelType(0x8DAD)
     alias FLOAT_32_UNSIGNED_INT_24_8_REV_NV = PixelType(0x8DAD)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3015,6 +3343,10 @@ struct PointParameterNameARB:
     alias POINT_DISTANCE_ATTENUATION = PointParameterNameARB(0x8129)
     alias POINT_DISTANCE_ATTENUATION_ARB = PointParameterNameARB(0x8129)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3024,6 +3356,10 @@ struct PolygonMode:
     alias POINT = PolygonMode(0x1B00)
     alias LINE = PolygonMode(0x1B01)
     alias FILL = PolygonMode(0x1B02)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3037,6 +3373,10 @@ struct PrecisionType:
     alias LOW_INT = PrecisionType(0x8DF3)
     alias MEDIUM_INT = PrecisionType(0x8DF4)
     alias HIGH_INT = PrecisionType(0x8DF5)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3070,6 +3410,10 @@ struct PrimitiveType:
     alias PATCHES = PrimitiveType(0x000E)
     alias PATCHES_EXT = PrimitiveType(0x000E)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3097,6 +3441,10 @@ struct ProgramInterface:
     alias COMPUTE_SUBROUTINE_UNIFORM = ProgramInterface(0x92F3)
     alias TRANSFORM_FEEDBACK_VARYING = ProgramInterface(0x92F4)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3108,6 +3456,10 @@ struct ProgramInterfacePName:
     alias MAX_NUM_ACTIVE_VARIABLES = ProgramInterfacePName(0x92F7)
     alias MAX_NUM_COMPATIBLE_SUBROUTINES = ProgramInterfacePName(0x92F8)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3116,6 +3468,10 @@ struct ProgramParameterPName:
 
     alias PROGRAM_BINARY_RETRIEVABLE_HINT = ProgramParameterPName(0x8257)
     alias PROGRAM_SEPARABLE = ProgramParameterPName(0x8258)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3143,6 +3499,10 @@ struct ProgramPropertyARB:
     alias TRANSFORM_FEEDBACK_BUFFER_MODE = ProgramPropertyARB(0x8C7F)
     alias TRANSFORM_FEEDBACK_VARYINGS = ProgramPropertyARB(0x8C83)
     alias ACTIVE_ATOMIC_COUNTER_BUFFERS = ProgramPropertyARB(0x92D9)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3181,6 +3541,10 @@ struct ProgramResourceProperty:
     alias TRANSFORM_FEEDBACK_BUFFER_INDEX = ProgramResourceProperty(0x934B)
     alias TRANSFORM_FEEDBACK_BUFFER_STRIDE = ProgramResourceProperty(0x934C)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3193,6 +3557,10 @@ struct ProgramStagePName:
     alias ACTIVE_SUBROUTINE_MAX_LENGTH = ProgramStagePName(0x8E48)
     alias ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH = ProgramStagePName(0x8E49)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3201,6 +3569,10 @@ struct QueryCounterTarget:
 
     alias TIMESTAMP = QueryCounterTarget(0x8E28)
     alias TIMESTAMP_EXT = QueryCounterTarget(0x8E28)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3213,6 +3585,10 @@ struct QueryObjectParameterName:
     alias QUERY_RESULT_AVAILABLE = QueryObjectParameterName(0x8867)
     alias QUERY_RESULT_NO_WAIT = QueryObjectParameterName(0x9194)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3221,6 +3597,10 @@ struct QueryParameterName:
 
     alias QUERY_COUNTER_BITS = QueryParameterName(0x8864)
     alias CURRENT_QUERY = QueryParameterName(0x8865)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3238,6 +3618,10 @@ struct QueryTarget:
     alias PRIMITIVES_GENERATED = QueryTarget(0x8C87)
     alias TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN = QueryTarget(0x8C88)
     alias ANY_SAMPLES_PASSED_CONSERVATIVE = QueryTarget(0x8D6A)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3275,6 +3659,10 @@ struct ReadBufferMode:
     alias COLOR_ATTACHMENT13 = ReadBufferMode(0x8CED)
     alias COLOR_ATTACHMENT14 = ReadBufferMode(0x8CEE)
     alias COLOR_ATTACHMENT15 = ReadBufferMode(0x8CEF)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3319,6 +3707,10 @@ struct RenderbufferParameterName:
     alias RENDERBUFFER_SAMPLES_IMG = RenderbufferParameterName(0x9133)
     alias RENDERBUFFER_STORAGE_SAMPLES_AMD = RenderbufferParameterName(0x91B2)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3327,6 +3719,10 @@ struct RenderbufferTarget:
 
     alias RENDERBUFFER = RenderbufferTarget(0x8D41)
     alias RENDERBUFFER_OES = RenderbufferTarget(0x8D41)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3340,6 +3736,10 @@ struct SamplerParameterF:
     alias TEXTURE_MAX_ANISOTROPY = SamplerParameterF(0x84FE)
     alias TEXTURE_LOD_BIAS = SamplerParameterF(0x8501)
     alias TEXTURE_UNNORMALIZED_COORDINATES_ARM = SamplerParameterF(0x8F6A)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3356,6 +3756,10 @@ struct SamplerParameterI:
     alias TEXTURE_COMPARE_FUNC = SamplerParameterI(0x884D)
     alias TEXTURE_UNNORMALIZED_COORDINATES_ARM = SamplerParameterI(0x8F6A)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3363,6 +3767,10 @@ struct SeparableTarget:
     var value: GLenum
 
     alias SEPARABLE_2D = SeparableTarget(0x8012)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3377,6 +3785,10 @@ struct ShaderBinaryFormat:
     alias GCCSO_SHADER_BINARY_FJ = ShaderBinaryFormat(0x9260)
     alias SHADER_BINARY_FORMAT_SPIR_V = ShaderBinaryFormat(0x9551)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3388,6 +3800,10 @@ struct ShaderParameterName:
     alias COMPILE_STATUS = ShaderParameterName(0x8B81)
     alias INFO_LOG_LENGTH = ShaderParameterName(0x8B84)
     alias SHADER_SOURCE_LENGTH = ShaderParameterName(0x8B88)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3403,6 +3819,10 @@ struct ShaderType:
     alias TESS_EVALUATION_SHADER = ShaderType(0x8E87)
     alias TESS_CONTROL_SHADER = ShaderType(0x8E88)
     alias COMPUTE_SHADER = ShaderType(0x91B9)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3758,6 +4178,10 @@ struct SizedInternalFormat:
     alias COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x5_OES = SizedInternalFormat(0x93E8)
     alias COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x6_OES = SizedInternalFormat(0x93E9)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3781,6 +4205,10 @@ struct SpecialNumbers:
     alias UUID_SIZE_EXT = SpecialNumbers(16)
     alias LUID_SIZE_EXT = SpecialNumbers(8)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3795,6 +4223,10 @@ struct StencilFunction:
     alias NOTEQUAL = StencilFunction(0x0205)
     alias GEQUAL = StencilFunction(0x0206)
     alias ALWAYS = StencilFunction(0x0207)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3811,6 +4243,10 @@ struct StencilOp:
     alias INCR_WRAP = StencilOp(0x8507)
     alias DECR_WRAP = StencilOp(0x8508)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3823,6 +4259,10 @@ struct StringName:
     alias EXTENSIONS = StringName(0x1F03)
     alias SHADING_LANGUAGE_VERSION = StringName(0x8B8C)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3834,6 +4274,10 @@ struct SubroutineParameterName:
     alias NUM_COMPATIBLE_SUBROUTINES = SubroutineParameterName(0x8E4A)
     alias COMPATIBLE_SUBROUTINES = SubroutineParameterName(0x8E4B)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3841,6 +4285,10 @@ struct SyncBehaviorFlags:
     var value: GLbitfield
 
     alias NONE = SyncBehaviorFlags(0)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
     @always_inline
     fn __or__(lhs, rhs: Self) -> Self:
@@ -3854,6 +4302,10 @@ struct SyncCondition:
 
     alias SYNC_GPU_COMMANDS_COMPLETE = SyncCondition(0x9117)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3862,6 +4314,10 @@ struct SyncObjectMask:
 
     alias SYNC_FLUSH_COMMANDS_BIT = SyncObjectMask(0x00000001)
     alias SYNC_FLUSH_COMMANDS_BIT_APPLE = SyncObjectMask(0x00000001)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
     @always_inline
     fn __or__(lhs, rhs: Self) -> Self:
@@ -3878,6 +4334,10 @@ struct SyncParameterName:
     alias SYNC_STATUS = SyncParameterName(0x9114)
     alias SYNC_FLAGS = SyncParameterName(0x9115)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3888,6 +4348,10 @@ struct SyncStatus:
     alias TIMEOUT_EXPIRED = SyncStatus(0x911B)
     alias CONDITION_SATISFIED = SyncStatus(0x911C)
     alias WAIT_FAILED = SyncStatus(0x911D)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3900,6 +4364,10 @@ struct TexCoordPointerType:
     alias FLOAT = TexCoordPointerType(0x1406)
     alias DOUBLE = TexCoordPointerType(0x140A)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -3909,6 +4377,10 @@ struct TextureCompareMode:
     alias NONE = TextureCompareMode(0)
     alias COMPARE_R_TO_TEXTURE = TextureCompareMode(0x884E)
     alias COMPARE_REF_TO_TEXTURE = TextureCompareMode(0x884E)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -3924,6 +4396,10 @@ struct TextureEnvMode:
     alias REPLACE_EXT = TextureEnvMode(0x8062)
     alias TEXTURE_ENV_BIAS_SGIX = TextureEnvMode(0x80BE)
     alias COMBINE = TextureEnvMode(0x8570)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -4012,6 +4488,10 @@ struct TextureEnvParameter:
     alias OPERAND3_ALPHA_NV = TextureEnvParameter(0x859B)
     alias COORD_REPLACE = TextureEnvParameter(0x8862)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4030,6 +4510,10 @@ struct TextureMagFilter:
     alias PIXEL_TEX_GEN_Q_CEILING_SGIX = TextureMagFilter(0x8184)
     alias PIXEL_TEX_GEN_Q_ROUND_SGIX = TextureMagFilter(0x8185)
     alias PIXEL_TEX_GEN_Q_FLOOR_SGIX = TextureMagFilter(0x8186)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -4051,6 +4535,10 @@ struct TextureMinFilter:
     alias NEAREST_CLIPMAP_NEAREST_SGIX = TextureMinFilter(0x844D)
     alias NEAREST_CLIPMAP_LINEAR_SGIX = TextureMinFilter(0x844E)
     alias LINEAR_CLIPMAP_NEAREST_SGIX = TextureMinFilter(0x844F)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -4137,6 +4625,10 @@ struct TextureParameterName:
     alias TEXTURE_Y_DEGAMMA_QCOM = TextureParameterName(0x9710)
     alias TEXTURE_CBCR_DEGAMMA_QCOM = TextureParameterName(0x9711)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4149,6 +4641,10 @@ struct TextureSwizzle:
     alias GREEN = TextureSwizzle(0x1904)
     alias BLUE = TextureSwizzle(0x1905)
     alias ALPHA = TextureSwizzle(0x1906)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -4226,6 +4722,10 @@ struct TextureTarget:
     alias TEXTURE_2D_MULTISAMPLE_ARRAY = TextureTarget(0x9102)
     alias PROXY_TEXTURE_2D_MULTISAMPLE_ARRAY = TextureTarget(0x9103)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4265,6 +4765,10 @@ struct TextureUnit:
     alias TEXTURE30 = TextureUnit(0x84DE)
     alias TEXTURE31 = TextureUnit(0x84DF)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4286,6 +4790,10 @@ struct TextureWrapMode:
     alias MIRRORED_REPEAT_IBM = TextureWrapMode(0x8370)
     alias MIRRORED_REPEAT_OES = TextureWrapMode(0x8370)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4294,6 +4802,10 @@ struct TransformFeedbackBufferMode:
 
     alias INTERLEAVED_ATTRIBS = TransformFeedbackBufferMode(0x8C8C)
     alias SEPARATE_ATTRIBS = TransformFeedbackBufferMode(0x8C8D)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -4307,6 +4819,10 @@ struct TransformFeedbackPName:
     alias TRANSFORM_FEEDBACK_PAUSED = TransformFeedbackPName(0x8E23)
     alias TRANSFORM_FEEDBACK_ACTIVE = TransformFeedbackPName(0x8E24)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4316,6 +4832,10 @@ struct TriangleFace:
     alias FRONT = TriangleFace(0x0404)
     alias BACK = TriangleFace(0x0405)
     alias FRONT_AND_BACK = TriangleFace(0x0408)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -4335,6 +4855,10 @@ struct UniformBlockPName:
     alias UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER = UniformBlockPName(0x8A46)
     alias UNIFORM_BLOCK_REFERENCED_BY_COMPUTE_SHADER = UniformBlockPName(0x90EC)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4350,6 +4874,10 @@ struct UniformPName:
     alias UNIFORM_MATRIX_STRIDE = UniformPName(0x8A3D)
     alias UNIFORM_IS_ROW_MAJOR = UniformPName(0x8A3E)
     alias UNIFORM_ATOMIC_COUNTER_BUFFER_INDEX = UniformPName(0x92DA)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -4436,6 +4964,10 @@ struct UniformType:
     alias INT_SAMPLER_2D_MULTISAMPLE_ARRAY = UniformType(0x910C)
     alias UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY = UniformType(0x910D)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4462,6 +4994,10 @@ struct UseProgramStageMask:
     alias ALL_SHADER_BITS_EXT = UseProgramStageMask(0xFFFFFFFF)
 
     @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
+    @always_inline
     fn __or__(lhs, rhs: Self) -> Self:
         return Self(lhs.value | rhs.value)
 
@@ -4481,6 +5017,10 @@ struct VertexArrayPName:
     alias VERTEX_ATTRIB_ARRAY_INTEGER = VertexArrayPName(0x88FD)
     alias VERTEX_ATTRIB_ARRAY_DIVISOR = VertexArrayPName(0x88FE)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4497,6 +5037,10 @@ struct VertexAttribEnum:
     alias VERTEX_ATTRIB_ARRAY_INTEGER = VertexAttribEnum(0x88FD)
     alias VERTEX_ATTRIB_ARRAY_DIVISOR = VertexAttribEnum(0x88FE)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4510,6 +5054,10 @@ struct VertexAttribIType:
     alias INT = VertexAttribIType(0x1404)
     alias UNSIGNED_INT = VertexAttribIType(0x1405)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4517,6 +5065,10 @@ struct VertexAttribLType:
     var value: GLenum
 
     alias DOUBLE = VertexAttribLType(0x140A)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -4526,6 +5078,10 @@ struct VertexAttribPointerPropertyARB:
 
     alias VERTEX_ATTRIB_ARRAY_POINTER = VertexAttribPointerPropertyARB(0x8645)
     alias VERTEX_ATTRIB_ARRAY_POINTER_ARB = VertexAttribPointerPropertyARB(0x8645)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -4552,6 +5108,10 @@ struct VertexAttribPointerType:
     alias UNSIGNED_INT_10F_11F_11F_REV = VertexAttribPointerType(0x8C3B)
     alias INT_2_10_10_10_REV = VertexAttribPointerType(0x8D9F)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4571,6 +5131,10 @@ struct VertexAttribPropertyARB:
     alias VERTEX_ATTRIB_ARRAY_INTEGER = VertexAttribPropertyARB(0x88FD)
     alias VERTEX_ATTRIB_ARRAY_INTEGER_EXT = VertexAttribPropertyARB(0x88FD)
     alias VERTEX_ATTRIB_ARRAY_DIVISOR = VertexAttribPropertyARB(0x88FE)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 @fieldwise_init
@@ -4593,6 +5157,10 @@ struct VertexAttribType:
     alias UNSIGNED_INT_10F_11F_11F_REV = VertexAttribType(0x8C3B)
     alias INT_2_10_10_10_REV = VertexAttribType(0x8D9F)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4609,6 +5177,10 @@ struct VertexBufferObjectUsage:
     alias DYNAMIC_READ = VertexBufferObjectUsage(0x88E9)
     alias DYNAMIC_COPY = VertexBufferObjectUsage(0x88EA)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4620,6 +5192,10 @@ struct VertexPointerType:
     alias FLOAT = VertexPointerType(0x1406)
     alias DOUBLE = VertexPointerType(0x140A)
 
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
+
 
 @fieldwise_init
 @register_passable("trivial")
@@ -4628,6 +5204,10 @@ struct VertexProvokingMode:
 
     alias FIRST_VERTEX_CONVENTION = VertexProvokingMode(0x8E4D)
     alias LAST_VERTEX_CONVENTION = VertexProvokingMode(0x8E4E)
+
+    @always_inline
+    fn __int__(self) -> Int:
+        return Int(self.value)
 
 
 # ========= COMMANDS =========
