@@ -10,12 +10,14 @@ fmt = "mojo format -l 1000 out"
 gen = "python gen.py"
 pkg = "mojo package out -o opengl.mojopkg"
 build = {depends-on = ["gen", "fmt", "pkg"]}
+setup = {cmd = "./examples/init.sh"}
+example = {cmd = "mojo run examples/hello.mojo"}
 
 [dependencies]
-max = "*"
-libopengl = "*"
-sdl3 = ">=3.2.14,<4"
-python = ">=3.11,<3.14"
+max = ">=25.5.0.dev2025070207,<26"
+libopengl = ">=1.7.0,<2"
+sdl3 = ">=3.2.16,<4"
+python = ">=3.13.5,<3.14"
 
 [feature.dev.pypi-dependencies]
 ipython = "*"
