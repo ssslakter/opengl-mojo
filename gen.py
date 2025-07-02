@@ -136,7 +136,7 @@ class EnumItem:
 enums_template = """
 @fieldwise_init
 @register_passable('trivial')
-struct {name}:
+struct {name}(Intable):
     var value: {dtype}
     
     {aliases}

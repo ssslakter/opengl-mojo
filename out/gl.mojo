@@ -47,7 +47,7 @@ alias GLDEBUGPROC = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLen
 
 @fieldwise_init
 @register_passable("trivial")
-struct AlphaFunction:
+struct AlphaFunction(Intable):
     var value: GLenum
 
     alias NEVER = AlphaFunction(0x0200)
@@ -66,7 +66,7 @@ struct AlphaFunction:
 
 @fieldwise_init
 @register_passable("trivial")
-struct AtomicCounterBufferPName:
+struct AtomicCounterBufferPName(Intable):
     var value: GLenum
 
     alias ATOMIC_COUNTER_BUFFER_REFERENCED_BY_COMPUTE_SHADER = AtomicCounterBufferPName(0x90ED)
@@ -87,7 +87,7 @@ struct AtomicCounterBufferPName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct AttribMask:
+struct AttribMask(Intable):
     var value: GLenum
 
     alias CURRENT_BIT = AttribMask(0x00000001)
@@ -123,7 +123,7 @@ struct AttribMask:
 
 @fieldwise_init
 @register_passable("trivial")
-struct AttributeType:
+struct AttributeType(Intable):
     var value: GLenum
 
     alias INT = AttributeType(0x1404)
@@ -282,7 +282,7 @@ struct AttributeType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct BindTransformFeedbackTarget:
+struct BindTransformFeedbackTarget(Intable):
     var value: GLenum
 
     alias TRANSFORM_FEEDBACK = BindTransformFeedbackTarget(0x8E22)
@@ -294,7 +294,7 @@ struct BindTransformFeedbackTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct BlendEquationModeEXT:
+struct BlendEquationModeEXT(Intable):
     var value: GLenum
 
     alias FUNC_ADD = BlendEquationModeEXT(0x8006)
@@ -317,7 +317,7 @@ struct BlendEquationModeEXT:
 
 @fieldwise_init
 @register_passable("trivial")
-struct BlendingFactor:
+struct BlendingFactor(Intable):
     var value: GLenum
 
     alias ZERO = BlendingFactor(0)
@@ -347,7 +347,7 @@ struct BlendingFactor:
 
 @fieldwise_init
 @register_passable("trivial")
-struct BlitFramebufferFilter:
+struct BlitFramebufferFilter(Intable):
     var value: GLenum
 
     alias NEAREST = BlitFramebufferFilter(0x2600)
@@ -360,7 +360,7 @@ struct BlitFramebufferFilter:
 
 @fieldwise_init
 @register_passable("trivial")
-struct Buffer:
+struct Buffer(Intable):
     var value: GLenum
 
     alias COLOR = Buffer(0x1800)
@@ -374,7 +374,7 @@ struct Buffer:
 
 @fieldwise_init
 @register_passable("trivial")
-struct BufferAccessARB:
+struct BufferAccessARB(Intable):
     var value: GLenum
 
     alias READ_ONLY = BufferAccessARB(0x88B8)
@@ -388,7 +388,7 @@ struct BufferAccessARB:
 
 @fieldwise_init
 @register_passable("trivial")
-struct BufferPNameARB:
+struct BufferPNameARB(Intable):
     var value: GLenum
 
     alias BUFFER_IMMUTABLE_STORAGE = BufferPNameARB(0x821F)
@@ -412,7 +412,7 @@ struct BufferPNameARB:
 
 @fieldwise_init
 @register_passable("trivial")
-struct BufferPointerNameARB:
+struct BufferPointerNameARB(Intable):
     var value: GLenum
 
     alias BUFFER_MAP_POINTER = BufferPointerNameARB(0x88BD)
@@ -425,7 +425,7 @@ struct BufferPointerNameARB:
 
 @fieldwise_init
 @register_passable("trivial")
-struct BufferStorageMask:
+struct BufferStorageMask(Intable):
     var value: GLbitfield
 
     alias DYNAMIC_STORAGE_BIT = BufferStorageMask(0x0100)
@@ -456,7 +456,7 @@ struct BufferStorageMask:
 
 @fieldwise_init
 @register_passable("trivial")
-struct BufferStorageTarget:
+struct BufferStorageTarget(Intable):
     var value: GLenum
 
     alias ARRAY_BUFFER = BufferStorageTarget(0x8892)
@@ -481,7 +481,7 @@ struct BufferStorageTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct BufferTargetARB:
+struct BufferTargetARB(Intable):
     var value: GLenum
 
     alias PARAMETER_BUFFER = BufferTargetARB(0x80EE)
@@ -507,7 +507,7 @@ struct BufferTargetARB:
 
 @fieldwise_init
 @register_passable("trivial")
-struct BufferUsageARB:
+struct BufferUsageARB(Intable):
     var value: GLenum
 
     alias STREAM_DRAW = BufferUsageARB(0x88E0)
@@ -527,7 +527,7 @@ struct BufferUsageARB:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ClampColorModeARB:
+struct ClampColorModeARB(Intable):
     var value: GLenum
 
     alias FALSE = ClampColorModeARB(0)
@@ -542,7 +542,7 @@ struct ClampColorModeARB:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ClampColorTargetARB:
+struct ClampColorTargetARB(Intable):
     var value: GLenum
 
     alias CLAMP_VERTEX_COLOR_ARB = ClampColorTargetARB(0x891A)
@@ -557,7 +557,7 @@ struct ClampColorTargetARB:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ClearBufferMask:
+struct ClearBufferMask(Intable):
     var value: GLbitfield
 
     alias DEPTH_BUFFER_BIT = ClearBufferMask(0x00000100)
@@ -577,7 +577,7 @@ struct ClearBufferMask:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ClipControlDepth:
+struct ClipControlDepth(Intable):
     var value: GLenum
 
     alias NEGATIVE_ONE_TO_ONE = ClipControlDepth(0x935E)
@@ -590,7 +590,7 @@ struct ClipControlDepth:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ClipControlOrigin:
+struct ClipControlOrigin(Intable):
     var value: GLenum
 
     alias LOWER_LEFT = ClipControlOrigin(0x8CA1)
@@ -603,7 +603,7 @@ struct ClipControlOrigin:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ColorBuffer:
+struct ColorBuffer(Intable):
     var value: GLenum
 
     alias NONE = ColorBuffer(0)
@@ -656,7 +656,7 @@ struct ColorBuffer:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ColorPointerType:
+struct ColorPointerType(Intable):
     var value: GLenum
 
     alias BYTE = ColorPointerType(0x1400)
@@ -675,7 +675,7 @@ struct ColorPointerType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ColorTableTarget:
+struct ColorTableTarget(Intable):
     var value: GLenum
 
     alias COLOR_TABLE = ColorTableTarget(0x80D0)
@@ -692,7 +692,7 @@ struct ColorTableTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ConditionalRenderMode:
+struct ConditionalRenderMode(Intable):
     var value: GLenum
 
     alias QUERY_WAIT = ConditionalRenderMode(0x8E13)
@@ -711,7 +711,7 @@ struct ConditionalRenderMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ContextFlagMask:
+struct ContextFlagMask(Intable):
     var value: GLenum
 
     alias CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT = ContextFlagMask(0x00000001)
@@ -730,7 +730,7 @@ struct ContextFlagMask:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ContextProfileMask:
+struct ContextProfileMask(Intable):
     var value: GLenum
 
     alias CONTEXT_CORE_PROFILE_BIT = ContextProfileMask(0x00000001)
@@ -743,7 +743,7 @@ struct ContextProfileMask:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ConvolutionTarget:
+struct ConvolutionTarget(Intable):
     var value: GLenum
 
     alias CONVOLUTION_1D = ConvolutionTarget(0x8010)
@@ -756,7 +756,7 @@ struct ConvolutionTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ConvolutionTargetEXT:
+struct ConvolutionTargetEXT(Intable):
     var value: GLenum
 
     alias CONVOLUTION_1D = ConvolutionTargetEXT(0x8010)
@@ -771,7 +771,7 @@ struct ConvolutionTargetEXT:
 
 @fieldwise_init
 @register_passable("trivial")
-struct CopyBufferSubDataTarget:
+struct CopyBufferSubDataTarget(Intable):
     var value: GLenum
 
     alias ARRAY_BUFFER = CopyBufferSubDataTarget(0x8892)
@@ -796,7 +796,7 @@ struct CopyBufferSubDataTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct CopyImageSubDataTarget:
+struct CopyImageSubDataTarget(Intable):
     var value: GLenum
 
     alias TEXTURE_1D = CopyImageSubDataTarget(0x0DE0)
@@ -818,7 +818,7 @@ struct CopyImageSubDataTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct DebugSeverity:
+struct DebugSeverity(Intable):
     var value: GLenum
 
     alias DONT_CARE = DebugSeverity(0x1100)
@@ -834,7 +834,7 @@ struct DebugSeverity:
 
 @fieldwise_init
 @register_passable("trivial")
-struct DebugSource:
+struct DebugSource(Intable):
     var value: GLenum
 
     alias DONT_CARE = DebugSource(0x1100)
@@ -852,7 +852,7 @@ struct DebugSource:
 
 @fieldwise_init
 @register_passable("trivial")
-struct DebugType:
+struct DebugType(Intable):
     var value: GLenum
 
     alias DONT_CARE = DebugType(0x1100)
@@ -873,7 +873,7 @@ struct DebugType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct DepthFunction:
+struct DepthFunction(Intable):
     var value: GLenum
 
     alias NEVER = DepthFunction(0x0200)
@@ -892,7 +892,7 @@ struct DepthFunction:
 
 @fieldwise_init
 @register_passable("trivial")
-struct DepthStencilTextureMode:
+struct DepthStencilTextureMode(Intable):
     var value: GLenum
 
     alias STENCIL_INDEX = DepthStencilTextureMode(0x1901)
@@ -905,7 +905,7 @@ struct DepthStencilTextureMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct DrawBufferMode:
+struct DrawBufferMode(Intable):
     var value: GLenum
 
     alias NONE = DrawBufferMode(0)
@@ -979,7 +979,7 @@ struct DrawBufferMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct DrawElementsType:
+struct DrawElementsType(Intable):
     var value: GLenum
 
     alias UNSIGNED_BYTE = DrawElementsType(0x1401)
@@ -993,7 +993,7 @@ struct DrawElementsType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct EnableCap:
+struct EnableCap(Intable):
     var value: GLenum
 
     alias POINT_SMOOTH = EnableCap(0x0B10)
@@ -1148,7 +1148,7 @@ struct EnableCap:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ErrorCode:
+struct ErrorCode(Intable):
     var value: GLenum
 
     alias NO_ERROR = ErrorCode(0)
@@ -1172,7 +1172,7 @@ struct ErrorCode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct FogCoordinatePointerType:
+struct FogCoordinatePointerType(Intable):
     var value: GLenum
 
     alias FLOAT = FogCoordinatePointerType(0x1406)
@@ -1185,7 +1185,7 @@ struct FogCoordinatePointerType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct FogMode:
+struct FogMode(Intable):
     var value: GLenum
 
     alias EXP = FogMode(0x0800)
@@ -1200,7 +1200,7 @@ struct FogMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct FramebufferAttachment:
+struct FramebufferAttachment(Intable):
     var value: GLenum
 
     alias DEPTH_STENCIL_ATTACHMENT = FramebufferAttachment(0x821A)
@@ -1247,7 +1247,7 @@ struct FramebufferAttachment:
 
 @fieldwise_init
 @register_passable("trivial")
-struct FramebufferAttachmentParameterName:
+struct FramebufferAttachmentParameterName(Intable):
     var value: GLenum
 
     alias FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING = FramebufferAttachmentParameterName(0x8210)
@@ -1292,7 +1292,7 @@ struct FramebufferAttachmentParameterName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct FramebufferParameterName:
+struct FramebufferParameterName(Intable):
     var value: GLenum
 
     alias FRAMEBUFFER_DEFAULT_WIDTH = FramebufferParameterName(0x9310)
@@ -1308,7 +1308,7 @@ struct FramebufferParameterName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct FramebufferStatus:
+struct FramebufferStatus(Intable):
     var value: GLenum
 
     alias FRAMEBUFFER_UNDEFINED = FramebufferStatus(0x8219)
@@ -1328,7 +1328,7 @@ struct FramebufferStatus:
 
 @fieldwise_init
 @register_passable("trivial")
-struct FramebufferTarget:
+struct FramebufferTarget(Intable):
     var value: GLenum
 
     alias READ_FRAMEBUFFER = FramebufferTarget(0x8CA8)
@@ -1343,7 +1343,7 @@ struct FramebufferTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct FrontFaceDirection:
+struct FrontFaceDirection(Intable):
     var value: GLenum
 
     alias CW = FrontFaceDirection(0x0900)
@@ -1356,7 +1356,7 @@ struct FrontFaceDirection:
 
 @fieldwise_init
 @register_passable("trivial")
-struct GetFramebufferParameter:
+struct GetFramebufferParameter(Intable):
     var value: GLenum
 
     alias DOUBLEBUFFER = GetFramebufferParameter(0x0C32)
@@ -1378,7 +1378,7 @@ struct GetFramebufferParameter:
 
 @fieldwise_init
 @register_passable("trivial")
-struct GetMultisamplePNameNV:
+struct GetMultisamplePNameNV(Intable):
     var value: GLenum
 
     alias SAMPLE_POSITION = GetMultisamplePNameNV(0x8E50)
@@ -1392,7 +1392,7 @@ struct GetMultisamplePNameNV:
 
 @fieldwise_init
 @register_passable("trivial")
-struct GetPName:
+struct GetPName(Intable):
     var value: GLenum
 
     alias CURRENT_COLOR = GetPName(0x0B00)
@@ -2016,7 +2016,7 @@ struct GetPName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct GetTextureParameter:
+struct GetTextureParameter(Intable):
     var value: GLenum
 
     alias TEXTURE_WIDTH = GetTextureParameter(0x1000)
@@ -2095,7 +2095,7 @@ struct GetTextureParameter:
 
 @fieldwise_init
 @register_passable("trivial")
-struct GraphicsResetStatus:
+struct GraphicsResetStatus(Intable):
     var value: GLenum
 
     alias NO_ERROR = GraphicsResetStatus(0)
@@ -2110,7 +2110,7 @@ struct GraphicsResetStatus:
 
 @fieldwise_init
 @register_passable("trivial")
-struct HintMode:
+struct HintMode(Intable):
     var value: GLenum
 
     alias DONT_CARE = HintMode(0x1100)
@@ -2124,7 +2124,7 @@ struct HintMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct HintTarget:
+struct HintTarget(Intable):
     var value: GLenum
 
     alias PERSPECTIVE_CORRECTION_HINT = HintTarget(0x0C50)
@@ -2186,7 +2186,7 @@ struct HintTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct HistogramTarget:
+struct HistogramTarget(Intable):
     var value: GLenum
 
     alias HISTOGRAM = HistogramTarget(0x8024)
@@ -2199,7 +2199,7 @@ struct HistogramTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct InternalFormat:
+struct InternalFormat(Intable):
     var value: GLenum
 
     alias STENCIL_INDEX = InternalFormat(0x1901)
@@ -2603,7 +2603,7 @@ struct InternalFormat:
 
 @fieldwise_init
 @register_passable("trivial")
-struct InternalFormatPName:
+struct InternalFormatPName(Intable):
     var value: GLenum
 
     alias SAMPLES = InternalFormatPName(0x80A9)
@@ -2686,7 +2686,7 @@ struct InternalFormatPName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct InvalidateFramebufferAttachment:
+struct InvalidateFramebufferAttachment(Intable):
     var value: GLenum
 
     alias COLOR = InvalidateFramebufferAttachment(0x1800)
@@ -2771,7 +2771,7 @@ struct InvalidateFramebufferAttachment:
 
 @fieldwise_init
 @register_passable("trivial")
-struct LogicOp:
+struct LogicOp(Intable):
     var value: GLenum
 
     alias CLEAR = LogicOp(0x1500)
@@ -2798,7 +2798,7 @@ struct LogicOp:
 
 @fieldwise_init
 @register_passable("trivial")
-struct MapBufferAccessMask:
+struct MapBufferAccessMask(Intable):
     var value: GLbitfield
 
     alias MAP_READ_BIT = MapBufferAccessMask(0x0001)
@@ -2829,7 +2829,7 @@ struct MapBufferAccessMask:
 
 @fieldwise_init
 @register_passable("trivial")
-struct MapQuery:
+struct MapQuery(Intable):
     var value: GLenum
 
     alias COEFF = MapQuery(0x0A00)
@@ -2843,7 +2843,7 @@ struct MapQuery:
 
 @fieldwise_init
 @register_passable("trivial")
-struct MapTarget:
+struct MapTarget(Intable):
     var value: GLenum
 
     alias MAP1_COLOR_4 = MapTarget(0x0D90)
@@ -2874,7 +2874,7 @@ struct MapTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct MatrixMode:
+struct MatrixMode(Intable):
     var value: GLenum
 
     alias MODELVIEW = MatrixMode(0x1700)
@@ -2889,7 +2889,7 @@ struct MatrixMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct MemoryBarrierMask:
+struct MemoryBarrierMask(Intable):
     var value: GLbitfield
 
     alias VERTEX_ATTRIB_ARRAY_BARRIER_BIT = MemoryBarrierMask(0x00000001)
@@ -2935,7 +2935,7 @@ struct MemoryBarrierMask:
 
 @fieldwise_init
 @register_passable("trivial")
-struct MeshMode1:
+struct MeshMode1(Intable):
     var value: GLenum
 
     alias POINT = MeshMode1(0x1B00)
@@ -2948,7 +2948,7 @@ struct MeshMode1:
 
 @fieldwise_init
 @register_passable("trivial")
-struct MeshMode2:
+struct MeshMode2(Intable):
     var value: GLenum
 
     alias POINT = MeshMode2(0x1B00)
@@ -2962,7 +2962,7 @@ struct MeshMode2:
 
 @fieldwise_init
 @register_passable("trivial")
-struct MinmaxTarget:
+struct MinmaxTarget(Intable):
     var value: GLenum
 
     alias MINMAX = MinmaxTarget(0x802E)
@@ -2974,7 +2974,7 @@ struct MinmaxTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct NormalPointerType:
+struct NormalPointerType(Intable):
     var value: GLenum
 
     alias BYTE = NormalPointerType(0x1400)
@@ -2990,7 +2990,7 @@ struct NormalPointerType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ObjectIdentifier:
+struct ObjectIdentifier(Intable):
     var value: GLenum
 
     alias TEXTURE = ObjectIdentifier(0x1702)
@@ -3012,7 +3012,7 @@ struct ObjectIdentifier:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PatchParameterName:
+struct PatchParameterName(Intable):
     var value: GLenum
 
     alias PATCH_VERTICES = PatchParameterName(0x8E72)
@@ -3026,7 +3026,7 @@ struct PatchParameterName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PathColorFormat:
+struct PathColorFormat(Intable):
     var value: GLenum
 
     alias NONE = PathColorFormat(0)
@@ -3044,7 +3044,7 @@ struct PathColorFormat:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PathFillMode:
+struct PathFillMode(Intable):
     var value: GLenum
 
     alias INVERT = PathFillMode(0x150A)
@@ -3059,7 +3059,7 @@ struct PathFillMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PathFontStyle:
+struct PathFontStyle(Intable):
     var value: GLenum
 
     alias BOLD_BIT_NV = PathFontStyle(0x01)
@@ -3073,7 +3073,7 @@ struct PathFontStyle:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PathGenMode:
+struct PathGenMode(Intable):
     var value: GLenum
 
     alias NONE = PathGenMode(0)
@@ -3089,7 +3089,7 @@ struct PathGenMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PathTransformType:
+struct PathTransformType(Intable):
     var value: GLenum
 
     alias NONE = PathTransformType(0)
@@ -3109,7 +3109,7 @@ struct PathTransformType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PipelineParameterName:
+struct PipelineParameterName(Intable):
     var value: GLenum
 
     alias ACTIVE_PROGRAM = PipelineParameterName(0x8259)
@@ -3127,7 +3127,7 @@ struct PipelineParameterName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PixelCopyType:
+struct PixelCopyType(Intable):
     var value: GLenum
 
     alias COLOR = PixelCopyType(0x1800)
@@ -3144,7 +3144,7 @@ struct PixelCopyType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PixelFormat:
+struct PixelFormat(Intable):
     var value: GLenum
 
     alias UNSIGNED_SHORT = PixelFormat(0x1403)
@@ -3189,7 +3189,7 @@ struct PixelFormat:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PixelMap:
+struct PixelMap(Intable):
     var value: GLenum
 
     alias PIXEL_MAP_I_TO_I = PixelMap(0x0C70)
@@ -3210,7 +3210,7 @@ struct PixelMap:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PixelStoreParameter:
+struct PixelStoreParameter(Intable):
     var value: GLenum
 
     alias UNPACK_SWAP_BYTES = PixelStoreParameter(0x0CF0)
@@ -3263,7 +3263,7 @@ struct PixelStoreParameter:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PixelType:
+struct PixelType(Intable):
     var value: GLenum
 
     alias BYTE = PixelType(0x1400)
@@ -3323,7 +3323,7 @@ struct PixelType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PointParameterNameARB:
+struct PointParameterNameARB(Intable):
     var value: GLenum
 
     alias POINT_SIZE_MIN = PointParameterNameARB(0x8126)
@@ -3350,7 +3350,7 @@ struct PointParameterNameARB:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PolygonMode:
+struct PolygonMode(Intable):
     var value: GLenum
 
     alias POINT = PolygonMode(0x1B00)
@@ -3364,7 +3364,7 @@ struct PolygonMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PrecisionType:
+struct PrecisionType(Intable):
     var value: GLenum
 
     alias LOW_FLOAT = PrecisionType(0x8DF0)
@@ -3381,7 +3381,7 @@ struct PrecisionType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct PrimitiveType:
+struct PrimitiveType(Intable):
     var value: GLenum
 
     alias POINTS = PrimitiveType(0x0000)
@@ -3417,7 +3417,7 @@ struct PrimitiveType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ProgramInterface:
+struct ProgramInterface(Intable):
     var value: GLenum
 
     alias TRANSFORM_FEEDBACK_BUFFER = ProgramInterface(0x8C8E)
@@ -3448,7 +3448,7 @@ struct ProgramInterface:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ProgramInterfacePName:
+struct ProgramInterfacePName(Intable):
     var value: GLenum
 
     alias ACTIVE_RESOURCES = ProgramInterfacePName(0x92F5)
@@ -3463,7 +3463,7 @@ struct ProgramInterfacePName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ProgramParameterPName:
+struct ProgramParameterPName(Intable):
     var value: GLenum
 
     alias PROGRAM_BINARY_RETRIEVABLE_HINT = ProgramParameterPName(0x8257)
@@ -3476,7 +3476,7 @@ struct ProgramParameterPName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ProgramPropertyARB:
+struct ProgramPropertyARB(Intable):
     var value: GLenum
 
     alias COMPUTE_WORK_GROUP_SIZE = ProgramPropertyARB(0x8267)
@@ -3507,7 +3507,7 @@ struct ProgramPropertyARB:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ProgramResourceProperty:
+struct ProgramResourceProperty(Intable):
     var value: GLenum
 
     alias NUM_COMPATIBLE_SUBROUTINES = ProgramResourceProperty(0x8E4A)
@@ -3548,7 +3548,7 @@ struct ProgramResourceProperty:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ProgramStagePName:
+struct ProgramStagePName(Intable):
     var value: GLenum
 
     alias ACTIVE_SUBROUTINES = ProgramStagePName(0x8DE5)
@@ -3564,7 +3564,7 @@ struct ProgramStagePName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct QueryCounterTarget:
+struct QueryCounterTarget(Intable):
     var value: GLenum
 
     alias TIMESTAMP = QueryCounterTarget(0x8E28)
@@ -3577,7 +3577,7 @@ struct QueryCounterTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct QueryObjectParameterName:
+struct QueryObjectParameterName(Intable):
     var value: GLenum
 
     alias QUERY_TARGET = QueryObjectParameterName(0x82EA)
@@ -3592,7 +3592,7 @@ struct QueryObjectParameterName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct QueryParameterName:
+struct QueryParameterName(Intable):
     var value: GLenum
 
     alias QUERY_COUNTER_BITS = QueryParameterName(0x8864)
@@ -3605,7 +3605,7 @@ struct QueryParameterName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct QueryTarget:
+struct QueryTarget(Intable):
     var value: GLenum
 
     alias TRANSFORM_FEEDBACK_OVERFLOW = QueryTarget(0x82EC)
@@ -3626,7 +3626,7 @@ struct QueryTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ReadBufferMode:
+struct ReadBufferMode(Intable):
     var value: GLenum
 
     alias NONE = ReadBufferMode(0)
@@ -3667,7 +3667,7 @@ struct ReadBufferMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct RenderbufferParameterName:
+struct RenderbufferParameterName(Intable):
     var value: GLenum
 
     alias RENDERBUFFER_COVERAGE_SAMPLES_NV = RenderbufferParameterName(0x8CAB)
@@ -3714,7 +3714,7 @@ struct RenderbufferParameterName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct RenderbufferTarget:
+struct RenderbufferTarget(Intable):
     var value: GLenum
 
     alias RENDERBUFFER = RenderbufferTarget(0x8D41)
@@ -3727,7 +3727,7 @@ struct RenderbufferTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct SamplerParameterF:
+struct SamplerParameterF(Intable):
     var value: GLenum
 
     alias TEXTURE_BORDER_COLOR = SamplerParameterF(0x1004)
@@ -3744,7 +3744,7 @@ struct SamplerParameterF:
 
 @fieldwise_init
 @register_passable("trivial")
-struct SamplerParameterI:
+struct SamplerParameterI(Intable):
     var value: GLenum
 
     alias TEXTURE_MAG_FILTER = SamplerParameterI(0x2800)
@@ -3763,7 +3763,7 @@ struct SamplerParameterI:
 
 @fieldwise_init
 @register_passable("trivial")
-struct SeparableTarget:
+struct SeparableTarget(Intable):
     var value: GLenum
 
     alias SEPARABLE_2D = SeparableTarget(0x8012)
@@ -3775,7 +3775,7 @@ struct SeparableTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ShaderBinaryFormat:
+struct ShaderBinaryFormat(Intable):
     var value: GLenum
 
     alias SGX_BINARY_IMG = ShaderBinaryFormat(0x8C0A)
@@ -3792,7 +3792,7 @@ struct ShaderBinaryFormat:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ShaderParameterName:
+struct ShaderParameterName(Intable):
     var value: GLenum
 
     alias SHADER_TYPE = ShaderParameterName(0x8B4F)
@@ -3808,7 +3808,7 @@ struct ShaderParameterName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct ShaderType:
+struct ShaderType(Intable):
     var value: GLenum
 
     alias FRAGMENT_SHADER = ShaderType(0x8B30)
@@ -3827,7 +3827,7 @@ struct ShaderType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct SizedInternalFormat:
+struct SizedInternalFormat(Intable):
     var value: GLenum
 
     alias R3_G3_B2 = SizedInternalFormat(0x2A10)
@@ -4185,7 +4185,7 @@ struct SizedInternalFormat:
 
 @fieldwise_init
 @register_passable("trivial")
-struct SpecialNumbers:
+struct SpecialNumbers(Intable):
     var value: GLenum
 
     alias FALSE = SpecialNumbers(0)
@@ -4212,7 +4212,7 @@ struct SpecialNumbers:
 
 @fieldwise_init
 @register_passable("trivial")
-struct StencilFunction:
+struct StencilFunction(Intable):
     var value: GLenum
 
     alias NEVER = StencilFunction(0x0200)
@@ -4231,7 +4231,7 @@ struct StencilFunction:
 
 @fieldwise_init
 @register_passable("trivial")
-struct StencilOp:
+struct StencilOp(Intable):
     var value: GLenum
 
     alias ZERO = StencilOp(0)
@@ -4250,7 +4250,7 @@ struct StencilOp:
 
 @fieldwise_init
 @register_passable("trivial")
-struct StringName:
+struct StringName(Intable):
     var value: GLenum
 
     alias VENDOR = StringName(0x1F00)
@@ -4266,7 +4266,7 @@ struct StringName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct SubroutineParameterName:
+struct SubroutineParameterName(Intable):
     var value: GLenum
 
     alias UNIFORM_SIZE = SubroutineParameterName(0x8A38)
@@ -4281,7 +4281,7 @@ struct SubroutineParameterName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct SyncBehaviorFlags:
+struct SyncBehaviorFlags(Intable):
     var value: GLbitfield
 
     alias NONE = SyncBehaviorFlags(0)
@@ -4297,7 +4297,7 @@ struct SyncBehaviorFlags:
 
 @fieldwise_init
 @register_passable("trivial")
-struct SyncCondition:
+struct SyncCondition(Intable):
     var value: GLenum
 
     alias SYNC_GPU_COMMANDS_COMPLETE = SyncCondition(0x9117)
@@ -4309,7 +4309,7 @@ struct SyncCondition:
 
 @fieldwise_init
 @register_passable("trivial")
-struct SyncObjectMask:
+struct SyncObjectMask(Intable):
     var value: GLbitfield
 
     alias SYNC_FLUSH_COMMANDS_BIT = SyncObjectMask(0x00000001)
@@ -4326,7 +4326,7 @@ struct SyncObjectMask:
 
 @fieldwise_init
 @register_passable("trivial")
-struct SyncParameterName:
+struct SyncParameterName(Intable):
     var value: GLenum
 
     alias OBJECT_TYPE = SyncParameterName(0x9112)
@@ -4341,7 +4341,7 @@ struct SyncParameterName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct SyncStatus:
+struct SyncStatus(Intable):
     var value: GLenum
 
     alias ALREADY_SIGNALED = SyncStatus(0x911A)
@@ -4356,7 +4356,7 @@ struct SyncStatus:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TexCoordPointerType:
+struct TexCoordPointerType(Intable):
     var value: GLenum
 
     alias SHORT = TexCoordPointerType(0x1402)
@@ -4371,7 +4371,7 @@ struct TexCoordPointerType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TextureCompareMode:
+struct TextureCompareMode(Intable):
     var value: GLenum
 
     alias NONE = TextureCompareMode(0)
@@ -4385,7 +4385,7 @@ struct TextureCompareMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TextureEnvMode:
+struct TextureEnvMode(Intable):
     var value: GLenum
 
     alias ADD = TextureEnvMode(0x0104)
@@ -4404,7 +4404,7 @@ struct TextureEnvMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TextureEnvParameter:
+struct TextureEnvParameter(Intable):
     var value: GLenum
 
     alias ALPHA_SCALE = TextureEnvParameter(0x0D1C)
@@ -4495,7 +4495,7 @@ struct TextureEnvParameter:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TextureMagFilter:
+struct TextureMagFilter(Intable):
     var value: GLenum
 
     alias NEAREST = TextureMagFilter(0x2600)
@@ -4518,7 +4518,7 @@ struct TextureMagFilter:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TextureMinFilter:
+struct TextureMinFilter(Intable):
     var value: GLenum
 
     alias NEAREST = TextureMinFilter(0x2600)
@@ -4543,7 +4543,7 @@ struct TextureMinFilter:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TextureParameterName:
+struct TextureParameterName(Intable):
     var value: GLenum
 
     alias TEXTURE_WIDTH = TextureParameterName(0x1000)
@@ -4632,7 +4632,7 @@ struct TextureParameterName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TextureSwizzle:
+struct TextureSwizzle(Intable):
     var value: GLenum
 
     alias ZERO = TextureSwizzle(0)
@@ -4649,7 +4649,7 @@ struct TextureSwizzle:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TextureTarget:
+struct TextureTarget(Intable):
     var value: GLenum
 
     alias TEXTURE_1D = TextureTarget(0x0DE0)
@@ -4729,7 +4729,7 @@ struct TextureTarget:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TextureUnit:
+struct TextureUnit(Intable):
     var value: GLenum
 
     alias TEXTURE0 = TextureUnit(0x84C0)
@@ -4772,7 +4772,7 @@ struct TextureUnit:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TextureWrapMode:
+struct TextureWrapMode(Intable):
     var value: GLenum
 
     alias CLAMP = TextureWrapMode(0x2900)
@@ -4797,7 +4797,7 @@ struct TextureWrapMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TransformFeedbackBufferMode:
+struct TransformFeedbackBufferMode(Intable):
     var value: GLenum
 
     alias INTERLEAVED_ATTRIBS = TransformFeedbackBufferMode(0x8C8C)
@@ -4810,7 +4810,7 @@ struct TransformFeedbackBufferMode:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TransformFeedbackPName:
+struct TransformFeedbackPName(Intable):
     var value: GLenum
 
     alias TRANSFORM_FEEDBACK_BUFFER_START = TransformFeedbackPName(0x8C84)
@@ -4826,7 +4826,7 @@ struct TransformFeedbackPName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct TriangleFace:
+struct TriangleFace(Intable):
     var value: GLenum
 
     alias FRONT = TriangleFace(0x0404)
@@ -4840,7 +4840,7 @@ struct TriangleFace:
 
 @fieldwise_init
 @register_passable("trivial")
-struct UniformBlockPName:
+struct UniformBlockPName(Intable):
     var value: GLenum
 
     alias UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER = UniformBlockPName(0x84F0)
@@ -4862,7 +4862,7 @@ struct UniformBlockPName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct UniformPName:
+struct UniformPName(Intable):
     var value: GLenum
 
     alias UNIFORM_TYPE = UniformPName(0x8A37)
@@ -4882,7 +4882,7 @@ struct UniformPName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct UniformType:
+struct UniformType(Intable):
     var value: GLenum
 
     alias INT = UniformType(0x1404)
@@ -4971,7 +4971,7 @@ struct UniformType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct UseProgramStageMask:
+struct UseProgramStageMask(Intable):
     var value: GLbitfield
 
     alias VERTEX_SHADER_BIT = UseProgramStageMask(0x00000001)
@@ -5004,7 +5004,7 @@ struct UseProgramStageMask:
 
 @fieldwise_init
 @register_passable("trivial")
-struct VertexArrayPName:
+struct VertexArrayPName(Intable):
     var value: GLenum
 
     alias VERTEX_ATTRIB_RELATIVE_OFFSET = VertexArrayPName(0x82D5)
@@ -5024,7 +5024,7 @@ struct VertexArrayPName:
 
 @fieldwise_init
 @register_passable("trivial")
-struct VertexAttribEnum:
+struct VertexAttribEnum(Intable):
     var value: GLenum
 
     alias VERTEX_ATTRIB_ARRAY_ENABLED = VertexAttribEnum(0x8622)
@@ -5044,7 +5044,7 @@ struct VertexAttribEnum:
 
 @fieldwise_init
 @register_passable("trivial")
-struct VertexAttribIType:
+struct VertexAttribIType(Intable):
     var value: GLenum
 
     alias BYTE = VertexAttribIType(0x1400)
@@ -5061,7 +5061,7 @@ struct VertexAttribIType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct VertexAttribLType:
+struct VertexAttribLType(Intable):
     var value: GLenum
 
     alias DOUBLE = VertexAttribLType(0x140A)
@@ -5073,7 +5073,7 @@ struct VertexAttribLType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct VertexAttribPointerPropertyARB:
+struct VertexAttribPointerPropertyARB(Intable):
     var value: GLenum
 
     alias VERTEX_ATTRIB_ARRAY_POINTER = VertexAttribPointerPropertyARB(0x8645)
@@ -5086,7 +5086,7 @@ struct VertexAttribPointerPropertyARB:
 
 @fieldwise_init
 @register_passable("trivial")
-struct VertexAttribPointerType:
+struct VertexAttribPointerType(Intable):
     var value: GLenum
 
     alias BYTE = VertexAttribPointerType(0x1400)
@@ -5115,7 +5115,7 @@ struct VertexAttribPointerType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct VertexAttribPropertyARB:
+struct VertexAttribPropertyARB(Intable):
     var value: GLenum
 
     alias VERTEX_ATTRIB_BINDING = VertexAttribPropertyARB(0x82D4)
@@ -5139,7 +5139,7 @@ struct VertexAttribPropertyARB:
 
 @fieldwise_init
 @register_passable("trivial")
-struct VertexAttribType:
+struct VertexAttribType(Intable):
     var value: GLenum
 
     alias BYTE = VertexAttribType(0x1400)
@@ -5164,7 +5164,7 @@ struct VertexAttribType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct VertexBufferObjectUsage:
+struct VertexBufferObjectUsage(Intable):
     var value: GLenum
 
     alias STREAM_DRAW = VertexBufferObjectUsage(0x88E0)
@@ -5184,7 +5184,7 @@ struct VertexBufferObjectUsage:
 
 @fieldwise_init
 @register_passable("trivial")
-struct VertexPointerType:
+struct VertexPointerType(Intable):
     var value: GLenum
 
     alias SHORT = VertexPointerType(0x1402)
@@ -5199,7 +5199,7 @@ struct VertexPointerType:
 
 @fieldwise_init
 @register_passable("trivial")
-struct VertexProvokingMode:
+struct VertexProvokingMode(Intable):
     var value: GLenum
 
     alias FIRST_VERTEX_CONVENTION = VertexProvokingMode(0x8E4D)
