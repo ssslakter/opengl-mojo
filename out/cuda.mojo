@@ -8,7 +8,7 @@ from .gl import GLenum, GLuint
 
 alias CUDA_LIBRARY_PATHS: List[Path] = [
     "/usr/local/cuda/lib64/libcuda.so",
-    "/usr/lib/wsl/lib/libcuda.so", # At this moment OpenGL-CUDA interop is not supported on WSL https://docs.nvidia.com/cuda/wsl-user-guide/index.html#features-not-yet-supported
+    "/usr/lib/wsl/lib/libcuda.so",  # At this moment OpenGL-CUDA interop is not supported on WSL https://docs.nvidia.com/cuda/wsl-user-guide/index.html#features-not-yet-supported
 ]
 
 alias CUDA_LIBRARY = _Global["CUDA_LIBRARY", _OwnedDLHandle, _init_dylib]
@@ -222,7 +222,5 @@ fn cuWGLGetDevice(pDevice: UnsafePointer[CUdevice], hGpu: HGPUNV) -> CUresult:
 fn cuCtxPushCurrent(ctx: CUcontext) -> CUresult:
     return _get_dylib_function[
         "cuCtxPushCurrent",
-        fn (
-            CUcontext,
-        ) -> CUresult,
+        fn (CUcontext,) -> CUresult,
     ]()(ctx)

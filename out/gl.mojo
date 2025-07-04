@@ -7001,47 +7001,47 @@ fn compile_shader(shader: GLuint):
 
 
 @always_inline
-fn compressed_tex_image1_d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+fn compressed_tex_image_1d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
     return _glCompressedTexImage1D_ptr.get_or_create_ptr()[](target, level, internalformat, width, border, image_size, data)
 
 
 @always_inline
-fn compressed_tex_image2_d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+fn compressed_tex_image_2d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
     return _glCompressedTexImage2D_ptr.get_or_create_ptr()[](target, level, internalformat, width, height, border, image_size, data)
 
 
 @always_inline
-fn compressed_tex_image3_d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+fn compressed_tex_image_3d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
     return _glCompressedTexImage3D_ptr.get_or_create_ptr()[](target, level, internalformat, width, height, depth, border, image_size, data)
 
 
 @always_inline
-fn compressed_tex_sub_image1_d(target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+fn compressed_tex_sub_image_1d(target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
     return _glCompressedTexSubImage1D_ptr.get_or_create_ptr()[](target, level, xoffset, width, format, image_size, data)
 
 
 @always_inline
-fn compressed_tex_sub_image2_d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+fn compressed_tex_sub_image_2d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
     return _glCompressedTexSubImage2D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, width, height, format, image_size, data)
 
 
 @always_inline
-fn compressed_tex_sub_image3_d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+fn compressed_tex_sub_image_3d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
     return _glCompressedTexSubImage3D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, zoffset, width, height, depth, format, image_size, data)
 
 
 @always_inline
-fn compressed_texture_sub_image1_d(texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+fn compressed_texture_sub_image_1d(texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
     return _glCompressedTextureSubImage1D_ptr.get_or_create_ptr()[](texture, level, xoffset, width, format, image_size, data)
 
 
 @always_inline
-fn compressed_texture_sub_image2_d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+fn compressed_texture_sub_image_2d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
     return _glCompressedTextureSubImage2D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, width, height, format, image_size, data)
 
 
 @always_inline
-fn compressed_texture_sub_image3_d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+fn compressed_texture_sub_image_3d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
     return _glCompressedTextureSubImage3D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth, format, image_size, data)
 
 
@@ -7061,42 +7061,42 @@ fn copy_named_buffer_sub_data(read_buffer: GLuint, write_buffer: GLuint, read_of
 
 
 @always_inline
-fn copy_tex_image1_d(target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, border: GLint):
+fn copy_tex_image_1d(target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, border: GLint):
     return _glCopyTexImage1D_ptr.get_or_create_ptr()[](target, level, internalformat, x, y, width, border)
 
 
 @always_inline
-fn copy_tex_image2_d(target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, height: GLsizei, border: GLint):
+fn copy_tex_image_2d(target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, height: GLsizei, border: GLint):
     return _glCopyTexImage2D_ptr.get_or_create_ptr()[](target, level, internalformat, x, y, width, height, border)
 
 
 @always_inline
-fn copy_tex_sub_image1_d(target: TextureTarget, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei):
+fn copy_tex_sub_image_1d(target: TextureTarget, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei):
     return _glCopyTexSubImage1D_ptr.get_or_create_ptr()[](target, level, xoffset, x, y, width)
 
 
 @always_inline
-fn copy_tex_sub_image2_d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei):
+fn copy_tex_sub_image_2d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei):
     return _glCopyTexSubImage2D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, x, y, width, height)
 
 
 @always_inline
-fn copy_tex_sub_image3_d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei):
+fn copy_tex_sub_image_3d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei):
     return _glCopyTexSubImage3D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, zoffset, x, y, width, height)
 
 
 @always_inline
-fn copy_texture_sub_image1_d(texture: GLuint, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei):
+fn copy_texture_sub_image_1d(texture: GLuint, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei):
     return _glCopyTextureSubImage1D_ptr.get_or_create_ptr()[](texture, level, xoffset, x, y, width)
 
 
 @always_inline
-fn copy_texture_sub_image2_d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei):
+fn copy_texture_sub_image_2d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei):
     return _glCopyTextureSubImage2D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, x, y, width, height)
 
 
 @always_inline
-fn copy_texture_sub_image3_d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei):
+fn copy_texture_sub_image_3d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei):
     return _glCopyTextureSubImage3D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, x, y, width, height)
 
 
@@ -7482,17 +7482,17 @@ fn framebuffer_texture(target: FramebufferTarget, attachment: FramebufferAttachm
 
 
 @always_inline
-fn framebuffer_texture1_d(target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint):
+fn framebuffer_texture_1d(target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint):
     return _glFramebufferTexture1D_ptr.get_or_create_ptr()[](target, attachment, textarget, texture, level)
 
 
 @always_inline
-fn framebuffer_texture2_d(target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint):
+fn framebuffer_texture_2d(target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint):
     return _glFramebufferTexture2D_ptr.get_or_create_ptr()[](target, attachment, textarget, texture, level)
 
 
 @always_inline
-fn framebuffer_texture3_d(target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint, zoffset: GLint):
+fn framebuffer_texture_3d(target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint, zoffset: GLint):
     return _glFramebufferTexture3D_ptr.get_or_create_ptr()[](target, attachment, textarget, texture, level, zoffset)
 
 
@@ -9134,12 +9134,12 @@ fn tex_coord_p4uiv(type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]):
 
 
 @always_inline
-fn tex_image1_d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+fn tex_image_1d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
     return _glTexImage1D_ptr.get_or_create_ptr()[](target, level, internalformat, width, border, format, type, pixels)
 
 
 @always_inline
-fn tex_image2_d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+fn tex_image_2d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
     return _glTexImage2D_ptr.get_or_create_ptr()[](target, level, internalformat, width, height, border, format, type, pixels)
 
 
@@ -9149,7 +9149,7 @@ fn tex_image2_d_multisample(target: TextureTarget, samples: GLsizei, internalfor
 
 
 @always_inline
-fn tex_image3_d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+fn tex_image_3d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
     return _glTexImage3D_ptr.get_or_create_ptr()[](target, level, internalformat, width, height, depth, border, format, type, pixels)
 
 
@@ -9189,12 +9189,12 @@ fn tex_parameteriv(target: TextureTarget, pname: TextureParameterName, params: P
 
 
 @always_inline
-fn tex_storage1_d(target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei):
+fn tex_storage_1d(target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei):
     return _glTexStorage1D_ptr.get_or_create_ptr()[](target, levels, internalformat, width)
 
 
 @always_inline
-fn tex_storage2_d(target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei):
+fn tex_storage_2d(target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei):
     return _glTexStorage2D_ptr.get_or_create_ptr()[](target, levels, internalformat, width, height)
 
 
@@ -9204,7 +9204,7 @@ fn tex_storage2_d_multisample(target: TextureTarget, samples: GLsizei, internalf
 
 
 @always_inline
-fn tex_storage3_d(target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei):
+fn tex_storage_3d(target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei):
     return _glTexStorage3D_ptr.get_or_create_ptr()[](target, levels, internalformat, width, height, depth)
 
 
@@ -9214,17 +9214,17 @@ fn tex_storage3_d_multisample(target: TextureTarget, samples: GLsizei, internalf
 
 
 @always_inline
-fn tex_sub_image1_d(target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+fn tex_sub_image_1d(target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
     return _glTexSubImage1D_ptr.get_or_create_ptr()[](target, level, xoffset, width, format, type, pixels)
 
 
 @always_inline
-fn tex_sub_image2_d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+fn tex_sub_image_2d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
     return _glTexSubImage2D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, width, height, format, type, pixels)
 
 
 @always_inline
-fn tex_sub_image3_d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+fn tex_sub_image_3d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
     return _glTexSubImage3D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 
 
@@ -9274,12 +9274,12 @@ fn texture_parameteriv(texture: GLuint, pname: TextureParameterName, param: Ptr[
 
 
 @always_inline
-fn texture_storage1_d(texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei):
+fn texture_storage_1d(texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei):
     return _glTextureStorage1D_ptr.get_or_create_ptr()[](texture, levels, internalformat, width)
 
 
 @always_inline
-fn texture_storage2_d(texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei):
+fn texture_storage_2d(texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei):
     return _glTextureStorage2D_ptr.get_or_create_ptr()[](texture, levels, internalformat, width, height)
 
 
@@ -9289,7 +9289,7 @@ fn texture_storage2_d_multisample(texture: GLuint, samples: GLsizei, internalfor
 
 
 @always_inline
-fn texture_storage3_d(texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei):
+fn texture_storage_3d(texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei):
     return _glTextureStorage3D_ptr.get_or_create_ptr()[](texture, levels, internalformat, width, height, depth)
 
 
@@ -9299,17 +9299,17 @@ fn texture_storage3_d_multisample(texture: GLuint, samples: GLsizei, internalfor
 
 
 @always_inline
-fn texture_sub_image1_d(texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+fn texture_sub_image_1d(texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
     return _glTextureSubImage1D_ptr.get_or_create_ptr()[](texture, level, xoffset, width, format, type, pixels)
 
 
 @always_inline
-fn texture_sub_image2_d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+fn texture_sub_image_2d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
     return _glTextureSubImage2D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, width, height, format, type, pixels)
 
 
 @always_inline
-fn texture_sub_image3_d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+fn texture_sub_image_3d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
     return _glTextureSubImage3D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 
 

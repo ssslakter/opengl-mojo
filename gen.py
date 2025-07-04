@@ -62,6 +62,7 @@ extra_groups = [
 
 
 def to_snake_case(string: str) -> str:
+    string = re.sub(r'(\d)D\b', r'\1d', string)
     return re.sub(
         r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", "_", string
     ).lower()
