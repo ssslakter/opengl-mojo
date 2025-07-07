@@ -62,7 +62,7 @@ extra_groups = [
 
 
 def to_snake_case(string: str) -> str:
-    string = re.sub(r'(\d)D\b', r'\1d', string)
+    string = re.sub(r'(\d)D\b', r'_\1d', string)
     return re.sub(
         r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", "_", string
     ).lower()
@@ -237,6 +237,7 @@ class CommandParam(CommandEl):
             if "Ptr" in type: 
                 type = "List[String]"
                 name = name.replace("owned", "mut")
+            name = name.replace("owned", "var") # changed in latest mojo version
         if type == "GLboolean":
             type = type.replace("GLboolean", "Bool")
         return f"{name}: {type}"

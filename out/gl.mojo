@@ -6666,7 +6666,7 @@ fn begin_transform_feedback(primitive_mode: PrimitiveType):
 
 
 @always_inline
-fn bind_attrib_location(program: GLuint, index: GLuint, owned name: String):
+fn bind_attrib_location(program: GLuint, index: GLuint, var name: String):
     return _glBindAttribLocation_ptr.get_or_create_ptr()[](program, index, name.unsafe_cstr_ptr())
 
 
@@ -6696,12 +6696,12 @@ fn bind_buffers_range(target: BufferTargetARB, first: GLuint, count: GLsizei, bu
 
 
 @always_inline
-fn bind_frag_data_location(program: GLuint, color: GLuint, owned name: String):
+fn bind_frag_data_location(program: GLuint, color: GLuint, var name: String):
     return _glBindFragDataLocation_ptr.get_or_create_ptr()[](program, color, name.unsafe_cstr_ptr())
 
 
 @always_inline
-fn bind_frag_data_location_indexed(program: GLuint, color_number: GLuint, index: GLuint, owned name: String):
+fn bind_frag_data_location_indexed(program: GLuint, color_number: GLuint, index: GLuint, var name: String):
     return _glBindFragDataLocationIndexed_ptr.get_or_create_ptr()[](program, color_number, index, name.unsafe_cstr_ptr())
 
 
@@ -7177,7 +7177,7 @@ fn debug_message_control(source: DebugSource, type: DebugType, severity: DebugSe
 
 
 @always_inline
-fn debug_message_insert(source: DebugSource, type: DebugType, id: GLuint, severity: DebugSeverity, length: GLsizei, owned buf: String):
+fn debug_message_insert(source: DebugSource, type: DebugType, id: GLuint, severity: DebugSeverity, length: GLsizei, var buf: String):
     return _glDebugMessageInsert_ptr.get_or_create_ptr()[](source, type, id, severity, length, buf.unsafe_cstr_ptr())
 
 
@@ -7567,17 +7567,17 @@ fn get_active_atomic_counter_bufferiv(program: GLuint, buffer_index: GLuint, pna
 
 
 @always_inline
-fn get_active_attrib(program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: Ptr[AttributeType, mut=True], owned name: String):
+fn get_active_attrib(program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: Ptr[AttributeType, mut=True], var name: String):
     return _glGetActiveAttrib_ptr.get_or_create_ptr()[](program, index, buf_size, length, size, type, name.unsafe_cstr_ptr())
 
 
 @always_inline
-fn get_active_subroutine_name(program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], owned name: String):
+fn get_active_subroutine_name(program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], var name: String):
     return _glGetActiveSubroutineName_ptr.get_or_create_ptr()[](program, shadertype, index, buf_size, length, name.unsafe_cstr_ptr())
 
 
 @always_inline
-fn get_active_subroutine_uniform_name(program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], owned name: String):
+fn get_active_subroutine_uniform_name(program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], var name: String):
     return _glGetActiveSubroutineUniformName_ptr.get_or_create_ptr()[](program, shadertype, index, buf_size, length, name.unsafe_cstr_ptr())
 
 
@@ -7587,12 +7587,12 @@ fn get_active_subroutine_uniformiv(program: GLuint, shadertype: ShaderType, inde
 
 
 @always_inline
-fn get_active_uniform(program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: Ptr[UniformType, mut=True], owned name: String):
+fn get_active_uniform(program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: Ptr[UniformType, mut=True], var name: String):
     return _glGetActiveUniform_ptr.get_or_create_ptr()[](program, index, buf_size, length, size, type, name.unsafe_cstr_ptr())
 
 
 @always_inline
-fn get_active_uniform_block_name(program: GLuint, uniform_block_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], owned uniform_block_name: String):
+fn get_active_uniform_block_name(program: GLuint, uniform_block_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], var uniform_block_name: String):
     return _glGetActiveUniformBlockName_ptr.get_or_create_ptr()[](program, uniform_block_index, buf_size, length, uniform_block_name.unsafe_cstr_ptr())
 
 
@@ -7602,7 +7602,7 @@ fn get_active_uniform_blockiv(program: GLuint, uniform_block_index: GLuint, pnam
 
 
 @always_inline
-fn get_active_uniform_name(program: GLuint, uniform_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], owned uniform_name: String):
+fn get_active_uniform_name(program: GLuint, uniform_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], var uniform_name: String):
     return _glGetActiveUniformName_ptr.get_or_create_ptr()[](program, uniform_index, buf_size, length, uniform_name.unsafe_cstr_ptr())
 
 
@@ -7617,7 +7617,7 @@ fn get_attached_shaders(program: GLuint, max_count: GLsizei, count: Ptr[GLsizei,
 
 
 @always_inline
-fn get_attrib_location(program: GLuint, owned name: String) -> GLint:
+fn get_attrib_location(program: GLuint, var name: String) -> GLint:
     return _glGetAttribLocation_ptr.get_or_create_ptr()[](program, name.unsafe_cstr_ptr())
 
 
@@ -7667,7 +7667,7 @@ fn get_compressed_texture_sub_image(texture: GLuint, level: GLint, xoffset: GLin
 
 
 @always_inline
-fn get_debug_message_log(count: GLuint, buf_size: GLsizei, sources: Ptr[DebugSource, mut=True], types: Ptr[DebugType, mut=True], ids: Ptr[GLuint, mut=True], severities: Ptr[DebugSeverity, mut=True], lengths: Ptr[GLsizei, mut=True], owned message_log: String) -> GLuint:
+fn get_debug_message_log(count: GLuint, buf_size: GLsizei, sources: Ptr[DebugSource, mut=True], types: Ptr[DebugType, mut=True], ids: Ptr[GLuint, mut=True], severities: Ptr[DebugSeverity, mut=True], lengths: Ptr[GLsizei, mut=True], var message_log: String) -> GLuint:
     return _glGetDebugMessageLog_ptr.get_or_create_ptr()[](count, buf_size, sources, types, ids, severities, lengths, message_log.unsafe_cstr_ptr())
 
 
@@ -7697,12 +7697,12 @@ fn get_floatv(pname: GetPName, data: Ptr[GLfloat, mut=True]):
 
 
 @always_inline
-fn get_frag_data_index(program: GLuint, owned name: String) -> GLint:
+fn get_frag_data_index(program: GLuint, var name: String) -> GLint:
     return _glGetFragDataIndex_ptr.get_or_create_ptr()[](program, name.unsafe_cstr_ptr())
 
 
 @always_inline
-fn get_frag_data_location(program: GLuint, owned name: String) -> GLint:
+fn get_frag_data_location(program: GLuint, var name: String) -> GLint:
     return _glGetFragDataLocation_ptr.get_or_create_ptr()[](program, name.unsafe_cstr_ptr())
 
 
@@ -7792,12 +7792,12 @@ fn get_named_renderbuffer_parameteriv(renderbuffer: GLuint, pname: RenderbufferP
 
 
 @always_inline
-fn get_object_label(identifier: ObjectIdentifier, name: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], owned label: String):
+fn get_object_label(identifier: ObjectIdentifier, name: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], var label: String):
     return _glGetObjectLabel_ptr.get_or_create_ptr()[](identifier, name, buf_size, length, label.unsafe_cstr_ptr())
 
 
 @always_inline
-fn get_object_ptr_label(ptr: Ptr[NoneType, mut=False], buf_size: GLsizei, length: Ptr[GLsizei, mut=True], owned label: String):
+fn get_object_ptr_label(ptr: Ptr[NoneType, mut=False], buf_size: GLsizei, length: Ptr[GLsizei, mut=True], var label: String):
     return _glGetObjectPtrLabel_ptr.get_or_create_ptr()[](ptr, buf_size, length, label.unsafe_cstr_ptr())
 
 
@@ -7807,7 +7807,7 @@ fn get_program_binary(program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, m
 
 
 @always_inline
-fn get_program_info_log(program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], owned info_log: String):
+fn get_program_info_log(program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], var info_log: String):
     return _glGetProgramInfoLog_ptr.get_or_create_ptr()[](program, buf_size, length, info_log.unsafe_cstr_ptr())
 
 
@@ -7817,7 +7817,7 @@ fn get_program_interfaceiv(program: GLuint, program_interface: ProgramInterface,
 
 
 @always_inline
-fn get_program_pipeline_info_log(pipeline: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], owned info_log: String):
+fn get_program_pipeline_info_log(pipeline: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], var info_log: String):
     return _glGetProgramPipelineInfoLog_ptr.get_or_create_ptr()[](pipeline, buf_size, length, info_log.unsafe_cstr_ptr())
 
 
@@ -7827,22 +7827,22 @@ fn get_program_pipelineiv(pipeline: GLuint, pname: PipelineParameterName, params
 
 
 @always_inline
-fn get_program_resource_index(program: GLuint, program_interface: ProgramInterface, owned name: String) -> GLuint:
+fn get_program_resource_index(program: GLuint, program_interface: ProgramInterface, var name: String) -> GLuint:
     return _glGetProgramResourceIndex_ptr.get_or_create_ptr()[](program, program_interface, name.unsafe_cstr_ptr())
 
 
 @always_inline
-fn get_program_resource_location(program: GLuint, program_interface: ProgramInterface, owned name: String) -> GLint:
+fn get_program_resource_location(program: GLuint, program_interface: ProgramInterface, var name: String) -> GLint:
     return _glGetProgramResourceLocation_ptr.get_or_create_ptr()[](program, program_interface, name.unsafe_cstr_ptr())
 
 
 @always_inline
-fn get_program_resource_location_index(program: GLuint, program_interface: ProgramInterface, owned name: String) -> GLint:
+fn get_program_resource_location_index(program: GLuint, program_interface: ProgramInterface, var name: String) -> GLint:
     return _glGetProgramResourceLocationIndex_ptr.get_or_create_ptr()[](program, program_interface, name.unsafe_cstr_ptr())
 
 
 @always_inline
-fn get_program_resource_name(program: GLuint, program_interface: ProgramInterface, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], owned name: String):
+fn get_program_resource_name(program: GLuint, program_interface: ProgramInterface, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], var name: String):
     return _glGetProgramResourceName_ptr.get_or_create_ptr()[](program, program_interface, index, buf_size, length, name.unsafe_cstr_ptr())
 
 
@@ -7937,7 +7937,7 @@ fn get_sampler_parameteriv(sampler: GLuint, pname: SamplerParameterI, params: Pt
 
 
 @always_inline
-fn get_shader_info_log(shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], owned info_log: String):
+fn get_shader_info_log(shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], var info_log: String):
     return _glGetShaderInfoLog_ptr.get_or_create_ptr()[](shader, buf_size, length, info_log.unsafe_cstr_ptr())
 
 
@@ -7947,7 +7947,7 @@ fn get_shader_precision_format(shadertype: ShaderType, precisiontype: PrecisionT
 
 
 @always_inline
-fn get_shader_source(shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], owned source: String):
+fn get_shader_source(shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], var source: String):
     return _glGetShaderSource_ptr.get_or_create_ptr()[](shader, buf_size, length, source.unsafe_cstr_ptr())
 
 
@@ -7967,12 +7967,12 @@ fn get_stringi(name: StringName, index: GLuint) -> GLubyte:
 
 
 @always_inline
-fn get_subroutine_index(program: GLuint, shadertype: ShaderType, owned name: String) -> GLuint:
+fn get_subroutine_index(program: GLuint, shadertype: ShaderType, var name: String) -> GLuint:
     return _glGetSubroutineIndex_ptr.get_or_create_ptr()[](program, shadertype, name.unsafe_cstr_ptr())
 
 
 @always_inline
-fn get_subroutine_uniform_location(program: GLuint, shadertype: ShaderType, owned name: String) -> GLint:
+fn get_subroutine_uniform_location(program: GLuint, shadertype: ShaderType, var name: String) -> GLint:
     return _glGetSubroutineUniformLocation_ptr.get_or_create_ptr()[](program, shadertype, name.unsafe_cstr_ptr())
 
 
@@ -8057,7 +8057,7 @@ fn get_texture_sub_image(texture: GLuint, level: GLint, xoffset: GLint, yoffset:
 
 
 @always_inline
-fn get_transform_feedback_varying(program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLsizei, mut=True], type: Ptr[AttributeType, mut=True], owned name: String):
+fn get_transform_feedback_varying(program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLsizei, mut=True], type: Ptr[AttributeType, mut=True], var name: String):
     return _glGetTransformFeedbackVarying_ptr.get_or_create_ptr()[](program, index, buf_size, length, size, type, name.unsafe_cstr_ptr())
 
 
@@ -8077,7 +8077,7 @@ fn get_transform_feedbackiv(xfb: GLuint, pname: TransformFeedbackPName, param: P
 
 
 @always_inline
-fn get_uniform_block_index(program: GLuint, owned uniform_block_name: String) -> GLuint:
+fn get_uniform_block_index(program: GLuint, var uniform_block_name: String) -> GLuint:
     return _glGetUniformBlockIndex_ptr.get_or_create_ptr()[](program, uniform_block_name.unsafe_cstr_ptr())
 
 
@@ -8088,7 +8088,7 @@ fn get_uniform_indices(program: GLuint, uniform_count: GLsizei, mut uniform_name
 
 
 @always_inline
-fn get_uniform_location(program: GLuint, owned name: String) -> GLint:
+fn get_uniform_location(program: GLuint, var name: String) -> GLint:
     return _glGetUniformLocation_ptr.get_or_create_ptr()[](program, name.unsafe_cstr_ptr())
 
 
@@ -8568,12 +8568,12 @@ fn normal_p3uiv(type: NormalPointerType, coords: Ptr[GLuint, mut=False]):
 
 
 @always_inline
-fn object_label(identifier: ObjectIdentifier, name: GLuint, length: GLsizei, owned label: String):
+fn object_label(identifier: ObjectIdentifier, name: GLuint, length: GLsizei, var label: String):
     return _glObjectLabel_ptr.get_or_create_ptr()[](identifier, name, length, label.unsafe_cstr_ptr())
 
 
 @always_inline
-fn object_ptr_label(ptr: Ptr[NoneType, mut=False], length: GLsizei, owned label: String):
+fn object_ptr_label(ptr: Ptr[NoneType, mut=False], length: GLsizei, var label: String):
     return _glObjectPtrLabel_ptr.get_or_create_ptr()[](ptr, length, label.unsafe_cstr_ptr())
 
 
@@ -8918,7 +8918,7 @@ fn provoking_vertex(mode: VertexProvokingMode):
 
 
 @always_inline
-fn push_debug_group(source: DebugSource, id: GLuint, length: GLsizei, owned message: String):
+fn push_debug_group(source: DebugSource, id: GLuint, length: GLsizei, var message: String):
     return _glPushDebugGroup_ptr.get_or_create_ptr()[](source, id, length, message.unsafe_cstr_ptr())
 
 
@@ -9049,7 +9049,7 @@ fn shader_storage_block_binding(program: GLuint, storage_block_index: GLuint, st
 
 
 @always_inline
-fn specialize_shader(shader: GLuint, owned p_entry_point: String, num_specialization_constants: GLuint, p_constant_index: Ptr[GLuint, mut=False], p_constant_value: Ptr[GLuint, mut=False]):
+fn specialize_shader(shader: GLuint, var p_entry_point: String, num_specialization_constants: GLuint, p_constant_index: Ptr[GLuint, mut=False], p_constant_value: Ptr[GLuint, mut=False]):
     return _glSpecializeShader_ptr.get_or_create_ptr()[](shader, p_entry_point.unsafe_cstr_ptr(), num_specialization_constants, p_constant_index, p_constant_value)
 
 
