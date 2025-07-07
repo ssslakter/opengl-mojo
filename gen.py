@@ -492,7 +492,7 @@ alias GLDEBUGPROC = fn(source: GLenum, type: GLenum, id: GLuint, severity: GLenu
             f"""
 # ========= COMMANDS =========
 
-alias LoadProc  = fn(owned proc: String) -> fn() -> None
+alias LoadProc  = fn(var proc: String) -> fn() -> None
 
 @always_inline
 fn load_proc[result_type: AnyTrivialRegType](name: String, load: LoadProc) raises -> result_type:

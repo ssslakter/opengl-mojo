@@ -5212,7 +5212,7 @@ struct VertexProvokingMode(Intable):
 
 # ========= COMMANDS =========
 
-alias LoadProc = fn (owned proc: String) -> fn () -> None
+alias LoadProc = fn (var proc: String) -> fn () -> None
 
 
 @always_inline
