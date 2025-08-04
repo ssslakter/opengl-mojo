@@ -236,8 +236,8 @@ class CommandParam(CommandEl):
             name = 'owned ' + name
             if "Ptr" in type: 
                 type = "List[String]"
-                name = name.replace("owned", "mut")
-            name = name.replace("owned", "var") # changed in latest mojo version
+            name = name.replace("owned", "mut")
+            # name = name.replace("owned", "var") # changed in latest mojo version
         if type == "GLboolean":
             type = type.replace("GLboolean", "Bool")
         return f"{name}: {type}"
@@ -466,7 +466,6 @@ def generate_mojo_file(registry: OpenGLRegistry, path: str):
 
         f.write(
             """
-from sys.info import os_is_macos
 from memory import UnsafePointer
 alias Ptr = UnsafePointer
 alias OpaquePointer = UnsafePointer[NoneType]

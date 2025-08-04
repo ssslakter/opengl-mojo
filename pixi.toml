@@ -14,16 +14,16 @@ setup = {cmd = "./examples/init.sh"}
 example = {cmd = "mojo run examples/hello.mojo"}
 
 [dependencies]
-max = ">=25.5.0.dev2025070207,<26"
+mojo = "*"
 libopengl = ">=1.7.0,<2"
-sdl3 = ">=3.2.16,<4"
-python = ">=3.13.5,<3.14"
 
 [feature.dev.pypi-dependencies]
 ipython = "*"
 ipykernel = ">=6.29.5, <7"
 
 [feature.dev.dependencies]
+sdl3 = ">=3.2.16,<4"
+python = ">=3.13.5,<3.14"
 llvm-tools = ">=20.1.5,<21"
 
 [environments]
