@@ -314,7 +314,7 @@ class Command:
     '''
 
     def fn_global(self):
-        return f"alias _{self.name}_ptr = global_fn['{self.name}', {self.ptr_name()}]()"
+        return f"alias _{self.name}_ptr = _Global['{self.name}', {self.ptr_name()}, init_fn_ptr[{self.ptr_name()}]]()"
 
     def ptr_name(self):
         return f"fptr_{self.name}"
@@ -502,9 +502,6 @@ fn load_proc[result_type: AnyTrivialRegType](name: String, load: LoadProc) raise
     
 fn init_fn_ptr[T: AnyTrivialRegType]() -> T:
     return Ptr(to=UnsafePointer[NoneType]()).bitcast[T]()[]
-
-fn global_fn[name: String, T: AnyTrivialRegType]() -> _Global[name, T, init_fn_ptr[T]]:
-    return _Global[name, T, init_fn_ptr[T]]()
 """
         )
         ptr_decls = [func.ptr_decl() for func in registry.current_commands]
