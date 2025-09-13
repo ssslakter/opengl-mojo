@@ -3,7 +3,7 @@ authors = ["Slava Chaunin <67190162+Ssslakter@users.noreply.github.com>"]
 channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
 name = "opengl-mojo"
 platforms = ["linux-64"]
-version = "0.0.1"
+version = "0.1.0"
 
 [tasks]
 fmt = "mojo format -l 1000 out"

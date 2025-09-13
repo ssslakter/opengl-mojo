@@ -233,11 +233,10 @@ class CommandParam(CommandEl):
         type = self.to_mojo_arg_inner().split(": ")[1]
         if "GLchar" in type:
             type = re.sub(r"Ptr\[\s*GLchar[^\]]*\]", "String", type)
-            name = 'owned ' + name
+            name = 'var ' + name
             if "Ptr" in type: 
                 type = "List[String]"
-            name = name.replace("owned", "mut")
-            # name = name.replace("owned", "var") # changed in latest mojo version
+            name = name.replace("var ", "mut ")
         if type == "GLboolean":
             type = type.replace("GLboolean", "Bool")
         return f"{name}: {type}"
