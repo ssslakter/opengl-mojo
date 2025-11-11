@@ -297,7 +297,7 @@ class Command:
         res = "fn"
         if not anon:
             res += f" {self.mojo_name()}"
-        res += f"({', '.join(p.to_mojo_arg(anon=anon) for p in self.params)})"
+        res += f"({', '.join(p.to_mojo_arg(anon=anon) for p in self.params)}) raises"
         if self.return_type:
             res += f" -> {self.return_type}"
         return res
@@ -307,13 +307,13 @@ class Command:
         str_list = [p for p in self.params if 'List' in p.to_mojo_arg()]
         if not str_list: return f'return _{self.name}_ptr.get_or_create_ptr()[]({', '.join(call_args)})'
         str_list = str_list[0]
-        call_args[call_args.index(str_list.get_call_expr())] = 'c_list.steal_data().origin_cast[mut=False, origin=ImmutableAnyOrigin]()'
-        return f'''\n    var c_list = [str.unsafe_cstr_ptr().origin_cast[origin=ImmutableAnyOrigin]() for ref str in {to_snake_case(str_list.name)}]
+        call_args[call_args.index(str_list.get_call_expr())] = 'c_list.steal_data()'
+        return f'''\n    var c_list = [str.unsafe_cstr_ptr().unsafe_origin_cast[ImmutAnyOrigin]() for ref str in {to_snake_case(str_list.name)}]
     return _{self.name}_ptr.get_or_create_ptr()[]({', '.join(call_args)})
     '''
 
     def fn_global(self):
-        return f"alias _{self.name}_ptr = _Global['{self.name}', {self.ptr_name()}, init_fn_ptr[{self.ptr_name()}]]()"
+        return f"alias _{self.name}_ptr = _Global['{self.name}', init_fn_ptr[{self.ptr_name()}]]()"
 
     def ptr_name(self):
         return f"fptr_{self.name}"

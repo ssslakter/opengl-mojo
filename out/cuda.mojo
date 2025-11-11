@@ -2,7 +2,7 @@ from gpu.host._nvidia_cuda import CUcontext
 from pathlib import Path
 from memory import UnsafePointer
 from sys.ffi import c_uint
-from sys.ffi import _Global, _OwnedDLHandle, _find_dylib
+from sys.ffi import _Global, OwnedDLHandle, _find_dylib
 from sys.ffi import _get_dylib_function as _ffi_get_dylib_function
 from .gl import GLenum, GLuint
 
@@ -11,15 +11,15 @@ alias CUDA_LIBRARY_PATHS: List[Path] = [
     "/usr/lib/wsl/lib/libcuda.so",  # At this moment OpenGL-CUDA interop is not supported on WSL https://docs.nvidia.com/cuda/wsl-user-guide/index.html#features-not-yet-supported
 ]
 
-alias CUDA_LIBRARY = _Global["CUDA_LIBRARY", _OwnedDLHandle, _init_dylib]
+alias CUDA_LIBRARY = _Global["CUDA_LIBRARY", _init_dylib]
 
 
-fn _init_dylib() -> _OwnedDLHandle:
-    return _find_dylib["CUDA Library"](CUDA_LIBRARY_PATHS)
+fn _init_dylib() -> OwnedDLHandle:
+    return _find_dylib["CUDA Library"](materialize[CUDA_LIBRARY_PATHS]())
 
 
 @always_inline
-fn _get_dylib_function[func_name: StaticString, result_type: AnyTrivialRegType]() -> result_type:
+fn _get_dylib_function[func_name: StaticString, result_type: AnyTrivialRegType]() raises -> result_type:
     return _ffi_get_dylib_function[
         CUDA_LIBRARY(),
         func_name,
@@ -164,7 +164,7 @@ fn cuGLGetDevices(
     pCudaDevices: UnsafePointer[CUdevice],
     cudaDeviceCount: UInt32,
     deviceList: CUGLDeviceList,
-) -> CUresult:
+) raises -> CUresult:
     return _get_dylib_function[
         "cuGLGetDevices",
         fn (
@@ -180,7 +180,7 @@ fn cuGraphicsGLRegisterBuffer(
     pCudaResource: UnsafePointer[CUgraphicsResource],
     buffer: GLuint,
     Flags: UInt32,
-) -> CUresult:
+) raises -> CUresult:
     return _get_dylib_function[
         "cuGraphicsGLRegisterBuffer",
         fn (
@@ -196,7 +196,7 @@ fn cuGraphicsGLRegisterImage(
     image: GLuint,
     target: GLenum,
     Flags: UInt32,
-) -> CUresult:
+) raises -> CUresult:
     return _get_dylib_function[
         "cuGraphicsGLRegisterImage",
         fn (
@@ -208,7 +208,7 @@ fn cuGraphicsGLRegisterImage(
     ]()(pCudaResource, image, target, Flags)
 
 
-fn cuWGLGetDevice(pDevice: UnsafePointer[CUdevice], hGpu: HGPUNV) -> CUresult:
+fn cuWGLGetDevice(pDevice: UnsafePointer[CUdevice], hGpu: HGPUNV) raises -> CUresult:
     return _get_dylib_function[
         "cuWGLGetDevice",
         fn (
@@ -219,7 +219,7 @@ fn cuWGLGetDevice(pDevice: UnsafePointer[CUdevice], hGpu: HGPUNV) -> CUresult:
 
 
 @always_inline
-fn cuCtxPushCurrent(ctx: CUcontext) -> CUresult:
+fn cuCtxPushCurrent(ctx: CUcontext) raises -> CUresult:
     return _get_dylib_function[
         "cuCtxPushCurrent",
         fn (CUcontext,) -> CUresult,
