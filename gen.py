@@ -525,7 +525,7 @@ fn init_opengl(load: LoadProc) raises:
 
 if __name__ == "__main__":
     URL = "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/refs/heads/main/xml/gl.xml"
-    OUT_FILE = Path("out/gl.mojo")
+    OUT_FILE = Path("src/gl.mojo")
     OUT_DIR = OUT_FILE.parent
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     with open(OUT_DIR / "__init__.mojo", "w") as f:

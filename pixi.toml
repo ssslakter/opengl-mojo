@@ -1,20 +1,39 @@
 [workspace]
+preview=["pixi-build"]
+description = "OpenGL bindings for mojo"
 authors = ["Slava Chaunin <67190162+Ssslakter@users.noreply.github.com>"]
 channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
-name = "opengl-mojo"
 platforms = ["linux-64"]
-version = "0.1.0"
+
+[package]
+name = "opengl-mojo"
+version = "0.0.4"
+license-file = "LICENSE"
+authors.workspace = true
+
+[package.build.backend]
+name="pixi-build-mojo"
+version = "0.1.*"
+
+[package.host-dependencies]
+mojo-compiler = "0.25.7.*"
+
+[package.build-dependencies]
+mojo-compiler = "0.25.7.*"
+
+[package.run-dependencies]
+mojo-compiler = "0.25.7.*"
 
 [tasks]
-fmt = "mojo format -l 1000 out"
+fmt = "mojo format -l 1000 src"
 gen = "python gen.py"
-pkg = "mojo package out -o opengl.mojopkg"
+pkg = "mojo package src -o opengl.mojopkg"
 build = {depends-on = ["gen", "fmt", "pkg"]}
 setup = {cmd = "./examples/init.sh"}
 example = {cmd = "mojo run examples/hello.mojo"}
 
 [dependencies]
-mojo = "*"
+mojo = "0.25.7.*"
 libopengl = ">=1.7.0,<2"
 
 [feature.dev.pypi-dependencies]
