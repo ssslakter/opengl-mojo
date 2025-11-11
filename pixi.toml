@@ -15,6 +15,9 @@ authors.workspace = true
 name="pixi-build-mojo"
 version = "0.1.*"
 
+[package.build.config.pkg]
+name = "opengl"
+
 [package.host-dependencies]
 mojo-compiler = "0.25.7.*"
 
