@@ -1,6 +1,6 @@
 from gpu.host._nvidia_cuda import CUcontext
 from pathlib import Path
-from memory import UnsafePointer
+from memory import LegacyUnsafePointer as UnsafePointer
 from sys.ffi import c_uint
 from sys.ffi import _Global, OwnedDLHandle, _find_dylib
 from sys.ffi import _get_dylib_function as _ffi_get_dylib_function

@@ -32,19 +32,19 @@ fmt = "mojo format -l 1000 src"
 gen = "python gen.py"
 pkg = "mojo package src -o opengl.mojopkg"
 build = {depends-on = ["gen", "fmt", "pkg"]}
-setup = {cmd = "./examples/init.sh"}
-example = {cmd = "mojo run examples/hello.mojo"}
+test = "mojo run examples/hello.mojo"
 
 [dependencies]
 mojo = "0.25.7.*"
 libopengl = ">=1.7.0,<2"
+sdl-mojo = {git = "https://github.com/ssslakter/sdl-mojo"}
+opengl-mojo = {path = "."}
 
 [feature.dev.pypi-dependencies]
 ipython = "*"
 ipykernel = ">=6.29.5, <7"
 
 [feature.dev.dependencies]
-sdl3 = ">=3.2.16,<4"
 python = ">=3.13.5,<3.14"
 llvm-tools = ">=20.1.5,<21"
 

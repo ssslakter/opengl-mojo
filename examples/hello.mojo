@@ -1,5 +1,3 @@
-from memory import UnsafePointer
-from sys import sizeof
 import sdl
 from opengl import *
 
@@ -31,7 +29,7 @@ def main():
                 running = False
                 break
         
-        gl.clear_color(0.1, 0.2, 0.5, .5)
+        gl.clear_color(0.1, 0.2, 0.5, 1)
         gl.clear(ClearBufferMask.COLOR_BUFFER_BIT)
         sdl.gl_swap_window(window)
     

@@ -297,7 +297,7 @@ class Command:
         res = "fn"
         if not anon:
             res += f" {self.mojo_name()}"
-        res += f"({', '.join(p.to_mojo_arg(anon=anon) for p in self.params)}) raises"
+        res += f"({', '.join(p.to_mojo_arg(anon=anon) for p in self.params)})"
         if self.return_type:
             res += f" -> {self.return_type}"
         return res
@@ -305,12 +305,19 @@ class Command:
     def fn_body(self):
         call_args = [p.get_call_expr() for p in self.params]
         str_list = [p for p in self.params if 'List' in p.to_mojo_arg()]
-        if not str_list: return f'return _{self.name}_ptr.get_or_create_ptr()[]({', '.join(call_args)})'
-        str_list = str_list[0]
-        call_args[call_args.index(str_list.get_call_expr())] = 'c_list.steal_data()'
-        return f'''\n    var c_list = [str.unsafe_cstr_ptr().unsafe_origin_cast[ImmutAnyOrigin]() for ref str in {to_snake_case(str_list.name)}]
-    return _{self.name}_ptr.get_or_create_ptr()[]({', '.join(call_args)})
-    '''
+        body = ''
+        if str_list:
+            str_list = str_list[0]
+            call_args[call_args.index(str_list.get_call_expr())] = 'c_list.steal_data()'
+            body += f'''\n    var c_list = [str.unsafe_cstr_ptr().unsafe_origin_cast[ImmutAnyOrigin]() for ref str in {to_snake_case(str_list.name)}]'''
+        ret = f"[{self.return_type}]" if self.return_type else ''
+        body += f'''
+    try: 
+        return _{self.name}_ptr.get_or_create_ptr()[]({', '.join(call_args)})
+    except:
+        return abort{ret}("Failed to load function")
+'''
+        return body
 
     def fn_global(self):
         return f"alias _{self.name}_ptr = _Global['{self.name}', init_fn_ptr[{self.ptr_name()}]]()"
@@ -465,11 +472,11 @@ def generate_mojo_file(registry: OpenGLRegistry, path: str):
 
         f.write(
             """
-from memory import UnsafePointer
-alias Ptr = UnsafePointer
-alias OpaquePointer = UnsafePointer[NoneType]
+alias Ptr = LegacyUnsafePointer
+alias OpaquePointer = LegacyUnsafePointer[NoneType]
 
 from sys.ffi import _Global, c_char, c_int, c_uint, c_short, c_ushort, c_size_t, c_ssize_t, c_float, c_double
+from os import abort
 
 # ========= TYPES =========\n\n"""
         )
@@ -500,7 +507,7 @@ fn load_proc[result_type: AnyTrivialRegType](name: String, load: LoadProc) raise
     return ptr.bitcast[result_type]()[]
     
 fn init_fn_ptr[T: AnyTrivialRegType]() -> T:
-    return Ptr(to=UnsafePointer[NoneType]()).bitcast[T]()[]
+    return Ptr(to=Ptr[NoneType]()).bitcast[T]()[]
 """
         )
         ptr_decls = [func.ptr_decl() for func in registry.current_commands]

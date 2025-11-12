@@ -2,12 +2,11 @@
 # | OpenGL bindings for Mojo
 # x-------------------------------------------x #
 
-from memory import UnsafePointer
-
-alias Ptr = UnsafePointer
-alias OpaquePointer = UnsafePointer[NoneType]
+alias Ptr = LegacyUnsafePointer
+alias OpaquePointer = LegacyUnsafePointer[NoneType]
 
 from sys.ffi import _Global, c_char, c_int, c_uint, c_short, c_ushort, c_size_t, c_ssize_t, c_float, c_double
+from os import abort
 
 # ========= TYPES =========
 
@@ -5234,707 +5233,707 @@ fn load_proc[result_type: AnyTrivialRegType](name: String, load: LoadProc) raise
 
 
 fn init_fn_ptr[T: AnyTrivialRegType]() -> T:
-    return Ptr(to=UnsafePointer[NoneType]()).bitcast[T]()[]
+    return Ptr(to=Ptr[NoneType]()).bitcast[T]()[]
 
 
-alias fptr_glActiveShaderProgram = fn (pipeline: GLuint, program: GLuint) raises
-alias fptr_glActiveTexture = fn (texture: TextureUnit) raises
-alias fptr_glAttachShader = fn (program: GLuint, shader: GLuint) raises
-alias fptr_glBeginConditionalRender = fn (id: GLuint, mode: ConditionalRenderMode) raises
-alias fptr_glBeginQuery = fn (target: QueryTarget, id: GLuint) raises
-alias fptr_glBeginQueryIndexed = fn (target: QueryTarget, index: GLuint, id: GLuint) raises
-alias fptr_glBeginTransformFeedback = fn (primitive_mode: PrimitiveType) raises
-alias fptr_glBindAttribLocation = fn (program: GLuint, index: GLuint, name: Ptr[GLchar, mut=False]) raises
-alias fptr_glBindBuffer = fn (target: BufferTargetARB, buffer: GLuint) raises
-alias fptr_glBindBufferBase = fn (target: BufferTargetARB, index: GLuint, buffer: GLuint) raises
-alias fptr_glBindBufferRange = fn (target: BufferTargetARB, index: GLuint, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) raises
-alias fptr_glBindBuffersBase = fn (target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False]) raises
-alias fptr_glBindBuffersRange = fn (target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False], offsets: Ptr[GLintptr, mut=False], sizes: Ptr[GLsizeiptr, mut=False]) raises
-alias fptr_glBindFragDataLocation = fn (program: GLuint, color: GLuint, name: Ptr[GLchar, mut=False]) raises
-alias fptr_glBindFragDataLocationIndexed = fn (program: GLuint, color_number: GLuint, index: GLuint, name: Ptr[GLchar, mut=False]) raises
-alias fptr_glBindFramebuffer = fn (target: FramebufferTarget, framebuffer: GLuint) raises
-alias fptr_glBindImageTexture = fn (unit: GLuint, texture: GLuint, level: GLint, layered: GLboolean, layer: GLint, access: BufferAccessARB, format: InternalFormat) raises
-alias fptr_glBindImageTextures = fn (first: GLuint, count: GLsizei, textures: Ptr[GLuint, mut=False]) raises
-alias fptr_glBindProgramPipeline = fn (pipeline: GLuint) raises
-alias fptr_glBindRenderbuffer = fn (target: RenderbufferTarget, renderbuffer: GLuint) raises
-alias fptr_glBindSampler = fn (unit: GLuint, sampler: GLuint) raises
-alias fptr_glBindSamplers = fn (first: GLuint, count: GLsizei, samplers: Ptr[GLuint, mut=False]) raises
-alias fptr_glBindTexture = fn (target: TextureTarget, texture: GLuint) raises
-alias fptr_glBindTextureUnit = fn (unit: GLuint, texture: GLuint) raises
-alias fptr_glBindTextures = fn (first: GLuint, count: GLsizei, textures: Ptr[GLuint, mut=False]) raises
-alias fptr_glBindTransformFeedback = fn (target: BindTransformFeedbackTarget, id: GLuint) raises
-alias fptr_glBindVertexArray = fn (array: GLuint) raises
-alias fptr_glBindVertexBuffer = fn (bindingindex: GLuint, buffer: GLuint, offset: GLintptr, stride: GLsizei) raises
-alias fptr_glBindVertexBuffers = fn (first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False], offsets: Ptr[GLintptr, mut=False], strides: Ptr[GLsizei, mut=False]) raises
-alias fptr_glBlendColor = fn (red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat) raises
-alias fptr_glBlendEquation = fn (mode: BlendEquationModeEXT) raises
-alias fptr_glBlendEquationSeparate = fn (mode_rgb: BlendEquationModeEXT, mode_alpha: BlendEquationModeEXT) raises
-alias fptr_glBlendEquationSeparatei = fn (buf: GLuint, mode_rgb: BlendEquationModeEXT, mode_alpha: BlendEquationModeEXT) raises
-alias fptr_glBlendEquationi = fn (buf: GLuint, mode: BlendEquationModeEXT) raises
-alias fptr_glBlendFunc = fn (sfactor: BlendingFactor, dfactor: BlendingFactor) raises
-alias fptr_glBlendFuncSeparate = fn (sfactor_rgb: BlendingFactor, dfactor_rgb: BlendingFactor, sfactor_alpha: BlendingFactor, dfactor_alpha: BlendingFactor) raises
-alias fptr_glBlendFuncSeparatei = fn (buf: GLuint, src_rgb: BlendingFactor, dst_rgb: BlendingFactor, src_alpha: BlendingFactor, dst_alpha: BlendingFactor) raises
-alias fptr_glBlendFunci = fn (buf: GLuint, src: BlendingFactor, dst: BlendingFactor) raises
-alias fptr_glBlitFramebuffer = fn (src_x0: GLint, src_y0: GLint, src_x1: GLint, src_y1: GLint, dst_x0: GLint, dst_y0: GLint, dst_x1: GLint, dst_y1: GLint, mask: ClearBufferMask, filter: BlitFramebufferFilter) raises
-alias fptr_glBlitNamedFramebuffer = fn (read_framebuffer: GLuint, draw_framebuffer: GLuint, src_x0: GLint, src_y0: GLint, src_x1: GLint, src_y1: GLint, dst_x0: GLint, dst_y0: GLint, dst_x1: GLint, dst_y1: GLint, mask: ClearBufferMask, filter: BlitFramebufferFilter) raises
-alias fptr_glBufferData = fn (target: BufferTargetARB, size: GLsizeiptr, data: Ptr[NoneType, mut=False], usage: BufferUsageARB) raises
-alias fptr_glBufferStorage = fn (target: BufferStorageTarget, size: GLsizeiptr, data: Ptr[NoneType, mut=False], flags: BufferStorageMask) raises
-alias fptr_glBufferSubData = fn (target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glCheckFramebufferStatus = fn (target: FramebufferTarget) raises -> FramebufferStatus
-alias fptr_glCheckNamedFramebufferStatus = fn (framebuffer: GLuint, target: FramebufferTarget) raises -> FramebufferStatus
-alias fptr_glClampColor = fn (target: ClampColorTargetARB, clamp: ClampColorModeARB) raises
-alias fptr_glClear = fn (mask: ClearBufferMask) raises
-alias fptr_glClearBufferData = fn (target: BufferStorageTarget, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glClearBufferSubData = fn (target: BufferTargetARB, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glClearBufferfi = fn (buffer: Buffer, drawbuffer: GLint, depth: GLfloat, stencil: GLint) raises
-alias fptr_glClearBufferfv = fn (buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glClearBufferiv = fn (buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint, mut=False]) raises
-alias fptr_glClearBufferuiv = fn (buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glClearColor = fn (red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat) raises
-alias fptr_glClearDepth = fn (depth: GLdouble) raises
-alias fptr_glClearDepthf = fn (d: GLfloat) raises
-alias fptr_glClearNamedBufferData = fn (buffer: GLuint, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glClearNamedBufferSubData = fn (buffer: GLuint, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glClearNamedFramebufferfi = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, depth: GLfloat, stencil: GLint) raises
-alias fptr_glClearNamedFramebufferfv = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glClearNamedFramebufferiv = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint, mut=False]) raises
-alias fptr_glClearNamedFramebufferuiv = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glClearStencil = fn (s: GLint) raises
-alias fptr_glClearTexImage = fn (texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glClearTexSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glClientWaitSync = fn (sync: GLsync, flags: SyncObjectMask, timeout: GLuint64) raises -> SyncStatus
-alias fptr_glClipControl = fn (origin: ClipControlOrigin, depth: ClipControlDepth) raises
-alias fptr_glColorMask = fn (red: GLboolean, green: GLboolean, blue: GLboolean, alpha: GLboolean) raises
-alias fptr_glColorMaski = fn (index: GLuint, r: GLboolean, g: GLboolean, b: GLboolean, a: GLboolean) raises
-alias fptr_glColorP3ui = fn (type: ColorPointerType, color: GLuint) raises
-alias fptr_glColorP3uiv = fn (type: ColorPointerType, color: Ptr[GLuint, mut=False]) raises
-alias fptr_glColorP4ui = fn (type: ColorPointerType, color: GLuint) raises
-alias fptr_glColorP4uiv = fn (type: ColorPointerType, color: Ptr[GLuint, mut=False]) raises
-alias fptr_glCompileShader = fn (shader: GLuint) raises
-alias fptr_glCompressedTexImage1D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glCompressedTexImage2D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glCompressedTexImage3D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glCompressedTexSubImage1D = fn (target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glCompressedTexSubImage2D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glCompressedTexSubImage3D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glCompressedTextureSubImage1D = fn (texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glCompressedTextureSubImage2D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glCompressedTextureSubImage3D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glCopyBufferSubData = fn (read_target: CopyBufferSubDataTarget, write_target: CopyBufferSubDataTarget, read_offset: GLintptr, write_offset: GLintptr, size: GLsizeiptr) raises
-alias fptr_glCopyImageSubData = fn (src_name: GLuint, src_target: CopyImageSubDataTarget, src_level: GLint, src_x: GLint, src_y: GLint, src_z: GLint, dst_name: GLuint, dst_target: CopyImageSubDataTarget, dst_level: GLint, dst_x: GLint, dst_y: GLint, dst_z: GLint, src_width: GLsizei, src_height: GLsizei, src_depth: GLsizei) raises
-alias fptr_glCopyNamedBufferSubData = fn (read_buffer: GLuint, write_buffer: GLuint, read_offset: GLintptr, write_offset: GLintptr, size: GLsizeiptr) raises
-alias fptr_glCopyTexImage1D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, border: GLint) raises
-alias fptr_glCopyTexImage2D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, height: GLsizei, border: GLint) raises
-alias fptr_glCopyTexSubImage1D = fn (target: TextureTarget, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei) raises
-alias fptr_glCopyTexSubImage2D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises
-alias fptr_glCopyTexSubImage3D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises
-alias fptr_glCopyTextureSubImage1D = fn (texture: GLuint, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei) raises
-alias fptr_glCopyTextureSubImage2D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises
-alias fptr_glCopyTextureSubImage3D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises
-alias fptr_glCreateBuffers = fn (n: GLsizei, buffers: Ptr[GLuint, mut=True]) raises
-alias fptr_glCreateFramebuffers = fn (n: GLsizei, framebuffers: Ptr[GLuint, mut=True]) raises
-alias fptr_glCreateProgram = fn () raises -> GLuint
-alias fptr_glCreateProgramPipelines = fn (n: GLsizei, pipelines: Ptr[GLuint, mut=True]) raises
-alias fptr_glCreateQueries = fn (target: QueryTarget, n: GLsizei, ids: Ptr[GLuint, mut=True]) raises
-alias fptr_glCreateRenderbuffers = fn (n: GLsizei, renderbuffers: Ptr[GLuint, mut=True]) raises
-alias fptr_glCreateSamplers = fn (n: GLsizei, samplers: Ptr[GLuint, mut=True]) raises
-alias fptr_glCreateShader = fn (type: ShaderType) raises -> GLuint
-alias fptr_glCreateShaderProgramv = fn (type: ShaderType, count: GLsizei, strings: Ptr[Ptr[GLchar, mut=False], mut=False]) raises -> GLuint
-alias fptr_glCreateTextures = fn (target: TextureTarget, n: GLsizei, textures: Ptr[GLuint, mut=True]) raises
-alias fptr_glCreateTransformFeedbacks = fn (n: GLsizei, ids: Ptr[GLuint, mut=True]) raises
-alias fptr_glCreateVertexArrays = fn (n: GLsizei, arrays: Ptr[GLuint, mut=True]) raises
-alias fptr_glCullFace = fn (mode: TriangleFace) raises
-alias fptr_glDebugMessageCallback = fn (callback: GLDEBUGPROC, user_param: Ptr[NoneType, mut=False]) raises
-alias fptr_glDebugMessageControl = fn (source: DebugSource, type: DebugType, severity: DebugSeverity, count: GLsizei, ids: Ptr[GLuint, mut=False], enabled: GLboolean) raises
-alias fptr_glDebugMessageInsert = fn (source: DebugSource, type: DebugType, id: GLuint, severity: DebugSeverity, length: GLsizei, buf: Ptr[GLchar, mut=False]) raises
-alias fptr_glDeleteBuffers = fn (n: GLsizei, buffers: Ptr[GLuint, mut=False]) raises
-alias fptr_glDeleteFramebuffers = fn (n: GLsizei, framebuffers: Ptr[GLuint, mut=False]) raises
-alias fptr_glDeleteProgram = fn (program: GLuint) raises
-alias fptr_glDeleteProgramPipelines = fn (n: GLsizei, pipelines: Ptr[GLuint, mut=False]) raises
-alias fptr_glDeleteQueries = fn (n: GLsizei, ids: Ptr[GLuint, mut=False]) raises
-alias fptr_glDeleteRenderbuffers = fn (n: GLsizei, renderbuffers: Ptr[GLuint, mut=False]) raises
-alias fptr_glDeleteSamplers = fn (count: GLsizei, samplers: Ptr[GLuint, mut=False]) raises
-alias fptr_glDeleteShader = fn (shader: GLuint) raises
-alias fptr_glDeleteSync = fn (sync: GLsync) raises
-alias fptr_glDeleteTextures = fn (n: GLsizei, textures: Ptr[GLuint, mut=False]) raises
-alias fptr_glDeleteTransformFeedbacks = fn (n: GLsizei, ids: Ptr[GLuint, mut=False]) raises
-alias fptr_glDeleteVertexArrays = fn (n: GLsizei, arrays: Ptr[GLuint, mut=False]) raises
-alias fptr_glDepthFunc = fn (func: DepthFunction) raises
-alias fptr_glDepthMask = fn (flag: GLboolean) raises
-alias fptr_glDepthRange = fn (n: GLdouble, f: GLdouble) raises
-alias fptr_glDepthRangeArrayv = fn (first: GLuint, count: GLsizei, v: Ptr[GLdouble, mut=False]) raises
-alias fptr_glDepthRangeIndexed = fn (index: GLuint, n: GLdouble, f: GLdouble) raises
-alias fptr_glDepthRangef = fn (n: GLfloat, f: GLfloat) raises
-alias fptr_glDetachShader = fn (program: GLuint, shader: GLuint) raises
-alias fptr_glDisable = fn (cap: EnableCap) raises
-alias fptr_glDisableVertexArrayAttrib = fn (vaobj: GLuint, index: GLuint) raises
-alias fptr_glDisableVertexAttribArray = fn (index: GLuint) raises
-alias fptr_glDisablei = fn (target: EnableCap, index: GLuint) raises
-alias fptr_glDispatchCompute = fn (num_groups_x: GLuint, num_groups_y: GLuint, num_groups_z: GLuint) raises
-alias fptr_glDispatchComputeIndirect = fn (indirect: GLintptr) raises
-alias fptr_glDrawArrays = fn (mode: PrimitiveType, first: GLint, count: GLsizei) raises
-alias fptr_glDrawArraysIndirect = fn (mode: PrimitiveType, indirect: Ptr[NoneType, mut=False]) raises
-alias fptr_glDrawArraysInstanced = fn (mode: PrimitiveType, first: GLint, count: GLsizei, instancecount: GLsizei) raises
-alias fptr_glDrawArraysInstancedBaseInstance = fn (mode: PrimitiveType, first: GLint, count: GLsizei, instancecount: GLsizei, baseinstance: GLuint) raises
-alias fptr_glDrawBuffer = fn (buf: DrawBufferMode) raises
-alias fptr_glDrawBuffers = fn (n: GLsizei, bufs: Ptr[DrawBufferMode, mut=False]) raises
-alias fptr_glDrawElements = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False]) raises
-alias fptr_glDrawElementsBaseVertex = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], basevertex: GLint) raises
-alias fptr_glDrawElementsIndirect = fn (mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=False]) raises
-alias fptr_glDrawElementsInstanced = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei) raises
-alias fptr_glDrawElementsInstancedBaseInstance = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei, baseinstance: GLuint) raises
-alias fptr_glDrawElementsInstancedBaseVertex = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei, basevertex: GLint) raises
-alias fptr_glDrawElementsInstancedBaseVertexBaseInstance = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei, basevertex: GLint, baseinstance: GLuint) raises
-alias fptr_glDrawRangeElements = fn (mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False]) raises
-alias fptr_glDrawRangeElementsBaseVertex = fn (mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], basevertex: GLint) raises
-alias fptr_glDrawTransformFeedback = fn (mode: PrimitiveType, id: GLuint) raises
-alias fptr_glDrawTransformFeedbackInstanced = fn (mode: PrimitiveType, id: GLuint, instancecount: GLsizei) raises
-alias fptr_glDrawTransformFeedbackStream = fn (mode: PrimitiveType, id: GLuint, stream: GLuint) raises
-alias fptr_glDrawTransformFeedbackStreamInstanced = fn (mode: PrimitiveType, id: GLuint, stream: GLuint, instancecount: GLsizei) raises
-alias fptr_glEnable = fn (cap: EnableCap) raises
-alias fptr_glEnableVertexArrayAttrib = fn (vaobj: GLuint, index: GLuint) raises
-alias fptr_glEnableVertexAttribArray = fn (index: GLuint) raises
-alias fptr_glEnablei = fn (target: EnableCap, index: GLuint) raises
-alias fptr_glEndConditionalRender = fn () raises
-alias fptr_glEndQuery = fn (target: QueryTarget) raises
-alias fptr_glEndQueryIndexed = fn (target: QueryTarget, index: GLuint) raises
-alias fptr_glEndTransformFeedback = fn () raises
-alias fptr_glFenceSync = fn (condition: SyncCondition, flags: SyncBehaviorFlags) raises -> GLsync
-alias fptr_glFinish = fn () raises
-alias fptr_glFlush = fn () raises
-alias fptr_glFlushMappedBufferRange = fn (target: BufferTargetARB, offset: GLintptr, length: GLsizeiptr) raises
-alias fptr_glFlushMappedNamedBufferRange = fn (buffer: GLuint, offset: GLintptr, length: GLsizeiptr) raises
-alias fptr_glFramebufferParameteri = fn (target: FramebufferTarget, pname: FramebufferParameterName, param: GLint) raises
-alias fptr_glFramebufferRenderbuffer = fn (target: FramebufferTarget, attachment: FramebufferAttachment, renderbuffertarget: RenderbufferTarget, renderbuffer: GLuint) raises
-alias fptr_glFramebufferTexture = fn (target: FramebufferTarget, attachment: FramebufferAttachment, texture: GLuint, level: GLint) raises
-alias fptr_glFramebufferTexture1D = fn (target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint) raises
-alias fptr_glFramebufferTexture2D = fn (target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint) raises
-alias fptr_glFramebufferTexture3D = fn (target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint, zoffset: GLint) raises
-alias fptr_glFramebufferTextureLayer = fn (target: FramebufferTarget, attachment: FramebufferAttachment, texture: GLuint, level: GLint, layer: GLint) raises
-alias fptr_glFrontFace = fn (mode: FrontFaceDirection) raises
-alias fptr_glGenBuffers = fn (n: GLsizei, buffers: Ptr[GLuint, mut=True]) raises
-alias fptr_glGenFramebuffers = fn (n: GLsizei, framebuffers: Ptr[GLuint, mut=True]) raises
-alias fptr_glGenProgramPipelines = fn (n: GLsizei, pipelines: Ptr[GLuint, mut=True]) raises
-alias fptr_glGenQueries = fn (n: GLsizei, ids: Ptr[GLuint, mut=True]) raises
-alias fptr_glGenRenderbuffers = fn (n: GLsizei, renderbuffers: Ptr[GLuint, mut=True]) raises
-alias fptr_glGenSamplers = fn (count: GLsizei, samplers: Ptr[GLuint, mut=True]) raises
-alias fptr_glGenTextures = fn (n: GLsizei, textures: Ptr[GLuint, mut=True]) raises
-alias fptr_glGenTransformFeedbacks = fn (n: GLsizei, ids: Ptr[GLuint, mut=True]) raises
-alias fptr_glGenVertexArrays = fn (n: GLsizei, arrays: Ptr[GLuint, mut=True]) raises
-alias fptr_glGenerateMipmap = fn (target: TextureTarget) raises
-alias fptr_glGenerateTextureMipmap = fn (texture: GLuint) raises
-alias fptr_glGetActiveAtomicCounterBufferiv = fn (program: GLuint, buffer_index: GLuint, pname: AtomicCounterBufferPName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetActiveAttrib = fn (program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: Ptr[AttributeType, mut=True], name: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetActiveSubroutineName = fn (program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], name: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetActiveSubroutineUniformName = fn (program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], name: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetActiveSubroutineUniformiv = fn (program: GLuint, shadertype: ShaderType, index: GLuint, pname: SubroutineParameterName, values: Ptr[GLint, mut=True]) raises
-alias fptr_glGetActiveUniform = fn (program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: Ptr[UniformType, mut=True], name: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetActiveUniformBlockName = fn (program: GLuint, uniform_block_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], uniform_block_name: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetActiveUniformBlockiv = fn (program: GLuint, uniform_block_index: GLuint, pname: UniformBlockPName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetActiveUniformName = fn (program: GLuint, uniform_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], uniform_name: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetActiveUniformsiv = fn (program: GLuint, uniform_count: GLsizei, uniform_indices: Ptr[GLuint, mut=False], pname: UniformPName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetAttachedShaders = fn (program: GLuint, max_count: GLsizei, count: Ptr[GLsizei, mut=True], shaders: Ptr[GLuint, mut=True]) raises
-alias fptr_glGetAttribLocation = fn (program: GLuint, name: Ptr[GLchar, mut=False]) raises -> GLint
-alias fptr_glGetBooleani_v = fn (target: BufferTargetARB, index: GLuint, data: Ptr[GLboolean, mut=True]) raises
-alias fptr_glGetBooleanv = fn (pname: GetPName, data: Ptr[GLboolean, mut=True]) raises
-alias fptr_glGetBufferParameteri64v = fn (target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint64, mut=True]) raises
-alias fptr_glGetBufferParameteriv = fn (target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetBufferPointerv = fn (target: BufferTargetARB, pname: BufferPointerNameARB, params: Ptr[Ptr[NoneType, mut=True], mut=True]) raises
-alias fptr_glGetBufferSubData = fn (target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetCompressedTexImage = fn (target: TextureTarget, level: GLint, img: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetCompressedTextureImage = fn (texture: GLuint, level: GLint, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetCompressedTextureSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetDebugMessageLog = fn (count: GLuint, buf_size: GLsizei, sources: Ptr[DebugSource, mut=True], types: Ptr[DebugType, mut=True], ids: Ptr[GLuint, mut=True], severities: Ptr[DebugSeverity, mut=True], lengths: Ptr[GLsizei, mut=True], message_log: Ptr[GLchar, mut=True]) raises -> GLuint
-alias fptr_glGetDoublei_v = fn (target: GetPName, index: GLuint, data: Ptr[GLdouble, mut=True]) raises
-alias fptr_glGetDoublev = fn (pname: GetPName, data: Ptr[GLdouble, mut=True]) raises
-alias fptr_glGetError = fn () raises -> ErrorCode
-alias fptr_glGetFloati_v = fn (target: GetPName, index: GLuint, data: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetFloatv = fn (pname: GetPName, data: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetFragDataIndex = fn (program: GLuint, name: Ptr[GLchar, mut=False]) raises -> GLint
-alias fptr_glGetFragDataLocation = fn (program: GLuint, name: Ptr[GLchar, mut=False]) raises -> GLint
-alias fptr_glGetFramebufferAttachmentParameteriv = fn (target: FramebufferTarget, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetFramebufferParameteriv = fn (target: FramebufferTarget, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetGraphicsResetStatus = fn () raises -> GraphicsResetStatus
-alias fptr_glGetInteger64i_v = fn (target: GetPName, index: GLuint, data: Ptr[GLint64, mut=True]) raises
-alias fptr_glGetInteger64v = fn (pname: GetPName, data: Ptr[GLint64, mut=True]) raises
-alias fptr_glGetIntegeri_v = fn (target: GetPName, index: GLuint, data: Ptr[GLint, mut=True]) raises
-alias fptr_glGetIntegerv = fn (pname: GetPName, data: Ptr[GLint, mut=True]) raises
-alias fptr_glGetInternalformati64v = fn (target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint64, mut=True]) raises
-alias fptr_glGetInternalformativ = fn (target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetMultisamplefv = fn (pname: GetMultisamplePNameNV, index: GLuint, val: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetNamedBufferParameteri64v = fn (buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint64, mut=True]) raises
-alias fptr_glGetNamedBufferParameteriv = fn (buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetNamedBufferPointerv = fn (buffer: GLuint, pname: BufferPointerNameARB, params: Ptr[Ptr[NoneType, mut=True], mut=True]) raises
-alias fptr_glGetNamedBufferSubData = fn (buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetNamedFramebufferAttachmentParameteriv = fn (framebuffer: GLuint, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetNamedFramebufferParameteriv = fn (framebuffer: GLuint, pname: GetFramebufferParameter, param: Ptr[GLint, mut=True]) raises
-alias fptr_glGetNamedRenderbufferParameteriv = fn (renderbuffer: GLuint, pname: RenderbufferParameterName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetObjectLabel = fn (identifier: ObjectIdentifier, name: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], label: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetObjectPtrLabel = fn (ptr: Ptr[NoneType, mut=False], buf_size: GLsizei, length: Ptr[GLsizei, mut=True], label: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetProgramBinary = fn (program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], binary_format: Ptr[GLenum, mut=True], binary: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetProgramInfoLog = fn (program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], info_log: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetProgramInterfaceiv = fn (program: GLuint, program_interface: ProgramInterface, pname: ProgramInterfacePName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetProgramPipelineInfoLog = fn (pipeline: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], info_log: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetProgramPipelineiv = fn (pipeline: GLuint, pname: PipelineParameterName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetProgramResourceIndex = fn (program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar, mut=False]) raises -> GLuint
-alias fptr_glGetProgramResourceLocation = fn (program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar, mut=False]) raises -> GLint
-alias fptr_glGetProgramResourceLocationIndex = fn (program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar, mut=False]) raises -> GLint
-alias fptr_glGetProgramResourceName = fn (program: GLuint, program_interface: ProgramInterface, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], name: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetProgramResourceiv = fn (program: GLuint, program_interface: ProgramInterface, index: GLuint, prop_count: GLsizei, props: Ptr[ProgramResourceProperty, mut=False], count: GLsizei, length: Ptr[GLsizei, mut=True], params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetProgramStageiv = fn (program: GLuint, shadertype: ShaderType, pname: ProgramStagePName, values: Ptr[GLint, mut=True]) raises
-alias fptr_glGetProgramiv = fn (program: GLuint, pname: ProgramPropertyARB, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetQueryBufferObjecti64v = fn (id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr) raises
-alias fptr_glGetQueryBufferObjectiv = fn (id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr) raises
-alias fptr_glGetQueryBufferObjectui64v = fn (id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr) raises
-alias fptr_glGetQueryBufferObjectuiv = fn (id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr) raises
-alias fptr_glGetQueryIndexediv = fn (target: QueryTarget, index: GLuint, pname: QueryParameterName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetQueryObjecti64v = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint64, mut=True]) raises
-alias fptr_glGetQueryObjectiv = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetQueryObjectui64v = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint64, mut=True]) raises
-alias fptr_glGetQueryObjectuiv = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint, mut=True]) raises
-alias fptr_glGetQueryiv = fn (target: QueryTarget, pname: QueryParameterName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetRenderbufferParameteriv = fn (target: RenderbufferTarget, pname: RenderbufferParameterName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetSamplerParameterIiv = fn (sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetSamplerParameterIuiv = fn (sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLuint, mut=True]) raises
-alias fptr_glGetSamplerParameterfv = fn (sampler: GLuint, pname: SamplerParameterF, params: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetSamplerParameteriv = fn (sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetShaderInfoLog = fn (shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], info_log: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetShaderPrecisionFormat = fn (shadertype: ShaderType, precisiontype: PrecisionType, range: Ptr[GLint, mut=True], precision: Ptr[GLint, mut=True]) raises
-alias fptr_glGetShaderSource = fn (shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], source: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetShaderiv = fn (shader: GLuint, pname: ShaderParameterName, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetString = fn (name: StringName) raises -> GLubyte
-alias fptr_glGetStringi = fn (name: StringName, index: GLuint) raises -> GLubyte
-alias fptr_glGetSubroutineIndex = fn (program: GLuint, shadertype: ShaderType, name: Ptr[GLchar, mut=False]) raises -> GLuint
-alias fptr_glGetSubroutineUniformLocation = fn (program: GLuint, shadertype: ShaderType, name: Ptr[GLchar, mut=False]) raises -> GLint
-alias fptr_glGetSynciv = fn (sync: GLsync, pname: SyncParameterName, count: GLsizei, length: Ptr[GLsizei, mut=True], values: Ptr[GLint, mut=True]) raises
-alias fptr_glGetTexImage = fn (target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetTexLevelParameterfv = fn (target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetTexLevelParameteriv = fn (target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetTexParameterIiv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetTexParameterIuiv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLuint, mut=True]) raises
-alias fptr_glGetTexParameterfv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetTexParameteriv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetTextureImage = fn (texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetTextureLevelParameterfv = fn (texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetTextureLevelParameteriv = fn (texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetTextureParameterIiv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetTextureParameterIuiv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLuint, mut=True]) raises
-alias fptr_glGetTextureParameterfv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetTextureParameteriv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetTextureSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetTransformFeedbackVarying = fn (program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLsizei, mut=True], type: Ptr[AttributeType, mut=True], name: Ptr[GLchar, mut=True]) raises
-alias fptr_glGetTransformFeedbacki64_v = fn (xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint64, mut=True]) raises
-alias fptr_glGetTransformFeedbacki_v = fn (xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint, mut=True]) raises
-alias fptr_glGetTransformFeedbackiv = fn (xfb: GLuint, pname: TransformFeedbackPName, param: Ptr[GLint, mut=True]) raises
-alias fptr_glGetUniformBlockIndex = fn (program: GLuint, uniform_block_name: Ptr[GLchar, mut=False]) raises -> GLuint
-alias fptr_glGetUniformIndices = fn (program: GLuint, uniform_count: GLsizei, uniform_names: Ptr[Ptr[GLchar, mut=False], mut=False], uniform_indices: Ptr[GLuint, mut=True]) raises
-alias fptr_glGetUniformLocation = fn (program: GLuint, name: Ptr[GLchar, mut=False]) raises -> GLint
-alias fptr_glGetUniformSubroutineuiv = fn (shadertype: ShaderType, location: GLint, params: Ptr[GLuint, mut=True]) raises
-alias fptr_glGetUniformdv = fn (program: GLuint, location: GLint, params: Ptr[GLdouble, mut=True]) raises
-alias fptr_glGetUniformfv = fn (program: GLuint, location: GLint, params: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetUniformiv = fn (program: GLuint, location: GLint, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetUniformuiv = fn (program: GLuint, location: GLint, params: Ptr[GLuint, mut=True]) raises
-alias fptr_glGetVertexArrayIndexed64iv = fn (vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint64, mut=True]) raises
-alias fptr_glGetVertexArrayIndexediv = fn (vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint, mut=True]) raises
-alias fptr_glGetVertexArrayiv = fn (vaobj: GLuint, pname: VertexArrayPName, param: Ptr[GLint, mut=True]) raises
-alias fptr_glGetVertexAttribIiv = fn (index: GLuint, pname: VertexAttribEnum, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetVertexAttribIuiv = fn (index: GLuint, pname: VertexAttribEnum, params: Ptr[GLuint, mut=True]) raises
-alias fptr_glGetVertexAttribLdv = fn (index: GLuint, pname: VertexAttribEnum, params: Ptr[GLdouble, mut=True]) raises
-alias fptr_glGetVertexAttribPointerv = fn (index: GLuint, pname: VertexAttribPointerPropertyARB, pointer: Ptr[Ptr[NoneType, mut=True], mut=True]) raises
-alias fptr_glGetVertexAttribdv = fn (index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLdouble, mut=True]) raises
-alias fptr_glGetVertexAttribfv = fn (index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetVertexAttribiv = fn (index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetnColorTable = fn (target: ColorTableTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, table: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetnCompressedTexImage = fn (target: TextureTarget, lod: GLint, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetnConvolutionFilter = fn (target: ConvolutionTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, image: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetnHistogram = fn (target: HistogramTarget, reset: GLboolean, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetnMapdv = fn (target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLdouble, mut=True]) raises
-alias fptr_glGetnMapfv = fn (target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetnMapiv = fn (target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLint, mut=True]) raises
-alias fptr_glGetnMinmax = fn (target: MinmaxTarget, reset: GLboolean, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetnPixelMapfv = fn (map: PixelMap, buf_size: GLsizei, values: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetnPixelMapuiv = fn (map: PixelMap, buf_size: GLsizei, values: Ptr[GLuint, mut=True]) raises
-alias fptr_glGetnPixelMapusv = fn (map: PixelMap, buf_size: GLsizei, values: Ptr[GLushort, mut=True]) raises
-alias fptr_glGetnPolygonStipple = fn (buf_size: GLsizei, pattern: Ptr[GLubyte, mut=True]) raises
-alias fptr_glGetnSeparableFilter = fn (target: SeparableTarget, format: PixelFormat, type: PixelType, row_buf_size: GLsizei, row: Ptr[NoneType, mut=True], column_buf_size: GLsizei, column: Ptr[NoneType, mut=True], span: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetnTexImage = fn (target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]) raises
-alias fptr_glGetnUniformdv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLdouble, mut=True]) raises
-alias fptr_glGetnUniformfv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLfloat, mut=True]) raises
-alias fptr_glGetnUniformiv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLint, mut=True]) raises
-alias fptr_glGetnUniformuiv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLuint, mut=True]) raises
-alias fptr_glHint = fn (target: HintTarget, mode: HintMode) raises
-alias fptr_glInvalidateBufferData = fn (buffer: GLuint) raises
-alias fptr_glInvalidateBufferSubData = fn (buffer: GLuint, offset: GLintptr, length: GLsizeiptr) raises
-alias fptr_glInvalidateFramebuffer = fn (target: FramebufferTarget, num_attachments: GLsizei, attachments: Ptr[InvalidateFramebufferAttachment, mut=False]) raises
-alias fptr_glInvalidateNamedFramebufferData = fn (framebuffer: GLuint, num_attachments: GLsizei, attachments: Ptr[FramebufferAttachment, mut=False]) raises
-alias fptr_glInvalidateNamedFramebufferSubData = fn (framebuffer: GLuint, num_attachments: GLsizei, attachments: Ptr[FramebufferAttachment, mut=False], x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises
-alias fptr_glInvalidateSubFramebuffer = fn (target: FramebufferTarget, num_attachments: GLsizei, attachments: Ptr[InvalidateFramebufferAttachment, mut=False], x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises
-alias fptr_glInvalidateTexImage = fn (texture: GLuint, level: GLint) raises
-alias fptr_glInvalidateTexSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei) raises
-alias fptr_glIsBuffer = fn (buffer: GLuint) raises -> GLboolean
-alias fptr_glIsEnabled = fn (cap: EnableCap) raises -> GLboolean
-alias fptr_glIsEnabledi = fn (target: EnableCap, index: GLuint) raises -> GLboolean
-alias fptr_glIsFramebuffer = fn (framebuffer: GLuint) raises -> GLboolean
-alias fptr_glIsProgram = fn (program: GLuint) raises -> GLboolean
-alias fptr_glIsProgramPipeline = fn (pipeline: GLuint) raises -> GLboolean
-alias fptr_glIsQuery = fn (id: GLuint) raises -> GLboolean
-alias fptr_glIsRenderbuffer = fn (renderbuffer: GLuint) raises -> GLboolean
-alias fptr_glIsSampler = fn (sampler: GLuint) raises -> GLboolean
-alias fptr_glIsShader = fn (shader: GLuint) raises -> GLboolean
-alias fptr_glIsSync = fn (sync: GLsync) raises -> GLboolean
-alias fptr_glIsTexture = fn (texture: GLuint) raises -> GLboolean
-alias fptr_glIsTransformFeedback = fn (id: GLuint) raises -> GLboolean
-alias fptr_glIsVertexArray = fn (array: GLuint) raises -> GLboolean
-alias fptr_glLineWidth = fn (width: GLfloat) raises
-alias fptr_glLinkProgram = fn (program: GLuint) raises
-alias fptr_glLogicOp = fn (opcode: LogicOp) raises
-alias fptr_glMapBuffer = fn (target: BufferTargetARB, access: BufferAccessARB) raises
-alias fptr_glMapBufferRange = fn (target: BufferTargetARB, offset: GLintptr, length: GLsizeiptr, access: MapBufferAccessMask) raises
-alias fptr_glMapNamedBuffer = fn (buffer: GLuint, access: BufferAccessARB) raises
-alias fptr_glMapNamedBufferRange = fn (buffer: GLuint, offset: GLintptr, length: GLsizeiptr, access: MapBufferAccessMask) raises
-alias fptr_glMemoryBarrier = fn (barriers: MemoryBarrierMask) raises
-alias fptr_glMemoryBarrierByRegion = fn (barriers: MemoryBarrierMask) raises
-alias fptr_glMinSampleShading = fn (value: GLfloat) raises
-alias fptr_glMultiDrawArrays = fn (mode: PrimitiveType, first: Ptr[GLint, mut=False], count: Ptr[GLsizei, mut=False], drawcount: GLsizei) raises
-alias fptr_glMultiDrawArraysIndirect = fn (mode: PrimitiveType, indirect: Ptr[NoneType, mut=False], drawcount: GLsizei, stride: GLsizei) raises
-alias fptr_glMultiDrawArraysIndirectCount = fn (mode: PrimitiveType, indirect: Ptr[NoneType, mut=False], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei) raises
-alias fptr_glMultiDrawElements = fn (mode: PrimitiveType, count: Ptr[GLsizei, mut=False], type: DrawElementsType, indices: Ptr[Ptr[NoneType, mut=False], mut=False], drawcount: GLsizei) raises
-alias fptr_glMultiDrawElementsBaseVertex = fn (mode: PrimitiveType, count: Ptr[GLsizei, mut=False], type: DrawElementsType, indices: Ptr[Ptr[NoneType, mut=False], mut=False], drawcount: GLsizei, basevertex: Ptr[GLint, mut=False]) raises
-alias fptr_glMultiDrawElementsIndirect = fn (mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=False], drawcount: GLsizei, stride: GLsizei) raises
-alias fptr_glMultiDrawElementsIndirectCount = fn (mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=False], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei) raises
-alias fptr_glMultiTexCoordP1ui = fn (texture: TextureUnit, type: TexCoordPointerType, coords: GLuint) raises
-alias fptr_glMultiTexCoordP1uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises
-alias fptr_glMultiTexCoordP2ui = fn (texture: TextureUnit, type: TexCoordPointerType, coords: GLuint) raises
-alias fptr_glMultiTexCoordP2uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises
-alias fptr_glMultiTexCoordP3ui = fn (texture: TextureUnit, type: TexCoordPointerType, coords: GLuint) raises
-alias fptr_glMultiTexCoordP3uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises
-alias fptr_glMultiTexCoordP4ui = fn (texture: TextureUnit, type: TexCoordPointerType, coords: GLuint) raises
-alias fptr_glMultiTexCoordP4uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises
-alias fptr_glNamedBufferData = fn (buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType, mut=False], usage: BufferUsageARB) raises
-alias fptr_glNamedBufferStorage = fn (buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType, mut=False], flags: BufferStorageMask) raises
-alias fptr_glNamedBufferSubData = fn (buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=False]) raises
-alias fptr_glNamedFramebufferDrawBuffer = fn (framebuffer: GLuint, buf: ColorBuffer) raises
-alias fptr_glNamedFramebufferDrawBuffers = fn (framebuffer: GLuint, n: GLsizei, bufs: Ptr[ColorBuffer, mut=False]) raises
-alias fptr_glNamedFramebufferParameteri = fn (framebuffer: GLuint, pname: FramebufferParameterName, param: GLint) raises
-alias fptr_glNamedFramebufferReadBuffer = fn (framebuffer: GLuint, src: ColorBuffer) raises
-alias fptr_glNamedFramebufferRenderbuffer = fn (framebuffer: GLuint, attachment: FramebufferAttachment, renderbuffertarget: RenderbufferTarget, renderbuffer: GLuint) raises
-alias fptr_glNamedFramebufferTexture = fn (framebuffer: GLuint, attachment: FramebufferAttachment, texture: GLuint, level: GLint) raises
-alias fptr_glNamedFramebufferTextureLayer = fn (framebuffer: GLuint, attachment: FramebufferAttachment, texture: GLuint, level: GLint, layer: GLint) raises
-alias fptr_glNamedRenderbufferStorage = fn (renderbuffer: GLuint, internalformat: InternalFormat, width: GLsizei, height: GLsizei) raises
-alias fptr_glNamedRenderbufferStorageMultisample = fn (renderbuffer: GLuint, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei) raises
-alias fptr_glNormalP3ui = fn (type: NormalPointerType, coords: GLuint) raises
-alias fptr_glNormalP3uiv = fn (type: NormalPointerType, coords: Ptr[GLuint, mut=False]) raises
-alias fptr_glObjectLabel = fn (identifier: ObjectIdentifier, name: GLuint, length: GLsizei, label: Ptr[GLchar, mut=False]) raises
-alias fptr_glObjectPtrLabel = fn (ptr: Ptr[NoneType, mut=False], length: GLsizei, label: Ptr[GLchar, mut=False]) raises
-alias fptr_glPatchParameterfv = fn (pname: PatchParameterName, values: Ptr[GLfloat, mut=False]) raises
-alias fptr_glPatchParameteri = fn (pname: PatchParameterName, value: GLint) raises
-alias fptr_glPauseTransformFeedback = fn () raises
-alias fptr_glPixelStoref = fn (pname: PixelStoreParameter, param: GLfloat) raises
-alias fptr_glPixelStorei = fn (pname: PixelStoreParameter, param: GLint) raises
-alias fptr_glPointParameterf = fn (pname: PointParameterNameARB, param: GLfloat) raises
-alias fptr_glPointParameterfv = fn (pname: PointParameterNameARB, params: Ptr[GLfloat, mut=False]) raises
-alias fptr_glPointParameteri = fn (pname: PointParameterNameARB, param: GLint) raises
-alias fptr_glPointParameteriv = fn (pname: PointParameterNameARB, params: Ptr[GLint, mut=False]) raises
-alias fptr_glPointSize = fn (size: GLfloat) raises
-alias fptr_glPolygonMode = fn (face: TriangleFace, mode: PolygonMode) raises
-alias fptr_glPolygonOffset = fn (factor: GLfloat, units: GLfloat) raises
-alias fptr_glPolygonOffsetClamp = fn (factor: GLfloat, units: GLfloat, clamp: GLfloat) raises
-alias fptr_glPopDebugGroup = fn () raises
-alias fptr_glPrimitiveRestartIndex = fn (index: GLuint) raises
-alias fptr_glProgramBinary = fn (program: GLuint, binary_format: GLenum, binary: Ptr[NoneType, mut=False], length: GLsizei) raises
-alias fptr_glProgramParameteri = fn (program: GLuint, pname: ProgramParameterPName, value: GLint) raises
-alias fptr_glProgramUniform1d = fn (program: GLuint, location: GLint, v0: GLdouble) raises
-alias fptr_glProgramUniform1dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniform1f = fn (program: GLuint, location: GLint, v0: GLfloat) raises
-alias fptr_glProgramUniform1fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProgramUniform1i = fn (program: GLuint, location: GLint, v0: GLint) raises
-alias fptr_glProgramUniform1iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises
-alias fptr_glProgramUniform1ui = fn (program: GLuint, location: GLint, v0: GLuint) raises
-alias fptr_glProgramUniform1uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glProgramUniform2d = fn (program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble) raises
-alias fptr_glProgramUniform2dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniform2f = fn (program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat) raises
-alias fptr_glProgramUniform2fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProgramUniform2i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint) raises
-alias fptr_glProgramUniform2iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises
-alias fptr_glProgramUniform2ui = fn (program: GLuint, location: GLint, v0: GLuint, v1: GLuint) raises
-alias fptr_glProgramUniform2uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glProgramUniform3d = fn (program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble, v2: GLdouble) raises
-alias fptr_glProgramUniform3dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniform3f = fn (program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat) raises
-alias fptr_glProgramUniform3fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProgramUniform3i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint, v2: GLint) raises
-alias fptr_glProgramUniform3iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises
-alias fptr_glProgramUniform3ui = fn (program: GLuint, location: GLint, v0: GLuint, v1: GLuint, v2: GLuint) raises
-alias fptr_glProgramUniform3uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glProgramUniform4d = fn (program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble, v2: GLdouble, v3: GLdouble) raises
-alias fptr_glProgramUniform4dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniform4f = fn (program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat, v3: GLfloat) raises
-alias fptr_glProgramUniform4fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProgramUniform4i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint) raises
-alias fptr_glProgramUniform4iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises
-alias fptr_glProgramUniform4ui = fn (program: GLuint, location: GLint, v0: GLuint, v1: GLuint, v2: GLuint, v3: GLuint) raises
-alias fptr_glProgramUniform4uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glProgramUniformMatrix2dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniformMatrix2fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProgramUniformMatrix2x3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniformMatrix2x3fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProgramUniformMatrix2x4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniformMatrix2x4fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProgramUniformMatrix3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniformMatrix3fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProgramUniformMatrix3x2dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniformMatrix3x2fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProgramUniformMatrix3x4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniformMatrix3x4fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProgramUniformMatrix4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniformMatrix4fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProgramUniformMatrix4x2dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniformMatrix4x2fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProgramUniformMatrix4x3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glProgramUniformMatrix4x3fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glProvokingVertex = fn (mode: VertexProvokingMode) raises
-alias fptr_glPushDebugGroup = fn (source: DebugSource, id: GLuint, length: GLsizei, message: Ptr[GLchar, mut=False]) raises
-alias fptr_glQueryCounter = fn (id: GLuint, target: QueryCounterTarget) raises
-alias fptr_glReadBuffer = fn (src: ReadBufferMode) raises
-alias fptr_glReadPixels = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]) raises
-alias fptr_glReadnPixels = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, data: Ptr[NoneType, mut=True]) raises
-alias fptr_glReleaseShaderCompiler = fn () raises
-alias fptr_glRenderbufferStorage = fn (target: RenderbufferTarget, internalformat: InternalFormat, width: GLsizei, height: GLsizei) raises
-alias fptr_glRenderbufferStorageMultisample = fn (target: RenderbufferTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei) raises
-alias fptr_glResumeTransformFeedback = fn () raises
-alias fptr_glSampleCoverage = fn (value: GLfloat, invert: GLboolean) raises
-alias fptr_glSampleMaski = fn (mask_number: GLuint, mask: GLbitfield) raises
-alias fptr_glSamplerParameterIiv = fn (sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint, mut=False]) raises
-alias fptr_glSamplerParameterIuiv = fn (sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLuint, mut=False]) raises
-alias fptr_glSamplerParameterf = fn (sampler: GLuint, pname: SamplerParameterF, param: GLfloat) raises
-alias fptr_glSamplerParameterfv = fn (sampler: GLuint, pname: SamplerParameterF, param: Ptr[GLfloat, mut=False]) raises
-alias fptr_glSamplerParameteri = fn (sampler: GLuint, pname: SamplerParameterI, param: GLint) raises
-alias fptr_glSamplerParameteriv = fn (sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint, mut=False]) raises
-alias fptr_glScissor = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises
-alias fptr_glScissorArrayv = fn (first: GLuint, count: GLsizei, v: Ptr[GLint, mut=False]) raises
-alias fptr_glScissorIndexed = fn (index: GLuint, left: GLint, bottom: GLint, width: GLsizei, height: GLsizei) raises
-alias fptr_glScissorIndexedv = fn (index: GLuint, v: Ptr[GLint, mut=False]) raises
-alias fptr_glSecondaryColorP3ui = fn (type: ColorPointerType, color: GLuint) raises
-alias fptr_glSecondaryColorP3uiv = fn (type: ColorPointerType, color: Ptr[GLuint, mut=False]) raises
-alias fptr_glShaderBinary = fn (count: GLsizei, shaders: Ptr[GLuint, mut=False], binary_format: ShaderBinaryFormat, binary: Ptr[NoneType, mut=False], length: GLsizei) raises
-alias fptr_glShaderSource = fn (shader: GLuint, count: GLsizei, string: Ptr[Ptr[GLchar, mut=False], mut=False], length: Ptr[GLint, mut=False]) raises
-alias fptr_glShaderStorageBlockBinding = fn (program: GLuint, storage_block_index: GLuint, storage_block_binding: GLuint) raises
-alias fptr_glSpecializeShader = fn (shader: GLuint, p_entry_point: Ptr[GLchar, mut=False], num_specialization_constants: GLuint, p_constant_index: Ptr[GLuint, mut=False], p_constant_value: Ptr[GLuint, mut=False]) raises
-alias fptr_glStencilFunc = fn (func: StencilFunction, ref_: GLint, mask: GLuint) raises
-alias fptr_glStencilFuncSeparate = fn (face: TriangleFace, func: StencilFunction, ref_: GLint, mask: GLuint) raises
-alias fptr_glStencilMask = fn (mask: GLuint) raises
-alias fptr_glStencilMaskSeparate = fn (face: TriangleFace, mask: GLuint) raises
-alias fptr_glStencilOp = fn (fail: StencilOp, zfail: StencilOp, zpass: StencilOp) raises
-alias fptr_glStencilOpSeparate = fn (face: TriangleFace, sfail: StencilOp, dpfail: StencilOp, dppass: StencilOp) raises
-alias fptr_glTexBuffer = fn (target: TextureTarget, internalformat: SizedInternalFormat, buffer: GLuint) raises
-alias fptr_glTexBufferRange = fn (target: TextureTarget, internalformat: SizedInternalFormat, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) raises
-alias fptr_glTexCoordP1ui = fn (type: TexCoordPointerType, coords: GLuint) raises
-alias fptr_glTexCoordP1uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises
-alias fptr_glTexCoordP2ui = fn (type: TexCoordPointerType, coords: GLuint) raises
-alias fptr_glTexCoordP2uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises
-alias fptr_glTexCoordP3ui = fn (type: TexCoordPointerType, coords: GLuint) raises
-alias fptr_glTexCoordP3uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises
-alias fptr_glTexCoordP4ui = fn (type: TexCoordPointerType, coords: GLuint) raises
-alias fptr_glTexCoordP4uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises
-alias fptr_glTexImage1D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises
-alias fptr_glTexImage2D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises
-alias fptr_glTexImage2DMultisample = fn (target: TextureTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean) raises
-alias fptr_glTexImage3D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises
-alias fptr_glTexImage3DMultisample = fn (target: TextureTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: GLboolean) raises
-alias fptr_glTexParameterIiv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint, mut=False]) raises
-alias fptr_glTexParameterIuiv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLuint, mut=False]) raises
-alias fptr_glTexParameterf = fn (target: TextureTarget, pname: TextureParameterName, param: GLfloat) raises
-alias fptr_glTexParameterfv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLfloat, mut=False]) raises
-alias fptr_glTexParameteri = fn (target: TextureTarget, pname: TextureParameterName, param: GLint) raises
-alias fptr_glTexParameteriv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint, mut=False]) raises
-alias fptr_glTexStorage1D = fn (target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei) raises
-alias fptr_glTexStorage2D = fn (target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei) raises
-alias fptr_glTexStorage2DMultisample = fn (target: TextureTarget, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean) raises
-alias fptr_glTexStorage3D = fn (target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei) raises
-alias fptr_glTexStorage3DMultisample = fn (target: TextureTarget, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: GLboolean) raises
-alias fptr_glTexSubImage1D = fn (target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises
-alias fptr_glTexSubImage2D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises
-alias fptr_glTexSubImage3D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises
-alias fptr_glTextureBarrier = fn () raises
-alias fptr_glTextureBuffer = fn (texture: GLuint, internalformat: SizedInternalFormat, buffer: GLuint) raises
-alias fptr_glTextureBufferRange = fn (texture: GLuint, internalformat: SizedInternalFormat, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) raises
-alias fptr_glTextureParameterIiv = fn (texture: GLuint, pname: TextureParameterName, params: Ptr[GLint, mut=False]) raises
-alias fptr_glTextureParameterIuiv = fn (texture: GLuint, pname: TextureParameterName, params: Ptr[GLuint, mut=False]) raises
-alias fptr_glTextureParameterf = fn (texture: GLuint, pname: TextureParameterName, param: GLfloat) raises
-alias fptr_glTextureParameterfv = fn (texture: GLuint, pname: TextureParameterName, param: Ptr[GLfloat, mut=False]) raises
-alias fptr_glTextureParameteri = fn (texture: GLuint, pname: TextureParameterName, param: GLint) raises
-alias fptr_glTextureParameteriv = fn (texture: GLuint, pname: TextureParameterName, param: Ptr[GLint, mut=False]) raises
-alias fptr_glTextureStorage1D = fn (texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei) raises
-alias fptr_glTextureStorage2D = fn (texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei) raises
-alias fptr_glTextureStorage2DMultisample = fn (texture: GLuint, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean) raises
-alias fptr_glTextureStorage3D = fn (texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei) raises
-alias fptr_glTextureStorage3DMultisample = fn (texture: GLuint, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: GLboolean) raises
-alias fptr_glTextureSubImage1D = fn (texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises
-alias fptr_glTextureSubImage2D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises
-alias fptr_glTextureSubImage3D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises
-alias fptr_glTextureView = fn (texture: GLuint, target: TextureTarget, origtexture: GLuint, internalformat: SizedInternalFormat, minlevel: GLuint, numlevels: GLuint, minlayer: GLuint, numlayers: GLuint) raises
-alias fptr_glTransformFeedbackBufferBase = fn (xfb: GLuint, index: GLuint, buffer: GLuint) raises
-alias fptr_glTransformFeedbackBufferRange = fn (xfb: GLuint, index: GLuint, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) raises
-alias fptr_glTransformFeedbackVaryings = fn (program: GLuint, count: GLsizei, varyings: Ptr[Ptr[GLchar, mut=False], mut=False], buffer_mode: TransformFeedbackBufferMode) raises
-alias fptr_glUniform1d = fn (location: GLint, x: GLdouble) raises
-alias fptr_glUniform1dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniform1f = fn (location: GLint, v0: GLfloat) raises
-alias fptr_glUniform1fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniform1i = fn (location: GLint, v0: GLint) raises
-alias fptr_glUniform1iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises
-alias fptr_glUniform1ui = fn (location: GLint, v0: GLuint) raises
-alias fptr_glUniform1uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glUniform2d = fn (location: GLint, x: GLdouble, y: GLdouble) raises
-alias fptr_glUniform2dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniform2f = fn (location: GLint, v0: GLfloat, v1: GLfloat) raises
-alias fptr_glUniform2fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniform2i = fn (location: GLint, v0: GLint, v1: GLint) raises
-alias fptr_glUniform2iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises
-alias fptr_glUniform2ui = fn (location: GLint, v0: GLuint, v1: GLuint) raises
-alias fptr_glUniform2uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glUniform3d = fn (location: GLint, x: GLdouble, y: GLdouble, z: GLdouble) raises
-alias fptr_glUniform3dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniform3f = fn (location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat) raises
-alias fptr_glUniform3fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniform3i = fn (location: GLint, v0: GLint, v1: GLint, v2: GLint) raises
-alias fptr_glUniform3iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises
-alias fptr_glUniform3ui = fn (location: GLint, v0: GLuint, v1: GLuint, v2: GLuint) raises
-alias fptr_glUniform3uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glUniform4d = fn (location: GLint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble) raises
-alias fptr_glUniform4dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniform4f = fn (location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat, v3: GLfloat) raises
-alias fptr_glUniform4fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniform4i = fn (location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint) raises
-alias fptr_glUniform4iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises
-alias fptr_glUniform4ui = fn (location: GLint, v0: GLuint, v1: GLuint, v2: GLuint, v3: GLuint) raises
-alias fptr_glUniform4uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glUniformBlockBinding = fn (program: GLuint, uniform_block_index: GLuint, uniform_block_binding: GLuint) raises
-alias fptr_glUniformMatrix2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniformMatrix2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniformMatrix2x3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniformMatrix2x3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniformMatrix2x4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniformMatrix2x4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniformMatrix3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniformMatrix3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniformMatrix3x2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniformMatrix3x2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniformMatrix3x4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniformMatrix3x4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniformMatrix4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniformMatrix4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniformMatrix4x2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniformMatrix4x2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniformMatrix4x3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False]) raises
-alias fptr_glUniformMatrix4x3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False]) raises
-alias fptr_glUniformSubroutinesuiv = fn (shadertype: ShaderType, count: GLsizei, indices: Ptr[GLuint, mut=False]) raises
-alias fptr_glUnmapBuffer = fn (target: BufferTargetARB) raises -> GLboolean
-alias fptr_glUnmapNamedBuffer = fn (buffer: GLuint) raises -> GLboolean
-alias fptr_glUseProgram = fn (program: GLuint) raises
-alias fptr_glUseProgramStages = fn (pipeline: GLuint, stages: UseProgramStageMask, program: GLuint) raises
-alias fptr_glValidateProgram = fn (program: GLuint) raises
-alias fptr_glValidateProgramPipeline = fn (pipeline: GLuint) raises
-alias fptr_glVertexArrayAttribBinding = fn (vaobj: GLuint, attribindex: GLuint, bindingindex: GLuint) raises
-alias fptr_glVertexArrayAttribFormat = fn (vaobj: GLuint, attribindex: GLuint, size: GLint, type: VertexAttribType, normalized: GLboolean, relativeoffset: GLuint) raises
-alias fptr_glVertexArrayAttribIFormat = fn (vaobj: GLuint, attribindex: GLuint, size: GLint, type: VertexAttribIType, relativeoffset: GLuint) raises
-alias fptr_glVertexArrayAttribLFormat = fn (vaobj: GLuint, attribindex: GLuint, size: GLint, type: VertexAttribLType, relativeoffset: GLuint) raises
-alias fptr_glVertexArrayBindingDivisor = fn (vaobj: GLuint, bindingindex: GLuint, divisor: GLuint) raises
-alias fptr_glVertexArrayElementBuffer = fn (vaobj: GLuint, buffer: GLuint) raises
-alias fptr_glVertexArrayVertexBuffer = fn (vaobj: GLuint, bindingindex: GLuint, buffer: GLuint, offset: GLintptr, stride: GLsizei) raises
-alias fptr_glVertexArrayVertexBuffers = fn (vaobj: GLuint, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False], offsets: Ptr[GLintptr, mut=False], strides: Ptr[GLsizei, mut=False]) raises
-alias fptr_glVertexAttrib1d = fn (index: GLuint, x: GLdouble) raises
-alias fptr_glVertexAttrib1dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False]) raises
-alias fptr_glVertexAttrib1f = fn (index: GLuint, x: GLfloat) raises
-alias fptr_glVertexAttrib1fv = fn (index: GLuint, v: Ptr[GLfloat, mut=False]) raises
-alias fptr_glVertexAttrib1s = fn (index: GLuint, x: GLshort) raises
-alias fptr_glVertexAttrib1sv = fn (index: GLuint, v: Ptr[GLshort, mut=False]) raises
-alias fptr_glVertexAttrib2d = fn (index: GLuint, x: GLdouble, y: GLdouble) raises
-alias fptr_glVertexAttrib2dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False]) raises
-alias fptr_glVertexAttrib2f = fn (index: GLuint, x: GLfloat, y: GLfloat) raises
-alias fptr_glVertexAttrib2fv = fn (index: GLuint, v: Ptr[GLfloat, mut=False]) raises
-alias fptr_glVertexAttrib2s = fn (index: GLuint, x: GLshort, y: GLshort) raises
-alias fptr_glVertexAttrib2sv = fn (index: GLuint, v: Ptr[GLshort, mut=False]) raises
-alias fptr_glVertexAttrib3d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble) raises
-alias fptr_glVertexAttrib3dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False]) raises
-alias fptr_glVertexAttrib3f = fn (index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat) raises
-alias fptr_glVertexAttrib3fv = fn (index: GLuint, v: Ptr[GLfloat, mut=False]) raises
-alias fptr_glVertexAttrib3s = fn (index: GLuint, x: GLshort, y: GLshort, z: GLshort) raises
-alias fptr_glVertexAttrib3sv = fn (index: GLuint, v: Ptr[GLshort, mut=False]) raises
-alias fptr_glVertexAttrib4Nbv = fn (index: GLuint, v: Ptr[GLbyte, mut=False]) raises
-alias fptr_glVertexAttrib4Niv = fn (index: GLuint, v: Ptr[GLint, mut=False]) raises
-alias fptr_glVertexAttrib4Nsv = fn (index: GLuint, v: Ptr[GLshort, mut=False]) raises
-alias fptr_glVertexAttrib4Nub = fn (index: GLuint, x: GLubyte, y: GLubyte, z: GLubyte, w: GLubyte) raises
-alias fptr_glVertexAttrib4Nubv = fn (index: GLuint, v: Ptr[GLubyte, mut=False]) raises
-alias fptr_glVertexAttrib4Nuiv = fn (index: GLuint, v: Ptr[GLuint, mut=False]) raises
-alias fptr_glVertexAttrib4Nusv = fn (index: GLuint, v: Ptr[GLushort, mut=False]) raises
-alias fptr_glVertexAttrib4bv = fn (index: GLuint, v: Ptr[GLbyte, mut=False]) raises
-alias fptr_glVertexAttrib4d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble) raises
-alias fptr_glVertexAttrib4dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False]) raises
-alias fptr_glVertexAttrib4f = fn (index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat, w: GLfloat) raises
-alias fptr_glVertexAttrib4fv = fn (index: GLuint, v: Ptr[GLfloat, mut=False]) raises
-alias fptr_glVertexAttrib4iv = fn (index: GLuint, v: Ptr[GLint, mut=False]) raises
-alias fptr_glVertexAttrib4s = fn (index: GLuint, x: GLshort, y: GLshort, z: GLshort, w: GLshort) raises
-alias fptr_glVertexAttrib4sv = fn (index: GLuint, v: Ptr[GLshort, mut=False]) raises
-alias fptr_glVertexAttrib4ubv = fn (index: GLuint, v: Ptr[GLubyte, mut=False]) raises
-alias fptr_glVertexAttrib4uiv = fn (index: GLuint, v: Ptr[GLuint, mut=False]) raises
-alias fptr_glVertexAttrib4usv = fn (index: GLuint, v: Ptr[GLushort, mut=False]) raises
-alias fptr_glVertexAttribBinding = fn (attribindex: GLuint, bindingindex: GLuint) raises
-alias fptr_glVertexAttribDivisor = fn (index: GLuint, divisor: GLuint) raises
-alias fptr_glVertexAttribFormat = fn (attribindex: GLuint, size: GLint, type: VertexAttribType, normalized: GLboolean, relativeoffset: GLuint) raises
-alias fptr_glVertexAttribI1i = fn (index: GLuint, x: GLint) raises
-alias fptr_glVertexAttribI1iv = fn (index: GLuint, v: Ptr[GLint, mut=False]) raises
-alias fptr_glVertexAttribI1ui = fn (index: GLuint, x: GLuint) raises
-alias fptr_glVertexAttribI1uiv = fn (index: GLuint, v: Ptr[GLuint, mut=False]) raises
-alias fptr_glVertexAttribI2i = fn (index: GLuint, x: GLint, y: GLint) raises
-alias fptr_glVertexAttribI2iv = fn (index: GLuint, v: Ptr[GLint, mut=False]) raises
-alias fptr_glVertexAttribI2ui = fn (index: GLuint, x: GLuint, y: GLuint) raises
-alias fptr_glVertexAttribI2uiv = fn (index: GLuint, v: Ptr[GLuint, mut=False]) raises
-alias fptr_glVertexAttribI3i = fn (index: GLuint, x: GLint, y: GLint, z: GLint) raises
-alias fptr_glVertexAttribI3iv = fn (index: GLuint, v: Ptr[GLint, mut=False]) raises
-alias fptr_glVertexAttribI3ui = fn (index: GLuint, x: GLuint, y: GLuint, z: GLuint) raises
-alias fptr_glVertexAttribI3uiv = fn (index: GLuint, v: Ptr[GLuint, mut=False]) raises
-alias fptr_glVertexAttribI4bv = fn (index: GLuint, v: Ptr[GLbyte, mut=False]) raises
-alias fptr_glVertexAttribI4i = fn (index: GLuint, x: GLint, y: GLint, z: GLint, w: GLint) raises
-alias fptr_glVertexAttribI4iv = fn (index: GLuint, v: Ptr[GLint, mut=False]) raises
-alias fptr_glVertexAttribI4sv = fn (index: GLuint, v: Ptr[GLshort, mut=False]) raises
-alias fptr_glVertexAttribI4ubv = fn (index: GLuint, v: Ptr[GLubyte, mut=False]) raises
-alias fptr_glVertexAttribI4ui = fn (index: GLuint, x: GLuint, y: GLuint, z: GLuint, w: GLuint) raises
-alias fptr_glVertexAttribI4uiv = fn (index: GLuint, v: Ptr[GLuint, mut=False]) raises
-alias fptr_glVertexAttribI4usv = fn (index: GLuint, v: Ptr[GLushort, mut=False]) raises
-alias fptr_glVertexAttribIFormat = fn (attribindex: GLuint, size: GLint, type: VertexAttribIType, relativeoffset: GLuint) raises
-alias fptr_glVertexAttribIPointer = fn (index: GLuint, size: GLint, type: VertexAttribIType, stride: GLsizei, pointer: Ptr[NoneType, mut=False]) raises
-alias fptr_glVertexAttribL1d = fn (index: GLuint, x: GLdouble) raises
-alias fptr_glVertexAttribL1dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False]) raises
-alias fptr_glVertexAttribL2d = fn (index: GLuint, x: GLdouble, y: GLdouble) raises
-alias fptr_glVertexAttribL2dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False]) raises
-alias fptr_glVertexAttribL3d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble) raises
-alias fptr_glVertexAttribL3dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False]) raises
-alias fptr_glVertexAttribL4d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble) raises
-alias fptr_glVertexAttribL4dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False]) raises
-alias fptr_glVertexAttribLFormat = fn (attribindex: GLuint, size: GLint, type: VertexAttribLType, relativeoffset: GLuint) raises
-alias fptr_glVertexAttribLPointer = fn (index: GLuint, size: GLint, type: VertexAttribLType, stride: GLsizei, pointer: Ptr[NoneType, mut=False]) raises
-alias fptr_glVertexAttribP1ui = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: GLuint) raises
-alias fptr_glVertexAttribP1uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glVertexAttribP2ui = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: GLuint) raises
-alias fptr_glVertexAttribP2uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glVertexAttribP3ui = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: GLuint) raises
-alias fptr_glVertexAttribP3uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glVertexAttribP4ui = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: GLuint) raises
-alias fptr_glVertexAttribP4uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glVertexAttribPointer = fn (index: GLuint, size: GLint, type: VertexAttribPointerType, normalized: GLboolean, stride: GLsizei, pointer: Ptr[NoneType, mut=False]) raises
-alias fptr_glVertexBindingDivisor = fn (bindingindex: GLuint, divisor: GLuint) raises
-alias fptr_glVertexP2ui = fn (type: VertexPointerType, value: GLuint) raises
-alias fptr_glVertexP2uiv = fn (type: VertexPointerType, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glVertexP3ui = fn (type: VertexPointerType, value: GLuint) raises
-alias fptr_glVertexP3uiv = fn (type: VertexPointerType, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glVertexP4ui = fn (type: VertexPointerType, value: GLuint) raises
-alias fptr_glVertexP4uiv = fn (type: VertexPointerType, value: Ptr[GLuint, mut=False]) raises
-alias fptr_glViewport = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises
-alias fptr_glViewportArrayv = fn (first: GLuint, count: GLsizei, v: Ptr[GLfloat, mut=False]) raises
-alias fptr_glViewportIndexedf = fn (index: GLuint, x: GLfloat, y: GLfloat, w: GLfloat, h: GLfloat) raises
-alias fptr_glViewportIndexedfv = fn (index: GLuint, v: Ptr[GLfloat, mut=False]) raises
-alias fptr_glWaitSync = fn (sync: GLsync, flags: SyncBehaviorFlags, timeout: GLuint64) raises
+alias fptr_glActiveShaderProgram = fn (pipeline: GLuint, program: GLuint)
+alias fptr_glActiveTexture = fn (texture: TextureUnit)
+alias fptr_glAttachShader = fn (program: GLuint, shader: GLuint)
+alias fptr_glBeginConditionalRender = fn (id: GLuint, mode: ConditionalRenderMode)
+alias fptr_glBeginQuery = fn (target: QueryTarget, id: GLuint)
+alias fptr_glBeginQueryIndexed = fn (target: QueryTarget, index: GLuint, id: GLuint)
+alias fptr_glBeginTransformFeedback = fn (primitive_mode: PrimitiveType)
+alias fptr_glBindAttribLocation = fn (program: GLuint, index: GLuint, name: Ptr[GLchar, mut=False])
+alias fptr_glBindBuffer = fn (target: BufferTargetARB, buffer: GLuint)
+alias fptr_glBindBufferBase = fn (target: BufferTargetARB, index: GLuint, buffer: GLuint)
+alias fptr_glBindBufferRange = fn (target: BufferTargetARB, index: GLuint, buffer: GLuint, offset: GLintptr, size: GLsizeiptr)
+alias fptr_glBindBuffersBase = fn (target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False])
+alias fptr_glBindBuffersRange = fn (target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False], offsets: Ptr[GLintptr, mut=False], sizes: Ptr[GLsizeiptr, mut=False])
+alias fptr_glBindFragDataLocation = fn (program: GLuint, color: GLuint, name: Ptr[GLchar, mut=False])
+alias fptr_glBindFragDataLocationIndexed = fn (program: GLuint, color_number: GLuint, index: GLuint, name: Ptr[GLchar, mut=False])
+alias fptr_glBindFramebuffer = fn (target: FramebufferTarget, framebuffer: GLuint)
+alias fptr_glBindImageTexture = fn (unit: GLuint, texture: GLuint, level: GLint, layered: GLboolean, layer: GLint, access: BufferAccessARB, format: InternalFormat)
+alias fptr_glBindImageTextures = fn (first: GLuint, count: GLsizei, textures: Ptr[GLuint, mut=False])
+alias fptr_glBindProgramPipeline = fn (pipeline: GLuint)
+alias fptr_glBindRenderbuffer = fn (target: RenderbufferTarget, renderbuffer: GLuint)
+alias fptr_glBindSampler = fn (unit: GLuint, sampler: GLuint)
+alias fptr_glBindSamplers = fn (first: GLuint, count: GLsizei, samplers: Ptr[GLuint, mut=False])
+alias fptr_glBindTexture = fn (target: TextureTarget, texture: GLuint)
+alias fptr_glBindTextureUnit = fn (unit: GLuint, texture: GLuint)
+alias fptr_glBindTextures = fn (first: GLuint, count: GLsizei, textures: Ptr[GLuint, mut=False])
+alias fptr_glBindTransformFeedback = fn (target: BindTransformFeedbackTarget, id: GLuint)
+alias fptr_glBindVertexArray = fn (array: GLuint)
+alias fptr_glBindVertexBuffer = fn (bindingindex: GLuint, buffer: GLuint, offset: GLintptr, stride: GLsizei)
+alias fptr_glBindVertexBuffers = fn (first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False], offsets: Ptr[GLintptr, mut=False], strides: Ptr[GLsizei, mut=False])
+alias fptr_glBlendColor = fn (red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat)
+alias fptr_glBlendEquation = fn (mode: BlendEquationModeEXT)
+alias fptr_glBlendEquationSeparate = fn (mode_rgb: BlendEquationModeEXT, mode_alpha: BlendEquationModeEXT)
+alias fptr_glBlendEquationSeparatei = fn (buf: GLuint, mode_rgb: BlendEquationModeEXT, mode_alpha: BlendEquationModeEXT)
+alias fptr_glBlendEquationi = fn (buf: GLuint, mode: BlendEquationModeEXT)
+alias fptr_glBlendFunc = fn (sfactor: BlendingFactor, dfactor: BlendingFactor)
+alias fptr_glBlendFuncSeparate = fn (sfactor_rgb: BlendingFactor, dfactor_rgb: BlendingFactor, sfactor_alpha: BlendingFactor, dfactor_alpha: BlendingFactor)
+alias fptr_glBlendFuncSeparatei = fn (buf: GLuint, src_rgb: BlendingFactor, dst_rgb: BlendingFactor, src_alpha: BlendingFactor, dst_alpha: BlendingFactor)
+alias fptr_glBlendFunci = fn (buf: GLuint, src: BlendingFactor, dst: BlendingFactor)
+alias fptr_glBlitFramebuffer = fn (src_x0: GLint, src_y0: GLint, src_x1: GLint, src_y1: GLint, dst_x0: GLint, dst_y0: GLint, dst_x1: GLint, dst_y1: GLint, mask: ClearBufferMask, filter: BlitFramebufferFilter)
+alias fptr_glBlitNamedFramebuffer = fn (read_framebuffer: GLuint, draw_framebuffer: GLuint, src_x0: GLint, src_y0: GLint, src_x1: GLint, src_y1: GLint, dst_x0: GLint, dst_y0: GLint, dst_x1: GLint, dst_y1: GLint, mask: ClearBufferMask, filter: BlitFramebufferFilter)
+alias fptr_glBufferData = fn (target: BufferTargetARB, size: GLsizeiptr, data: Ptr[NoneType, mut=False], usage: BufferUsageARB)
+alias fptr_glBufferStorage = fn (target: BufferStorageTarget, size: GLsizeiptr, data: Ptr[NoneType, mut=False], flags: BufferStorageMask)
+alias fptr_glBufferSubData = fn (target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=False])
+alias fptr_glCheckFramebufferStatus = fn (target: FramebufferTarget) -> FramebufferStatus
+alias fptr_glCheckNamedFramebufferStatus = fn (framebuffer: GLuint, target: FramebufferTarget) -> FramebufferStatus
+alias fptr_glClampColor = fn (target: ClampColorTargetARB, clamp: ClampColorModeARB)
+alias fptr_glClear = fn (mask: ClearBufferMask)
+alias fptr_glClearBufferData = fn (target: BufferStorageTarget, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False])
+alias fptr_glClearBufferSubData = fn (target: BufferTargetARB, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False])
+alias fptr_glClearBufferfi = fn (buffer: Buffer, drawbuffer: GLint, depth: GLfloat, stencil: GLint)
+alias fptr_glClearBufferfv = fn (buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat, mut=False])
+alias fptr_glClearBufferiv = fn (buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint, mut=False])
+alias fptr_glClearBufferuiv = fn (buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint, mut=False])
+alias fptr_glClearColor = fn (red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat)
+alias fptr_glClearDepth = fn (depth: GLdouble)
+alias fptr_glClearDepthf = fn (d: GLfloat)
+alias fptr_glClearNamedBufferData = fn (buffer: GLuint, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False])
+alias fptr_glClearNamedBufferSubData = fn (buffer: GLuint, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False])
+alias fptr_glClearNamedFramebufferfi = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, depth: GLfloat, stencil: GLint)
+alias fptr_glClearNamedFramebufferfv = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat, mut=False])
+alias fptr_glClearNamedFramebufferiv = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint, mut=False])
+alias fptr_glClearNamedFramebufferuiv = fn (framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint, mut=False])
+alias fptr_glClearStencil = fn (s: GLint)
+alias fptr_glClearTexImage = fn (texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False])
+alias fptr_glClearTexSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False])
+alias fptr_glClientWaitSync = fn (sync: GLsync, flags: SyncObjectMask, timeout: GLuint64) -> SyncStatus
+alias fptr_glClipControl = fn (origin: ClipControlOrigin, depth: ClipControlDepth)
+alias fptr_glColorMask = fn (red: GLboolean, green: GLboolean, blue: GLboolean, alpha: GLboolean)
+alias fptr_glColorMaski = fn (index: GLuint, r: GLboolean, g: GLboolean, b: GLboolean, a: GLboolean)
+alias fptr_glColorP3ui = fn (type: ColorPointerType, color: GLuint)
+alias fptr_glColorP3uiv = fn (type: ColorPointerType, color: Ptr[GLuint, mut=False])
+alias fptr_glColorP4ui = fn (type: ColorPointerType, color: GLuint)
+alias fptr_glColorP4uiv = fn (type: ColorPointerType, color: Ptr[GLuint, mut=False])
+alias fptr_glCompileShader = fn (shader: GLuint)
+alias fptr_glCompressedTexImage1D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False])
+alias fptr_glCompressedTexImage2D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False])
+alias fptr_glCompressedTexImage3D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False])
+alias fptr_glCompressedTexSubImage1D = fn (target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False])
+alias fptr_glCompressedTexSubImage2D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False])
+alias fptr_glCompressedTexSubImage3D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False])
+alias fptr_glCompressedTextureSubImage1D = fn (texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False])
+alias fptr_glCompressedTextureSubImage2D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False])
+alias fptr_glCompressedTextureSubImage3D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False])
+alias fptr_glCopyBufferSubData = fn (read_target: CopyBufferSubDataTarget, write_target: CopyBufferSubDataTarget, read_offset: GLintptr, write_offset: GLintptr, size: GLsizeiptr)
+alias fptr_glCopyImageSubData = fn (src_name: GLuint, src_target: CopyImageSubDataTarget, src_level: GLint, src_x: GLint, src_y: GLint, src_z: GLint, dst_name: GLuint, dst_target: CopyImageSubDataTarget, dst_level: GLint, dst_x: GLint, dst_y: GLint, dst_z: GLint, src_width: GLsizei, src_height: GLsizei, src_depth: GLsizei)
+alias fptr_glCopyNamedBufferSubData = fn (read_buffer: GLuint, write_buffer: GLuint, read_offset: GLintptr, write_offset: GLintptr, size: GLsizeiptr)
+alias fptr_glCopyTexImage1D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, border: GLint)
+alias fptr_glCopyTexImage2D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, height: GLsizei, border: GLint)
+alias fptr_glCopyTexSubImage1D = fn (target: TextureTarget, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei)
+alias fptr_glCopyTexSubImage2D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei)
+alias fptr_glCopyTexSubImage3D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei)
+alias fptr_glCopyTextureSubImage1D = fn (texture: GLuint, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei)
+alias fptr_glCopyTextureSubImage2D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei)
+alias fptr_glCopyTextureSubImage3D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei)
+alias fptr_glCreateBuffers = fn (n: GLsizei, buffers: Ptr[GLuint, mut=True])
+alias fptr_glCreateFramebuffers = fn (n: GLsizei, framebuffers: Ptr[GLuint, mut=True])
+alias fptr_glCreateProgram = fn () -> GLuint
+alias fptr_glCreateProgramPipelines = fn (n: GLsizei, pipelines: Ptr[GLuint, mut=True])
+alias fptr_glCreateQueries = fn (target: QueryTarget, n: GLsizei, ids: Ptr[GLuint, mut=True])
+alias fptr_glCreateRenderbuffers = fn (n: GLsizei, renderbuffers: Ptr[GLuint, mut=True])
+alias fptr_glCreateSamplers = fn (n: GLsizei, samplers: Ptr[GLuint, mut=True])
+alias fptr_glCreateShader = fn (type: ShaderType) -> GLuint
+alias fptr_glCreateShaderProgramv = fn (type: ShaderType, count: GLsizei, strings: Ptr[Ptr[GLchar, mut=False], mut=False]) -> GLuint
+alias fptr_glCreateTextures = fn (target: TextureTarget, n: GLsizei, textures: Ptr[GLuint, mut=True])
+alias fptr_glCreateTransformFeedbacks = fn (n: GLsizei, ids: Ptr[GLuint, mut=True])
+alias fptr_glCreateVertexArrays = fn (n: GLsizei, arrays: Ptr[GLuint, mut=True])
+alias fptr_glCullFace = fn (mode: TriangleFace)
+alias fptr_glDebugMessageCallback = fn (callback: GLDEBUGPROC, user_param: Ptr[NoneType, mut=False])
+alias fptr_glDebugMessageControl = fn (source: DebugSource, type: DebugType, severity: DebugSeverity, count: GLsizei, ids: Ptr[GLuint, mut=False], enabled: GLboolean)
+alias fptr_glDebugMessageInsert = fn (source: DebugSource, type: DebugType, id: GLuint, severity: DebugSeverity, length: GLsizei, buf: Ptr[GLchar, mut=False])
+alias fptr_glDeleteBuffers = fn (n: GLsizei, buffers: Ptr[GLuint, mut=False])
+alias fptr_glDeleteFramebuffers = fn (n: GLsizei, framebuffers: Ptr[GLuint, mut=False])
+alias fptr_glDeleteProgram = fn (program: GLuint)
+alias fptr_glDeleteProgramPipelines = fn (n: GLsizei, pipelines: Ptr[GLuint, mut=False])
+alias fptr_glDeleteQueries = fn (n: GLsizei, ids: Ptr[GLuint, mut=False])
+alias fptr_glDeleteRenderbuffers = fn (n: GLsizei, renderbuffers: Ptr[GLuint, mut=False])
+alias fptr_glDeleteSamplers = fn (count: GLsizei, samplers: Ptr[GLuint, mut=False])
+alias fptr_glDeleteShader = fn (shader: GLuint)
+alias fptr_glDeleteSync = fn (sync: GLsync)
+alias fptr_glDeleteTextures = fn (n: GLsizei, textures: Ptr[GLuint, mut=False])
+alias fptr_glDeleteTransformFeedbacks = fn (n: GLsizei, ids: Ptr[GLuint, mut=False])
+alias fptr_glDeleteVertexArrays = fn (n: GLsizei, arrays: Ptr[GLuint, mut=False])
+alias fptr_glDepthFunc = fn (func: DepthFunction)
+alias fptr_glDepthMask = fn (flag: GLboolean)
+alias fptr_glDepthRange = fn (n: GLdouble, f: GLdouble)
+alias fptr_glDepthRangeArrayv = fn (first: GLuint, count: GLsizei, v: Ptr[GLdouble, mut=False])
+alias fptr_glDepthRangeIndexed = fn (index: GLuint, n: GLdouble, f: GLdouble)
+alias fptr_glDepthRangef = fn (n: GLfloat, f: GLfloat)
+alias fptr_glDetachShader = fn (program: GLuint, shader: GLuint)
+alias fptr_glDisable = fn (cap: EnableCap)
+alias fptr_glDisableVertexArrayAttrib = fn (vaobj: GLuint, index: GLuint)
+alias fptr_glDisableVertexAttribArray = fn (index: GLuint)
+alias fptr_glDisablei = fn (target: EnableCap, index: GLuint)
+alias fptr_glDispatchCompute = fn (num_groups_x: GLuint, num_groups_y: GLuint, num_groups_z: GLuint)
+alias fptr_glDispatchComputeIndirect = fn (indirect: GLintptr)
+alias fptr_glDrawArrays = fn (mode: PrimitiveType, first: GLint, count: GLsizei)
+alias fptr_glDrawArraysIndirect = fn (mode: PrimitiveType, indirect: Ptr[NoneType, mut=False])
+alias fptr_glDrawArraysInstanced = fn (mode: PrimitiveType, first: GLint, count: GLsizei, instancecount: GLsizei)
+alias fptr_glDrawArraysInstancedBaseInstance = fn (mode: PrimitiveType, first: GLint, count: GLsizei, instancecount: GLsizei, baseinstance: GLuint)
+alias fptr_glDrawBuffer = fn (buf: DrawBufferMode)
+alias fptr_glDrawBuffers = fn (n: GLsizei, bufs: Ptr[DrawBufferMode, mut=False])
+alias fptr_glDrawElements = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False])
+alias fptr_glDrawElementsBaseVertex = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], basevertex: GLint)
+alias fptr_glDrawElementsIndirect = fn (mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=False])
+alias fptr_glDrawElementsInstanced = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei)
+alias fptr_glDrawElementsInstancedBaseInstance = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei, baseinstance: GLuint)
+alias fptr_glDrawElementsInstancedBaseVertex = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei, basevertex: GLint)
+alias fptr_glDrawElementsInstancedBaseVertexBaseInstance = fn (mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei, basevertex: GLint, baseinstance: GLuint)
+alias fptr_glDrawRangeElements = fn (mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False])
+alias fptr_glDrawRangeElementsBaseVertex = fn (mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], basevertex: GLint)
+alias fptr_glDrawTransformFeedback = fn (mode: PrimitiveType, id: GLuint)
+alias fptr_glDrawTransformFeedbackInstanced = fn (mode: PrimitiveType, id: GLuint, instancecount: GLsizei)
+alias fptr_glDrawTransformFeedbackStream = fn (mode: PrimitiveType, id: GLuint, stream: GLuint)
+alias fptr_glDrawTransformFeedbackStreamInstanced = fn (mode: PrimitiveType, id: GLuint, stream: GLuint, instancecount: GLsizei)
+alias fptr_glEnable = fn (cap: EnableCap)
+alias fptr_glEnableVertexArrayAttrib = fn (vaobj: GLuint, index: GLuint)
+alias fptr_glEnableVertexAttribArray = fn (index: GLuint)
+alias fptr_glEnablei = fn (target: EnableCap, index: GLuint)
+alias fptr_glEndConditionalRender = fn ()
+alias fptr_glEndQuery = fn (target: QueryTarget)
+alias fptr_glEndQueryIndexed = fn (target: QueryTarget, index: GLuint)
+alias fptr_glEndTransformFeedback = fn ()
+alias fptr_glFenceSync = fn (condition: SyncCondition, flags: SyncBehaviorFlags) -> GLsync
+alias fptr_glFinish = fn ()
+alias fptr_glFlush = fn ()
+alias fptr_glFlushMappedBufferRange = fn (target: BufferTargetARB, offset: GLintptr, length: GLsizeiptr)
+alias fptr_glFlushMappedNamedBufferRange = fn (buffer: GLuint, offset: GLintptr, length: GLsizeiptr)
+alias fptr_glFramebufferParameteri = fn (target: FramebufferTarget, pname: FramebufferParameterName, param: GLint)
+alias fptr_glFramebufferRenderbuffer = fn (target: FramebufferTarget, attachment: FramebufferAttachment, renderbuffertarget: RenderbufferTarget, renderbuffer: GLuint)
+alias fptr_glFramebufferTexture = fn (target: FramebufferTarget, attachment: FramebufferAttachment, texture: GLuint, level: GLint)
+alias fptr_glFramebufferTexture1D = fn (target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint)
+alias fptr_glFramebufferTexture2D = fn (target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint)
+alias fptr_glFramebufferTexture3D = fn (target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint, zoffset: GLint)
+alias fptr_glFramebufferTextureLayer = fn (target: FramebufferTarget, attachment: FramebufferAttachment, texture: GLuint, level: GLint, layer: GLint)
+alias fptr_glFrontFace = fn (mode: FrontFaceDirection)
+alias fptr_glGenBuffers = fn (n: GLsizei, buffers: Ptr[GLuint, mut=True])
+alias fptr_glGenFramebuffers = fn (n: GLsizei, framebuffers: Ptr[GLuint, mut=True])
+alias fptr_glGenProgramPipelines = fn (n: GLsizei, pipelines: Ptr[GLuint, mut=True])
+alias fptr_glGenQueries = fn (n: GLsizei, ids: Ptr[GLuint, mut=True])
+alias fptr_glGenRenderbuffers = fn (n: GLsizei, renderbuffers: Ptr[GLuint, mut=True])
+alias fptr_glGenSamplers = fn (count: GLsizei, samplers: Ptr[GLuint, mut=True])
+alias fptr_glGenTextures = fn (n: GLsizei, textures: Ptr[GLuint, mut=True])
+alias fptr_glGenTransformFeedbacks = fn (n: GLsizei, ids: Ptr[GLuint, mut=True])
+alias fptr_glGenVertexArrays = fn (n: GLsizei, arrays: Ptr[GLuint, mut=True])
+alias fptr_glGenerateMipmap = fn (target: TextureTarget)
+alias fptr_glGenerateTextureMipmap = fn (texture: GLuint)
+alias fptr_glGetActiveAtomicCounterBufferiv = fn (program: GLuint, buffer_index: GLuint, pname: AtomicCounterBufferPName, params: Ptr[GLint, mut=True])
+alias fptr_glGetActiveAttrib = fn (program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: Ptr[AttributeType, mut=True], name: Ptr[GLchar, mut=True])
+alias fptr_glGetActiveSubroutineName = fn (program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], name: Ptr[GLchar, mut=True])
+alias fptr_glGetActiveSubroutineUniformName = fn (program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], name: Ptr[GLchar, mut=True])
+alias fptr_glGetActiveSubroutineUniformiv = fn (program: GLuint, shadertype: ShaderType, index: GLuint, pname: SubroutineParameterName, values: Ptr[GLint, mut=True])
+alias fptr_glGetActiveUniform = fn (program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: Ptr[UniformType, mut=True], name: Ptr[GLchar, mut=True])
+alias fptr_glGetActiveUniformBlockName = fn (program: GLuint, uniform_block_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], uniform_block_name: Ptr[GLchar, mut=True])
+alias fptr_glGetActiveUniformBlockiv = fn (program: GLuint, uniform_block_index: GLuint, pname: UniformBlockPName, params: Ptr[GLint, mut=True])
+alias fptr_glGetActiveUniformName = fn (program: GLuint, uniform_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], uniform_name: Ptr[GLchar, mut=True])
+alias fptr_glGetActiveUniformsiv = fn (program: GLuint, uniform_count: GLsizei, uniform_indices: Ptr[GLuint, mut=False], pname: UniformPName, params: Ptr[GLint, mut=True])
+alias fptr_glGetAttachedShaders = fn (program: GLuint, max_count: GLsizei, count: Ptr[GLsizei, mut=True], shaders: Ptr[GLuint, mut=True])
+alias fptr_glGetAttribLocation = fn (program: GLuint, name: Ptr[GLchar, mut=False]) -> GLint
+alias fptr_glGetBooleani_v = fn (target: BufferTargetARB, index: GLuint, data: Ptr[GLboolean, mut=True])
+alias fptr_glGetBooleanv = fn (pname: GetPName, data: Ptr[GLboolean, mut=True])
+alias fptr_glGetBufferParameteri64v = fn (target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint64, mut=True])
+alias fptr_glGetBufferParameteriv = fn (target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint, mut=True])
+alias fptr_glGetBufferPointerv = fn (target: BufferTargetARB, pname: BufferPointerNameARB, params: Ptr[Ptr[NoneType, mut=True], mut=True])
+alias fptr_glGetBufferSubData = fn (target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True])
+alias fptr_glGetCompressedTexImage = fn (target: TextureTarget, level: GLint, img: Ptr[NoneType, mut=True])
+alias fptr_glGetCompressedTextureImage = fn (texture: GLuint, level: GLint, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetCompressedTextureSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetDebugMessageLog = fn (count: GLuint, buf_size: GLsizei, sources: Ptr[DebugSource, mut=True], types: Ptr[DebugType, mut=True], ids: Ptr[GLuint, mut=True], severities: Ptr[DebugSeverity, mut=True], lengths: Ptr[GLsizei, mut=True], message_log: Ptr[GLchar, mut=True]) -> GLuint
+alias fptr_glGetDoublei_v = fn (target: GetPName, index: GLuint, data: Ptr[GLdouble, mut=True])
+alias fptr_glGetDoublev = fn (pname: GetPName, data: Ptr[GLdouble, mut=True])
+alias fptr_glGetError = fn () -> ErrorCode
+alias fptr_glGetFloati_v = fn (target: GetPName, index: GLuint, data: Ptr[GLfloat, mut=True])
+alias fptr_glGetFloatv = fn (pname: GetPName, data: Ptr[GLfloat, mut=True])
+alias fptr_glGetFragDataIndex = fn (program: GLuint, name: Ptr[GLchar, mut=False]) -> GLint
+alias fptr_glGetFragDataLocation = fn (program: GLuint, name: Ptr[GLchar, mut=False]) -> GLint
+alias fptr_glGetFramebufferAttachmentParameteriv = fn (target: FramebufferTarget, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetFramebufferParameteriv = fn (target: FramebufferTarget, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetGraphicsResetStatus = fn () -> GraphicsResetStatus
+alias fptr_glGetInteger64i_v = fn (target: GetPName, index: GLuint, data: Ptr[GLint64, mut=True])
+alias fptr_glGetInteger64v = fn (pname: GetPName, data: Ptr[GLint64, mut=True])
+alias fptr_glGetIntegeri_v = fn (target: GetPName, index: GLuint, data: Ptr[GLint, mut=True])
+alias fptr_glGetIntegerv = fn (pname: GetPName, data: Ptr[GLint, mut=True])
+alias fptr_glGetInternalformati64v = fn (target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint64, mut=True])
+alias fptr_glGetInternalformativ = fn (target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint, mut=True])
+alias fptr_glGetMultisamplefv = fn (pname: GetMultisamplePNameNV, index: GLuint, val: Ptr[GLfloat, mut=True])
+alias fptr_glGetNamedBufferParameteri64v = fn (buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint64, mut=True])
+alias fptr_glGetNamedBufferParameteriv = fn (buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint, mut=True])
+alias fptr_glGetNamedBufferPointerv = fn (buffer: GLuint, pname: BufferPointerNameARB, params: Ptr[Ptr[NoneType, mut=True], mut=True])
+alias fptr_glGetNamedBufferSubData = fn (buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True])
+alias fptr_glGetNamedFramebufferAttachmentParameteriv = fn (framebuffer: GLuint, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetNamedFramebufferParameteriv = fn (framebuffer: GLuint, pname: GetFramebufferParameter, param: Ptr[GLint, mut=True])
+alias fptr_glGetNamedRenderbufferParameteriv = fn (renderbuffer: GLuint, pname: RenderbufferParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetObjectLabel = fn (identifier: ObjectIdentifier, name: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], label: Ptr[GLchar, mut=True])
+alias fptr_glGetObjectPtrLabel = fn (ptr: Ptr[NoneType, mut=False], buf_size: GLsizei, length: Ptr[GLsizei, mut=True], label: Ptr[GLchar, mut=True])
+alias fptr_glGetProgramBinary = fn (program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], binary_format: Ptr[GLenum, mut=True], binary: Ptr[NoneType, mut=True])
+alias fptr_glGetProgramInfoLog = fn (program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], info_log: Ptr[GLchar, mut=True])
+alias fptr_glGetProgramInterfaceiv = fn (program: GLuint, program_interface: ProgramInterface, pname: ProgramInterfacePName, params: Ptr[GLint, mut=True])
+alias fptr_glGetProgramPipelineInfoLog = fn (pipeline: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], info_log: Ptr[GLchar, mut=True])
+alias fptr_glGetProgramPipelineiv = fn (pipeline: GLuint, pname: PipelineParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetProgramResourceIndex = fn (program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar, mut=False]) -> GLuint
+alias fptr_glGetProgramResourceLocation = fn (program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar, mut=False]) -> GLint
+alias fptr_glGetProgramResourceLocationIndex = fn (program: GLuint, program_interface: ProgramInterface, name: Ptr[GLchar, mut=False]) -> GLint
+alias fptr_glGetProgramResourceName = fn (program: GLuint, program_interface: ProgramInterface, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], name: Ptr[GLchar, mut=True])
+alias fptr_glGetProgramResourceiv = fn (program: GLuint, program_interface: ProgramInterface, index: GLuint, prop_count: GLsizei, props: Ptr[ProgramResourceProperty, mut=False], count: GLsizei, length: Ptr[GLsizei, mut=True], params: Ptr[GLint, mut=True])
+alias fptr_glGetProgramStageiv = fn (program: GLuint, shadertype: ShaderType, pname: ProgramStagePName, values: Ptr[GLint, mut=True])
+alias fptr_glGetProgramiv = fn (program: GLuint, pname: ProgramPropertyARB, params: Ptr[GLint, mut=True])
+alias fptr_glGetQueryBufferObjecti64v = fn (id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr)
+alias fptr_glGetQueryBufferObjectiv = fn (id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr)
+alias fptr_glGetQueryBufferObjectui64v = fn (id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr)
+alias fptr_glGetQueryBufferObjectuiv = fn (id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr)
+alias fptr_glGetQueryIndexediv = fn (target: QueryTarget, index: GLuint, pname: QueryParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetQueryObjecti64v = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint64, mut=True])
+alias fptr_glGetQueryObjectiv = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetQueryObjectui64v = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint64, mut=True])
+alias fptr_glGetQueryObjectuiv = fn (id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint, mut=True])
+alias fptr_glGetQueryiv = fn (target: QueryTarget, pname: QueryParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetRenderbufferParameteriv = fn (target: RenderbufferTarget, pname: RenderbufferParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetSamplerParameterIiv = fn (sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint, mut=True])
+alias fptr_glGetSamplerParameterIuiv = fn (sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLuint, mut=True])
+alias fptr_glGetSamplerParameterfv = fn (sampler: GLuint, pname: SamplerParameterF, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetSamplerParameteriv = fn (sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint, mut=True])
+alias fptr_glGetShaderInfoLog = fn (shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], info_log: Ptr[GLchar, mut=True])
+alias fptr_glGetShaderPrecisionFormat = fn (shadertype: ShaderType, precisiontype: PrecisionType, range: Ptr[GLint, mut=True], precision: Ptr[GLint, mut=True])
+alias fptr_glGetShaderSource = fn (shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], source: Ptr[GLchar, mut=True])
+alias fptr_glGetShaderiv = fn (shader: GLuint, pname: ShaderParameterName, params: Ptr[GLint, mut=True])
+alias fptr_glGetString = fn (name: StringName) -> GLubyte
+alias fptr_glGetStringi = fn (name: StringName, index: GLuint) -> GLubyte
+alias fptr_glGetSubroutineIndex = fn (program: GLuint, shadertype: ShaderType, name: Ptr[GLchar, mut=False]) -> GLuint
+alias fptr_glGetSubroutineUniformLocation = fn (program: GLuint, shadertype: ShaderType, name: Ptr[GLchar, mut=False]) -> GLint
+alias fptr_glGetSynciv = fn (sync: GLsync, pname: SyncParameterName, count: GLsizei, length: Ptr[GLsizei, mut=True], values: Ptr[GLint, mut=True])
+alias fptr_glGetTexImage = fn (target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetTexLevelParameterfv = fn (target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetTexLevelParameteriv = fn (target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLint, mut=True])
+alias fptr_glGetTexParameterIiv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint, mut=True])
+alias fptr_glGetTexParameterIuiv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLuint, mut=True])
+alias fptr_glGetTexParameterfv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetTexParameteriv = fn (target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint, mut=True])
+alias fptr_glGetTextureImage = fn (texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetTextureLevelParameterfv = fn (texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetTextureLevelParameteriv = fn (texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLint, mut=True])
+alias fptr_glGetTextureParameterIiv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint, mut=True])
+alias fptr_glGetTextureParameterIuiv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLuint, mut=True])
+alias fptr_glGetTextureParameterfv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetTextureParameteriv = fn (texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint, mut=True])
+alias fptr_glGetTextureSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetTransformFeedbackVarying = fn (program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLsizei, mut=True], type: Ptr[AttributeType, mut=True], name: Ptr[GLchar, mut=True])
+alias fptr_glGetTransformFeedbacki64_v = fn (xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint64, mut=True])
+alias fptr_glGetTransformFeedbacki_v = fn (xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint, mut=True])
+alias fptr_glGetTransformFeedbackiv = fn (xfb: GLuint, pname: TransformFeedbackPName, param: Ptr[GLint, mut=True])
+alias fptr_glGetUniformBlockIndex = fn (program: GLuint, uniform_block_name: Ptr[GLchar, mut=False]) -> GLuint
+alias fptr_glGetUniformIndices = fn (program: GLuint, uniform_count: GLsizei, uniform_names: Ptr[Ptr[GLchar, mut=False], mut=False], uniform_indices: Ptr[GLuint, mut=True])
+alias fptr_glGetUniformLocation = fn (program: GLuint, name: Ptr[GLchar, mut=False]) -> GLint
+alias fptr_glGetUniformSubroutineuiv = fn (shadertype: ShaderType, location: GLint, params: Ptr[GLuint, mut=True])
+alias fptr_glGetUniformdv = fn (program: GLuint, location: GLint, params: Ptr[GLdouble, mut=True])
+alias fptr_glGetUniformfv = fn (program: GLuint, location: GLint, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetUniformiv = fn (program: GLuint, location: GLint, params: Ptr[GLint, mut=True])
+alias fptr_glGetUniformuiv = fn (program: GLuint, location: GLint, params: Ptr[GLuint, mut=True])
+alias fptr_glGetVertexArrayIndexed64iv = fn (vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint64, mut=True])
+alias fptr_glGetVertexArrayIndexediv = fn (vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint, mut=True])
+alias fptr_glGetVertexArrayiv = fn (vaobj: GLuint, pname: VertexArrayPName, param: Ptr[GLint, mut=True])
+alias fptr_glGetVertexAttribIiv = fn (index: GLuint, pname: VertexAttribEnum, params: Ptr[GLint, mut=True])
+alias fptr_glGetVertexAttribIuiv = fn (index: GLuint, pname: VertexAttribEnum, params: Ptr[GLuint, mut=True])
+alias fptr_glGetVertexAttribLdv = fn (index: GLuint, pname: VertexAttribEnum, params: Ptr[GLdouble, mut=True])
+alias fptr_glGetVertexAttribPointerv = fn (index: GLuint, pname: VertexAttribPointerPropertyARB, pointer: Ptr[Ptr[NoneType, mut=True], mut=True])
+alias fptr_glGetVertexAttribdv = fn (index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLdouble, mut=True])
+alias fptr_glGetVertexAttribfv = fn (index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetVertexAttribiv = fn (index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLint, mut=True])
+alias fptr_glGetnColorTable = fn (target: ColorTableTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, table: Ptr[NoneType, mut=True])
+alias fptr_glGetnCompressedTexImage = fn (target: TextureTarget, lod: GLint, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetnConvolutionFilter = fn (target: ConvolutionTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, image: Ptr[NoneType, mut=True])
+alias fptr_glGetnHistogram = fn (target: HistogramTarget, reset: GLboolean, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType, mut=True])
+alias fptr_glGetnMapdv = fn (target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLdouble, mut=True])
+alias fptr_glGetnMapfv = fn (target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLfloat, mut=True])
+alias fptr_glGetnMapiv = fn (target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLint, mut=True])
+alias fptr_glGetnMinmax = fn (target: MinmaxTarget, reset: GLboolean, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType, mut=True])
+alias fptr_glGetnPixelMapfv = fn (map: PixelMap, buf_size: GLsizei, values: Ptr[GLfloat, mut=True])
+alias fptr_glGetnPixelMapuiv = fn (map: PixelMap, buf_size: GLsizei, values: Ptr[GLuint, mut=True])
+alias fptr_glGetnPixelMapusv = fn (map: PixelMap, buf_size: GLsizei, values: Ptr[GLushort, mut=True])
+alias fptr_glGetnPolygonStipple = fn (buf_size: GLsizei, pattern: Ptr[GLubyte, mut=True])
+alias fptr_glGetnSeparableFilter = fn (target: SeparableTarget, format: PixelFormat, type: PixelType, row_buf_size: GLsizei, row: Ptr[NoneType, mut=True], column_buf_size: GLsizei, column: Ptr[NoneType, mut=True], span: Ptr[NoneType, mut=True])
+alias fptr_glGetnTexImage = fn (target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True])
+alias fptr_glGetnUniformdv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLdouble, mut=True])
+alias fptr_glGetnUniformfv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLfloat, mut=True])
+alias fptr_glGetnUniformiv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLint, mut=True])
+alias fptr_glGetnUniformuiv = fn (program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLuint, mut=True])
+alias fptr_glHint = fn (target: HintTarget, mode: HintMode)
+alias fptr_glInvalidateBufferData = fn (buffer: GLuint)
+alias fptr_glInvalidateBufferSubData = fn (buffer: GLuint, offset: GLintptr, length: GLsizeiptr)
+alias fptr_glInvalidateFramebuffer = fn (target: FramebufferTarget, num_attachments: GLsizei, attachments: Ptr[InvalidateFramebufferAttachment, mut=False])
+alias fptr_glInvalidateNamedFramebufferData = fn (framebuffer: GLuint, num_attachments: GLsizei, attachments: Ptr[FramebufferAttachment, mut=False])
+alias fptr_glInvalidateNamedFramebufferSubData = fn (framebuffer: GLuint, num_attachments: GLsizei, attachments: Ptr[FramebufferAttachment, mut=False], x: GLint, y: GLint, width: GLsizei, height: GLsizei)
+alias fptr_glInvalidateSubFramebuffer = fn (target: FramebufferTarget, num_attachments: GLsizei, attachments: Ptr[InvalidateFramebufferAttachment, mut=False], x: GLint, y: GLint, width: GLsizei, height: GLsizei)
+alias fptr_glInvalidateTexImage = fn (texture: GLuint, level: GLint)
+alias fptr_glInvalidateTexSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei)
+alias fptr_glIsBuffer = fn (buffer: GLuint) -> GLboolean
+alias fptr_glIsEnabled = fn (cap: EnableCap) -> GLboolean
+alias fptr_glIsEnabledi = fn (target: EnableCap, index: GLuint) -> GLboolean
+alias fptr_glIsFramebuffer = fn (framebuffer: GLuint) -> GLboolean
+alias fptr_glIsProgram = fn (program: GLuint) -> GLboolean
+alias fptr_glIsProgramPipeline = fn (pipeline: GLuint) -> GLboolean
+alias fptr_glIsQuery = fn (id: GLuint) -> GLboolean
+alias fptr_glIsRenderbuffer = fn (renderbuffer: GLuint) -> GLboolean
+alias fptr_glIsSampler = fn (sampler: GLuint) -> GLboolean
+alias fptr_glIsShader = fn (shader: GLuint) -> GLboolean
+alias fptr_glIsSync = fn (sync: GLsync) -> GLboolean
+alias fptr_glIsTexture = fn (texture: GLuint) -> GLboolean
+alias fptr_glIsTransformFeedback = fn (id: GLuint) -> GLboolean
+alias fptr_glIsVertexArray = fn (array: GLuint) -> GLboolean
+alias fptr_glLineWidth = fn (width: GLfloat)
+alias fptr_glLinkProgram = fn (program: GLuint)
+alias fptr_glLogicOp = fn (opcode: LogicOp)
+alias fptr_glMapBuffer = fn (target: BufferTargetARB, access: BufferAccessARB)
+alias fptr_glMapBufferRange = fn (target: BufferTargetARB, offset: GLintptr, length: GLsizeiptr, access: MapBufferAccessMask)
+alias fptr_glMapNamedBuffer = fn (buffer: GLuint, access: BufferAccessARB)
+alias fptr_glMapNamedBufferRange = fn (buffer: GLuint, offset: GLintptr, length: GLsizeiptr, access: MapBufferAccessMask)
+alias fptr_glMemoryBarrier = fn (barriers: MemoryBarrierMask)
+alias fptr_glMemoryBarrierByRegion = fn (barriers: MemoryBarrierMask)
+alias fptr_glMinSampleShading = fn (value: GLfloat)
+alias fptr_glMultiDrawArrays = fn (mode: PrimitiveType, first: Ptr[GLint, mut=False], count: Ptr[GLsizei, mut=False], drawcount: GLsizei)
+alias fptr_glMultiDrawArraysIndirect = fn (mode: PrimitiveType, indirect: Ptr[NoneType, mut=False], drawcount: GLsizei, stride: GLsizei)
+alias fptr_glMultiDrawArraysIndirectCount = fn (mode: PrimitiveType, indirect: Ptr[NoneType, mut=False], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei)
+alias fptr_glMultiDrawElements = fn (mode: PrimitiveType, count: Ptr[GLsizei, mut=False], type: DrawElementsType, indices: Ptr[Ptr[NoneType, mut=False], mut=False], drawcount: GLsizei)
+alias fptr_glMultiDrawElementsBaseVertex = fn (mode: PrimitiveType, count: Ptr[GLsizei, mut=False], type: DrawElementsType, indices: Ptr[Ptr[NoneType, mut=False], mut=False], drawcount: GLsizei, basevertex: Ptr[GLint, mut=False])
+alias fptr_glMultiDrawElementsIndirect = fn (mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=False], drawcount: GLsizei, stride: GLsizei)
+alias fptr_glMultiDrawElementsIndirectCount = fn (mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=False], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei)
+alias fptr_glMultiTexCoordP1ui = fn (texture: TextureUnit, type: TexCoordPointerType, coords: GLuint)
+alias fptr_glMultiTexCoordP1uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False])
+alias fptr_glMultiTexCoordP2ui = fn (texture: TextureUnit, type: TexCoordPointerType, coords: GLuint)
+alias fptr_glMultiTexCoordP2uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False])
+alias fptr_glMultiTexCoordP3ui = fn (texture: TextureUnit, type: TexCoordPointerType, coords: GLuint)
+alias fptr_glMultiTexCoordP3uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False])
+alias fptr_glMultiTexCoordP4ui = fn (texture: TextureUnit, type: TexCoordPointerType, coords: GLuint)
+alias fptr_glMultiTexCoordP4uiv = fn (texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False])
+alias fptr_glNamedBufferData = fn (buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType, mut=False], usage: BufferUsageARB)
+alias fptr_glNamedBufferStorage = fn (buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType, mut=False], flags: BufferStorageMask)
+alias fptr_glNamedBufferSubData = fn (buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=False])
+alias fptr_glNamedFramebufferDrawBuffer = fn (framebuffer: GLuint, buf: ColorBuffer)
+alias fptr_glNamedFramebufferDrawBuffers = fn (framebuffer: GLuint, n: GLsizei, bufs: Ptr[ColorBuffer, mut=False])
+alias fptr_glNamedFramebufferParameteri = fn (framebuffer: GLuint, pname: FramebufferParameterName, param: GLint)
+alias fptr_glNamedFramebufferReadBuffer = fn (framebuffer: GLuint, src: ColorBuffer)
+alias fptr_glNamedFramebufferRenderbuffer = fn (framebuffer: GLuint, attachment: FramebufferAttachment, renderbuffertarget: RenderbufferTarget, renderbuffer: GLuint)
+alias fptr_glNamedFramebufferTexture = fn (framebuffer: GLuint, attachment: FramebufferAttachment, texture: GLuint, level: GLint)
+alias fptr_glNamedFramebufferTextureLayer = fn (framebuffer: GLuint, attachment: FramebufferAttachment, texture: GLuint, level: GLint, layer: GLint)
+alias fptr_glNamedRenderbufferStorage = fn (renderbuffer: GLuint, internalformat: InternalFormat, width: GLsizei, height: GLsizei)
+alias fptr_glNamedRenderbufferStorageMultisample = fn (renderbuffer: GLuint, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei)
+alias fptr_glNormalP3ui = fn (type: NormalPointerType, coords: GLuint)
+alias fptr_glNormalP3uiv = fn (type: NormalPointerType, coords: Ptr[GLuint, mut=False])
+alias fptr_glObjectLabel = fn (identifier: ObjectIdentifier, name: GLuint, length: GLsizei, label: Ptr[GLchar, mut=False])
+alias fptr_glObjectPtrLabel = fn (ptr: Ptr[NoneType, mut=False], length: GLsizei, label: Ptr[GLchar, mut=False])
+alias fptr_glPatchParameterfv = fn (pname: PatchParameterName, values: Ptr[GLfloat, mut=False])
+alias fptr_glPatchParameteri = fn (pname: PatchParameterName, value: GLint)
+alias fptr_glPauseTransformFeedback = fn ()
+alias fptr_glPixelStoref = fn (pname: PixelStoreParameter, param: GLfloat)
+alias fptr_glPixelStorei = fn (pname: PixelStoreParameter, param: GLint)
+alias fptr_glPointParameterf = fn (pname: PointParameterNameARB, param: GLfloat)
+alias fptr_glPointParameterfv = fn (pname: PointParameterNameARB, params: Ptr[GLfloat, mut=False])
+alias fptr_glPointParameteri = fn (pname: PointParameterNameARB, param: GLint)
+alias fptr_glPointParameteriv = fn (pname: PointParameterNameARB, params: Ptr[GLint, mut=False])
+alias fptr_glPointSize = fn (size: GLfloat)
+alias fptr_glPolygonMode = fn (face: TriangleFace, mode: PolygonMode)
+alias fptr_glPolygonOffset = fn (factor: GLfloat, units: GLfloat)
+alias fptr_glPolygonOffsetClamp = fn (factor: GLfloat, units: GLfloat, clamp: GLfloat)
+alias fptr_glPopDebugGroup = fn ()
+alias fptr_glPrimitiveRestartIndex = fn (index: GLuint)
+alias fptr_glProgramBinary = fn (program: GLuint, binary_format: GLenum, binary: Ptr[NoneType, mut=False], length: GLsizei)
+alias fptr_glProgramParameteri = fn (program: GLuint, pname: ProgramParameterPName, value: GLint)
+alias fptr_glProgramUniform1d = fn (program: GLuint, location: GLint, v0: GLdouble)
+alias fptr_glProgramUniform1dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniform1f = fn (program: GLuint, location: GLint, v0: GLfloat)
+alias fptr_glProgramUniform1fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False])
+alias fptr_glProgramUniform1i = fn (program: GLuint, location: GLint, v0: GLint)
+alias fptr_glProgramUniform1iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False])
+alias fptr_glProgramUniform1ui = fn (program: GLuint, location: GLint, v0: GLuint)
+alias fptr_glProgramUniform1uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False])
+alias fptr_glProgramUniform2d = fn (program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble)
+alias fptr_glProgramUniform2dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniform2f = fn (program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat)
+alias fptr_glProgramUniform2fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False])
+alias fptr_glProgramUniform2i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint)
+alias fptr_glProgramUniform2iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False])
+alias fptr_glProgramUniform2ui = fn (program: GLuint, location: GLint, v0: GLuint, v1: GLuint)
+alias fptr_glProgramUniform2uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False])
+alias fptr_glProgramUniform3d = fn (program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble, v2: GLdouble)
+alias fptr_glProgramUniform3dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniform3f = fn (program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat)
+alias fptr_glProgramUniform3fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False])
+alias fptr_glProgramUniform3i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint, v2: GLint)
+alias fptr_glProgramUniform3iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False])
+alias fptr_glProgramUniform3ui = fn (program: GLuint, location: GLint, v0: GLuint, v1: GLuint, v2: GLuint)
+alias fptr_glProgramUniform3uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False])
+alias fptr_glProgramUniform4d = fn (program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble, v2: GLdouble, v3: GLdouble)
+alias fptr_glProgramUniform4dv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniform4f = fn (program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat, v3: GLfloat)
+alias fptr_glProgramUniform4fv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False])
+alias fptr_glProgramUniform4i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint)
+alias fptr_glProgramUniform4iv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False])
+alias fptr_glProgramUniform4ui = fn (program: GLuint, location: GLint, v0: GLuint, v1: GLuint, v2: GLuint, v3: GLuint)
+alias fptr_glProgramUniform4uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False])
+alias fptr_glProgramUniformMatrix2dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniformMatrix2fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glProgramUniformMatrix2x3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniformMatrix2x3fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glProgramUniformMatrix2x4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniformMatrix2x4fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glProgramUniformMatrix3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniformMatrix3fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glProgramUniformMatrix3x2dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniformMatrix3x2fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glProgramUniformMatrix3x4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniformMatrix3x4fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glProgramUniformMatrix4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniformMatrix4fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glProgramUniformMatrix4x2dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniformMatrix4x2fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glProgramUniformMatrix4x3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glProgramUniformMatrix4x3fv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glProvokingVertex = fn (mode: VertexProvokingMode)
+alias fptr_glPushDebugGroup = fn (source: DebugSource, id: GLuint, length: GLsizei, message: Ptr[GLchar, mut=False])
+alias fptr_glQueryCounter = fn (id: GLuint, target: QueryCounterTarget)
+alias fptr_glReadBuffer = fn (src: ReadBufferMode)
+alias fptr_glReadPixels = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True])
+alias fptr_glReadnPixels = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, data: Ptr[NoneType, mut=True])
+alias fptr_glReleaseShaderCompiler = fn ()
+alias fptr_glRenderbufferStorage = fn (target: RenderbufferTarget, internalformat: InternalFormat, width: GLsizei, height: GLsizei)
+alias fptr_glRenderbufferStorageMultisample = fn (target: RenderbufferTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei)
+alias fptr_glResumeTransformFeedback = fn ()
+alias fptr_glSampleCoverage = fn (value: GLfloat, invert: GLboolean)
+alias fptr_glSampleMaski = fn (mask_number: GLuint, mask: GLbitfield)
+alias fptr_glSamplerParameterIiv = fn (sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint, mut=False])
+alias fptr_glSamplerParameterIuiv = fn (sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLuint, mut=False])
+alias fptr_glSamplerParameterf = fn (sampler: GLuint, pname: SamplerParameterF, param: GLfloat)
+alias fptr_glSamplerParameterfv = fn (sampler: GLuint, pname: SamplerParameterF, param: Ptr[GLfloat, mut=False])
+alias fptr_glSamplerParameteri = fn (sampler: GLuint, pname: SamplerParameterI, param: GLint)
+alias fptr_glSamplerParameteriv = fn (sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint, mut=False])
+alias fptr_glScissor = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei)
+alias fptr_glScissorArrayv = fn (first: GLuint, count: GLsizei, v: Ptr[GLint, mut=False])
+alias fptr_glScissorIndexed = fn (index: GLuint, left: GLint, bottom: GLint, width: GLsizei, height: GLsizei)
+alias fptr_glScissorIndexedv = fn (index: GLuint, v: Ptr[GLint, mut=False])
+alias fptr_glSecondaryColorP3ui = fn (type: ColorPointerType, color: GLuint)
+alias fptr_glSecondaryColorP3uiv = fn (type: ColorPointerType, color: Ptr[GLuint, mut=False])
+alias fptr_glShaderBinary = fn (count: GLsizei, shaders: Ptr[GLuint, mut=False], binary_format: ShaderBinaryFormat, binary: Ptr[NoneType, mut=False], length: GLsizei)
+alias fptr_glShaderSource = fn (shader: GLuint, count: GLsizei, string: Ptr[Ptr[GLchar, mut=False], mut=False], length: Ptr[GLint, mut=False])
+alias fptr_glShaderStorageBlockBinding = fn (program: GLuint, storage_block_index: GLuint, storage_block_binding: GLuint)
+alias fptr_glSpecializeShader = fn (shader: GLuint, p_entry_point: Ptr[GLchar, mut=False], num_specialization_constants: GLuint, p_constant_index: Ptr[GLuint, mut=False], p_constant_value: Ptr[GLuint, mut=False])
+alias fptr_glStencilFunc = fn (func: StencilFunction, ref_: GLint, mask: GLuint)
+alias fptr_glStencilFuncSeparate = fn (face: TriangleFace, func: StencilFunction, ref_: GLint, mask: GLuint)
+alias fptr_glStencilMask = fn (mask: GLuint)
+alias fptr_glStencilMaskSeparate = fn (face: TriangleFace, mask: GLuint)
+alias fptr_glStencilOp = fn (fail: StencilOp, zfail: StencilOp, zpass: StencilOp)
+alias fptr_glStencilOpSeparate = fn (face: TriangleFace, sfail: StencilOp, dpfail: StencilOp, dppass: StencilOp)
+alias fptr_glTexBuffer = fn (target: TextureTarget, internalformat: SizedInternalFormat, buffer: GLuint)
+alias fptr_glTexBufferRange = fn (target: TextureTarget, internalformat: SizedInternalFormat, buffer: GLuint, offset: GLintptr, size: GLsizeiptr)
+alias fptr_glTexCoordP1ui = fn (type: TexCoordPointerType, coords: GLuint)
+alias fptr_glTexCoordP1uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint, mut=False])
+alias fptr_glTexCoordP2ui = fn (type: TexCoordPointerType, coords: GLuint)
+alias fptr_glTexCoordP2uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint, mut=False])
+alias fptr_glTexCoordP3ui = fn (type: TexCoordPointerType, coords: GLuint)
+alias fptr_glTexCoordP3uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint, mut=False])
+alias fptr_glTexCoordP4ui = fn (type: TexCoordPointerType, coords: GLuint)
+alias fptr_glTexCoordP4uiv = fn (type: TexCoordPointerType, coords: Ptr[GLuint, mut=False])
+alias fptr_glTexImage1D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False])
+alias fptr_glTexImage2D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False])
+alias fptr_glTexImage2DMultisample = fn (target: TextureTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean)
+alias fptr_glTexImage3D = fn (target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False])
+alias fptr_glTexImage3DMultisample = fn (target: TextureTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: GLboolean)
+alias fptr_glTexParameterIiv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint, mut=False])
+alias fptr_glTexParameterIuiv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLuint, mut=False])
+alias fptr_glTexParameterf = fn (target: TextureTarget, pname: TextureParameterName, param: GLfloat)
+alias fptr_glTexParameterfv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLfloat, mut=False])
+alias fptr_glTexParameteri = fn (target: TextureTarget, pname: TextureParameterName, param: GLint)
+alias fptr_glTexParameteriv = fn (target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint, mut=False])
+alias fptr_glTexStorage1D = fn (target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei)
+alias fptr_glTexStorage2D = fn (target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei)
+alias fptr_glTexStorage2DMultisample = fn (target: TextureTarget, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean)
+alias fptr_glTexStorage3D = fn (target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei)
+alias fptr_glTexStorage3DMultisample = fn (target: TextureTarget, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: GLboolean)
+alias fptr_glTexSubImage1D = fn (target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False])
+alias fptr_glTexSubImage2D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False])
+alias fptr_glTexSubImage3D = fn (target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False])
+alias fptr_glTextureBarrier = fn ()
+alias fptr_glTextureBuffer = fn (texture: GLuint, internalformat: SizedInternalFormat, buffer: GLuint)
+alias fptr_glTextureBufferRange = fn (texture: GLuint, internalformat: SizedInternalFormat, buffer: GLuint, offset: GLintptr, size: GLsizeiptr)
+alias fptr_glTextureParameterIiv = fn (texture: GLuint, pname: TextureParameterName, params: Ptr[GLint, mut=False])
+alias fptr_glTextureParameterIuiv = fn (texture: GLuint, pname: TextureParameterName, params: Ptr[GLuint, mut=False])
+alias fptr_glTextureParameterf = fn (texture: GLuint, pname: TextureParameterName, param: GLfloat)
+alias fptr_glTextureParameterfv = fn (texture: GLuint, pname: TextureParameterName, param: Ptr[GLfloat, mut=False])
+alias fptr_glTextureParameteri = fn (texture: GLuint, pname: TextureParameterName, param: GLint)
+alias fptr_glTextureParameteriv = fn (texture: GLuint, pname: TextureParameterName, param: Ptr[GLint, mut=False])
+alias fptr_glTextureStorage1D = fn (texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei)
+alias fptr_glTextureStorage2D = fn (texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei)
+alias fptr_glTextureStorage2DMultisample = fn (texture: GLuint, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean)
+alias fptr_glTextureStorage3D = fn (texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei)
+alias fptr_glTextureStorage3DMultisample = fn (texture: GLuint, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: GLboolean)
+alias fptr_glTextureSubImage1D = fn (texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False])
+alias fptr_glTextureSubImage2D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False])
+alias fptr_glTextureSubImage3D = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False])
+alias fptr_glTextureView = fn (texture: GLuint, target: TextureTarget, origtexture: GLuint, internalformat: SizedInternalFormat, minlevel: GLuint, numlevels: GLuint, minlayer: GLuint, numlayers: GLuint)
+alias fptr_glTransformFeedbackBufferBase = fn (xfb: GLuint, index: GLuint, buffer: GLuint)
+alias fptr_glTransformFeedbackBufferRange = fn (xfb: GLuint, index: GLuint, buffer: GLuint, offset: GLintptr, size: GLsizeiptr)
+alias fptr_glTransformFeedbackVaryings = fn (program: GLuint, count: GLsizei, varyings: Ptr[Ptr[GLchar, mut=False], mut=False], buffer_mode: TransformFeedbackBufferMode)
+alias fptr_glUniform1d = fn (location: GLint, x: GLdouble)
+alias fptr_glUniform1dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniform1f = fn (location: GLint, v0: GLfloat)
+alias fptr_glUniform1fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniform1i = fn (location: GLint, v0: GLint)
+alias fptr_glUniform1iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint, mut=False])
+alias fptr_glUniform1ui = fn (location: GLint, v0: GLuint)
+alias fptr_glUniform1uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False])
+alias fptr_glUniform2d = fn (location: GLint, x: GLdouble, y: GLdouble)
+alias fptr_glUniform2dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniform2f = fn (location: GLint, v0: GLfloat, v1: GLfloat)
+alias fptr_glUniform2fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniform2i = fn (location: GLint, v0: GLint, v1: GLint)
+alias fptr_glUniform2iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint, mut=False])
+alias fptr_glUniform2ui = fn (location: GLint, v0: GLuint, v1: GLuint)
+alias fptr_glUniform2uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False])
+alias fptr_glUniform3d = fn (location: GLint, x: GLdouble, y: GLdouble, z: GLdouble)
+alias fptr_glUniform3dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniform3f = fn (location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat)
+alias fptr_glUniform3fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniform3i = fn (location: GLint, v0: GLint, v1: GLint, v2: GLint)
+alias fptr_glUniform3iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint, mut=False])
+alias fptr_glUniform3ui = fn (location: GLint, v0: GLuint, v1: GLuint, v2: GLuint)
+alias fptr_glUniform3uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False])
+alias fptr_glUniform4d = fn (location: GLint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble)
+alias fptr_glUniform4dv = fn (location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniform4f = fn (location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat, v3: GLfloat)
+alias fptr_glUniform4fv = fn (location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniform4i = fn (location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint)
+alias fptr_glUniform4iv = fn (location: GLint, count: GLsizei, value: Ptr[GLint, mut=False])
+alias fptr_glUniform4ui = fn (location: GLint, v0: GLuint, v1: GLuint, v2: GLuint, v3: GLuint)
+alias fptr_glUniform4uiv = fn (location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False])
+alias fptr_glUniformBlockBinding = fn (program: GLuint, uniform_block_index: GLuint, uniform_block_binding: GLuint)
+alias fptr_glUniformMatrix2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniformMatrix2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniformMatrix2x3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniformMatrix2x3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniformMatrix2x4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniformMatrix2x4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniformMatrix3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniformMatrix3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniformMatrix3x2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniformMatrix3x2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniformMatrix3x4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniformMatrix3x4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniformMatrix4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniformMatrix4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniformMatrix4x2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniformMatrix4x2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniformMatrix4x3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLdouble, mut=False])
+alias fptr_glUniformMatrix4x3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: Ptr[GLfloat, mut=False])
+alias fptr_glUniformSubroutinesuiv = fn (shadertype: ShaderType, count: GLsizei, indices: Ptr[GLuint, mut=False])
+alias fptr_glUnmapBuffer = fn (target: BufferTargetARB) -> GLboolean
+alias fptr_glUnmapNamedBuffer = fn (buffer: GLuint) -> GLboolean
+alias fptr_glUseProgram = fn (program: GLuint)
+alias fptr_glUseProgramStages = fn (pipeline: GLuint, stages: UseProgramStageMask, program: GLuint)
+alias fptr_glValidateProgram = fn (program: GLuint)
+alias fptr_glValidateProgramPipeline = fn (pipeline: GLuint)
+alias fptr_glVertexArrayAttribBinding = fn (vaobj: GLuint, attribindex: GLuint, bindingindex: GLuint)
+alias fptr_glVertexArrayAttribFormat = fn (vaobj: GLuint, attribindex: GLuint, size: GLint, type: VertexAttribType, normalized: GLboolean, relativeoffset: GLuint)
+alias fptr_glVertexArrayAttribIFormat = fn (vaobj: GLuint, attribindex: GLuint, size: GLint, type: VertexAttribIType, relativeoffset: GLuint)
+alias fptr_glVertexArrayAttribLFormat = fn (vaobj: GLuint, attribindex: GLuint, size: GLint, type: VertexAttribLType, relativeoffset: GLuint)
+alias fptr_glVertexArrayBindingDivisor = fn (vaobj: GLuint, bindingindex: GLuint, divisor: GLuint)
+alias fptr_glVertexArrayElementBuffer = fn (vaobj: GLuint, buffer: GLuint)
+alias fptr_glVertexArrayVertexBuffer = fn (vaobj: GLuint, bindingindex: GLuint, buffer: GLuint, offset: GLintptr, stride: GLsizei)
+alias fptr_glVertexArrayVertexBuffers = fn (vaobj: GLuint, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False], offsets: Ptr[GLintptr, mut=False], strides: Ptr[GLsizei, mut=False])
+alias fptr_glVertexAttrib1d = fn (index: GLuint, x: GLdouble)
+alias fptr_glVertexAttrib1dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False])
+alias fptr_glVertexAttrib1f = fn (index: GLuint, x: GLfloat)
+alias fptr_glVertexAttrib1fv = fn (index: GLuint, v: Ptr[GLfloat, mut=False])
+alias fptr_glVertexAttrib1s = fn (index: GLuint, x: GLshort)
+alias fptr_glVertexAttrib1sv = fn (index: GLuint, v: Ptr[GLshort, mut=False])
+alias fptr_glVertexAttrib2d = fn (index: GLuint, x: GLdouble, y: GLdouble)
+alias fptr_glVertexAttrib2dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False])
+alias fptr_glVertexAttrib2f = fn (index: GLuint, x: GLfloat, y: GLfloat)
+alias fptr_glVertexAttrib2fv = fn (index: GLuint, v: Ptr[GLfloat, mut=False])
+alias fptr_glVertexAttrib2s = fn (index: GLuint, x: GLshort, y: GLshort)
+alias fptr_glVertexAttrib2sv = fn (index: GLuint, v: Ptr[GLshort, mut=False])
+alias fptr_glVertexAttrib3d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble)
+alias fptr_glVertexAttrib3dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False])
+alias fptr_glVertexAttrib3f = fn (index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat)
+alias fptr_glVertexAttrib3fv = fn (index: GLuint, v: Ptr[GLfloat, mut=False])
+alias fptr_glVertexAttrib3s = fn (index: GLuint, x: GLshort, y: GLshort, z: GLshort)
+alias fptr_glVertexAttrib3sv = fn (index: GLuint, v: Ptr[GLshort, mut=False])
+alias fptr_glVertexAttrib4Nbv = fn (index: GLuint, v: Ptr[GLbyte, mut=False])
+alias fptr_glVertexAttrib4Niv = fn (index: GLuint, v: Ptr[GLint, mut=False])
+alias fptr_glVertexAttrib4Nsv = fn (index: GLuint, v: Ptr[GLshort, mut=False])
+alias fptr_glVertexAttrib4Nub = fn (index: GLuint, x: GLubyte, y: GLubyte, z: GLubyte, w: GLubyte)
+alias fptr_glVertexAttrib4Nubv = fn (index: GLuint, v: Ptr[GLubyte, mut=False])
+alias fptr_glVertexAttrib4Nuiv = fn (index: GLuint, v: Ptr[GLuint, mut=False])
+alias fptr_glVertexAttrib4Nusv = fn (index: GLuint, v: Ptr[GLushort, mut=False])
+alias fptr_glVertexAttrib4bv = fn (index: GLuint, v: Ptr[GLbyte, mut=False])
+alias fptr_glVertexAttrib4d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble)
+alias fptr_glVertexAttrib4dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False])
+alias fptr_glVertexAttrib4f = fn (index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat, w: GLfloat)
+alias fptr_glVertexAttrib4fv = fn (index: GLuint, v: Ptr[GLfloat, mut=False])
+alias fptr_glVertexAttrib4iv = fn (index: GLuint, v: Ptr[GLint, mut=False])
+alias fptr_glVertexAttrib4s = fn (index: GLuint, x: GLshort, y: GLshort, z: GLshort, w: GLshort)
+alias fptr_glVertexAttrib4sv = fn (index: GLuint, v: Ptr[GLshort, mut=False])
+alias fptr_glVertexAttrib4ubv = fn (index: GLuint, v: Ptr[GLubyte, mut=False])
+alias fptr_glVertexAttrib4uiv = fn (index: GLuint, v: Ptr[GLuint, mut=False])
+alias fptr_glVertexAttrib4usv = fn (index: GLuint, v: Ptr[GLushort, mut=False])
+alias fptr_glVertexAttribBinding = fn (attribindex: GLuint, bindingindex: GLuint)
+alias fptr_glVertexAttribDivisor = fn (index: GLuint, divisor: GLuint)
+alias fptr_glVertexAttribFormat = fn (attribindex: GLuint, size: GLint, type: VertexAttribType, normalized: GLboolean, relativeoffset: GLuint)
+alias fptr_glVertexAttribI1i = fn (index: GLuint, x: GLint)
+alias fptr_glVertexAttribI1iv = fn (index: GLuint, v: Ptr[GLint, mut=False])
+alias fptr_glVertexAttribI1ui = fn (index: GLuint, x: GLuint)
+alias fptr_glVertexAttribI1uiv = fn (index: GLuint, v: Ptr[GLuint, mut=False])
+alias fptr_glVertexAttribI2i = fn (index: GLuint, x: GLint, y: GLint)
+alias fptr_glVertexAttribI2iv = fn (index: GLuint, v: Ptr[GLint, mut=False])
+alias fptr_glVertexAttribI2ui = fn (index: GLuint, x: GLuint, y: GLuint)
+alias fptr_glVertexAttribI2uiv = fn (index: GLuint, v: Ptr[GLuint, mut=False])
+alias fptr_glVertexAttribI3i = fn (index: GLuint, x: GLint, y: GLint, z: GLint)
+alias fptr_glVertexAttribI3iv = fn (index: GLuint, v: Ptr[GLint, mut=False])
+alias fptr_glVertexAttribI3ui = fn (index: GLuint, x: GLuint, y: GLuint, z: GLuint)
+alias fptr_glVertexAttribI3uiv = fn (index: GLuint, v: Ptr[GLuint, mut=False])
+alias fptr_glVertexAttribI4bv = fn (index: GLuint, v: Ptr[GLbyte, mut=False])
+alias fptr_glVertexAttribI4i = fn (index: GLuint, x: GLint, y: GLint, z: GLint, w: GLint)
+alias fptr_glVertexAttribI4iv = fn (index: GLuint, v: Ptr[GLint, mut=False])
+alias fptr_glVertexAttribI4sv = fn (index: GLuint, v: Ptr[GLshort, mut=False])
+alias fptr_glVertexAttribI4ubv = fn (index: GLuint, v: Ptr[GLubyte, mut=False])
+alias fptr_glVertexAttribI4ui = fn (index: GLuint, x: GLuint, y: GLuint, z: GLuint, w: GLuint)
+alias fptr_glVertexAttribI4uiv = fn (index: GLuint, v: Ptr[GLuint, mut=False])
+alias fptr_glVertexAttribI4usv = fn (index: GLuint, v: Ptr[GLushort, mut=False])
+alias fptr_glVertexAttribIFormat = fn (attribindex: GLuint, size: GLint, type: VertexAttribIType, relativeoffset: GLuint)
+alias fptr_glVertexAttribIPointer = fn (index: GLuint, size: GLint, type: VertexAttribIType, stride: GLsizei, pointer: Ptr[NoneType, mut=False])
+alias fptr_glVertexAttribL1d = fn (index: GLuint, x: GLdouble)
+alias fptr_glVertexAttribL1dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False])
+alias fptr_glVertexAttribL2d = fn (index: GLuint, x: GLdouble, y: GLdouble)
+alias fptr_glVertexAttribL2dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False])
+alias fptr_glVertexAttribL3d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble)
+alias fptr_glVertexAttribL3dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False])
+alias fptr_glVertexAttribL4d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble)
+alias fptr_glVertexAttribL4dv = fn (index: GLuint, v: Ptr[GLdouble, mut=False])
+alias fptr_glVertexAttribLFormat = fn (attribindex: GLuint, size: GLint, type: VertexAttribLType, relativeoffset: GLuint)
+alias fptr_glVertexAttribLPointer = fn (index: GLuint, size: GLint, type: VertexAttribLType, stride: GLsizei, pointer: Ptr[NoneType, mut=False])
+alias fptr_glVertexAttribP1ui = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: GLuint)
+alias fptr_glVertexAttribP1uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=False])
+alias fptr_glVertexAttribP2ui = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: GLuint)
+alias fptr_glVertexAttribP2uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=False])
+alias fptr_glVertexAttribP3ui = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: GLuint)
+alias fptr_glVertexAttribP3uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=False])
+alias fptr_glVertexAttribP4ui = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: GLuint)
+alias fptr_glVertexAttribP4uiv = fn (index: GLuint, type: VertexAttribPointerType, normalized: GLboolean, value: Ptr[GLuint, mut=False])
+alias fptr_glVertexAttribPointer = fn (index: GLuint, size: GLint, type: VertexAttribPointerType, normalized: GLboolean, stride: GLsizei, pointer: Ptr[NoneType, mut=False])
+alias fptr_glVertexBindingDivisor = fn (bindingindex: GLuint, divisor: GLuint)
+alias fptr_glVertexP2ui = fn (type: VertexPointerType, value: GLuint)
+alias fptr_glVertexP2uiv = fn (type: VertexPointerType, value: Ptr[GLuint, mut=False])
+alias fptr_glVertexP3ui = fn (type: VertexPointerType, value: GLuint)
+alias fptr_glVertexP3uiv = fn (type: VertexPointerType, value: Ptr[GLuint, mut=False])
+alias fptr_glVertexP4ui = fn (type: VertexPointerType, value: GLuint)
+alias fptr_glVertexP4uiv = fn (type: VertexPointerType, value: Ptr[GLuint, mut=False])
+alias fptr_glViewport = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei)
+alias fptr_glViewportArrayv = fn (first: GLuint, count: GLsizei, v: Ptr[GLfloat, mut=False])
+alias fptr_glViewportIndexedf = fn (index: GLuint, x: GLfloat, y: GLfloat, w: GLfloat, h: GLfloat)
+alias fptr_glViewportIndexedfv = fn (index: GLuint, v: Ptr[GLfloat, mut=False])
+alias fptr_glWaitSync = fn (sync: GLsync, flags: SyncBehaviorFlags, timeout: GLuint64)
 
 alias _glActiveShaderProgram_ptr = _Global["glActiveShaderProgram", init_fn_ptr[fptr_glActiveShaderProgram]]()
 alias _glActiveTexture_ptr = _Global["glActiveTexture", init_fn_ptr[fptr_glActiveTexture]]()
@@ -6637,3497 +6636,5591 @@ alias _glWaitSync_ptr = _Global["glWaitSync", init_fn_ptr[fptr_glWaitSync]]()
 
 
 @always_inline
-fn active_shader_program(pipeline: GLuint, program: GLuint) raises:
-    return _glActiveShaderProgram_ptr.get_or_create_ptr()[](pipeline, program)
+fn active_shader_program(pipeline: GLuint, program: GLuint):
+    try:
+        return _glActiveShaderProgram_ptr.get_or_create_ptr()[](pipeline, program)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn active_texture(texture: TextureUnit) raises:
-    return _glActiveTexture_ptr.get_or_create_ptr()[](texture)
+fn active_texture(texture: TextureUnit):
+    try:
+        return _glActiveTexture_ptr.get_or_create_ptr()[](texture)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn attach_shader(program: GLuint, shader: GLuint) raises:
-    return _glAttachShader_ptr.get_or_create_ptr()[](program, shader)
+fn attach_shader(program: GLuint, shader: GLuint):
+    try:
+        return _glAttachShader_ptr.get_or_create_ptr()[](program, shader)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn begin_conditional_render(id: GLuint, mode: ConditionalRenderMode) raises:
-    return _glBeginConditionalRender_ptr.get_or_create_ptr()[](id, mode)
+fn begin_conditional_render(id: GLuint, mode: ConditionalRenderMode):
+    try:
+        return _glBeginConditionalRender_ptr.get_or_create_ptr()[](id, mode)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn begin_query(target: QueryTarget, id: GLuint) raises:
-    return _glBeginQuery_ptr.get_or_create_ptr()[](target, id)
+fn begin_query(target: QueryTarget, id: GLuint):
+    try:
+        return _glBeginQuery_ptr.get_or_create_ptr()[](target, id)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn begin_query_indexed(target: QueryTarget, index: GLuint, id: GLuint) raises:
-    return _glBeginQueryIndexed_ptr.get_or_create_ptr()[](target, index, id)
+fn begin_query_indexed(target: QueryTarget, index: GLuint, id: GLuint):
+    try:
+        return _glBeginQueryIndexed_ptr.get_or_create_ptr()[](target, index, id)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn begin_transform_feedback(primitive_mode: PrimitiveType) raises:
-    return _glBeginTransformFeedback_ptr.get_or_create_ptr()[](primitive_mode)
+fn begin_transform_feedback(primitive_mode: PrimitiveType):
+    try:
+        return _glBeginTransformFeedback_ptr.get_or_create_ptr()[](primitive_mode)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_attrib_location(program: GLuint, index: GLuint, mut name: String) raises:
-    return _glBindAttribLocation_ptr.get_or_create_ptr()[](program, index, name.unsafe_cstr_ptr())
+fn bind_attrib_location(program: GLuint, index: GLuint, mut name: String):
+    try:
+        return _glBindAttribLocation_ptr.get_or_create_ptr()[](program, index, name.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_buffer(target: BufferTargetARB, buffer: GLuint) raises:
-    return _glBindBuffer_ptr.get_or_create_ptr()[](target, buffer)
+fn bind_buffer(target: BufferTargetARB, buffer: GLuint):
+    try:
+        return _glBindBuffer_ptr.get_or_create_ptr()[](target, buffer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_buffer_base(target: BufferTargetARB, index: GLuint, buffer: GLuint) raises:
-    return _glBindBufferBase_ptr.get_or_create_ptr()[](target, index, buffer)
+fn bind_buffer_base(target: BufferTargetARB, index: GLuint, buffer: GLuint):
+    try:
+        return _glBindBufferBase_ptr.get_or_create_ptr()[](target, index, buffer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_buffer_range(target: BufferTargetARB, index: GLuint, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) raises:
-    return _glBindBufferRange_ptr.get_or_create_ptr()[](target, index, buffer, offset, size)
+fn bind_buffer_range(target: BufferTargetARB, index: GLuint, buffer: GLuint, offset: GLintptr, size: GLsizeiptr):
+    try:
+        return _glBindBufferRange_ptr.get_or_create_ptr()[](target, index, buffer, offset, size)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_buffers_base(target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False]) raises:
-    return _glBindBuffersBase_ptr.get_or_create_ptr()[](target, first, count, buffers)
+fn bind_buffers_base(target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False]):
+    try:
+        return _glBindBuffersBase_ptr.get_or_create_ptr()[](target, first, count, buffers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_buffers_range(target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False], offsets: Ptr[GLintptr, mut=False], sizes: Ptr[GLsizeiptr, mut=False]) raises:
-    return _glBindBuffersRange_ptr.get_or_create_ptr()[](target, first, count, buffers, offsets, sizes)
+fn bind_buffers_range(target: BufferTargetARB, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False], offsets: Ptr[GLintptr, mut=False], sizes: Ptr[GLsizeiptr, mut=False]):
+    try:
+        return _glBindBuffersRange_ptr.get_or_create_ptr()[](target, first, count, buffers, offsets, sizes)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_frag_data_location(program: GLuint, color: GLuint, mut name: String) raises:
-    return _glBindFragDataLocation_ptr.get_or_create_ptr()[](program, color, name.unsafe_cstr_ptr())
+fn bind_frag_data_location(program: GLuint, color: GLuint, mut name: String):
+    try:
+        return _glBindFragDataLocation_ptr.get_or_create_ptr()[](program, color, name.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_frag_data_location_indexed(program: GLuint, color_number: GLuint, index: GLuint, mut name: String) raises:
-    return _glBindFragDataLocationIndexed_ptr.get_or_create_ptr()[](program, color_number, index, name.unsafe_cstr_ptr())
+fn bind_frag_data_location_indexed(program: GLuint, color_number: GLuint, index: GLuint, mut name: String):
+    try:
+        return _glBindFragDataLocationIndexed_ptr.get_or_create_ptr()[](program, color_number, index, name.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_framebuffer(target: FramebufferTarget, framebuffer: GLuint) raises:
-    return _glBindFramebuffer_ptr.get_or_create_ptr()[](target, framebuffer)
+fn bind_framebuffer(target: FramebufferTarget, framebuffer: GLuint):
+    try:
+        return _glBindFramebuffer_ptr.get_or_create_ptr()[](target, framebuffer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_image_texture(unit: GLuint, texture: GLuint, level: GLint, layered: Bool, layer: GLint, access: BufferAccessARB, format: InternalFormat) raises:
-    return _glBindImageTexture_ptr.get_or_create_ptr()[](unit, texture, level, GLboolean(Int(layered)), layer, access, format)
+fn bind_image_texture(unit: GLuint, texture: GLuint, level: GLint, layered: Bool, layer: GLint, access: BufferAccessARB, format: InternalFormat):
+    try:
+        return _glBindImageTexture_ptr.get_or_create_ptr()[](unit, texture, level, GLboolean(Int(layered)), layer, access, format)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_image_textures(first: GLuint, count: GLsizei, textures: Ptr[GLuint, mut=False]) raises:
-    return _glBindImageTextures_ptr.get_or_create_ptr()[](first, count, textures)
+fn bind_image_textures(first: GLuint, count: GLsizei, textures: Ptr[GLuint, mut=False]):
+    try:
+        return _glBindImageTextures_ptr.get_or_create_ptr()[](first, count, textures)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_program_pipeline(pipeline: GLuint) raises:
-    return _glBindProgramPipeline_ptr.get_or_create_ptr()[](pipeline)
+fn bind_program_pipeline(pipeline: GLuint):
+    try:
+        return _glBindProgramPipeline_ptr.get_or_create_ptr()[](pipeline)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_renderbuffer(target: RenderbufferTarget, renderbuffer: GLuint) raises:
-    return _glBindRenderbuffer_ptr.get_or_create_ptr()[](target, renderbuffer)
+fn bind_renderbuffer(target: RenderbufferTarget, renderbuffer: GLuint):
+    try:
+        return _glBindRenderbuffer_ptr.get_or_create_ptr()[](target, renderbuffer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_sampler(unit: GLuint, sampler: GLuint) raises:
-    return _glBindSampler_ptr.get_or_create_ptr()[](unit, sampler)
+fn bind_sampler(unit: GLuint, sampler: GLuint):
+    try:
+        return _glBindSampler_ptr.get_or_create_ptr()[](unit, sampler)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_samplers(first: GLuint, count: GLsizei, samplers: Ptr[GLuint, mut=False]) raises:
-    return _glBindSamplers_ptr.get_or_create_ptr()[](first, count, samplers)
+fn bind_samplers(first: GLuint, count: GLsizei, samplers: Ptr[GLuint, mut=False]):
+    try:
+        return _glBindSamplers_ptr.get_or_create_ptr()[](first, count, samplers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_texture(target: TextureTarget, texture: GLuint) raises:
-    return _glBindTexture_ptr.get_or_create_ptr()[](target, texture)
+fn bind_texture(target: TextureTarget, texture: GLuint):
+    try:
+        return _glBindTexture_ptr.get_or_create_ptr()[](target, texture)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_texture_unit(unit: GLuint, texture: GLuint) raises:
-    return _glBindTextureUnit_ptr.get_or_create_ptr()[](unit, texture)
+fn bind_texture_unit(unit: GLuint, texture: GLuint):
+    try:
+        return _glBindTextureUnit_ptr.get_or_create_ptr()[](unit, texture)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_textures(first: GLuint, count: GLsizei, textures: Ptr[GLuint, mut=False]) raises:
-    return _glBindTextures_ptr.get_or_create_ptr()[](first, count, textures)
+fn bind_textures(first: GLuint, count: GLsizei, textures: Ptr[GLuint, mut=False]):
+    try:
+        return _glBindTextures_ptr.get_or_create_ptr()[](first, count, textures)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_transform_feedback(target: BindTransformFeedbackTarget, id: GLuint) raises:
-    return _glBindTransformFeedback_ptr.get_or_create_ptr()[](target, id)
+fn bind_transform_feedback(target: BindTransformFeedbackTarget, id: GLuint):
+    try:
+        return _glBindTransformFeedback_ptr.get_or_create_ptr()[](target, id)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_vertex_array(array: GLuint) raises:
-    return _glBindVertexArray_ptr.get_or_create_ptr()[](array)
+fn bind_vertex_array(array: GLuint):
+    try:
+        return _glBindVertexArray_ptr.get_or_create_ptr()[](array)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_vertex_buffer(bindingindex: GLuint, buffer: GLuint, offset: GLintptr, stride: GLsizei) raises:
-    return _glBindVertexBuffer_ptr.get_or_create_ptr()[](bindingindex, buffer, offset, stride)
+fn bind_vertex_buffer(bindingindex: GLuint, buffer: GLuint, offset: GLintptr, stride: GLsizei):
+    try:
+        return _glBindVertexBuffer_ptr.get_or_create_ptr()[](bindingindex, buffer, offset, stride)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn bind_vertex_buffers(first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False], offsets: Ptr[GLintptr, mut=False], strides: Ptr[GLsizei, mut=False]) raises:
-    return _glBindVertexBuffers_ptr.get_or_create_ptr()[](first, count, buffers, offsets, strides)
+fn bind_vertex_buffers(first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False], offsets: Ptr[GLintptr, mut=False], strides: Ptr[GLsizei, mut=False]):
+    try:
+        return _glBindVertexBuffers_ptr.get_or_create_ptr()[](first, count, buffers, offsets, strides)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn blend_color(red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat) raises:
-    return _glBlendColor_ptr.get_or_create_ptr()[](red, green, blue, alpha)
+fn blend_color(red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat):
+    try:
+        return _glBlendColor_ptr.get_or_create_ptr()[](red, green, blue, alpha)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn blend_equation(mode: BlendEquationModeEXT) raises:
-    return _glBlendEquation_ptr.get_or_create_ptr()[](mode)
+fn blend_equation(mode: BlendEquationModeEXT):
+    try:
+        return _glBlendEquation_ptr.get_or_create_ptr()[](mode)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn blend_equation_separate(mode_rgb: BlendEquationModeEXT, mode_alpha: BlendEquationModeEXT) raises:
-    return _glBlendEquationSeparate_ptr.get_or_create_ptr()[](mode_rgb, mode_alpha)
+fn blend_equation_separate(mode_rgb: BlendEquationModeEXT, mode_alpha: BlendEquationModeEXT):
+    try:
+        return _glBlendEquationSeparate_ptr.get_or_create_ptr()[](mode_rgb, mode_alpha)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn blend_equation_separatei(buf: GLuint, mode_rgb: BlendEquationModeEXT, mode_alpha: BlendEquationModeEXT) raises:
-    return _glBlendEquationSeparatei_ptr.get_or_create_ptr()[](buf, mode_rgb, mode_alpha)
+fn blend_equation_separatei(buf: GLuint, mode_rgb: BlendEquationModeEXT, mode_alpha: BlendEquationModeEXT):
+    try:
+        return _glBlendEquationSeparatei_ptr.get_or_create_ptr()[](buf, mode_rgb, mode_alpha)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn blend_equationi(buf: GLuint, mode: BlendEquationModeEXT) raises:
-    return _glBlendEquationi_ptr.get_or_create_ptr()[](buf, mode)
+fn blend_equationi(buf: GLuint, mode: BlendEquationModeEXT):
+    try:
+        return _glBlendEquationi_ptr.get_or_create_ptr()[](buf, mode)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn blend_func(sfactor: BlendingFactor, dfactor: BlendingFactor) raises:
-    return _glBlendFunc_ptr.get_or_create_ptr()[](sfactor, dfactor)
+fn blend_func(sfactor: BlendingFactor, dfactor: BlendingFactor):
+    try:
+        return _glBlendFunc_ptr.get_or_create_ptr()[](sfactor, dfactor)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn blend_func_separate(sfactor_rgb: BlendingFactor, dfactor_rgb: BlendingFactor, sfactor_alpha: BlendingFactor, dfactor_alpha: BlendingFactor) raises:
-    return _glBlendFuncSeparate_ptr.get_or_create_ptr()[](sfactor_rgb, dfactor_rgb, sfactor_alpha, dfactor_alpha)
+fn blend_func_separate(sfactor_rgb: BlendingFactor, dfactor_rgb: BlendingFactor, sfactor_alpha: BlendingFactor, dfactor_alpha: BlendingFactor):
+    try:
+        return _glBlendFuncSeparate_ptr.get_or_create_ptr()[](sfactor_rgb, dfactor_rgb, sfactor_alpha, dfactor_alpha)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn blend_func_separatei(buf: GLuint, src_rgb: BlendingFactor, dst_rgb: BlendingFactor, src_alpha: BlendingFactor, dst_alpha: BlendingFactor) raises:
-    return _glBlendFuncSeparatei_ptr.get_or_create_ptr()[](buf, src_rgb, dst_rgb, src_alpha, dst_alpha)
+fn blend_func_separatei(buf: GLuint, src_rgb: BlendingFactor, dst_rgb: BlendingFactor, src_alpha: BlendingFactor, dst_alpha: BlendingFactor):
+    try:
+        return _glBlendFuncSeparatei_ptr.get_or_create_ptr()[](buf, src_rgb, dst_rgb, src_alpha, dst_alpha)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn blend_funci(buf: GLuint, src: BlendingFactor, dst: BlendingFactor) raises:
-    return _glBlendFunci_ptr.get_or_create_ptr()[](buf, src, dst)
+fn blend_funci(buf: GLuint, src: BlendingFactor, dst: BlendingFactor):
+    try:
+        return _glBlendFunci_ptr.get_or_create_ptr()[](buf, src, dst)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn blit_framebuffer(src_x0: GLint, src_y0: GLint, src_x1: GLint, src_y1: GLint, dst_x0: GLint, dst_y0: GLint, dst_x1: GLint, dst_y1: GLint, mask: ClearBufferMask, filter: BlitFramebufferFilter) raises:
-    return _glBlitFramebuffer_ptr.get_or_create_ptr()[](src_x0, src_y0, src_x1, src_y1, dst_x0, dst_y0, dst_x1, dst_y1, mask, filter)
+fn blit_framebuffer(src_x0: GLint, src_y0: GLint, src_x1: GLint, src_y1: GLint, dst_x0: GLint, dst_y0: GLint, dst_x1: GLint, dst_y1: GLint, mask: ClearBufferMask, filter: BlitFramebufferFilter):
+    try:
+        return _glBlitFramebuffer_ptr.get_or_create_ptr()[](src_x0, src_y0, src_x1, src_y1, dst_x0, dst_y0, dst_x1, dst_y1, mask, filter)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn blit_named_framebuffer(read_framebuffer: GLuint, draw_framebuffer: GLuint, src_x0: GLint, src_y0: GLint, src_x1: GLint, src_y1: GLint, dst_x0: GLint, dst_y0: GLint, dst_x1: GLint, dst_y1: GLint, mask: ClearBufferMask, filter: BlitFramebufferFilter) raises:
-    return _glBlitNamedFramebuffer_ptr.get_or_create_ptr()[](read_framebuffer, draw_framebuffer, src_x0, src_y0, src_x1, src_y1, dst_x0, dst_y0, dst_x1, dst_y1, mask, filter)
+fn blit_named_framebuffer(read_framebuffer: GLuint, draw_framebuffer: GLuint, src_x0: GLint, src_y0: GLint, src_x1: GLint, src_y1: GLint, dst_x0: GLint, dst_y0: GLint, dst_x1: GLint, dst_y1: GLint, mask: ClearBufferMask, filter: BlitFramebufferFilter):
+    try:
+        return _glBlitNamedFramebuffer_ptr.get_or_create_ptr()[](read_framebuffer, draw_framebuffer, src_x0, src_y0, src_x1, src_y1, dst_x0, dst_y0, dst_x1, dst_y1, mask, filter)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn buffer_data(target: BufferTargetARB, size: GLsizeiptr, data: Ptr[NoneType, mut=False], usage: BufferUsageARB) raises:
-    return _glBufferData_ptr.get_or_create_ptr()[](target, size, data, usage)
+fn buffer_data(target: BufferTargetARB, size: GLsizeiptr, data: Ptr[NoneType, mut=False], usage: BufferUsageARB):
+    try:
+        return _glBufferData_ptr.get_or_create_ptr()[](target, size, data, usage)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn buffer_storage(target: BufferStorageTarget, size: GLsizeiptr, data: Ptr[NoneType, mut=False], flags: BufferStorageMask) raises:
-    return _glBufferStorage_ptr.get_or_create_ptr()[](target, size, data, flags)
+fn buffer_storage(target: BufferStorageTarget, size: GLsizeiptr, data: Ptr[NoneType, mut=False], flags: BufferStorageMask):
+    try:
+        return _glBufferStorage_ptr.get_or_create_ptr()[](target, size, data, flags)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn buffer_sub_data(target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=False]) raises:
-    return _glBufferSubData_ptr.get_or_create_ptr()[](target, offset, size, data)
+fn buffer_sub_data(target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glBufferSubData_ptr.get_or_create_ptr()[](target, offset, size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn check_framebuffer_status(target: FramebufferTarget) raises -> FramebufferStatus:
-    return _glCheckFramebufferStatus_ptr.get_or_create_ptr()[](target)
+fn check_framebuffer_status(target: FramebufferTarget) -> FramebufferStatus:
+    try:
+        return _glCheckFramebufferStatus_ptr.get_or_create_ptr()[](target)
+    except:
+        return abort[FramebufferStatus]("Failed to load function")
 
 
 @always_inline
-fn check_named_framebuffer_status(framebuffer: GLuint, target: FramebufferTarget) raises -> FramebufferStatus:
-    return _glCheckNamedFramebufferStatus_ptr.get_or_create_ptr()[](framebuffer, target)
+fn check_named_framebuffer_status(framebuffer: GLuint, target: FramebufferTarget) -> FramebufferStatus:
+    try:
+        return _glCheckNamedFramebufferStatus_ptr.get_or_create_ptr()[](framebuffer, target)
+    except:
+        return abort[FramebufferStatus]("Failed to load function")
 
 
 @always_inline
-fn clamp_color(target: ClampColorTargetARB, clamp: ClampColorModeARB) raises:
-    return _glClampColor_ptr.get_or_create_ptr()[](target, clamp)
+fn clamp_color(target: ClampColorTargetARB, clamp: ClampColorModeARB):
+    try:
+        return _glClampColor_ptr.get_or_create_ptr()[](target, clamp)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear(mask: ClearBufferMask) raises:
-    return _glClear_ptr.get_or_create_ptr()[](mask)
+fn clear(mask: ClearBufferMask):
+    try:
+        return _glClear_ptr.get_or_create_ptr()[](mask)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_buffer_data(target: BufferStorageTarget, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]) raises:
-    return _glClearBufferData_ptr.get_or_create_ptr()[](target, internalformat, format, type, data)
+fn clear_buffer_data(target: BufferStorageTarget, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glClearBufferData_ptr.get_or_create_ptr()[](target, internalformat, format, type, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_buffer_sub_data(target: BufferTargetARB, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]) raises:
-    return _glClearBufferSubData_ptr.get_or_create_ptr()[](target, internalformat, offset, size, format, type, data)
+fn clear_buffer_sub_data(target: BufferTargetARB, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glClearBufferSubData_ptr.get_or_create_ptr()[](target, internalformat, offset, size, format, type, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_bufferfi(buffer: Buffer, drawbuffer: GLint, depth: GLfloat, stencil: GLint) raises:
-    return _glClearBufferfi_ptr.get_or_create_ptr()[](buffer, drawbuffer, depth, stencil)
+fn clear_bufferfi(buffer: Buffer, drawbuffer: GLint, depth: GLfloat, stencil: GLint):
+    try:
+        return _glClearBufferfi_ptr.get_or_create_ptr()[](buffer, drawbuffer, depth, stencil)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_bufferfv(buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat, mut=False]) raises:
-    return _glClearBufferfv_ptr.get_or_create_ptr()[](buffer, drawbuffer, value)
+fn clear_bufferfv(buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glClearBufferfv_ptr.get_or_create_ptr()[](buffer, drawbuffer, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_bufferiv(buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint, mut=False]) raises:
-    return _glClearBufferiv_ptr.get_or_create_ptr()[](buffer, drawbuffer, value)
+fn clear_bufferiv(buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint, mut=False]):
+    try:
+        return _glClearBufferiv_ptr.get_or_create_ptr()[](buffer, drawbuffer, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_bufferuiv(buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint, mut=False]) raises:
-    return _glClearBufferuiv_ptr.get_or_create_ptr()[](buffer, drawbuffer, value)
+fn clear_bufferuiv(buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glClearBufferuiv_ptr.get_or_create_ptr()[](buffer, drawbuffer, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_color(red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat) raises:
-    return _glClearColor_ptr.get_or_create_ptr()[](red, green, blue, alpha)
+fn clear_color(red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat):
+    try:
+        return _glClearColor_ptr.get_or_create_ptr()[](red, green, blue, alpha)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_depth(depth: GLdouble) raises:
-    return _glClearDepth_ptr.get_or_create_ptr()[](depth)
+fn clear_depth(depth: GLdouble):
+    try:
+        return _glClearDepth_ptr.get_or_create_ptr()[](depth)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_depthf(d: GLfloat) raises:
-    return _glClearDepthf_ptr.get_or_create_ptr()[](d)
+fn clear_depthf(d: GLfloat):
+    try:
+        return _glClearDepthf_ptr.get_or_create_ptr()[](d)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_named_buffer_data(buffer: GLuint, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]) raises:
-    return _glClearNamedBufferData_ptr.get_or_create_ptr()[](buffer, internalformat, format, type, data)
+fn clear_named_buffer_data(buffer: GLuint, internalformat: SizedInternalFormat, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glClearNamedBufferData_ptr.get_or_create_ptr()[](buffer, internalformat, format, type, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_named_buffer_sub_data(buffer: GLuint, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]) raises:
-    return _glClearNamedBufferSubData_ptr.get_or_create_ptr()[](buffer, internalformat, offset, size, format, type, data)
+fn clear_named_buffer_sub_data(buffer: GLuint, internalformat: SizedInternalFormat, offset: GLintptr, size: GLsizeiptr, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glClearNamedBufferSubData_ptr.get_or_create_ptr()[](buffer, internalformat, offset, size, format, type, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_named_framebufferfi(framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, depth: GLfloat, stencil: GLint) raises:
-    return _glClearNamedFramebufferfi_ptr.get_or_create_ptr()[](framebuffer, buffer, drawbuffer, depth, stencil)
+fn clear_named_framebufferfi(framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, depth: GLfloat, stencil: GLint):
+    try:
+        return _glClearNamedFramebufferfi_ptr.get_or_create_ptr()[](framebuffer, buffer, drawbuffer, depth, stencil)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_named_framebufferfv(framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat, mut=False]) raises:
-    return _glClearNamedFramebufferfv_ptr.get_or_create_ptr()[](framebuffer, buffer, drawbuffer, value)
+fn clear_named_framebufferfv(framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glClearNamedFramebufferfv_ptr.get_or_create_ptr()[](framebuffer, buffer, drawbuffer, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_named_framebufferiv(framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint, mut=False]) raises:
-    return _glClearNamedFramebufferiv_ptr.get_or_create_ptr()[](framebuffer, buffer, drawbuffer, value)
+fn clear_named_framebufferiv(framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLint, mut=False]):
+    try:
+        return _glClearNamedFramebufferiv_ptr.get_or_create_ptr()[](framebuffer, buffer, drawbuffer, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_named_framebufferuiv(framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint, mut=False]) raises:
-    return _glClearNamedFramebufferuiv_ptr.get_or_create_ptr()[](framebuffer, buffer, drawbuffer, value)
+fn clear_named_framebufferuiv(framebuffer: GLuint, buffer: Buffer, drawbuffer: GLint, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glClearNamedFramebufferuiv_ptr.get_or_create_ptr()[](framebuffer, buffer, drawbuffer, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_stencil(s: GLint) raises:
-    return _glClearStencil_ptr.get_or_create_ptr()[](s)
+fn clear_stencil(s: GLint):
+    try:
+        return _glClearStencil_ptr.get_or_create_ptr()[](s)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_tex_image(texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]) raises:
-    return _glClearTexImage_ptr.get_or_create_ptr()[](texture, level, format, type, data)
+fn clear_tex_image(texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glClearTexImage_ptr.get_or_create_ptr()[](texture, level, format, type, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn clear_tex_sub_image(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]) raises:
-    return _glClearTexSubImage_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, data)
+fn clear_tex_sub_image(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glClearTexSubImage_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn client_wait_sync(sync: GLsync, flags: SyncObjectMask, timeout: GLuint64) raises -> SyncStatus:
-    return _glClientWaitSync_ptr.get_or_create_ptr()[](sync, flags, timeout)
+fn client_wait_sync(sync: GLsync, flags: SyncObjectMask, timeout: GLuint64) -> SyncStatus:
+    try:
+        return _glClientWaitSync_ptr.get_or_create_ptr()[](sync, flags, timeout)
+    except:
+        return abort[SyncStatus]("Failed to load function")
 
 
 @always_inline
-fn clip_control(origin: ClipControlOrigin, depth: ClipControlDepth) raises:
-    return _glClipControl_ptr.get_or_create_ptr()[](origin, depth)
+fn clip_control(origin: ClipControlOrigin, depth: ClipControlDepth):
+    try:
+        return _glClipControl_ptr.get_or_create_ptr()[](origin, depth)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn color_mask(red: Bool, green: Bool, blue: Bool, alpha: Bool) raises:
-    return _glColorMask_ptr.get_or_create_ptr()[](GLboolean(Int(red)), GLboolean(Int(green)), GLboolean(Int(blue)), GLboolean(Int(alpha)))
+fn color_mask(red: Bool, green: Bool, blue: Bool, alpha: Bool):
+    try:
+        return _glColorMask_ptr.get_or_create_ptr()[](GLboolean(Int(red)), GLboolean(Int(green)), GLboolean(Int(blue)), GLboolean(Int(alpha)))
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn color_maski(index: GLuint, r: Bool, g: Bool, b: Bool, a: Bool) raises:
-    return _glColorMaski_ptr.get_or_create_ptr()[](index, GLboolean(Int(r)), GLboolean(Int(g)), GLboolean(Int(b)), GLboolean(Int(a)))
+fn color_maski(index: GLuint, r: Bool, g: Bool, b: Bool, a: Bool):
+    try:
+        return _glColorMaski_ptr.get_or_create_ptr()[](index, GLboolean(Int(r)), GLboolean(Int(g)), GLboolean(Int(b)), GLboolean(Int(a)))
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn color_p3ui(type: ColorPointerType, color: GLuint) raises:
-    return _glColorP3ui_ptr.get_or_create_ptr()[](type, color)
+fn color_p3ui(type: ColorPointerType, color: GLuint):
+    try:
+        return _glColorP3ui_ptr.get_or_create_ptr()[](type, color)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn color_p3uiv(type: ColorPointerType, color: Ptr[GLuint, mut=False]) raises:
-    return _glColorP3uiv_ptr.get_or_create_ptr()[](type, color)
+fn color_p3uiv(type: ColorPointerType, color: Ptr[GLuint, mut=False]):
+    try:
+        return _glColorP3uiv_ptr.get_or_create_ptr()[](type, color)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn color_p4ui(type: ColorPointerType, color: GLuint) raises:
-    return _glColorP4ui_ptr.get_or_create_ptr()[](type, color)
+fn color_p4ui(type: ColorPointerType, color: GLuint):
+    try:
+        return _glColorP4ui_ptr.get_or_create_ptr()[](type, color)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn color_p4uiv(type: ColorPointerType, color: Ptr[GLuint, mut=False]) raises:
-    return _glColorP4uiv_ptr.get_or_create_ptr()[](type, color)
+fn color_p4uiv(type: ColorPointerType, color: Ptr[GLuint, mut=False]):
+    try:
+        return _glColorP4uiv_ptr.get_or_create_ptr()[](type, color)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn compile_shader(shader: GLuint) raises:
-    return _glCompileShader_ptr.get_or_create_ptr()[](shader)
+fn compile_shader(shader: GLuint):
+    try:
+        return _glCompileShader_ptr.get_or_create_ptr()[](shader)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn compressed_tex_image_1d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises:
-    return _glCompressedTexImage1D_ptr.get_or_create_ptr()[](target, level, internalformat, width, border, image_size, data)
+fn compressed_tex_image_1d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glCompressedTexImage1D_ptr.get_or_create_ptr()[](target, level, internalformat, width, border, image_size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn compressed_tex_image_2d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises:
-    return _glCompressedTexImage2D_ptr.get_or_create_ptr()[](target, level, internalformat, width, height, border, image_size, data)
+fn compressed_tex_image_2d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glCompressedTexImage2D_ptr.get_or_create_ptr()[](target, level, internalformat, width, height, border, image_size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn compressed_tex_image_3d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises:
-    return _glCompressedTexImage3D_ptr.get_or_create_ptr()[](target, level, internalformat, width, height, depth, border, image_size, data)
+fn compressed_tex_image_3d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glCompressedTexImage3D_ptr.get_or_create_ptr()[](target, level, internalformat, width, height, depth, border, image_size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn compressed_tex_sub_image_1d(target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises:
-    return _glCompressedTexSubImage1D_ptr.get_or_create_ptr()[](target, level, xoffset, width, format, image_size, data)
+fn compressed_tex_sub_image_1d(target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glCompressedTexSubImage1D_ptr.get_or_create_ptr()[](target, level, xoffset, width, format, image_size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn compressed_tex_sub_image_2d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises:
-    return _glCompressedTexSubImage2D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, width, height, format, image_size, data)
+fn compressed_tex_sub_image_2d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glCompressedTexSubImage2D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, width, height, format, image_size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn compressed_tex_sub_image_3d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises:
-    return _glCompressedTexSubImage3D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, zoffset, width, height, depth, format, image_size, data)
+fn compressed_tex_sub_image_3d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glCompressedTexSubImage3D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, zoffset, width, height, depth, format, image_size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn compressed_texture_sub_image_1d(texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises:
-    return _glCompressedTextureSubImage1D_ptr.get_or_create_ptr()[](texture, level, xoffset, width, format, image_size, data)
+fn compressed_texture_sub_image_1d(texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glCompressedTextureSubImage1D_ptr.get_or_create_ptr()[](texture, level, xoffset, width, format, image_size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn compressed_texture_sub_image_2d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises:
-    return _glCompressedTextureSubImage2D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, width, height, format, image_size, data)
+fn compressed_texture_sub_image_2d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glCompressedTextureSubImage2D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, width, height, format, image_size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn compressed_texture_sub_image_3d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]) raises:
-    return _glCompressedTextureSubImage3D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth, format, image_size, data)
+fn compressed_texture_sub_image_3d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: InternalFormat, image_size: GLsizei, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glCompressedTextureSubImage3D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth, format, image_size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn copy_buffer_sub_data(read_target: CopyBufferSubDataTarget, write_target: CopyBufferSubDataTarget, read_offset: GLintptr, write_offset: GLintptr, size: GLsizeiptr) raises:
-    return _glCopyBufferSubData_ptr.get_or_create_ptr()[](read_target, write_target, read_offset, write_offset, size)
+fn copy_buffer_sub_data(read_target: CopyBufferSubDataTarget, write_target: CopyBufferSubDataTarget, read_offset: GLintptr, write_offset: GLintptr, size: GLsizeiptr):
+    try:
+        return _glCopyBufferSubData_ptr.get_or_create_ptr()[](read_target, write_target, read_offset, write_offset, size)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn copy_image_sub_data(src_name: GLuint, src_target: CopyImageSubDataTarget, src_level: GLint, src_x: GLint, src_y: GLint, src_z: GLint, dst_name: GLuint, dst_target: CopyImageSubDataTarget, dst_level: GLint, dst_x: GLint, dst_y: GLint, dst_z: GLint, src_width: GLsizei, src_height: GLsizei, src_depth: GLsizei) raises:
-    return _glCopyImageSubData_ptr.get_or_create_ptr()[](src_name, src_target, src_level, src_x, src_y, src_z, dst_name, dst_target, dst_level, dst_x, dst_y, dst_z, src_width, src_height, src_depth)
+fn copy_image_sub_data(src_name: GLuint, src_target: CopyImageSubDataTarget, src_level: GLint, src_x: GLint, src_y: GLint, src_z: GLint, dst_name: GLuint, dst_target: CopyImageSubDataTarget, dst_level: GLint, dst_x: GLint, dst_y: GLint, dst_z: GLint, src_width: GLsizei, src_height: GLsizei, src_depth: GLsizei):
+    try:
+        return _glCopyImageSubData_ptr.get_or_create_ptr()[](src_name, src_target, src_level, src_x, src_y, src_z, dst_name, dst_target, dst_level, dst_x, dst_y, dst_z, src_width, src_height, src_depth)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn copy_named_buffer_sub_data(read_buffer: GLuint, write_buffer: GLuint, read_offset: GLintptr, write_offset: GLintptr, size: GLsizeiptr) raises:
-    return _glCopyNamedBufferSubData_ptr.get_or_create_ptr()[](read_buffer, write_buffer, read_offset, write_offset, size)
+fn copy_named_buffer_sub_data(read_buffer: GLuint, write_buffer: GLuint, read_offset: GLintptr, write_offset: GLintptr, size: GLsizeiptr):
+    try:
+        return _glCopyNamedBufferSubData_ptr.get_or_create_ptr()[](read_buffer, write_buffer, read_offset, write_offset, size)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn copy_tex_image_1d(target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, border: GLint) raises:
-    return _glCopyTexImage1D_ptr.get_or_create_ptr()[](target, level, internalformat, x, y, width, border)
+fn copy_tex_image_1d(target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, border: GLint):
+    try:
+        return _glCopyTexImage1D_ptr.get_or_create_ptr()[](target, level, internalformat, x, y, width, border)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn copy_tex_image_2d(target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, height: GLsizei, border: GLint) raises:
-    return _glCopyTexImage2D_ptr.get_or_create_ptr()[](target, level, internalformat, x, y, width, height, border)
+fn copy_tex_image_2d(target: TextureTarget, level: GLint, internalformat: InternalFormat, x: GLint, y: GLint, width: GLsizei, height: GLsizei, border: GLint):
+    try:
+        return _glCopyTexImage2D_ptr.get_or_create_ptr()[](target, level, internalformat, x, y, width, height, border)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn copy_tex_sub_image_1d(target: TextureTarget, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei) raises:
-    return _glCopyTexSubImage1D_ptr.get_or_create_ptr()[](target, level, xoffset, x, y, width)
+fn copy_tex_sub_image_1d(target: TextureTarget, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei):
+    try:
+        return _glCopyTexSubImage1D_ptr.get_or_create_ptr()[](target, level, xoffset, x, y, width)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn copy_tex_sub_image_2d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises:
-    return _glCopyTexSubImage2D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, x, y, width, height)
+fn copy_tex_sub_image_2d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei):
+    try:
+        return _glCopyTexSubImage2D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, x, y, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn copy_tex_sub_image_3d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises:
-    return _glCopyTexSubImage3D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, zoffset, x, y, width, height)
+fn copy_tex_sub_image_3d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei):
+    try:
+        return _glCopyTexSubImage3D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, zoffset, x, y, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn copy_texture_sub_image_1d(texture: GLuint, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei) raises:
-    return _glCopyTextureSubImage1D_ptr.get_or_create_ptr()[](texture, level, xoffset, x, y, width)
+fn copy_texture_sub_image_1d(texture: GLuint, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei):
+    try:
+        return _glCopyTextureSubImage1D_ptr.get_or_create_ptr()[](texture, level, xoffset, x, y, width)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn copy_texture_sub_image_2d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises:
-    return _glCopyTextureSubImage2D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, x, y, width, height)
+fn copy_texture_sub_image_2d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei):
+    try:
+        return _glCopyTextureSubImage2D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, x, y, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn copy_texture_sub_image_3d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises:
-    return _glCopyTextureSubImage3D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, x, y, width, height)
+fn copy_texture_sub_image_3d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei):
+    try:
+        return _glCopyTextureSubImage3D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, x, y, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn create_buffers(n: GLsizei, buffers: Ptr[GLuint, mut=True]) raises:
-    return _glCreateBuffers_ptr.get_or_create_ptr()[](n, buffers)
+fn create_buffers(n: GLsizei, buffers: Ptr[GLuint, mut=True]):
+    try:
+        return _glCreateBuffers_ptr.get_or_create_ptr()[](n, buffers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn create_framebuffers(n: GLsizei, framebuffers: Ptr[GLuint, mut=True]) raises:
-    return _glCreateFramebuffers_ptr.get_or_create_ptr()[](n, framebuffers)
+fn create_framebuffers(n: GLsizei, framebuffers: Ptr[GLuint, mut=True]):
+    try:
+        return _glCreateFramebuffers_ptr.get_or_create_ptr()[](n, framebuffers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn create_program() raises -> GLuint:
-    return _glCreateProgram_ptr.get_or_create_ptr()[]()
+fn create_program() -> GLuint:
+    try:
+        return _glCreateProgram_ptr.get_or_create_ptr()[]()
+    except:
+        return abort[GLuint]("Failed to load function")
 
 
 @always_inline
-fn create_program_pipelines(n: GLsizei, pipelines: Ptr[GLuint, mut=True]) raises:
-    return _glCreateProgramPipelines_ptr.get_or_create_ptr()[](n, pipelines)
+fn create_program_pipelines(n: GLsizei, pipelines: Ptr[GLuint, mut=True]):
+    try:
+        return _glCreateProgramPipelines_ptr.get_or_create_ptr()[](n, pipelines)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn create_queries(target: QueryTarget, n: GLsizei, ids: Ptr[GLuint, mut=True]) raises:
-    return _glCreateQueries_ptr.get_or_create_ptr()[](target, n, ids)
+fn create_queries(target: QueryTarget, n: GLsizei, ids: Ptr[GLuint, mut=True]):
+    try:
+        return _glCreateQueries_ptr.get_or_create_ptr()[](target, n, ids)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn create_renderbuffers(n: GLsizei, renderbuffers: Ptr[GLuint, mut=True]) raises:
-    return _glCreateRenderbuffers_ptr.get_or_create_ptr()[](n, renderbuffers)
+fn create_renderbuffers(n: GLsizei, renderbuffers: Ptr[GLuint, mut=True]):
+    try:
+        return _glCreateRenderbuffers_ptr.get_or_create_ptr()[](n, renderbuffers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn create_samplers(n: GLsizei, samplers: Ptr[GLuint, mut=True]) raises:
-    return _glCreateSamplers_ptr.get_or_create_ptr()[](n, samplers)
+fn create_samplers(n: GLsizei, samplers: Ptr[GLuint, mut=True]):
+    try:
+        return _glCreateSamplers_ptr.get_or_create_ptr()[](n, samplers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn create_shader(type: ShaderType) raises -> GLuint:
-    return _glCreateShader_ptr.get_or_create_ptr()[](type)
+fn create_shader(type: ShaderType) -> GLuint:
+    try:
+        return _glCreateShader_ptr.get_or_create_ptr()[](type)
+    except:
+        return abort[GLuint]("Failed to load function")
 
 
 @always_inline
-fn create_shader_programv(type: ShaderType, count: GLsizei, mut strings: List[String]) raises -> GLuint:
+fn create_shader_programv(type: ShaderType, count: GLsizei, mut strings: List[String]) -> GLuint:
     var c_list = [str.unsafe_cstr_ptr().unsafe_origin_cast[ImmutAnyOrigin]() for ref str in strings]
-    return _glCreateShaderProgramv_ptr.get_or_create_ptr()[](type, count, c_list.steal_data())
+    try:
+        return _glCreateShaderProgramv_ptr.get_or_create_ptr()[](type, count, c_list.steal_data())
+    except:
+        return abort[GLuint]("Failed to load function")
 
 
 @always_inline
-fn create_textures(target: TextureTarget, n: GLsizei, textures: Ptr[GLuint, mut=True]) raises:
-    return _glCreateTextures_ptr.get_or_create_ptr()[](target, n, textures)
+fn create_textures(target: TextureTarget, n: GLsizei, textures: Ptr[GLuint, mut=True]):
+    try:
+        return _glCreateTextures_ptr.get_or_create_ptr()[](target, n, textures)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn create_transform_feedbacks(n: GLsizei, ids: Ptr[GLuint, mut=True]) raises:
-    return _glCreateTransformFeedbacks_ptr.get_or_create_ptr()[](n, ids)
+fn create_transform_feedbacks(n: GLsizei, ids: Ptr[GLuint, mut=True]):
+    try:
+        return _glCreateTransformFeedbacks_ptr.get_or_create_ptr()[](n, ids)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn create_vertex_arrays(n: GLsizei, arrays: Ptr[GLuint, mut=True]) raises:
-    return _glCreateVertexArrays_ptr.get_or_create_ptr()[](n, arrays)
+fn create_vertex_arrays(n: GLsizei, arrays: Ptr[GLuint, mut=True]):
+    try:
+        return _glCreateVertexArrays_ptr.get_or_create_ptr()[](n, arrays)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn cull_face(mode: TriangleFace) raises:
-    return _glCullFace_ptr.get_or_create_ptr()[](mode)
+fn cull_face(mode: TriangleFace):
+    try:
+        return _glCullFace_ptr.get_or_create_ptr()[](mode)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn debug_message_callback(callback: GLDEBUGPROC, user_param: Ptr[NoneType, mut=False]) raises:
-    return _glDebugMessageCallback_ptr.get_or_create_ptr()[](callback, user_param)
+fn debug_message_callback(callback: GLDEBUGPROC, user_param: Ptr[NoneType, mut=False]):
+    try:
+        return _glDebugMessageCallback_ptr.get_or_create_ptr()[](callback, user_param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn debug_message_control(source: DebugSource, type: DebugType, severity: DebugSeverity, count: GLsizei, ids: Ptr[GLuint, mut=False], enabled: Bool) raises:
-    return _glDebugMessageControl_ptr.get_or_create_ptr()[](source, type, severity, count, ids, GLboolean(Int(enabled)))
+fn debug_message_control(source: DebugSource, type: DebugType, severity: DebugSeverity, count: GLsizei, ids: Ptr[GLuint, mut=False], enabled: Bool):
+    try:
+        return _glDebugMessageControl_ptr.get_or_create_ptr()[](source, type, severity, count, ids, GLboolean(Int(enabled)))
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn debug_message_insert(source: DebugSource, type: DebugType, id: GLuint, severity: DebugSeverity, length: GLsizei, mut buf: String) raises:
-    return _glDebugMessageInsert_ptr.get_or_create_ptr()[](source, type, id, severity, length, buf.unsafe_cstr_ptr())
+fn debug_message_insert(source: DebugSource, type: DebugType, id: GLuint, severity: DebugSeverity, length: GLsizei, mut buf: String):
+    try:
+        return _glDebugMessageInsert_ptr.get_or_create_ptr()[](source, type, id, severity, length, buf.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn delete_buffers(n: GLsizei, buffers: Ptr[GLuint, mut=False]) raises:
-    return _glDeleteBuffers_ptr.get_or_create_ptr()[](n, buffers)
+fn delete_buffers(n: GLsizei, buffers: Ptr[GLuint, mut=False]):
+    try:
+        return _glDeleteBuffers_ptr.get_or_create_ptr()[](n, buffers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn delete_framebuffers(n: GLsizei, framebuffers: Ptr[GLuint, mut=False]) raises:
-    return _glDeleteFramebuffers_ptr.get_or_create_ptr()[](n, framebuffers)
+fn delete_framebuffers(n: GLsizei, framebuffers: Ptr[GLuint, mut=False]):
+    try:
+        return _glDeleteFramebuffers_ptr.get_or_create_ptr()[](n, framebuffers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn delete_program(program: GLuint) raises:
-    return _glDeleteProgram_ptr.get_or_create_ptr()[](program)
+fn delete_program(program: GLuint):
+    try:
+        return _glDeleteProgram_ptr.get_or_create_ptr()[](program)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn delete_program_pipelines(n: GLsizei, pipelines: Ptr[GLuint, mut=False]) raises:
-    return _glDeleteProgramPipelines_ptr.get_or_create_ptr()[](n, pipelines)
+fn delete_program_pipelines(n: GLsizei, pipelines: Ptr[GLuint, mut=False]):
+    try:
+        return _glDeleteProgramPipelines_ptr.get_or_create_ptr()[](n, pipelines)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn delete_queries(n: GLsizei, ids: Ptr[GLuint, mut=False]) raises:
-    return _glDeleteQueries_ptr.get_or_create_ptr()[](n, ids)
+fn delete_queries(n: GLsizei, ids: Ptr[GLuint, mut=False]):
+    try:
+        return _glDeleteQueries_ptr.get_or_create_ptr()[](n, ids)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn delete_renderbuffers(n: GLsizei, renderbuffers: Ptr[GLuint, mut=False]) raises:
-    return _glDeleteRenderbuffers_ptr.get_or_create_ptr()[](n, renderbuffers)
+fn delete_renderbuffers(n: GLsizei, renderbuffers: Ptr[GLuint, mut=False]):
+    try:
+        return _glDeleteRenderbuffers_ptr.get_or_create_ptr()[](n, renderbuffers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn delete_samplers(count: GLsizei, samplers: Ptr[GLuint, mut=False]) raises:
-    return _glDeleteSamplers_ptr.get_or_create_ptr()[](count, samplers)
+fn delete_samplers(count: GLsizei, samplers: Ptr[GLuint, mut=False]):
+    try:
+        return _glDeleteSamplers_ptr.get_or_create_ptr()[](count, samplers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn delete_shader(shader: GLuint) raises:
-    return _glDeleteShader_ptr.get_or_create_ptr()[](shader)
+fn delete_shader(shader: GLuint):
+    try:
+        return _glDeleteShader_ptr.get_or_create_ptr()[](shader)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn delete_sync(sync: GLsync) raises:
-    return _glDeleteSync_ptr.get_or_create_ptr()[](sync)
+fn delete_sync(sync: GLsync):
+    try:
+        return _glDeleteSync_ptr.get_or_create_ptr()[](sync)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn delete_textures(n: GLsizei, textures: Ptr[GLuint, mut=False]) raises:
-    return _glDeleteTextures_ptr.get_or_create_ptr()[](n, textures)
+fn delete_textures(n: GLsizei, textures: Ptr[GLuint, mut=False]):
+    try:
+        return _glDeleteTextures_ptr.get_or_create_ptr()[](n, textures)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn delete_transform_feedbacks(n: GLsizei, ids: Ptr[GLuint, mut=False]) raises:
-    return _glDeleteTransformFeedbacks_ptr.get_or_create_ptr()[](n, ids)
+fn delete_transform_feedbacks(n: GLsizei, ids: Ptr[GLuint, mut=False]):
+    try:
+        return _glDeleteTransformFeedbacks_ptr.get_or_create_ptr()[](n, ids)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn delete_vertex_arrays(n: GLsizei, arrays: Ptr[GLuint, mut=False]) raises:
-    return _glDeleteVertexArrays_ptr.get_or_create_ptr()[](n, arrays)
+fn delete_vertex_arrays(n: GLsizei, arrays: Ptr[GLuint, mut=False]):
+    try:
+        return _glDeleteVertexArrays_ptr.get_or_create_ptr()[](n, arrays)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn depth_func(func: DepthFunction) raises:
-    return _glDepthFunc_ptr.get_or_create_ptr()[](func)
+fn depth_func(func: DepthFunction):
+    try:
+        return _glDepthFunc_ptr.get_or_create_ptr()[](func)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn depth_mask(flag: Bool) raises:
-    return _glDepthMask_ptr.get_or_create_ptr()[](GLboolean(Int(flag)))
+fn depth_mask(flag: Bool):
+    try:
+        return _glDepthMask_ptr.get_or_create_ptr()[](GLboolean(Int(flag)))
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn depth_range(n: GLdouble, f: GLdouble) raises:
-    return _glDepthRange_ptr.get_or_create_ptr()[](n, f)
+fn depth_range(n: GLdouble, f: GLdouble):
+    try:
+        return _glDepthRange_ptr.get_or_create_ptr()[](n, f)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn depth_range_arrayv(first: GLuint, count: GLsizei, v: Ptr[GLdouble, mut=False]) raises:
-    return _glDepthRangeArrayv_ptr.get_or_create_ptr()[](first, count, v)
+fn depth_range_arrayv(first: GLuint, count: GLsizei, v: Ptr[GLdouble, mut=False]):
+    try:
+        return _glDepthRangeArrayv_ptr.get_or_create_ptr()[](first, count, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn depth_range_indexed(index: GLuint, n: GLdouble, f: GLdouble) raises:
-    return _glDepthRangeIndexed_ptr.get_or_create_ptr()[](index, n, f)
+fn depth_range_indexed(index: GLuint, n: GLdouble, f: GLdouble):
+    try:
+        return _glDepthRangeIndexed_ptr.get_or_create_ptr()[](index, n, f)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn depth_rangef(n: GLfloat, f: GLfloat) raises:
-    return _glDepthRangef_ptr.get_or_create_ptr()[](n, f)
+fn depth_rangef(n: GLfloat, f: GLfloat):
+    try:
+        return _glDepthRangef_ptr.get_or_create_ptr()[](n, f)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn detach_shader(program: GLuint, shader: GLuint) raises:
-    return _glDetachShader_ptr.get_or_create_ptr()[](program, shader)
+fn detach_shader(program: GLuint, shader: GLuint):
+    try:
+        return _glDetachShader_ptr.get_or_create_ptr()[](program, shader)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn disable(cap: EnableCap) raises:
-    return _glDisable_ptr.get_or_create_ptr()[](cap)
+fn disable(cap: EnableCap):
+    try:
+        return _glDisable_ptr.get_or_create_ptr()[](cap)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn disable_vertex_array_attrib(vaobj: GLuint, index: GLuint) raises:
-    return _glDisableVertexArrayAttrib_ptr.get_or_create_ptr()[](vaobj, index)
+fn disable_vertex_array_attrib(vaobj: GLuint, index: GLuint):
+    try:
+        return _glDisableVertexArrayAttrib_ptr.get_or_create_ptr()[](vaobj, index)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn disable_vertex_attrib_array(index: GLuint) raises:
-    return _glDisableVertexAttribArray_ptr.get_or_create_ptr()[](index)
+fn disable_vertex_attrib_array(index: GLuint):
+    try:
+        return _glDisableVertexAttribArray_ptr.get_or_create_ptr()[](index)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn disablei(target: EnableCap, index: GLuint) raises:
-    return _glDisablei_ptr.get_or_create_ptr()[](target, index)
+fn disablei(target: EnableCap, index: GLuint):
+    try:
+        return _glDisablei_ptr.get_or_create_ptr()[](target, index)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn dispatch_compute(num_groups_x: GLuint, num_groups_y: GLuint, num_groups_z: GLuint) raises:
-    return _glDispatchCompute_ptr.get_or_create_ptr()[](num_groups_x, num_groups_y, num_groups_z)
+fn dispatch_compute(num_groups_x: GLuint, num_groups_y: GLuint, num_groups_z: GLuint):
+    try:
+        return _glDispatchCompute_ptr.get_or_create_ptr()[](num_groups_x, num_groups_y, num_groups_z)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn dispatch_compute_indirect(indirect: GLintptr) raises:
-    return _glDispatchComputeIndirect_ptr.get_or_create_ptr()[](indirect)
+fn dispatch_compute_indirect(indirect: GLintptr):
+    try:
+        return _glDispatchComputeIndirect_ptr.get_or_create_ptr()[](indirect)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_arrays(mode: PrimitiveType, first: GLint, count: GLsizei) raises:
-    return _glDrawArrays_ptr.get_or_create_ptr()[](mode, first, count)
+fn draw_arrays(mode: PrimitiveType, first: GLint, count: GLsizei):
+    try:
+        return _glDrawArrays_ptr.get_or_create_ptr()[](mode, first, count)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_arrays_indirect(mode: PrimitiveType, indirect: Ptr[NoneType, mut=False]) raises:
-    return _glDrawArraysIndirect_ptr.get_or_create_ptr()[](mode, indirect)
+fn draw_arrays_indirect(mode: PrimitiveType, indirect: Ptr[NoneType, mut=False]):
+    try:
+        return _glDrawArraysIndirect_ptr.get_or_create_ptr()[](mode, indirect)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_arrays_instanced(mode: PrimitiveType, first: GLint, count: GLsizei, instancecount: GLsizei) raises:
-    return _glDrawArraysInstanced_ptr.get_or_create_ptr()[](mode, first, count, instancecount)
+fn draw_arrays_instanced(mode: PrimitiveType, first: GLint, count: GLsizei, instancecount: GLsizei):
+    try:
+        return _glDrawArraysInstanced_ptr.get_or_create_ptr()[](mode, first, count, instancecount)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_arrays_instanced_base_instance(mode: PrimitiveType, first: GLint, count: GLsizei, instancecount: GLsizei, baseinstance: GLuint) raises:
-    return _glDrawArraysInstancedBaseInstance_ptr.get_or_create_ptr()[](mode, first, count, instancecount, baseinstance)
+fn draw_arrays_instanced_base_instance(mode: PrimitiveType, first: GLint, count: GLsizei, instancecount: GLsizei, baseinstance: GLuint):
+    try:
+        return _glDrawArraysInstancedBaseInstance_ptr.get_or_create_ptr()[](mode, first, count, instancecount, baseinstance)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_buffer(buf: DrawBufferMode) raises:
-    return _glDrawBuffer_ptr.get_or_create_ptr()[](buf)
+fn draw_buffer(buf: DrawBufferMode):
+    try:
+        return _glDrawBuffer_ptr.get_or_create_ptr()[](buf)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_buffers(n: GLsizei, bufs: Ptr[DrawBufferMode, mut=False]) raises:
-    return _glDrawBuffers_ptr.get_or_create_ptr()[](n, bufs)
+fn draw_buffers(n: GLsizei, bufs: Ptr[DrawBufferMode, mut=False]):
+    try:
+        return _glDrawBuffers_ptr.get_or_create_ptr()[](n, bufs)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_elements(mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False]) raises:
-    return _glDrawElements_ptr.get_or_create_ptr()[](mode, count, type, indices)
+fn draw_elements(mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False]):
+    try:
+        return _glDrawElements_ptr.get_or_create_ptr()[](mode, count, type, indices)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_elements_base_vertex(mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], basevertex: GLint) raises:
-    return _glDrawElementsBaseVertex_ptr.get_or_create_ptr()[](mode, count, type, indices, basevertex)
+fn draw_elements_base_vertex(mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], basevertex: GLint):
+    try:
+        return _glDrawElementsBaseVertex_ptr.get_or_create_ptr()[](mode, count, type, indices, basevertex)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_elements_indirect(mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=False]) raises:
-    return _glDrawElementsIndirect_ptr.get_or_create_ptr()[](mode, type, indirect)
+fn draw_elements_indirect(mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=False]):
+    try:
+        return _glDrawElementsIndirect_ptr.get_or_create_ptr()[](mode, type, indirect)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_elements_instanced(mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei) raises:
-    return _glDrawElementsInstanced_ptr.get_or_create_ptr()[](mode, count, type, indices, instancecount)
+fn draw_elements_instanced(mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei):
+    try:
+        return _glDrawElementsInstanced_ptr.get_or_create_ptr()[](mode, count, type, indices, instancecount)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_elements_instanced_base_instance(mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei, baseinstance: GLuint) raises:
-    return _glDrawElementsInstancedBaseInstance_ptr.get_or_create_ptr()[](mode, count, type, indices, instancecount, baseinstance)
+fn draw_elements_instanced_base_instance(mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei, baseinstance: GLuint):
+    try:
+        return _glDrawElementsInstancedBaseInstance_ptr.get_or_create_ptr()[](mode, count, type, indices, instancecount, baseinstance)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_elements_instanced_base_vertex(mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei, basevertex: GLint) raises:
-    return _glDrawElementsInstancedBaseVertex_ptr.get_or_create_ptr()[](mode, count, type, indices, instancecount, basevertex)
+fn draw_elements_instanced_base_vertex(mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei, basevertex: GLint):
+    try:
+        return _glDrawElementsInstancedBaseVertex_ptr.get_or_create_ptr()[](mode, count, type, indices, instancecount, basevertex)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_elements_instanced_base_vertex_base_instance(mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei, basevertex: GLint, baseinstance: GLuint) raises:
-    return _glDrawElementsInstancedBaseVertexBaseInstance_ptr.get_or_create_ptr()[](mode, count, type, indices, instancecount, basevertex, baseinstance)
+fn draw_elements_instanced_base_vertex_base_instance(mode: PrimitiveType, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], instancecount: GLsizei, basevertex: GLint, baseinstance: GLuint):
+    try:
+        return _glDrawElementsInstancedBaseVertexBaseInstance_ptr.get_or_create_ptr()[](mode, count, type, indices, instancecount, basevertex, baseinstance)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_range_elements(mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False]) raises:
-    return _glDrawRangeElements_ptr.get_or_create_ptr()[](mode, start, end, count, type, indices)
+fn draw_range_elements(mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False]):
+    try:
+        return _glDrawRangeElements_ptr.get_or_create_ptr()[](mode, start, end, count, type, indices)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_range_elements_base_vertex(mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], basevertex: GLint) raises:
-    return _glDrawRangeElementsBaseVertex_ptr.get_or_create_ptr()[](mode, start, end, count, type, indices, basevertex)
+fn draw_range_elements_base_vertex(mode: PrimitiveType, start: GLuint, end: GLuint, count: GLsizei, type: DrawElementsType, indices: Ptr[NoneType, mut=False], basevertex: GLint):
+    try:
+        return _glDrawRangeElementsBaseVertex_ptr.get_or_create_ptr()[](mode, start, end, count, type, indices, basevertex)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_transform_feedback(mode: PrimitiveType, id: GLuint) raises:
-    return _glDrawTransformFeedback_ptr.get_or_create_ptr()[](mode, id)
+fn draw_transform_feedback(mode: PrimitiveType, id: GLuint):
+    try:
+        return _glDrawTransformFeedback_ptr.get_or_create_ptr()[](mode, id)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_transform_feedback_instanced(mode: PrimitiveType, id: GLuint, instancecount: GLsizei) raises:
-    return _glDrawTransformFeedbackInstanced_ptr.get_or_create_ptr()[](mode, id, instancecount)
+fn draw_transform_feedback_instanced(mode: PrimitiveType, id: GLuint, instancecount: GLsizei):
+    try:
+        return _glDrawTransformFeedbackInstanced_ptr.get_or_create_ptr()[](mode, id, instancecount)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_transform_feedback_stream(mode: PrimitiveType, id: GLuint, stream: GLuint) raises:
-    return _glDrawTransformFeedbackStream_ptr.get_or_create_ptr()[](mode, id, stream)
+fn draw_transform_feedback_stream(mode: PrimitiveType, id: GLuint, stream: GLuint):
+    try:
+        return _glDrawTransformFeedbackStream_ptr.get_or_create_ptr()[](mode, id, stream)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn draw_transform_feedback_stream_instanced(mode: PrimitiveType, id: GLuint, stream: GLuint, instancecount: GLsizei) raises:
-    return _glDrawTransformFeedbackStreamInstanced_ptr.get_or_create_ptr()[](mode, id, stream, instancecount)
+fn draw_transform_feedback_stream_instanced(mode: PrimitiveType, id: GLuint, stream: GLuint, instancecount: GLsizei):
+    try:
+        return _glDrawTransformFeedbackStreamInstanced_ptr.get_or_create_ptr()[](mode, id, stream, instancecount)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn enable(cap: EnableCap) raises:
-    return _glEnable_ptr.get_or_create_ptr()[](cap)
+fn enable(cap: EnableCap):
+    try:
+        return _glEnable_ptr.get_or_create_ptr()[](cap)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn enable_vertex_array_attrib(vaobj: GLuint, index: GLuint) raises:
-    return _glEnableVertexArrayAttrib_ptr.get_or_create_ptr()[](vaobj, index)
+fn enable_vertex_array_attrib(vaobj: GLuint, index: GLuint):
+    try:
+        return _glEnableVertexArrayAttrib_ptr.get_or_create_ptr()[](vaobj, index)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn enable_vertex_attrib_array(index: GLuint) raises:
-    return _glEnableVertexAttribArray_ptr.get_or_create_ptr()[](index)
+fn enable_vertex_attrib_array(index: GLuint):
+    try:
+        return _glEnableVertexAttribArray_ptr.get_or_create_ptr()[](index)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn enablei(target: EnableCap, index: GLuint) raises:
-    return _glEnablei_ptr.get_or_create_ptr()[](target, index)
+fn enablei(target: EnableCap, index: GLuint):
+    try:
+        return _glEnablei_ptr.get_or_create_ptr()[](target, index)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn end_conditional_render() raises:
-    return _glEndConditionalRender_ptr.get_or_create_ptr()[]()
+fn end_conditional_render():
+    try:
+        return _glEndConditionalRender_ptr.get_or_create_ptr()[]()
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn end_query(target: QueryTarget) raises:
-    return _glEndQuery_ptr.get_or_create_ptr()[](target)
+fn end_query(target: QueryTarget):
+    try:
+        return _glEndQuery_ptr.get_or_create_ptr()[](target)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn end_query_indexed(target: QueryTarget, index: GLuint) raises:
-    return _glEndQueryIndexed_ptr.get_or_create_ptr()[](target, index)
+fn end_query_indexed(target: QueryTarget, index: GLuint):
+    try:
+        return _glEndQueryIndexed_ptr.get_or_create_ptr()[](target, index)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn end_transform_feedback() raises:
-    return _glEndTransformFeedback_ptr.get_or_create_ptr()[]()
+fn end_transform_feedback():
+    try:
+        return _glEndTransformFeedback_ptr.get_or_create_ptr()[]()
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn fence_sync(condition: SyncCondition, flags: SyncBehaviorFlags) raises -> GLsync:
-    return _glFenceSync_ptr.get_or_create_ptr()[](condition, flags)
+fn fence_sync(condition: SyncCondition, flags: SyncBehaviorFlags) -> GLsync:
+    try:
+        return _glFenceSync_ptr.get_or_create_ptr()[](condition, flags)
+    except:
+        return abort[GLsync]("Failed to load function")
 
 
 @always_inline
-fn finish() raises:
-    return _glFinish_ptr.get_or_create_ptr()[]()
+fn finish():
+    try:
+        return _glFinish_ptr.get_or_create_ptr()[]()
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn flush() raises:
-    return _glFlush_ptr.get_or_create_ptr()[]()
+fn flush():
+    try:
+        return _glFlush_ptr.get_or_create_ptr()[]()
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn flush_mapped_buffer_range(target: BufferTargetARB, offset: GLintptr, length: GLsizeiptr) raises:
-    return _glFlushMappedBufferRange_ptr.get_or_create_ptr()[](target, offset, length)
+fn flush_mapped_buffer_range(target: BufferTargetARB, offset: GLintptr, length: GLsizeiptr):
+    try:
+        return _glFlushMappedBufferRange_ptr.get_or_create_ptr()[](target, offset, length)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn flush_mapped_named_buffer_range(buffer: GLuint, offset: GLintptr, length: GLsizeiptr) raises:
-    return _glFlushMappedNamedBufferRange_ptr.get_or_create_ptr()[](buffer, offset, length)
+fn flush_mapped_named_buffer_range(buffer: GLuint, offset: GLintptr, length: GLsizeiptr):
+    try:
+        return _glFlushMappedNamedBufferRange_ptr.get_or_create_ptr()[](buffer, offset, length)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn framebuffer_parameteri(target: FramebufferTarget, pname: FramebufferParameterName, param: GLint) raises:
-    return _glFramebufferParameteri_ptr.get_or_create_ptr()[](target, pname, param)
+fn framebuffer_parameteri(target: FramebufferTarget, pname: FramebufferParameterName, param: GLint):
+    try:
+        return _glFramebufferParameteri_ptr.get_or_create_ptr()[](target, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn framebuffer_renderbuffer(target: FramebufferTarget, attachment: FramebufferAttachment, renderbuffertarget: RenderbufferTarget, renderbuffer: GLuint) raises:
-    return _glFramebufferRenderbuffer_ptr.get_or_create_ptr()[](target, attachment, renderbuffertarget, renderbuffer)
+fn framebuffer_renderbuffer(target: FramebufferTarget, attachment: FramebufferAttachment, renderbuffertarget: RenderbufferTarget, renderbuffer: GLuint):
+    try:
+        return _glFramebufferRenderbuffer_ptr.get_or_create_ptr()[](target, attachment, renderbuffertarget, renderbuffer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn framebuffer_texture(target: FramebufferTarget, attachment: FramebufferAttachment, texture: GLuint, level: GLint) raises:
-    return _glFramebufferTexture_ptr.get_or_create_ptr()[](target, attachment, texture, level)
+fn framebuffer_texture(target: FramebufferTarget, attachment: FramebufferAttachment, texture: GLuint, level: GLint):
+    try:
+        return _glFramebufferTexture_ptr.get_or_create_ptr()[](target, attachment, texture, level)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn framebuffer_texture_1d(target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint) raises:
-    return _glFramebufferTexture1D_ptr.get_or_create_ptr()[](target, attachment, textarget, texture, level)
+fn framebuffer_texture_1d(target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint):
+    try:
+        return _glFramebufferTexture1D_ptr.get_or_create_ptr()[](target, attachment, textarget, texture, level)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn framebuffer_texture_2d(target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint) raises:
-    return _glFramebufferTexture2D_ptr.get_or_create_ptr()[](target, attachment, textarget, texture, level)
+fn framebuffer_texture_2d(target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint):
+    try:
+        return _glFramebufferTexture2D_ptr.get_or_create_ptr()[](target, attachment, textarget, texture, level)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn framebuffer_texture_3d(target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint, zoffset: GLint) raises:
-    return _glFramebufferTexture3D_ptr.get_or_create_ptr()[](target, attachment, textarget, texture, level, zoffset)
+fn framebuffer_texture_3d(target: FramebufferTarget, attachment: FramebufferAttachment, textarget: TextureTarget, texture: GLuint, level: GLint, zoffset: GLint):
+    try:
+        return _glFramebufferTexture3D_ptr.get_or_create_ptr()[](target, attachment, textarget, texture, level, zoffset)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn framebuffer_texture_layer(target: FramebufferTarget, attachment: FramebufferAttachment, texture: GLuint, level: GLint, layer: GLint) raises:
-    return _glFramebufferTextureLayer_ptr.get_or_create_ptr()[](target, attachment, texture, level, layer)
+fn framebuffer_texture_layer(target: FramebufferTarget, attachment: FramebufferAttachment, texture: GLuint, level: GLint, layer: GLint):
+    try:
+        return _glFramebufferTextureLayer_ptr.get_or_create_ptr()[](target, attachment, texture, level, layer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn front_face(mode: FrontFaceDirection) raises:
-    return _glFrontFace_ptr.get_or_create_ptr()[](mode)
+fn front_face(mode: FrontFaceDirection):
+    try:
+        return _glFrontFace_ptr.get_or_create_ptr()[](mode)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn gen_buffers(n: GLsizei, buffers: Ptr[GLuint, mut=True]) raises:
-    return _glGenBuffers_ptr.get_or_create_ptr()[](n, buffers)
+fn gen_buffers(n: GLsizei, buffers: Ptr[GLuint, mut=True]):
+    try:
+        return _glGenBuffers_ptr.get_or_create_ptr()[](n, buffers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn gen_framebuffers(n: GLsizei, framebuffers: Ptr[GLuint, mut=True]) raises:
-    return _glGenFramebuffers_ptr.get_or_create_ptr()[](n, framebuffers)
+fn gen_framebuffers(n: GLsizei, framebuffers: Ptr[GLuint, mut=True]):
+    try:
+        return _glGenFramebuffers_ptr.get_or_create_ptr()[](n, framebuffers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn gen_program_pipelines(n: GLsizei, pipelines: Ptr[GLuint, mut=True]) raises:
-    return _glGenProgramPipelines_ptr.get_or_create_ptr()[](n, pipelines)
+fn gen_program_pipelines(n: GLsizei, pipelines: Ptr[GLuint, mut=True]):
+    try:
+        return _glGenProgramPipelines_ptr.get_or_create_ptr()[](n, pipelines)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn gen_queries(n: GLsizei, ids: Ptr[GLuint, mut=True]) raises:
-    return _glGenQueries_ptr.get_or_create_ptr()[](n, ids)
+fn gen_queries(n: GLsizei, ids: Ptr[GLuint, mut=True]):
+    try:
+        return _glGenQueries_ptr.get_or_create_ptr()[](n, ids)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn gen_renderbuffers(n: GLsizei, renderbuffers: Ptr[GLuint, mut=True]) raises:
-    return _glGenRenderbuffers_ptr.get_or_create_ptr()[](n, renderbuffers)
+fn gen_renderbuffers(n: GLsizei, renderbuffers: Ptr[GLuint, mut=True]):
+    try:
+        return _glGenRenderbuffers_ptr.get_or_create_ptr()[](n, renderbuffers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn gen_samplers(count: GLsizei, samplers: Ptr[GLuint, mut=True]) raises:
-    return _glGenSamplers_ptr.get_or_create_ptr()[](count, samplers)
+fn gen_samplers(count: GLsizei, samplers: Ptr[GLuint, mut=True]):
+    try:
+        return _glGenSamplers_ptr.get_or_create_ptr()[](count, samplers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn gen_textures(n: GLsizei, textures: Ptr[GLuint, mut=True]) raises:
-    return _glGenTextures_ptr.get_or_create_ptr()[](n, textures)
+fn gen_textures(n: GLsizei, textures: Ptr[GLuint, mut=True]):
+    try:
+        return _glGenTextures_ptr.get_or_create_ptr()[](n, textures)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn gen_transform_feedbacks(n: GLsizei, ids: Ptr[GLuint, mut=True]) raises:
-    return _glGenTransformFeedbacks_ptr.get_or_create_ptr()[](n, ids)
+fn gen_transform_feedbacks(n: GLsizei, ids: Ptr[GLuint, mut=True]):
+    try:
+        return _glGenTransformFeedbacks_ptr.get_or_create_ptr()[](n, ids)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn gen_vertex_arrays(n: GLsizei, arrays: Ptr[GLuint, mut=True]) raises:
-    return _glGenVertexArrays_ptr.get_or_create_ptr()[](n, arrays)
+fn gen_vertex_arrays(n: GLsizei, arrays: Ptr[GLuint, mut=True]):
+    try:
+        return _glGenVertexArrays_ptr.get_or_create_ptr()[](n, arrays)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn generate_mipmap(target: TextureTarget) raises:
-    return _glGenerateMipmap_ptr.get_or_create_ptr()[](target)
+fn generate_mipmap(target: TextureTarget):
+    try:
+        return _glGenerateMipmap_ptr.get_or_create_ptr()[](target)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn generate_texture_mipmap(texture: GLuint) raises:
-    return _glGenerateTextureMipmap_ptr.get_or_create_ptr()[](texture)
+fn generate_texture_mipmap(texture: GLuint):
+    try:
+        return _glGenerateTextureMipmap_ptr.get_or_create_ptr()[](texture)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_active_atomic_counter_bufferiv(program: GLuint, buffer_index: GLuint, pname: AtomicCounterBufferPName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetActiveAtomicCounterBufferiv_ptr.get_or_create_ptr()[](program, buffer_index, pname, params)
+fn get_active_atomic_counter_bufferiv(program: GLuint, buffer_index: GLuint, pname: AtomicCounterBufferPName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetActiveAtomicCounterBufferiv_ptr.get_or_create_ptr()[](program, buffer_index, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_active_attrib(program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: Ptr[AttributeType, mut=True], mut name: String) raises:
-    return _glGetActiveAttrib_ptr.get_or_create_ptr()[](program, index, buf_size, length, size, type, name.unsafe_cstr_ptr())
+fn get_active_attrib(program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: Ptr[AttributeType, mut=True], mut name: String):
+    try:
+        return _glGetActiveAttrib_ptr.get_or_create_ptr()[](program, index, buf_size, length, size, type, name.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_active_subroutine_name(program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut name: String) raises:
-    return _glGetActiveSubroutineName_ptr.get_or_create_ptr()[](program, shadertype, index, buf_size, length, name.unsafe_cstr_ptr())
+fn get_active_subroutine_name(program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut name: String):
+    try:
+        return _glGetActiveSubroutineName_ptr.get_or_create_ptr()[](program, shadertype, index, buf_size, length, name.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_active_subroutine_uniform_name(program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut name: String) raises:
-    return _glGetActiveSubroutineUniformName_ptr.get_or_create_ptr()[](program, shadertype, index, buf_size, length, name.unsafe_cstr_ptr())
+fn get_active_subroutine_uniform_name(program: GLuint, shadertype: ShaderType, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut name: String):
+    try:
+        return _glGetActiveSubroutineUniformName_ptr.get_or_create_ptr()[](program, shadertype, index, buf_size, length, name.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_active_subroutine_uniformiv(program: GLuint, shadertype: ShaderType, index: GLuint, pname: SubroutineParameterName, values: Ptr[GLint, mut=True]) raises:
-    return _glGetActiveSubroutineUniformiv_ptr.get_or_create_ptr()[](program, shadertype, index, pname, values)
+fn get_active_subroutine_uniformiv(program: GLuint, shadertype: ShaderType, index: GLuint, pname: SubroutineParameterName, values: Ptr[GLint, mut=True]):
+    try:
+        return _glGetActiveSubroutineUniformiv_ptr.get_or_create_ptr()[](program, shadertype, index, pname, values)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_active_uniform(program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: Ptr[UniformType, mut=True], mut name: String) raises:
-    return _glGetActiveUniform_ptr.get_or_create_ptr()[](program, index, buf_size, length, size, type, name.unsafe_cstr_ptr())
+fn get_active_uniform(program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLint, mut=True], type: Ptr[UniformType, mut=True], mut name: String):
+    try:
+        return _glGetActiveUniform_ptr.get_or_create_ptr()[](program, index, buf_size, length, size, type, name.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_active_uniform_block_name(program: GLuint, uniform_block_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut uniform_block_name: String) raises:
-    return _glGetActiveUniformBlockName_ptr.get_or_create_ptr()[](program, uniform_block_index, buf_size, length, uniform_block_name.unsafe_cstr_ptr())
+fn get_active_uniform_block_name(program: GLuint, uniform_block_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut uniform_block_name: String):
+    try:
+        return _glGetActiveUniformBlockName_ptr.get_or_create_ptr()[](program, uniform_block_index, buf_size, length, uniform_block_name.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_active_uniform_blockiv(program: GLuint, uniform_block_index: GLuint, pname: UniformBlockPName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetActiveUniformBlockiv_ptr.get_or_create_ptr()[](program, uniform_block_index, pname, params)
+fn get_active_uniform_blockiv(program: GLuint, uniform_block_index: GLuint, pname: UniformBlockPName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetActiveUniformBlockiv_ptr.get_or_create_ptr()[](program, uniform_block_index, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_active_uniform_name(program: GLuint, uniform_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut uniform_name: String) raises:
-    return _glGetActiveUniformName_ptr.get_or_create_ptr()[](program, uniform_index, buf_size, length, uniform_name.unsafe_cstr_ptr())
+fn get_active_uniform_name(program: GLuint, uniform_index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut uniform_name: String):
+    try:
+        return _glGetActiveUniformName_ptr.get_or_create_ptr()[](program, uniform_index, buf_size, length, uniform_name.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_active_uniformsiv(program: GLuint, uniform_count: GLsizei, uniform_indices: Ptr[GLuint, mut=False], pname: UniformPName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetActiveUniformsiv_ptr.get_or_create_ptr()[](program, uniform_count, uniform_indices, pname, params)
+fn get_active_uniformsiv(program: GLuint, uniform_count: GLsizei, uniform_indices: Ptr[GLuint, mut=False], pname: UniformPName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetActiveUniformsiv_ptr.get_or_create_ptr()[](program, uniform_count, uniform_indices, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_attached_shaders(program: GLuint, max_count: GLsizei, count: Ptr[GLsizei, mut=True], shaders: Ptr[GLuint, mut=True]) raises:
-    return _glGetAttachedShaders_ptr.get_or_create_ptr()[](program, max_count, count, shaders)
+fn get_attached_shaders(program: GLuint, max_count: GLsizei, count: Ptr[GLsizei, mut=True], shaders: Ptr[GLuint, mut=True]):
+    try:
+        return _glGetAttachedShaders_ptr.get_or_create_ptr()[](program, max_count, count, shaders)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_attrib_location(program: GLuint, mut name: String) raises -> GLint:
-    return _glGetAttribLocation_ptr.get_or_create_ptr()[](program, name.unsafe_cstr_ptr())
+fn get_attrib_location(program: GLuint, mut name: String) -> GLint:
+    try:
+        return _glGetAttribLocation_ptr.get_or_create_ptr()[](program, name.unsafe_cstr_ptr())
+    except:
+        return abort[GLint]("Failed to load function")
 
 
 @always_inline
-fn get_booleani_v(target: BufferTargetARB, index: GLuint, data: Ptr[GLboolean, mut=True]) raises:
-    return _glGetBooleani_v_ptr.get_or_create_ptr()[](target, index, data)
+fn get_booleani_v(target: BufferTargetARB, index: GLuint, data: Ptr[GLboolean, mut=True]):
+    try:
+        return _glGetBooleani_v_ptr.get_or_create_ptr()[](target, index, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_booleanv(pname: GetPName, data: Ptr[GLboolean, mut=True]) raises:
-    return _glGetBooleanv_ptr.get_or_create_ptr()[](pname, data)
+fn get_booleanv(pname: GetPName, data: Ptr[GLboolean, mut=True]):
+    try:
+        return _glGetBooleanv_ptr.get_or_create_ptr()[](pname, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_buffer_parameteri64v(target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint64, mut=True]) raises:
-    return _glGetBufferParameteri64v_ptr.get_or_create_ptr()[](target, pname, params)
+fn get_buffer_parameteri64v(target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint64, mut=True]):
+    try:
+        return _glGetBufferParameteri64v_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_buffer_parameteriv(target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint, mut=True]) raises:
-    return _glGetBufferParameteriv_ptr.get_or_create_ptr()[](target, pname, params)
+fn get_buffer_parameteriv(target: BufferTargetARB, pname: BufferPNameARB, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetBufferParameteriv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_buffer_pointerv(target: BufferTargetARB, pname: BufferPointerNameARB, params: Ptr[Ptr[NoneType, mut=True], mut=True]) raises:
-    return _glGetBufferPointerv_ptr.get_or_create_ptr()[](target, pname, params)
+fn get_buffer_pointerv(target: BufferTargetARB, pname: BufferPointerNameARB, params: Ptr[Ptr[NoneType, mut=True], mut=True]):
+    try:
+        return _glGetBufferPointerv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_buffer_sub_data(target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True]) raises:
-    return _glGetBufferSubData_ptr.get_or_create_ptr()[](target, offset, size, data)
+fn get_buffer_sub_data(target: BufferTargetARB, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetBufferSubData_ptr.get_or_create_ptr()[](target, offset, size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_compressed_tex_image(target: TextureTarget, level: GLint, img: Ptr[NoneType, mut=True]) raises:
-    return _glGetCompressedTexImage_ptr.get_or_create_ptr()[](target, level, img)
+fn get_compressed_tex_image(target: TextureTarget, level: GLint, img: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetCompressedTexImage_ptr.get_or_create_ptr()[](target, level, img)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_compressed_texture_image(texture: GLuint, level: GLint, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]) raises:
-    return _glGetCompressedTextureImage_ptr.get_or_create_ptr()[](texture, level, buf_size, pixels)
+fn get_compressed_texture_image(texture: GLuint, level: GLint, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetCompressedTextureImage_ptr.get_or_create_ptr()[](texture, level, buf_size, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_compressed_texture_sub_image(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]) raises:
-    return _glGetCompressedTextureSubImage_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth, buf_size, pixels)
+fn get_compressed_texture_sub_image(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetCompressedTextureSubImage_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth, buf_size, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_debug_message_log(count: GLuint, buf_size: GLsizei, sources: Ptr[DebugSource, mut=True], types: Ptr[DebugType, mut=True], ids: Ptr[GLuint, mut=True], severities: Ptr[DebugSeverity, mut=True], lengths: Ptr[GLsizei, mut=True], mut message_log: String) raises -> GLuint:
-    return _glGetDebugMessageLog_ptr.get_or_create_ptr()[](count, buf_size, sources, types, ids, severities, lengths, message_log.unsafe_cstr_ptr())
+fn get_debug_message_log(count: GLuint, buf_size: GLsizei, sources: Ptr[DebugSource, mut=True], types: Ptr[DebugType, mut=True], ids: Ptr[GLuint, mut=True], severities: Ptr[DebugSeverity, mut=True], lengths: Ptr[GLsizei, mut=True], mut message_log: String) -> GLuint:
+    try:
+        return _glGetDebugMessageLog_ptr.get_or_create_ptr()[](count, buf_size, sources, types, ids, severities, lengths, message_log.unsafe_cstr_ptr())
+    except:
+        return abort[GLuint]("Failed to load function")
 
 
 @always_inline
-fn get_doublei_v(target: GetPName, index: GLuint, data: Ptr[GLdouble, mut=True]) raises:
-    return _glGetDoublei_v_ptr.get_or_create_ptr()[](target, index, data)
+fn get_doublei_v(target: GetPName, index: GLuint, data: Ptr[GLdouble, mut=True]):
+    try:
+        return _glGetDoublei_v_ptr.get_or_create_ptr()[](target, index, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_doublev(pname: GetPName, data: Ptr[GLdouble, mut=True]) raises:
-    return _glGetDoublev_ptr.get_or_create_ptr()[](pname, data)
+fn get_doublev(pname: GetPName, data: Ptr[GLdouble, mut=True]):
+    try:
+        return _glGetDoublev_ptr.get_or_create_ptr()[](pname, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_error() raises -> ErrorCode:
-    return _glGetError_ptr.get_or_create_ptr()[]()
+fn get_error() -> ErrorCode:
+    try:
+        return _glGetError_ptr.get_or_create_ptr()[]()
+    except:
+        return abort[ErrorCode]("Failed to load function")
 
 
 @always_inline
-fn get_floati_v(target: GetPName, index: GLuint, data: Ptr[GLfloat, mut=True]) raises:
-    return _glGetFloati_v_ptr.get_or_create_ptr()[](target, index, data)
+fn get_floati_v(target: GetPName, index: GLuint, data: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetFloati_v_ptr.get_or_create_ptr()[](target, index, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_floatv(pname: GetPName, data: Ptr[GLfloat, mut=True]) raises:
-    return _glGetFloatv_ptr.get_or_create_ptr()[](pname, data)
+fn get_floatv(pname: GetPName, data: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetFloatv_ptr.get_or_create_ptr()[](pname, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_frag_data_index(program: GLuint, mut name: String) raises -> GLint:
-    return _glGetFragDataIndex_ptr.get_or_create_ptr()[](program, name.unsafe_cstr_ptr())
+fn get_frag_data_index(program: GLuint, mut name: String) -> GLint:
+    try:
+        return _glGetFragDataIndex_ptr.get_or_create_ptr()[](program, name.unsafe_cstr_ptr())
+    except:
+        return abort[GLint]("Failed to load function")
 
 
 @always_inline
-fn get_frag_data_location(program: GLuint, mut name: String) raises -> GLint:
-    return _glGetFragDataLocation_ptr.get_or_create_ptr()[](program, name.unsafe_cstr_ptr())
+fn get_frag_data_location(program: GLuint, mut name: String) -> GLint:
+    try:
+        return _glGetFragDataLocation_ptr.get_or_create_ptr()[](program, name.unsafe_cstr_ptr())
+    except:
+        return abort[GLint]("Failed to load function")
 
 
 @always_inline
-fn get_framebuffer_attachment_parameteriv(target: FramebufferTarget, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetFramebufferAttachmentParameteriv_ptr.get_or_create_ptr()[](target, attachment, pname, params)
+fn get_framebuffer_attachment_parameteriv(target: FramebufferTarget, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetFramebufferAttachmentParameteriv_ptr.get_or_create_ptr()[](target, attachment, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_framebuffer_parameteriv(target: FramebufferTarget, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetFramebufferParameteriv_ptr.get_or_create_ptr()[](target, pname, params)
+fn get_framebuffer_parameteriv(target: FramebufferTarget, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetFramebufferParameteriv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_graphics_reset_status() raises -> GraphicsResetStatus:
-    return _glGetGraphicsResetStatus_ptr.get_or_create_ptr()[]()
+fn get_graphics_reset_status() -> GraphicsResetStatus:
+    try:
+        return _glGetGraphicsResetStatus_ptr.get_or_create_ptr()[]()
+    except:
+        return abort[GraphicsResetStatus]("Failed to load function")
 
 
 @always_inline
-fn get_integer64i_v(target: GetPName, index: GLuint, data: Ptr[GLint64, mut=True]) raises:
-    return _glGetInteger64i_v_ptr.get_or_create_ptr()[](target, index, data)
+fn get_integer64i_v(target: GetPName, index: GLuint, data: Ptr[GLint64, mut=True]):
+    try:
+        return _glGetInteger64i_v_ptr.get_or_create_ptr()[](target, index, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_integer64v(pname: GetPName, data: Ptr[GLint64, mut=True]) raises:
-    return _glGetInteger64v_ptr.get_or_create_ptr()[](pname, data)
+fn get_integer64v(pname: GetPName, data: Ptr[GLint64, mut=True]):
+    try:
+        return _glGetInteger64v_ptr.get_or_create_ptr()[](pname, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_integeri_v(target: GetPName, index: GLuint, data: Ptr[GLint, mut=True]) raises:
-    return _glGetIntegeri_v_ptr.get_or_create_ptr()[](target, index, data)
+fn get_integeri_v(target: GetPName, index: GLuint, data: Ptr[GLint, mut=True]):
+    try:
+        return _glGetIntegeri_v_ptr.get_or_create_ptr()[](target, index, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_integerv(pname: GetPName, data: Ptr[GLint, mut=True]) raises:
-    return _glGetIntegerv_ptr.get_or_create_ptr()[](pname, data)
+fn get_integerv(pname: GetPName, data: Ptr[GLint, mut=True]):
+    try:
+        return _glGetIntegerv_ptr.get_or_create_ptr()[](pname, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_internalformati64v(target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint64, mut=True]) raises:
-    return _glGetInternalformati64v_ptr.get_or_create_ptr()[](target, internalformat, pname, count, params)
+fn get_internalformati64v(target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint64, mut=True]):
+    try:
+        return _glGetInternalformati64v_ptr.get_or_create_ptr()[](target, internalformat, pname, count, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_internalformativ(target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint, mut=True]) raises:
-    return _glGetInternalformativ_ptr.get_or_create_ptr()[](target, internalformat, pname, count, params)
+fn get_internalformativ(target: TextureTarget, internalformat: InternalFormat, pname: InternalFormatPName, count: GLsizei, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetInternalformativ_ptr.get_or_create_ptr()[](target, internalformat, pname, count, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_multisamplefv(pname: GetMultisamplePNameNV, index: GLuint, val: Ptr[GLfloat, mut=True]) raises:
-    return _glGetMultisamplefv_ptr.get_or_create_ptr()[](pname, index, val)
+fn get_multisamplefv(pname: GetMultisamplePNameNV, index: GLuint, val: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetMultisamplefv_ptr.get_or_create_ptr()[](pname, index, val)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_named_buffer_parameteri64v(buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint64, mut=True]) raises:
-    return _glGetNamedBufferParameteri64v_ptr.get_or_create_ptr()[](buffer, pname, params)
+fn get_named_buffer_parameteri64v(buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint64, mut=True]):
+    try:
+        return _glGetNamedBufferParameteri64v_ptr.get_or_create_ptr()[](buffer, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_named_buffer_parameteriv(buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint, mut=True]) raises:
-    return _glGetNamedBufferParameteriv_ptr.get_or_create_ptr()[](buffer, pname, params)
+fn get_named_buffer_parameteriv(buffer: GLuint, pname: BufferPNameARB, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetNamedBufferParameteriv_ptr.get_or_create_ptr()[](buffer, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_named_buffer_pointerv(buffer: GLuint, pname: BufferPointerNameARB, params: Ptr[Ptr[NoneType, mut=True], mut=True]) raises:
-    return _glGetNamedBufferPointerv_ptr.get_or_create_ptr()[](buffer, pname, params)
+fn get_named_buffer_pointerv(buffer: GLuint, pname: BufferPointerNameARB, params: Ptr[Ptr[NoneType, mut=True], mut=True]):
+    try:
+        return _glGetNamedBufferPointerv_ptr.get_or_create_ptr()[](buffer, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_named_buffer_sub_data(buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True]) raises:
-    return _glGetNamedBufferSubData_ptr.get_or_create_ptr()[](buffer, offset, size, data)
+fn get_named_buffer_sub_data(buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetNamedBufferSubData_ptr.get_or_create_ptr()[](buffer, offset, size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_named_framebuffer_attachment_parameteriv(framebuffer: GLuint, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetNamedFramebufferAttachmentParameteriv_ptr.get_or_create_ptr()[](framebuffer, attachment, pname, params)
+fn get_named_framebuffer_attachment_parameteriv(framebuffer: GLuint, attachment: FramebufferAttachment, pname: FramebufferAttachmentParameterName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetNamedFramebufferAttachmentParameteriv_ptr.get_or_create_ptr()[](framebuffer, attachment, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_named_framebuffer_parameteriv(framebuffer: GLuint, pname: GetFramebufferParameter, param: Ptr[GLint, mut=True]) raises:
-    return _glGetNamedFramebufferParameteriv_ptr.get_or_create_ptr()[](framebuffer, pname, param)
+fn get_named_framebuffer_parameteriv(framebuffer: GLuint, pname: GetFramebufferParameter, param: Ptr[GLint, mut=True]):
+    try:
+        return _glGetNamedFramebufferParameteriv_ptr.get_or_create_ptr()[](framebuffer, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_named_renderbuffer_parameteriv(renderbuffer: GLuint, pname: RenderbufferParameterName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetNamedRenderbufferParameteriv_ptr.get_or_create_ptr()[](renderbuffer, pname, params)
+fn get_named_renderbuffer_parameteriv(renderbuffer: GLuint, pname: RenderbufferParameterName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetNamedRenderbufferParameteriv_ptr.get_or_create_ptr()[](renderbuffer, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_object_label(identifier: ObjectIdentifier, name: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut label: String) raises:
-    return _glGetObjectLabel_ptr.get_or_create_ptr()[](identifier, name, buf_size, length, label.unsafe_cstr_ptr())
+fn get_object_label(identifier: ObjectIdentifier, name: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut label: String):
+    try:
+        return _glGetObjectLabel_ptr.get_or_create_ptr()[](identifier, name, buf_size, length, label.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_object_ptr_label(ptr: Ptr[NoneType, mut=False], buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut label: String) raises:
-    return _glGetObjectPtrLabel_ptr.get_or_create_ptr()[](ptr, buf_size, length, label.unsafe_cstr_ptr())
+fn get_object_ptr_label(ptr: Ptr[NoneType, mut=False], buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut label: String):
+    try:
+        return _glGetObjectPtrLabel_ptr.get_or_create_ptr()[](ptr, buf_size, length, label.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_program_binary(program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], binary_format: Ptr[GLenum, mut=True], binary: Ptr[NoneType, mut=True]) raises:
-    return _glGetProgramBinary_ptr.get_or_create_ptr()[](program, buf_size, length, binary_format, binary)
+fn get_program_binary(program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], binary_format: Ptr[GLenum, mut=True], binary: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetProgramBinary_ptr.get_or_create_ptr()[](program, buf_size, length, binary_format, binary)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_program_info_log(program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut info_log: String) raises:
-    return _glGetProgramInfoLog_ptr.get_or_create_ptr()[](program, buf_size, length, info_log.unsafe_cstr_ptr())
+fn get_program_info_log(program: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut info_log: String):
+    try:
+        return _glGetProgramInfoLog_ptr.get_or_create_ptr()[](program, buf_size, length, info_log.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_program_interfaceiv(program: GLuint, program_interface: ProgramInterface, pname: ProgramInterfacePName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetProgramInterfaceiv_ptr.get_or_create_ptr()[](program, program_interface, pname, params)
+fn get_program_interfaceiv(program: GLuint, program_interface: ProgramInterface, pname: ProgramInterfacePName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetProgramInterfaceiv_ptr.get_or_create_ptr()[](program, program_interface, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_program_pipeline_info_log(pipeline: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut info_log: String) raises:
-    return _glGetProgramPipelineInfoLog_ptr.get_or_create_ptr()[](pipeline, buf_size, length, info_log.unsafe_cstr_ptr())
+fn get_program_pipeline_info_log(pipeline: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut info_log: String):
+    try:
+        return _glGetProgramPipelineInfoLog_ptr.get_or_create_ptr()[](pipeline, buf_size, length, info_log.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_program_pipelineiv(pipeline: GLuint, pname: PipelineParameterName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetProgramPipelineiv_ptr.get_or_create_ptr()[](pipeline, pname, params)
+fn get_program_pipelineiv(pipeline: GLuint, pname: PipelineParameterName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetProgramPipelineiv_ptr.get_or_create_ptr()[](pipeline, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_program_resource_index(program: GLuint, program_interface: ProgramInterface, mut name: String) raises -> GLuint:
-    return _glGetProgramResourceIndex_ptr.get_or_create_ptr()[](program, program_interface, name.unsafe_cstr_ptr())
+fn get_program_resource_index(program: GLuint, program_interface: ProgramInterface, mut name: String) -> GLuint:
+    try:
+        return _glGetProgramResourceIndex_ptr.get_or_create_ptr()[](program, program_interface, name.unsafe_cstr_ptr())
+    except:
+        return abort[GLuint]("Failed to load function")
 
 
 @always_inline
-fn get_program_resource_location(program: GLuint, program_interface: ProgramInterface, mut name: String) raises -> GLint:
-    return _glGetProgramResourceLocation_ptr.get_or_create_ptr()[](program, program_interface, name.unsafe_cstr_ptr())
+fn get_program_resource_location(program: GLuint, program_interface: ProgramInterface, mut name: String) -> GLint:
+    try:
+        return _glGetProgramResourceLocation_ptr.get_or_create_ptr()[](program, program_interface, name.unsafe_cstr_ptr())
+    except:
+        return abort[GLint]("Failed to load function")
 
 
 @always_inline
-fn get_program_resource_location_index(program: GLuint, program_interface: ProgramInterface, mut name: String) raises -> GLint:
-    return _glGetProgramResourceLocationIndex_ptr.get_or_create_ptr()[](program, program_interface, name.unsafe_cstr_ptr())
+fn get_program_resource_location_index(program: GLuint, program_interface: ProgramInterface, mut name: String) -> GLint:
+    try:
+        return _glGetProgramResourceLocationIndex_ptr.get_or_create_ptr()[](program, program_interface, name.unsafe_cstr_ptr())
+    except:
+        return abort[GLint]("Failed to load function")
 
 
 @always_inline
-fn get_program_resource_name(program: GLuint, program_interface: ProgramInterface, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut name: String) raises:
-    return _glGetProgramResourceName_ptr.get_or_create_ptr()[](program, program_interface, index, buf_size, length, name.unsafe_cstr_ptr())
+fn get_program_resource_name(program: GLuint, program_interface: ProgramInterface, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut name: String):
+    try:
+        return _glGetProgramResourceName_ptr.get_or_create_ptr()[](program, program_interface, index, buf_size, length, name.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_program_resourceiv(program: GLuint, program_interface: ProgramInterface, index: GLuint, prop_count: GLsizei, props: Ptr[ProgramResourceProperty, mut=False], count: GLsizei, length: Ptr[GLsizei, mut=True], params: Ptr[GLint, mut=True]) raises:
-    return _glGetProgramResourceiv_ptr.get_or_create_ptr()[](program, program_interface, index, prop_count, props, count, length, params)
+fn get_program_resourceiv(program: GLuint, program_interface: ProgramInterface, index: GLuint, prop_count: GLsizei, props: Ptr[ProgramResourceProperty, mut=False], count: GLsizei, length: Ptr[GLsizei, mut=True], params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetProgramResourceiv_ptr.get_or_create_ptr()[](program, program_interface, index, prop_count, props, count, length, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_program_stageiv(program: GLuint, shadertype: ShaderType, pname: ProgramStagePName, values: Ptr[GLint, mut=True]) raises:
-    return _glGetProgramStageiv_ptr.get_or_create_ptr()[](program, shadertype, pname, values)
+fn get_program_stageiv(program: GLuint, shadertype: ShaderType, pname: ProgramStagePName, values: Ptr[GLint, mut=True]):
+    try:
+        return _glGetProgramStageiv_ptr.get_or_create_ptr()[](program, shadertype, pname, values)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_programiv(program: GLuint, pname: ProgramPropertyARB, params: Ptr[GLint, mut=True]) raises:
-    return _glGetProgramiv_ptr.get_or_create_ptr()[](program, pname, params)
+fn get_programiv(program: GLuint, pname: ProgramPropertyARB, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetProgramiv_ptr.get_or_create_ptr()[](program, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_query_buffer_objecti64v(id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr) raises:
-    return _glGetQueryBufferObjecti64v_ptr.get_or_create_ptr()[](id, buffer, pname, offset)
+fn get_query_buffer_objecti64v(id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr):
+    try:
+        return _glGetQueryBufferObjecti64v_ptr.get_or_create_ptr()[](id, buffer, pname, offset)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_query_buffer_objectiv(id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr) raises:
-    return _glGetQueryBufferObjectiv_ptr.get_or_create_ptr()[](id, buffer, pname, offset)
+fn get_query_buffer_objectiv(id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr):
+    try:
+        return _glGetQueryBufferObjectiv_ptr.get_or_create_ptr()[](id, buffer, pname, offset)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_query_buffer_objectui64v(id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr) raises:
-    return _glGetQueryBufferObjectui64v_ptr.get_or_create_ptr()[](id, buffer, pname, offset)
+fn get_query_buffer_objectui64v(id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr):
+    try:
+        return _glGetQueryBufferObjectui64v_ptr.get_or_create_ptr()[](id, buffer, pname, offset)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_query_buffer_objectuiv(id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr) raises:
-    return _glGetQueryBufferObjectuiv_ptr.get_or_create_ptr()[](id, buffer, pname, offset)
+fn get_query_buffer_objectuiv(id: GLuint, buffer: GLuint, pname: QueryObjectParameterName, offset: GLintptr):
+    try:
+        return _glGetQueryBufferObjectuiv_ptr.get_or_create_ptr()[](id, buffer, pname, offset)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_query_indexediv(target: QueryTarget, index: GLuint, pname: QueryParameterName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetQueryIndexediv_ptr.get_or_create_ptr()[](target, index, pname, params)
+fn get_query_indexediv(target: QueryTarget, index: GLuint, pname: QueryParameterName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetQueryIndexediv_ptr.get_or_create_ptr()[](target, index, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_query_objecti64v(id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint64, mut=True]) raises:
-    return _glGetQueryObjecti64v_ptr.get_or_create_ptr()[](id, pname, params)
+fn get_query_objecti64v(id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint64, mut=True]):
+    try:
+        return _glGetQueryObjecti64v_ptr.get_or_create_ptr()[](id, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_query_objectiv(id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetQueryObjectiv_ptr.get_or_create_ptr()[](id, pname, params)
+fn get_query_objectiv(id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetQueryObjectiv_ptr.get_or_create_ptr()[](id, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_query_objectui64v(id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint64, mut=True]) raises:
-    return _glGetQueryObjectui64v_ptr.get_or_create_ptr()[](id, pname, params)
+fn get_query_objectui64v(id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint64, mut=True]):
+    try:
+        return _glGetQueryObjectui64v_ptr.get_or_create_ptr()[](id, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_query_objectuiv(id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint, mut=True]) raises:
-    return _glGetQueryObjectuiv_ptr.get_or_create_ptr()[](id, pname, params)
+fn get_query_objectuiv(id: GLuint, pname: QueryObjectParameterName, params: Ptr[GLuint, mut=True]):
+    try:
+        return _glGetQueryObjectuiv_ptr.get_or_create_ptr()[](id, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_queryiv(target: QueryTarget, pname: QueryParameterName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetQueryiv_ptr.get_or_create_ptr()[](target, pname, params)
+fn get_queryiv(target: QueryTarget, pname: QueryParameterName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetQueryiv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_renderbuffer_parameteriv(target: RenderbufferTarget, pname: RenderbufferParameterName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetRenderbufferParameteriv_ptr.get_or_create_ptr()[](target, pname, params)
+fn get_renderbuffer_parameteriv(target: RenderbufferTarget, pname: RenderbufferParameterName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetRenderbufferParameteriv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_sampler_parameter_iiv(sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint, mut=True]) raises:
-    return _glGetSamplerParameterIiv_ptr.get_or_create_ptr()[](sampler, pname, params)
+fn get_sampler_parameter_iiv(sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetSamplerParameterIiv_ptr.get_or_create_ptr()[](sampler, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_sampler_parameter_iuiv(sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLuint, mut=True]) raises:
-    return _glGetSamplerParameterIuiv_ptr.get_or_create_ptr()[](sampler, pname, params)
+fn get_sampler_parameter_iuiv(sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLuint, mut=True]):
+    try:
+        return _glGetSamplerParameterIuiv_ptr.get_or_create_ptr()[](sampler, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_sampler_parameterfv(sampler: GLuint, pname: SamplerParameterF, params: Ptr[GLfloat, mut=True]) raises:
-    return _glGetSamplerParameterfv_ptr.get_or_create_ptr()[](sampler, pname, params)
+fn get_sampler_parameterfv(sampler: GLuint, pname: SamplerParameterF, params: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetSamplerParameterfv_ptr.get_or_create_ptr()[](sampler, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_sampler_parameteriv(sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint, mut=True]) raises:
-    return _glGetSamplerParameteriv_ptr.get_or_create_ptr()[](sampler, pname, params)
+fn get_sampler_parameteriv(sampler: GLuint, pname: SamplerParameterI, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetSamplerParameteriv_ptr.get_or_create_ptr()[](sampler, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_shader_info_log(shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut info_log: String) raises:
-    return _glGetShaderInfoLog_ptr.get_or_create_ptr()[](shader, buf_size, length, info_log.unsafe_cstr_ptr())
+fn get_shader_info_log(shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut info_log: String):
+    try:
+        return _glGetShaderInfoLog_ptr.get_or_create_ptr()[](shader, buf_size, length, info_log.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_shader_precision_format(shadertype: ShaderType, precisiontype: PrecisionType, range: Ptr[GLint, mut=True], precision: Ptr[GLint, mut=True]) raises:
-    return _glGetShaderPrecisionFormat_ptr.get_or_create_ptr()[](shadertype, precisiontype, range, precision)
+fn get_shader_precision_format(shadertype: ShaderType, precisiontype: PrecisionType, range: Ptr[GLint, mut=True], precision: Ptr[GLint, mut=True]):
+    try:
+        return _glGetShaderPrecisionFormat_ptr.get_or_create_ptr()[](shadertype, precisiontype, range, precision)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_shader_source(shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut source: String) raises:
-    return _glGetShaderSource_ptr.get_or_create_ptr()[](shader, buf_size, length, source.unsafe_cstr_ptr())
+fn get_shader_source(shader: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], mut source: String):
+    try:
+        return _glGetShaderSource_ptr.get_or_create_ptr()[](shader, buf_size, length, source.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_shaderiv(shader: GLuint, pname: ShaderParameterName, params: Ptr[GLint, mut=True]) raises:
-    return _glGetShaderiv_ptr.get_or_create_ptr()[](shader, pname, params)
+fn get_shaderiv(shader: GLuint, pname: ShaderParameterName, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetShaderiv_ptr.get_or_create_ptr()[](shader, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_string(name: StringName) raises -> GLubyte:
-    return _glGetString_ptr.get_or_create_ptr()[](name)
+fn get_string(name: StringName) -> GLubyte:
+    try:
+        return _glGetString_ptr.get_or_create_ptr()[](name)
+    except:
+        return abort[GLubyte]("Failed to load function")
 
 
 @always_inline
-fn get_stringi(name: StringName, index: GLuint) raises -> GLubyte:
-    return _glGetStringi_ptr.get_or_create_ptr()[](name, index)
+fn get_stringi(name: StringName, index: GLuint) -> GLubyte:
+    try:
+        return _glGetStringi_ptr.get_or_create_ptr()[](name, index)
+    except:
+        return abort[GLubyte]("Failed to load function")
 
 
 @always_inline
-fn get_subroutine_index(program: GLuint, shadertype: ShaderType, mut name: String) raises -> GLuint:
-    return _glGetSubroutineIndex_ptr.get_or_create_ptr()[](program, shadertype, name.unsafe_cstr_ptr())
+fn get_subroutine_index(program: GLuint, shadertype: ShaderType, mut name: String) -> GLuint:
+    try:
+        return _glGetSubroutineIndex_ptr.get_or_create_ptr()[](program, shadertype, name.unsafe_cstr_ptr())
+    except:
+        return abort[GLuint]("Failed to load function")
 
 
 @always_inline
-fn get_subroutine_uniform_location(program: GLuint, shadertype: ShaderType, mut name: String) raises -> GLint:
-    return _glGetSubroutineUniformLocation_ptr.get_or_create_ptr()[](program, shadertype, name.unsafe_cstr_ptr())
+fn get_subroutine_uniform_location(program: GLuint, shadertype: ShaderType, mut name: String) -> GLint:
+    try:
+        return _glGetSubroutineUniformLocation_ptr.get_or_create_ptr()[](program, shadertype, name.unsafe_cstr_ptr())
+    except:
+        return abort[GLint]("Failed to load function")
 
 
 @always_inline
-fn get_synciv(sync: GLsync, pname: SyncParameterName, count: GLsizei, length: Ptr[GLsizei, mut=True], values: Ptr[GLint, mut=True]) raises:
-    return _glGetSynciv_ptr.get_or_create_ptr()[](sync, pname, count, length, values)
+fn get_synciv(sync: GLsync, pname: SyncParameterName, count: GLsizei, length: Ptr[GLsizei, mut=True], values: Ptr[GLint, mut=True]):
+    try:
+        return _glGetSynciv_ptr.get_or_create_ptr()[](sync, pname, count, length, values)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_tex_image(target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]) raises:
-    return _glGetTexImage_ptr.get_or_create_ptr()[](target, level, format, type, pixels)
+fn get_tex_image(target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetTexImage_ptr.get_or_create_ptr()[](target, level, format, type, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_tex_level_parameterfv(target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]) raises:
-    return _glGetTexLevelParameterfv_ptr.get_or_create_ptr()[](target, level, pname, params)
+fn get_tex_level_parameterfv(target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetTexLevelParameterfv_ptr.get_or_create_ptr()[](target, level, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_tex_level_parameteriv(target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]) raises:
-    return _glGetTexLevelParameteriv_ptr.get_or_create_ptr()[](target, level, pname, params)
+fn get_tex_level_parameteriv(target: TextureTarget, level: GLint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetTexLevelParameteriv_ptr.get_or_create_ptr()[](target, level, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_tex_parameter_iiv(target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint, mut=True]) raises:
-    return _glGetTexParameterIiv_ptr.get_or_create_ptr()[](target, pname, params)
+fn get_tex_parameter_iiv(target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetTexParameterIiv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_tex_parameter_iuiv(target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLuint, mut=True]) raises:
-    return _glGetTexParameterIuiv_ptr.get_or_create_ptr()[](target, pname, params)
+fn get_tex_parameter_iuiv(target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLuint, mut=True]):
+    try:
+        return _glGetTexParameterIuiv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_tex_parameterfv(target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]) raises:
-    return _glGetTexParameterfv_ptr.get_or_create_ptr()[](target, pname, params)
+fn get_tex_parameterfv(target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetTexParameterfv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_tex_parameteriv(target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint, mut=True]) raises:
-    return _glGetTexParameteriv_ptr.get_or_create_ptr()[](target, pname, params)
+fn get_tex_parameteriv(target: TextureTarget, pname: GetTextureParameter, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetTexParameteriv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_texture_image(texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]) raises:
-    return _glGetTextureImage_ptr.get_or_create_ptr()[](texture, level, format, type, buf_size, pixels)
+fn get_texture_image(texture: GLuint, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetTextureImage_ptr.get_or_create_ptr()[](texture, level, format, type, buf_size, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_texture_level_parameterfv(texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]) raises:
-    return _glGetTextureLevelParameterfv_ptr.get_or_create_ptr()[](texture, level, pname, params)
+fn get_texture_level_parameterfv(texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetTextureLevelParameterfv_ptr.get_or_create_ptr()[](texture, level, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_texture_level_parameteriv(texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]) raises:
-    return _glGetTextureLevelParameteriv_ptr.get_or_create_ptr()[](texture, level, pname, params)
+fn get_texture_level_parameteriv(texture: GLuint, level: GLint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetTextureLevelParameteriv_ptr.get_or_create_ptr()[](texture, level, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_texture_parameter_iiv(texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]) raises:
-    return _glGetTextureParameterIiv_ptr.get_or_create_ptr()[](texture, pname, params)
+fn get_texture_parameter_iiv(texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetTextureParameterIiv_ptr.get_or_create_ptr()[](texture, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_texture_parameter_iuiv(texture: GLuint, pname: GetTextureParameter, params: Ptr[GLuint, mut=True]) raises:
-    return _glGetTextureParameterIuiv_ptr.get_or_create_ptr()[](texture, pname, params)
+fn get_texture_parameter_iuiv(texture: GLuint, pname: GetTextureParameter, params: Ptr[GLuint, mut=True]):
+    try:
+        return _glGetTextureParameterIuiv_ptr.get_or_create_ptr()[](texture, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_texture_parameterfv(texture: GLuint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]) raises:
-    return _glGetTextureParameterfv_ptr.get_or_create_ptr()[](texture, pname, params)
+fn get_texture_parameterfv(texture: GLuint, pname: GetTextureParameter, params: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetTextureParameterfv_ptr.get_or_create_ptr()[](texture, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_texture_parameteriv(texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]) raises:
-    return _glGetTextureParameteriv_ptr.get_or_create_ptr()[](texture, pname, params)
+fn get_texture_parameteriv(texture: GLuint, pname: GetTextureParameter, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetTextureParameteriv_ptr.get_or_create_ptr()[](texture, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_texture_sub_image(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]) raises:
-    return _glGetTextureSubImage_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, buf_size, pixels)
+fn get_texture_sub_image(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetTextureSubImage_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, buf_size, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_transform_feedback_varying(program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLsizei, mut=True], type: Ptr[AttributeType, mut=True], mut name: String) raises:
-    return _glGetTransformFeedbackVarying_ptr.get_or_create_ptr()[](program, index, buf_size, length, size, type, name.unsafe_cstr_ptr())
+fn get_transform_feedback_varying(program: GLuint, index: GLuint, buf_size: GLsizei, length: Ptr[GLsizei, mut=True], size: Ptr[GLsizei, mut=True], type: Ptr[AttributeType, mut=True], mut name: String):
+    try:
+        return _glGetTransformFeedbackVarying_ptr.get_or_create_ptr()[](program, index, buf_size, length, size, type, name.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_transform_feedbacki64_v(xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint64, mut=True]) raises:
-    return _glGetTransformFeedbacki64_v_ptr.get_or_create_ptr()[](xfb, pname, index, param)
+fn get_transform_feedbacki64_v(xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint64, mut=True]):
+    try:
+        return _glGetTransformFeedbacki64_v_ptr.get_or_create_ptr()[](xfb, pname, index, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_transform_feedbacki_v(xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint, mut=True]) raises:
-    return _glGetTransformFeedbacki_v_ptr.get_or_create_ptr()[](xfb, pname, index, param)
+fn get_transform_feedbacki_v(xfb: GLuint, pname: TransformFeedbackPName, index: GLuint, param: Ptr[GLint, mut=True]):
+    try:
+        return _glGetTransformFeedbacki_v_ptr.get_or_create_ptr()[](xfb, pname, index, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_transform_feedbackiv(xfb: GLuint, pname: TransformFeedbackPName, param: Ptr[GLint, mut=True]) raises:
-    return _glGetTransformFeedbackiv_ptr.get_or_create_ptr()[](xfb, pname, param)
+fn get_transform_feedbackiv(xfb: GLuint, pname: TransformFeedbackPName, param: Ptr[GLint, mut=True]):
+    try:
+        return _glGetTransformFeedbackiv_ptr.get_or_create_ptr()[](xfb, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_uniform_block_index(program: GLuint, mut uniform_block_name: String) raises -> GLuint:
-    return _glGetUniformBlockIndex_ptr.get_or_create_ptr()[](program, uniform_block_name.unsafe_cstr_ptr())
+fn get_uniform_block_index(program: GLuint, mut uniform_block_name: String) -> GLuint:
+    try:
+        return _glGetUniformBlockIndex_ptr.get_or_create_ptr()[](program, uniform_block_name.unsafe_cstr_ptr())
+    except:
+        return abort[GLuint]("Failed to load function")
 
 
 @always_inline
-fn get_uniform_indices(program: GLuint, uniform_count: GLsizei, mut uniform_names: List[String], uniform_indices: Ptr[GLuint, mut=True]) raises:
+fn get_uniform_indices(program: GLuint, uniform_count: GLsizei, mut uniform_names: List[String], uniform_indices: Ptr[GLuint, mut=True]):
     var c_list = [str.unsafe_cstr_ptr().unsafe_origin_cast[ImmutAnyOrigin]() for ref str in uniform_names]
-    return _glGetUniformIndices_ptr.get_or_create_ptr()[](program, uniform_count, c_list.steal_data(), uniform_indices)
+    try:
+        return _glGetUniformIndices_ptr.get_or_create_ptr()[](program, uniform_count, c_list.steal_data(), uniform_indices)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_uniform_location(program: GLuint, mut name: String) raises -> GLint:
-    return _glGetUniformLocation_ptr.get_or_create_ptr()[](program, name.unsafe_cstr_ptr())
+fn get_uniform_location(program: GLuint, mut name: String) -> GLint:
+    try:
+        return _glGetUniformLocation_ptr.get_or_create_ptr()[](program, name.unsafe_cstr_ptr())
+    except:
+        return abort[GLint]("Failed to load function")
 
 
 @always_inline
-fn get_uniform_subroutineuiv(shadertype: ShaderType, location: GLint, params: Ptr[GLuint, mut=True]) raises:
-    return _glGetUniformSubroutineuiv_ptr.get_or_create_ptr()[](shadertype, location, params)
+fn get_uniform_subroutineuiv(shadertype: ShaderType, location: GLint, params: Ptr[GLuint, mut=True]):
+    try:
+        return _glGetUniformSubroutineuiv_ptr.get_or_create_ptr()[](shadertype, location, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_uniformdv(program: GLuint, location: GLint, params: Ptr[GLdouble, mut=True]) raises:
-    return _glGetUniformdv_ptr.get_or_create_ptr()[](program, location, params)
+fn get_uniformdv(program: GLuint, location: GLint, params: Ptr[GLdouble, mut=True]):
+    try:
+        return _glGetUniformdv_ptr.get_or_create_ptr()[](program, location, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_uniformfv(program: GLuint, location: GLint, params: Ptr[GLfloat, mut=True]) raises:
-    return _glGetUniformfv_ptr.get_or_create_ptr()[](program, location, params)
+fn get_uniformfv(program: GLuint, location: GLint, params: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetUniformfv_ptr.get_or_create_ptr()[](program, location, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_uniformiv(program: GLuint, location: GLint, params: Ptr[GLint, mut=True]) raises:
-    return _glGetUniformiv_ptr.get_or_create_ptr()[](program, location, params)
+fn get_uniformiv(program: GLuint, location: GLint, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetUniformiv_ptr.get_or_create_ptr()[](program, location, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_uniformuiv(program: GLuint, location: GLint, params: Ptr[GLuint, mut=True]) raises:
-    return _glGetUniformuiv_ptr.get_or_create_ptr()[](program, location, params)
+fn get_uniformuiv(program: GLuint, location: GLint, params: Ptr[GLuint, mut=True]):
+    try:
+        return _glGetUniformuiv_ptr.get_or_create_ptr()[](program, location, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_vertex_array_indexed64iv(vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint64, mut=True]) raises:
-    return _glGetVertexArrayIndexed64iv_ptr.get_or_create_ptr()[](vaobj, index, pname, param)
+fn get_vertex_array_indexed64iv(vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint64, mut=True]):
+    try:
+        return _glGetVertexArrayIndexed64iv_ptr.get_or_create_ptr()[](vaobj, index, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_vertex_array_indexediv(vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint, mut=True]) raises:
-    return _glGetVertexArrayIndexediv_ptr.get_or_create_ptr()[](vaobj, index, pname, param)
+fn get_vertex_array_indexediv(vaobj: GLuint, index: GLuint, pname: VertexArrayPName, param: Ptr[GLint, mut=True]):
+    try:
+        return _glGetVertexArrayIndexediv_ptr.get_or_create_ptr()[](vaobj, index, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_vertex_arrayiv(vaobj: GLuint, pname: VertexArrayPName, param: Ptr[GLint, mut=True]) raises:
-    return _glGetVertexArrayiv_ptr.get_or_create_ptr()[](vaobj, pname, param)
+fn get_vertex_arrayiv(vaobj: GLuint, pname: VertexArrayPName, param: Ptr[GLint, mut=True]):
+    try:
+        return _glGetVertexArrayiv_ptr.get_or_create_ptr()[](vaobj, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_vertex_attrib_iiv(index: GLuint, pname: VertexAttribEnum, params: Ptr[GLint, mut=True]) raises:
-    return _glGetVertexAttribIiv_ptr.get_or_create_ptr()[](index, pname, params)
+fn get_vertex_attrib_iiv(index: GLuint, pname: VertexAttribEnum, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetVertexAttribIiv_ptr.get_or_create_ptr()[](index, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_vertex_attrib_iuiv(index: GLuint, pname: VertexAttribEnum, params: Ptr[GLuint, mut=True]) raises:
-    return _glGetVertexAttribIuiv_ptr.get_or_create_ptr()[](index, pname, params)
+fn get_vertex_attrib_iuiv(index: GLuint, pname: VertexAttribEnum, params: Ptr[GLuint, mut=True]):
+    try:
+        return _glGetVertexAttribIuiv_ptr.get_or_create_ptr()[](index, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_vertex_attrib_ldv(index: GLuint, pname: VertexAttribEnum, params: Ptr[GLdouble, mut=True]) raises:
-    return _glGetVertexAttribLdv_ptr.get_or_create_ptr()[](index, pname, params)
+fn get_vertex_attrib_ldv(index: GLuint, pname: VertexAttribEnum, params: Ptr[GLdouble, mut=True]):
+    try:
+        return _glGetVertexAttribLdv_ptr.get_or_create_ptr()[](index, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_vertex_attrib_pointerv(index: GLuint, pname: VertexAttribPointerPropertyARB, pointer: Ptr[Ptr[NoneType, mut=True], mut=True]) raises:
-    return _glGetVertexAttribPointerv_ptr.get_or_create_ptr()[](index, pname, pointer)
+fn get_vertex_attrib_pointerv(index: GLuint, pname: VertexAttribPointerPropertyARB, pointer: Ptr[Ptr[NoneType, mut=True], mut=True]):
+    try:
+        return _glGetVertexAttribPointerv_ptr.get_or_create_ptr()[](index, pname, pointer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_vertex_attribdv(index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLdouble, mut=True]) raises:
-    return _glGetVertexAttribdv_ptr.get_or_create_ptr()[](index, pname, params)
+fn get_vertex_attribdv(index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLdouble, mut=True]):
+    try:
+        return _glGetVertexAttribdv_ptr.get_or_create_ptr()[](index, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_vertex_attribfv(index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLfloat, mut=True]) raises:
-    return _glGetVertexAttribfv_ptr.get_or_create_ptr()[](index, pname, params)
+fn get_vertex_attribfv(index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetVertexAttribfv_ptr.get_or_create_ptr()[](index, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn get_vertex_attribiv(index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLint, mut=True]) raises:
-    return _glGetVertexAttribiv_ptr.get_or_create_ptr()[](index, pname, params)
+fn get_vertex_attribiv(index: GLuint, pname: VertexAttribPropertyARB, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetVertexAttribiv_ptr.get_or_create_ptr()[](index, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_color_table(target: ColorTableTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, table: Ptr[NoneType, mut=True]) raises:
-    return _glGetnColorTable_ptr.get_or_create_ptr()[](target, format, type, buf_size, table)
+fn getn_color_table(target: ColorTableTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, table: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetnColorTable_ptr.get_or_create_ptr()[](target, format, type, buf_size, table)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_compressed_tex_image(target: TextureTarget, lod: GLint, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]) raises:
-    return _glGetnCompressedTexImage_ptr.get_or_create_ptr()[](target, lod, buf_size, pixels)
+fn getn_compressed_tex_image(target: TextureTarget, lod: GLint, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetnCompressedTexImage_ptr.get_or_create_ptr()[](target, lod, buf_size, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_convolution_filter(target: ConvolutionTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, image: Ptr[NoneType, mut=True]) raises:
-    return _glGetnConvolutionFilter_ptr.get_or_create_ptr()[](target, format, type, buf_size, image)
+fn getn_convolution_filter(target: ConvolutionTarget, format: PixelFormat, type: PixelType, buf_size: GLsizei, image: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetnConvolutionFilter_ptr.get_or_create_ptr()[](target, format, type, buf_size, image)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_histogram(target: HistogramTarget, reset: Bool, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType, mut=True]) raises:
-    return _glGetnHistogram_ptr.get_or_create_ptr()[](target, GLboolean(Int(reset)), format, type, buf_size, values)
+fn getn_histogram(target: HistogramTarget, reset: Bool, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetnHistogram_ptr.get_or_create_ptr()[](target, GLboolean(Int(reset)), format, type, buf_size, values)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_mapdv(target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLdouble, mut=True]) raises:
-    return _glGetnMapdv_ptr.get_or_create_ptr()[](target, query, buf_size, v)
+fn getn_mapdv(target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLdouble, mut=True]):
+    try:
+        return _glGetnMapdv_ptr.get_or_create_ptr()[](target, query, buf_size, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_mapfv(target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLfloat, mut=True]) raises:
-    return _glGetnMapfv_ptr.get_or_create_ptr()[](target, query, buf_size, v)
+fn getn_mapfv(target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetnMapfv_ptr.get_or_create_ptr()[](target, query, buf_size, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_mapiv(target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLint, mut=True]) raises:
-    return _glGetnMapiv_ptr.get_or_create_ptr()[](target, query, buf_size, v)
+fn getn_mapiv(target: MapTarget, query: MapQuery, buf_size: GLsizei, v: Ptr[GLint, mut=True]):
+    try:
+        return _glGetnMapiv_ptr.get_or_create_ptr()[](target, query, buf_size, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_minmax(target: MinmaxTarget, reset: Bool, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType, mut=True]) raises:
-    return _glGetnMinmax_ptr.get_or_create_ptr()[](target, GLboolean(Int(reset)), format, type, buf_size, values)
+fn getn_minmax(target: MinmaxTarget, reset: Bool, format: PixelFormat, type: PixelType, buf_size: GLsizei, values: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetnMinmax_ptr.get_or_create_ptr()[](target, GLboolean(Int(reset)), format, type, buf_size, values)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_pixel_mapfv(map: PixelMap, buf_size: GLsizei, values: Ptr[GLfloat, mut=True]) raises:
-    return _glGetnPixelMapfv_ptr.get_or_create_ptr()[](map, buf_size, values)
+fn getn_pixel_mapfv(map: PixelMap, buf_size: GLsizei, values: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetnPixelMapfv_ptr.get_or_create_ptr()[](map, buf_size, values)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_pixel_mapuiv(map: PixelMap, buf_size: GLsizei, values: Ptr[GLuint, mut=True]) raises:
-    return _glGetnPixelMapuiv_ptr.get_or_create_ptr()[](map, buf_size, values)
+fn getn_pixel_mapuiv(map: PixelMap, buf_size: GLsizei, values: Ptr[GLuint, mut=True]):
+    try:
+        return _glGetnPixelMapuiv_ptr.get_or_create_ptr()[](map, buf_size, values)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_pixel_mapusv(map: PixelMap, buf_size: GLsizei, values: Ptr[GLushort, mut=True]) raises:
-    return _glGetnPixelMapusv_ptr.get_or_create_ptr()[](map, buf_size, values)
+fn getn_pixel_mapusv(map: PixelMap, buf_size: GLsizei, values: Ptr[GLushort, mut=True]):
+    try:
+        return _glGetnPixelMapusv_ptr.get_or_create_ptr()[](map, buf_size, values)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_polygon_stipple(buf_size: GLsizei, pattern: Ptr[GLubyte, mut=True]) raises:
-    return _glGetnPolygonStipple_ptr.get_or_create_ptr()[](buf_size, pattern)
+fn getn_polygon_stipple(buf_size: GLsizei, pattern: Ptr[GLubyte, mut=True]):
+    try:
+        return _glGetnPolygonStipple_ptr.get_or_create_ptr()[](buf_size, pattern)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_separable_filter(target: SeparableTarget, format: PixelFormat, type: PixelType, row_buf_size: GLsizei, row: Ptr[NoneType, mut=True], column_buf_size: GLsizei, column: Ptr[NoneType, mut=True], span: Ptr[NoneType, mut=True]) raises:
-    return _glGetnSeparableFilter_ptr.get_or_create_ptr()[](target, format, type, row_buf_size, row, column_buf_size, column, span)
+fn getn_separable_filter(target: SeparableTarget, format: PixelFormat, type: PixelType, row_buf_size: GLsizei, row: Ptr[NoneType, mut=True], column_buf_size: GLsizei, column: Ptr[NoneType, mut=True], span: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetnSeparableFilter_ptr.get_or_create_ptr()[](target, format, type, row_buf_size, row, column_buf_size, column, span)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_tex_image(target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]) raises:
-    return _glGetnTexImage_ptr.get_or_create_ptr()[](target, level, format, type, buf_size, pixels)
+fn getn_tex_image(target: TextureTarget, level: GLint, format: PixelFormat, type: PixelType, buf_size: GLsizei, pixels: Ptr[NoneType, mut=True]):
+    try:
+        return _glGetnTexImage_ptr.get_or_create_ptr()[](target, level, format, type, buf_size, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_uniformdv(program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLdouble, mut=True]) raises:
-    return _glGetnUniformdv_ptr.get_or_create_ptr()[](program, location, buf_size, params)
+fn getn_uniformdv(program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLdouble, mut=True]):
+    try:
+        return _glGetnUniformdv_ptr.get_or_create_ptr()[](program, location, buf_size, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_uniformfv(program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLfloat, mut=True]) raises:
-    return _glGetnUniformfv_ptr.get_or_create_ptr()[](program, location, buf_size, params)
+fn getn_uniformfv(program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLfloat, mut=True]):
+    try:
+        return _glGetnUniformfv_ptr.get_or_create_ptr()[](program, location, buf_size, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_uniformiv(program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLint, mut=True]) raises:
-    return _glGetnUniformiv_ptr.get_or_create_ptr()[](program, location, buf_size, params)
+fn getn_uniformiv(program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLint, mut=True]):
+    try:
+        return _glGetnUniformiv_ptr.get_or_create_ptr()[](program, location, buf_size, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn getn_uniformuiv(program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLuint, mut=True]) raises:
-    return _glGetnUniformuiv_ptr.get_or_create_ptr()[](program, location, buf_size, params)
+fn getn_uniformuiv(program: GLuint, location: GLint, buf_size: GLsizei, params: Ptr[GLuint, mut=True]):
+    try:
+        return _glGetnUniformuiv_ptr.get_or_create_ptr()[](program, location, buf_size, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn hint(target: HintTarget, mode: HintMode) raises:
-    return _glHint_ptr.get_or_create_ptr()[](target, mode)
+fn hint(target: HintTarget, mode: HintMode):
+    try:
+        return _glHint_ptr.get_or_create_ptr()[](target, mode)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn invalidate_buffer_data(buffer: GLuint) raises:
-    return _glInvalidateBufferData_ptr.get_or_create_ptr()[](buffer)
+fn invalidate_buffer_data(buffer: GLuint):
+    try:
+        return _glInvalidateBufferData_ptr.get_or_create_ptr()[](buffer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn invalidate_buffer_sub_data(buffer: GLuint, offset: GLintptr, length: GLsizeiptr) raises:
-    return _glInvalidateBufferSubData_ptr.get_or_create_ptr()[](buffer, offset, length)
+fn invalidate_buffer_sub_data(buffer: GLuint, offset: GLintptr, length: GLsizeiptr):
+    try:
+        return _glInvalidateBufferSubData_ptr.get_or_create_ptr()[](buffer, offset, length)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn invalidate_framebuffer(target: FramebufferTarget, num_attachments: GLsizei, attachments: Ptr[InvalidateFramebufferAttachment, mut=False]) raises:
-    return _glInvalidateFramebuffer_ptr.get_or_create_ptr()[](target, num_attachments, attachments)
+fn invalidate_framebuffer(target: FramebufferTarget, num_attachments: GLsizei, attachments: Ptr[InvalidateFramebufferAttachment, mut=False]):
+    try:
+        return _glInvalidateFramebuffer_ptr.get_or_create_ptr()[](target, num_attachments, attachments)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn invalidate_named_framebuffer_data(framebuffer: GLuint, num_attachments: GLsizei, attachments: Ptr[FramebufferAttachment, mut=False]) raises:
-    return _glInvalidateNamedFramebufferData_ptr.get_or_create_ptr()[](framebuffer, num_attachments, attachments)
+fn invalidate_named_framebuffer_data(framebuffer: GLuint, num_attachments: GLsizei, attachments: Ptr[FramebufferAttachment, mut=False]):
+    try:
+        return _glInvalidateNamedFramebufferData_ptr.get_or_create_ptr()[](framebuffer, num_attachments, attachments)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn invalidate_named_framebuffer_sub_data(framebuffer: GLuint, num_attachments: GLsizei, attachments: Ptr[FramebufferAttachment, mut=False], x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises:
-    return _glInvalidateNamedFramebufferSubData_ptr.get_or_create_ptr()[](framebuffer, num_attachments, attachments, x, y, width, height)
+fn invalidate_named_framebuffer_sub_data(framebuffer: GLuint, num_attachments: GLsizei, attachments: Ptr[FramebufferAttachment, mut=False], x: GLint, y: GLint, width: GLsizei, height: GLsizei):
+    try:
+        return _glInvalidateNamedFramebufferSubData_ptr.get_or_create_ptr()[](framebuffer, num_attachments, attachments, x, y, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn invalidate_sub_framebuffer(target: FramebufferTarget, num_attachments: GLsizei, attachments: Ptr[InvalidateFramebufferAttachment, mut=False], x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises:
-    return _glInvalidateSubFramebuffer_ptr.get_or_create_ptr()[](target, num_attachments, attachments, x, y, width, height)
+fn invalidate_sub_framebuffer(target: FramebufferTarget, num_attachments: GLsizei, attachments: Ptr[InvalidateFramebufferAttachment, mut=False], x: GLint, y: GLint, width: GLsizei, height: GLsizei):
+    try:
+        return _glInvalidateSubFramebuffer_ptr.get_or_create_ptr()[](target, num_attachments, attachments, x, y, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn invalidate_tex_image(texture: GLuint, level: GLint) raises:
-    return _glInvalidateTexImage_ptr.get_or_create_ptr()[](texture, level)
+fn invalidate_tex_image(texture: GLuint, level: GLint):
+    try:
+        return _glInvalidateTexImage_ptr.get_or_create_ptr()[](texture, level)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn invalidate_tex_sub_image(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei) raises:
-    return _glInvalidateTexSubImage_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth)
+fn invalidate_tex_sub_image(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei):
+    try:
+        return _glInvalidateTexSubImage_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn is_buffer(buffer: GLuint) raises -> GLboolean:
-    return _glIsBuffer_ptr.get_or_create_ptr()[](buffer)
+fn is_buffer(buffer: GLuint) -> GLboolean:
+    try:
+        return _glIsBuffer_ptr.get_or_create_ptr()[](buffer)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_enabled(cap: EnableCap) raises -> GLboolean:
-    return _glIsEnabled_ptr.get_or_create_ptr()[](cap)
+fn is_enabled(cap: EnableCap) -> GLboolean:
+    try:
+        return _glIsEnabled_ptr.get_or_create_ptr()[](cap)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_enabledi(target: EnableCap, index: GLuint) raises -> GLboolean:
-    return _glIsEnabledi_ptr.get_or_create_ptr()[](target, index)
+fn is_enabledi(target: EnableCap, index: GLuint) -> GLboolean:
+    try:
+        return _glIsEnabledi_ptr.get_or_create_ptr()[](target, index)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_framebuffer(framebuffer: GLuint) raises -> GLboolean:
-    return _glIsFramebuffer_ptr.get_or_create_ptr()[](framebuffer)
+fn is_framebuffer(framebuffer: GLuint) -> GLboolean:
+    try:
+        return _glIsFramebuffer_ptr.get_or_create_ptr()[](framebuffer)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_program(program: GLuint) raises -> GLboolean:
-    return _glIsProgram_ptr.get_or_create_ptr()[](program)
+fn is_program(program: GLuint) -> GLboolean:
+    try:
+        return _glIsProgram_ptr.get_or_create_ptr()[](program)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_program_pipeline(pipeline: GLuint) raises -> GLboolean:
-    return _glIsProgramPipeline_ptr.get_or_create_ptr()[](pipeline)
+fn is_program_pipeline(pipeline: GLuint) -> GLboolean:
+    try:
+        return _glIsProgramPipeline_ptr.get_or_create_ptr()[](pipeline)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_query(id: GLuint) raises -> GLboolean:
-    return _glIsQuery_ptr.get_or_create_ptr()[](id)
+fn is_query(id: GLuint) -> GLboolean:
+    try:
+        return _glIsQuery_ptr.get_or_create_ptr()[](id)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_renderbuffer(renderbuffer: GLuint) raises -> GLboolean:
-    return _glIsRenderbuffer_ptr.get_or_create_ptr()[](renderbuffer)
+fn is_renderbuffer(renderbuffer: GLuint) -> GLboolean:
+    try:
+        return _glIsRenderbuffer_ptr.get_or_create_ptr()[](renderbuffer)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_sampler(sampler: GLuint) raises -> GLboolean:
-    return _glIsSampler_ptr.get_or_create_ptr()[](sampler)
+fn is_sampler(sampler: GLuint) -> GLboolean:
+    try:
+        return _glIsSampler_ptr.get_or_create_ptr()[](sampler)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_shader(shader: GLuint) raises -> GLboolean:
-    return _glIsShader_ptr.get_or_create_ptr()[](shader)
+fn is_shader(shader: GLuint) -> GLboolean:
+    try:
+        return _glIsShader_ptr.get_or_create_ptr()[](shader)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_sync(sync: GLsync) raises -> GLboolean:
-    return _glIsSync_ptr.get_or_create_ptr()[](sync)
+fn is_sync(sync: GLsync) -> GLboolean:
+    try:
+        return _glIsSync_ptr.get_or_create_ptr()[](sync)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_texture(texture: GLuint) raises -> GLboolean:
-    return _glIsTexture_ptr.get_or_create_ptr()[](texture)
+fn is_texture(texture: GLuint) -> GLboolean:
+    try:
+        return _glIsTexture_ptr.get_or_create_ptr()[](texture)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_transform_feedback(id: GLuint) raises -> GLboolean:
-    return _glIsTransformFeedback_ptr.get_or_create_ptr()[](id)
+fn is_transform_feedback(id: GLuint) -> GLboolean:
+    try:
+        return _glIsTransformFeedback_ptr.get_or_create_ptr()[](id)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn is_vertex_array(array: GLuint) raises -> GLboolean:
-    return _glIsVertexArray_ptr.get_or_create_ptr()[](array)
+fn is_vertex_array(array: GLuint) -> GLboolean:
+    try:
+        return _glIsVertexArray_ptr.get_or_create_ptr()[](array)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn line_width(width: GLfloat) raises:
-    return _glLineWidth_ptr.get_or_create_ptr()[](width)
+fn line_width(width: GLfloat):
+    try:
+        return _glLineWidth_ptr.get_or_create_ptr()[](width)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn link_program(program: GLuint) raises:
-    return _glLinkProgram_ptr.get_or_create_ptr()[](program)
+fn link_program(program: GLuint):
+    try:
+        return _glLinkProgram_ptr.get_or_create_ptr()[](program)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn logic_op(opcode: LogicOp) raises:
-    return _glLogicOp_ptr.get_or_create_ptr()[](opcode)
+fn logic_op(opcode: LogicOp):
+    try:
+        return _glLogicOp_ptr.get_or_create_ptr()[](opcode)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn map_buffer(target: BufferTargetARB, access: BufferAccessARB) raises:
-    return _glMapBuffer_ptr.get_or_create_ptr()[](target, access)
+fn map_buffer(target: BufferTargetARB, access: BufferAccessARB):
+    try:
+        return _glMapBuffer_ptr.get_or_create_ptr()[](target, access)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn map_buffer_range(target: BufferTargetARB, offset: GLintptr, length: GLsizeiptr, access: MapBufferAccessMask) raises:
-    return _glMapBufferRange_ptr.get_or_create_ptr()[](target, offset, length, access)
+fn map_buffer_range(target: BufferTargetARB, offset: GLintptr, length: GLsizeiptr, access: MapBufferAccessMask):
+    try:
+        return _glMapBufferRange_ptr.get_or_create_ptr()[](target, offset, length, access)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn map_named_buffer(buffer: GLuint, access: BufferAccessARB) raises:
-    return _glMapNamedBuffer_ptr.get_or_create_ptr()[](buffer, access)
+fn map_named_buffer(buffer: GLuint, access: BufferAccessARB):
+    try:
+        return _glMapNamedBuffer_ptr.get_or_create_ptr()[](buffer, access)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn map_named_buffer_range(buffer: GLuint, offset: GLintptr, length: GLsizeiptr, access: MapBufferAccessMask) raises:
-    return _glMapNamedBufferRange_ptr.get_or_create_ptr()[](buffer, offset, length, access)
+fn map_named_buffer_range(buffer: GLuint, offset: GLintptr, length: GLsizeiptr, access: MapBufferAccessMask):
+    try:
+        return _glMapNamedBufferRange_ptr.get_or_create_ptr()[](buffer, offset, length, access)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn memory_barrier(barriers: MemoryBarrierMask) raises:
-    return _glMemoryBarrier_ptr.get_or_create_ptr()[](barriers)
+fn memory_barrier(barriers: MemoryBarrierMask):
+    try:
+        return _glMemoryBarrier_ptr.get_or_create_ptr()[](barriers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn memory_barrier_by_region(barriers: MemoryBarrierMask) raises:
-    return _glMemoryBarrierByRegion_ptr.get_or_create_ptr()[](barriers)
+fn memory_barrier_by_region(barriers: MemoryBarrierMask):
+    try:
+        return _glMemoryBarrierByRegion_ptr.get_or_create_ptr()[](barriers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn min_sample_shading(value: GLfloat) raises:
-    return _glMinSampleShading_ptr.get_or_create_ptr()[](value)
+fn min_sample_shading(value: GLfloat):
+    try:
+        return _glMinSampleShading_ptr.get_or_create_ptr()[](value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_draw_arrays(mode: PrimitiveType, first: Ptr[GLint, mut=False], count: Ptr[GLsizei, mut=False], drawcount: GLsizei) raises:
-    return _glMultiDrawArrays_ptr.get_or_create_ptr()[](mode, first, count, drawcount)
+fn multi_draw_arrays(mode: PrimitiveType, first: Ptr[GLint, mut=False], count: Ptr[GLsizei, mut=False], drawcount: GLsizei):
+    try:
+        return _glMultiDrawArrays_ptr.get_or_create_ptr()[](mode, first, count, drawcount)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_draw_arrays_indirect(mode: PrimitiveType, indirect: Ptr[NoneType, mut=False], drawcount: GLsizei, stride: GLsizei) raises:
-    return _glMultiDrawArraysIndirect_ptr.get_or_create_ptr()[](mode, indirect, drawcount, stride)
+fn multi_draw_arrays_indirect(mode: PrimitiveType, indirect: Ptr[NoneType, mut=False], drawcount: GLsizei, stride: GLsizei):
+    try:
+        return _glMultiDrawArraysIndirect_ptr.get_or_create_ptr()[](mode, indirect, drawcount, stride)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_draw_arrays_indirect_count(mode: PrimitiveType, indirect: Ptr[NoneType, mut=False], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei) raises:
-    return _glMultiDrawArraysIndirectCount_ptr.get_or_create_ptr()[](mode, indirect, drawcount, maxdrawcount, stride)
+fn multi_draw_arrays_indirect_count(mode: PrimitiveType, indirect: Ptr[NoneType, mut=False], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei):
+    try:
+        return _glMultiDrawArraysIndirectCount_ptr.get_or_create_ptr()[](mode, indirect, drawcount, maxdrawcount, stride)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_draw_elements(mode: PrimitiveType, count: Ptr[GLsizei, mut=False], type: DrawElementsType, indices: Ptr[Ptr[NoneType, mut=False], mut=False], drawcount: GLsizei) raises:
-    return _glMultiDrawElements_ptr.get_or_create_ptr()[](mode, count, type, indices, drawcount)
+fn multi_draw_elements(mode: PrimitiveType, count: Ptr[GLsizei, mut=False], type: DrawElementsType, indices: Ptr[Ptr[NoneType, mut=False], mut=False], drawcount: GLsizei):
+    try:
+        return _glMultiDrawElements_ptr.get_or_create_ptr()[](mode, count, type, indices, drawcount)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_draw_elements_base_vertex(mode: PrimitiveType, count: Ptr[GLsizei, mut=False], type: DrawElementsType, indices: Ptr[Ptr[NoneType, mut=False], mut=False], drawcount: GLsizei, basevertex: Ptr[GLint, mut=False]) raises:
-    return _glMultiDrawElementsBaseVertex_ptr.get_or_create_ptr()[](mode, count, type, indices, drawcount, basevertex)
+fn multi_draw_elements_base_vertex(mode: PrimitiveType, count: Ptr[GLsizei, mut=False], type: DrawElementsType, indices: Ptr[Ptr[NoneType, mut=False], mut=False], drawcount: GLsizei, basevertex: Ptr[GLint, mut=False]):
+    try:
+        return _glMultiDrawElementsBaseVertex_ptr.get_or_create_ptr()[](mode, count, type, indices, drawcount, basevertex)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_draw_elements_indirect(mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=False], drawcount: GLsizei, stride: GLsizei) raises:
-    return _glMultiDrawElementsIndirect_ptr.get_or_create_ptr()[](mode, type, indirect, drawcount, stride)
+fn multi_draw_elements_indirect(mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=False], drawcount: GLsizei, stride: GLsizei):
+    try:
+        return _glMultiDrawElementsIndirect_ptr.get_or_create_ptr()[](mode, type, indirect, drawcount, stride)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_draw_elements_indirect_count(mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=False], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei) raises:
-    return _glMultiDrawElementsIndirectCount_ptr.get_or_create_ptr()[](mode, type, indirect, drawcount, maxdrawcount, stride)
+fn multi_draw_elements_indirect_count(mode: PrimitiveType, type: DrawElementsType, indirect: Ptr[NoneType, mut=False], drawcount: GLintptr, maxdrawcount: GLsizei, stride: GLsizei):
+    try:
+        return _glMultiDrawElementsIndirectCount_ptr.get_or_create_ptr()[](mode, type, indirect, drawcount, maxdrawcount, stride)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_tex_coord_p1ui(texture: TextureUnit, type: TexCoordPointerType, coords: GLuint) raises:
-    return _glMultiTexCoordP1ui_ptr.get_or_create_ptr()[](texture, type, coords)
+fn multi_tex_coord_p1ui(texture: TextureUnit, type: TexCoordPointerType, coords: GLuint):
+    try:
+        return _glMultiTexCoordP1ui_ptr.get_or_create_ptr()[](texture, type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_tex_coord_p1uiv(texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises:
-    return _glMultiTexCoordP1uiv_ptr.get_or_create_ptr()[](texture, type, coords)
+fn multi_tex_coord_p1uiv(texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]):
+    try:
+        return _glMultiTexCoordP1uiv_ptr.get_or_create_ptr()[](texture, type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_tex_coord_p2ui(texture: TextureUnit, type: TexCoordPointerType, coords: GLuint) raises:
-    return _glMultiTexCoordP2ui_ptr.get_or_create_ptr()[](texture, type, coords)
+fn multi_tex_coord_p2ui(texture: TextureUnit, type: TexCoordPointerType, coords: GLuint):
+    try:
+        return _glMultiTexCoordP2ui_ptr.get_or_create_ptr()[](texture, type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_tex_coord_p2uiv(texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises:
-    return _glMultiTexCoordP2uiv_ptr.get_or_create_ptr()[](texture, type, coords)
+fn multi_tex_coord_p2uiv(texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]):
+    try:
+        return _glMultiTexCoordP2uiv_ptr.get_or_create_ptr()[](texture, type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_tex_coord_p3ui(texture: TextureUnit, type: TexCoordPointerType, coords: GLuint) raises:
-    return _glMultiTexCoordP3ui_ptr.get_or_create_ptr()[](texture, type, coords)
+fn multi_tex_coord_p3ui(texture: TextureUnit, type: TexCoordPointerType, coords: GLuint):
+    try:
+        return _glMultiTexCoordP3ui_ptr.get_or_create_ptr()[](texture, type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_tex_coord_p3uiv(texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises:
-    return _glMultiTexCoordP3uiv_ptr.get_or_create_ptr()[](texture, type, coords)
+fn multi_tex_coord_p3uiv(texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]):
+    try:
+        return _glMultiTexCoordP3uiv_ptr.get_or_create_ptr()[](texture, type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_tex_coord_p4ui(texture: TextureUnit, type: TexCoordPointerType, coords: GLuint) raises:
-    return _glMultiTexCoordP4ui_ptr.get_or_create_ptr()[](texture, type, coords)
+fn multi_tex_coord_p4ui(texture: TextureUnit, type: TexCoordPointerType, coords: GLuint):
+    try:
+        return _glMultiTexCoordP4ui_ptr.get_or_create_ptr()[](texture, type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn multi_tex_coord_p4uiv(texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises:
-    return _glMultiTexCoordP4uiv_ptr.get_or_create_ptr()[](texture, type, coords)
+fn multi_tex_coord_p4uiv(texture: TextureUnit, type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]):
+    try:
+        return _glMultiTexCoordP4uiv_ptr.get_or_create_ptr()[](texture, type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn named_buffer_data(buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType, mut=False], usage: BufferUsageARB) raises:
-    return _glNamedBufferData_ptr.get_or_create_ptr()[](buffer, size, data, usage)
+fn named_buffer_data(buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType, mut=False], usage: BufferUsageARB):
+    try:
+        return _glNamedBufferData_ptr.get_or_create_ptr()[](buffer, size, data, usage)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn named_buffer_storage(buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType, mut=False], flags: BufferStorageMask) raises:
-    return _glNamedBufferStorage_ptr.get_or_create_ptr()[](buffer, size, data, flags)
+fn named_buffer_storage(buffer: GLuint, size: GLsizeiptr, data: Ptr[NoneType, mut=False], flags: BufferStorageMask):
+    try:
+        return _glNamedBufferStorage_ptr.get_or_create_ptr()[](buffer, size, data, flags)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn named_buffer_sub_data(buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=False]) raises:
-    return _glNamedBufferSubData_ptr.get_or_create_ptr()[](buffer, offset, size, data)
+fn named_buffer_sub_data(buffer: GLuint, offset: GLintptr, size: GLsizeiptr, data: Ptr[NoneType, mut=False]):
+    try:
+        return _glNamedBufferSubData_ptr.get_or_create_ptr()[](buffer, offset, size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn named_framebuffer_draw_buffer(framebuffer: GLuint, buf: ColorBuffer) raises:
-    return _glNamedFramebufferDrawBuffer_ptr.get_or_create_ptr()[](framebuffer, buf)
+fn named_framebuffer_draw_buffer(framebuffer: GLuint, buf: ColorBuffer):
+    try:
+        return _glNamedFramebufferDrawBuffer_ptr.get_or_create_ptr()[](framebuffer, buf)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn named_framebuffer_draw_buffers(framebuffer: GLuint, n: GLsizei, bufs: Ptr[ColorBuffer, mut=False]) raises:
-    return _glNamedFramebufferDrawBuffers_ptr.get_or_create_ptr()[](framebuffer, n, bufs)
+fn named_framebuffer_draw_buffers(framebuffer: GLuint, n: GLsizei, bufs: Ptr[ColorBuffer, mut=False]):
+    try:
+        return _glNamedFramebufferDrawBuffers_ptr.get_or_create_ptr()[](framebuffer, n, bufs)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn named_framebuffer_parameteri(framebuffer: GLuint, pname: FramebufferParameterName, param: GLint) raises:
-    return _glNamedFramebufferParameteri_ptr.get_or_create_ptr()[](framebuffer, pname, param)
+fn named_framebuffer_parameteri(framebuffer: GLuint, pname: FramebufferParameterName, param: GLint):
+    try:
+        return _glNamedFramebufferParameteri_ptr.get_or_create_ptr()[](framebuffer, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn named_framebuffer_read_buffer(framebuffer: GLuint, src: ColorBuffer) raises:
-    return _glNamedFramebufferReadBuffer_ptr.get_or_create_ptr()[](framebuffer, src)
+fn named_framebuffer_read_buffer(framebuffer: GLuint, src: ColorBuffer):
+    try:
+        return _glNamedFramebufferReadBuffer_ptr.get_or_create_ptr()[](framebuffer, src)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn named_framebuffer_renderbuffer(framebuffer: GLuint, attachment: FramebufferAttachment, renderbuffertarget: RenderbufferTarget, renderbuffer: GLuint) raises:
-    return _glNamedFramebufferRenderbuffer_ptr.get_or_create_ptr()[](framebuffer, attachment, renderbuffertarget, renderbuffer)
+fn named_framebuffer_renderbuffer(framebuffer: GLuint, attachment: FramebufferAttachment, renderbuffertarget: RenderbufferTarget, renderbuffer: GLuint):
+    try:
+        return _glNamedFramebufferRenderbuffer_ptr.get_or_create_ptr()[](framebuffer, attachment, renderbuffertarget, renderbuffer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn named_framebuffer_texture(framebuffer: GLuint, attachment: FramebufferAttachment, texture: GLuint, level: GLint) raises:
-    return _glNamedFramebufferTexture_ptr.get_or_create_ptr()[](framebuffer, attachment, texture, level)
+fn named_framebuffer_texture(framebuffer: GLuint, attachment: FramebufferAttachment, texture: GLuint, level: GLint):
+    try:
+        return _glNamedFramebufferTexture_ptr.get_or_create_ptr()[](framebuffer, attachment, texture, level)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn named_framebuffer_texture_layer(framebuffer: GLuint, attachment: FramebufferAttachment, texture: GLuint, level: GLint, layer: GLint) raises:
-    return _glNamedFramebufferTextureLayer_ptr.get_or_create_ptr()[](framebuffer, attachment, texture, level, layer)
+fn named_framebuffer_texture_layer(framebuffer: GLuint, attachment: FramebufferAttachment, texture: GLuint, level: GLint, layer: GLint):
+    try:
+        return _glNamedFramebufferTextureLayer_ptr.get_or_create_ptr()[](framebuffer, attachment, texture, level, layer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn named_renderbuffer_storage(renderbuffer: GLuint, internalformat: InternalFormat, width: GLsizei, height: GLsizei) raises:
-    return _glNamedRenderbufferStorage_ptr.get_or_create_ptr()[](renderbuffer, internalformat, width, height)
+fn named_renderbuffer_storage(renderbuffer: GLuint, internalformat: InternalFormat, width: GLsizei, height: GLsizei):
+    try:
+        return _glNamedRenderbufferStorage_ptr.get_or_create_ptr()[](renderbuffer, internalformat, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn named_renderbuffer_storage_multisample(renderbuffer: GLuint, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei) raises:
-    return _glNamedRenderbufferStorageMultisample_ptr.get_or_create_ptr()[](renderbuffer, samples, internalformat, width, height)
+fn named_renderbuffer_storage_multisample(renderbuffer: GLuint, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei):
+    try:
+        return _glNamedRenderbufferStorageMultisample_ptr.get_or_create_ptr()[](renderbuffer, samples, internalformat, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn normal_p3ui(type: NormalPointerType, coords: GLuint) raises:
-    return _glNormalP3ui_ptr.get_or_create_ptr()[](type, coords)
+fn normal_p3ui(type: NormalPointerType, coords: GLuint):
+    try:
+        return _glNormalP3ui_ptr.get_or_create_ptr()[](type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn normal_p3uiv(type: NormalPointerType, coords: Ptr[GLuint, mut=False]) raises:
-    return _glNormalP3uiv_ptr.get_or_create_ptr()[](type, coords)
+fn normal_p3uiv(type: NormalPointerType, coords: Ptr[GLuint, mut=False]):
+    try:
+        return _glNormalP3uiv_ptr.get_or_create_ptr()[](type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn object_label(identifier: ObjectIdentifier, name: GLuint, length: GLsizei, mut label: String) raises:
-    return _glObjectLabel_ptr.get_or_create_ptr()[](identifier, name, length, label.unsafe_cstr_ptr())
+fn object_label(identifier: ObjectIdentifier, name: GLuint, length: GLsizei, mut label: String):
+    try:
+        return _glObjectLabel_ptr.get_or_create_ptr()[](identifier, name, length, label.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn object_ptr_label(ptr: Ptr[NoneType, mut=False], length: GLsizei, mut label: String) raises:
-    return _glObjectPtrLabel_ptr.get_or_create_ptr()[](ptr, length, label.unsafe_cstr_ptr())
+fn object_ptr_label(ptr: Ptr[NoneType, mut=False], length: GLsizei, mut label: String):
+    try:
+        return _glObjectPtrLabel_ptr.get_or_create_ptr()[](ptr, length, label.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn patch_parameterfv(pname: PatchParameterName, values: Ptr[GLfloat, mut=False]) raises:
-    return _glPatchParameterfv_ptr.get_or_create_ptr()[](pname, values)
+fn patch_parameterfv(pname: PatchParameterName, values: Ptr[GLfloat, mut=False]):
+    try:
+        return _glPatchParameterfv_ptr.get_or_create_ptr()[](pname, values)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn patch_parameteri(pname: PatchParameterName, value: GLint) raises:
-    return _glPatchParameteri_ptr.get_or_create_ptr()[](pname, value)
+fn patch_parameteri(pname: PatchParameterName, value: GLint):
+    try:
+        return _glPatchParameteri_ptr.get_or_create_ptr()[](pname, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn pause_transform_feedback() raises:
-    return _glPauseTransformFeedback_ptr.get_or_create_ptr()[]()
+fn pause_transform_feedback():
+    try:
+        return _glPauseTransformFeedback_ptr.get_or_create_ptr()[]()
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn pixel_storef(pname: PixelStoreParameter, param: GLfloat) raises:
-    return _glPixelStoref_ptr.get_or_create_ptr()[](pname, param)
+fn pixel_storef(pname: PixelStoreParameter, param: GLfloat):
+    try:
+        return _glPixelStoref_ptr.get_or_create_ptr()[](pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn pixel_storei(pname: PixelStoreParameter, param: GLint) raises:
-    return _glPixelStorei_ptr.get_or_create_ptr()[](pname, param)
+fn pixel_storei(pname: PixelStoreParameter, param: GLint):
+    try:
+        return _glPixelStorei_ptr.get_or_create_ptr()[](pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn point_parameterf(pname: PointParameterNameARB, param: GLfloat) raises:
-    return _glPointParameterf_ptr.get_or_create_ptr()[](pname, param)
+fn point_parameterf(pname: PointParameterNameARB, param: GLfloat):
+    try:
+        return _glPointParameterf_ptr.get_or_create_ptr()[](pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn point_parameterfv(pname: PointParameterNameARB, params: Ptr[GLfloat, mut=False]) raises:
-    return _glPointParameterfv_ptr.get_or_create_ptr()[](pname, params)
+fn point_parameterfv(pname: PointParameterNameARB, params: Ptr[GLfloat, mut=False]):
+    try:
+        return _glPointParameterfv_ptr.get_or_create_ptr()[](pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn point_parameteri(pname: PointParameterNameARB, param: GLint) raises:
-    return _glPointParameteri_ptr.get_or_create_ptr()[](pname, param)
+fn point_parameteri(pname: PointParameterNameARB, param: GLint):
+    try:
+        return _glPointParameteri_ptr.get_or_create_ptr()[](pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn point_parameteriv(pname: PointParameterNameARB, params: Ptr[GLint, mut=False]) raises:
-    return _glPointParameteriv_ptr.get_or_create_ptr()[](pname, params)
+fn point_parameteriv(pname: PointParameterNameARB, params: Ptr[GLint, mut=False]):
+    try:
+        return _glPointParameteriv_ptr.get_or_create_ptr()[](pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn point_size(size: GLfloat) raises:
-    return _glPointSize_ptr.get_or_create_ptr()[](size)
+fn point_size(size: GLfloat):
+    try:
+        return _glPointSize_ptr.get_or_create_ptr()[](size)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn polygon_mode(face: TriangleFace, mode: PolygonMode) raises:
-    return _glPolygonMode_ptr.get_or_create_ptr()[](face, mode)
+fn polygon_mode(face: TriangleFace, mode: PolygonMode):
+    try:
+        return _glPolygonMode_ptr.get_or_create_ptr()[](face, mode)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn polygon_offset(factor: GLfloat, units: GLfloat) raises:
-    return _glPolygonOffset_ptr.get_or_create_ptr()[](factor, units)
+fn polygon_offset(factor: GLfloat, units: GLfloat):
+    try:
+        return _glPolygonOffset_ptr.get_or_create_ptr()[](factor, units)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn polygon_offset_clamp(factor: GLfloat, units: GLfloat, clamp: GLfloat) raises:
-    return _glPolygonOffsetClamp_ptr.get_or_create_ptr()[](factor, units, clamp)
+fn polygon_offset_clamp(factor: GLfloat, units: GLfloat, clamp: GLfloat):
+    try:
+        return _glPolygonOffsetClamp_ptr.get_or_create_ptr()[](factor, units, clamp)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn pop_debug_group() raises:
-    return _glPopDebugGroup_ptr.get_or_create_ptr()[]()
+fn pop_debug_group():
+    try:
+        return _glPopDebugGroup_ptr.get_or_create_ptr()[]()
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn primitive_restart_index(index: GLuint) raises:
-    return _glPrimitiveRestartIndex_ptr.get_or_create_ptr()[](index)
+fn primitive_restart_index(index: GLuint):
+    try:
+        return _glPrimitiveRestartIndex_ptr.get_or_create_ptr()[](index)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_binary(program: GLuint, binary_format: GLenum, binary: Ptr[NoneType, mut=False], length: GLsizei) raises:
-    return _glProgramBinary_ptr.get_or_create_ptr()[](program, binary_format, binary, length)
+fn program_binary(program: GLuint, binary_format: GLenum, binary: Ptr[NoneType, mut=False], length: GLsizei):
+    try:
+        return _glProgramBinary_ptr.get_or_create_ptr()[](program, binary_format, binary, length)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_parameteri(program: GLuint, pname: ProgramParameterPName, value: GLint) raises:
-    return _glProgramParameteri_ptr.get_or_create_ptr()[](program, pname, value)
+fn program_parameteri(program: GLuint, pname: ProgramParameterPName, value: GLint):
+    try:
+        return _glProgramParameteri_ptr.get_or_create_ptr()[](program, pname, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform1d(program: GLuint, location: GLint, v0: GLdouble) raises:
-    return _glProgramUniform1d_ptr.get_or_create_ptr()[](program, location, v0)
+fn program_uniform1d(program: GLuint, location: GLint, v0: GLdouble):
+    try:
+        return _glProgramUniform1d_ptr.get_or_create_ptr()[](program, location, v0)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform1dv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniform1dv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform1dv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniform1dv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform1f(program: GLuint, location: GLint, v0: GLfloat) raises:
-    return _glProgramUniform1f_ptr.get_or_create_ptr()[](program, location, v0)
+fn program_uniform1f(program: GLuint, location: GLint, v0: GLfloat):
+    try:
+        return _glProgramUniform1f_ptr.get_or_create_ptr()[](program, location, v0)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform1fv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniform1fv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform1fv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniform1fv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform1i(program: GLuint, location: GLint, v0: GLint) raises:
-    return _glProgramUniform1i_ptr.get_or_create_ptr()[](program, location, v0)
+fn program_uniform1i(program: GLuint, location: GLint, v0: GLint):
+    try:
+        return _glProgramUniform1i_ptr.get_or_create_ptr()[](program, location, v0)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform1iv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises:
-    return _glProgramUniform1iv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform1iv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]):
+    try:
+        return _glProgramUniform1iv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform1ui(program: GLuint, location: GLint, v0: GLuint) raises:
-    return _glProgramUniform1ui_ptr.get_or_create_ptr()[](program, location, v0)
+fn program_uniform1ui(program: GLuint, location: GLint, v0: GLuint):
+    try:
+        return _glProgramUniform1ui_ptr.get_or_create_ptr()[](program, location, v0)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform1uiv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises:
-    return _glProgramUniform1uiv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform1uiv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glProgramUniform1uiv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform2d(program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble) raises:
-    return _glProgramUniform2d_ptr.get_or_create_ptr()[](program, location, v0, v1)
+fn program_uniform2d(program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble):
+    try:
+        return _glProgramUniform2d_ptr.get_or_create_ptr()[](program, location, v0, v1)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform2dv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniform2dv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform2dv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniform2dv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform2f(program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat) raises:
-    return _glProgramUniform2f_ptr.get_or_create_ptr()[](program, location, v0, v1)
+fn program_uniform2f(program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat):
+    try:
+        return _glProgramUniform2f_ptr.get_or_create_ptr()[](program, location, v0, v1)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform2fv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniform2fv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform2fv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniform2fv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform2i(program: GLuint, location: GLint, v0: GLint, v1: GLint) raises:
-    return _glProgramUniform2i_ptr.get_or_create_ptr()[](program, location, v0, v1)
+fn program_uniform2i(program: GLuint, location: GLint, v0: GLint, v1: GLint):
+    try:
+        return _glProgramUniform2i_ptr.get_or_create_ptr()[](program, location, v0, v1)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform2iv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises:
-    return _glProgramUniform2iv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform2iv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]):
+    try:
+        return _glProgramUniform2iv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform2ui(program: GLuint, location: GLint, v0: GLuint, v1: GLuint) raises:
-    return _glProgramUniform2ui_ptr.get_or_create_ptr()[](program, location, v0, v1)
+fn program_uniform2ui(program: GLuint, location: GLint, v0: GLuint, v1: GLuint):
+    try:
+        return _glProgramUniform2ui_ptr.get_or_create_ptr()[](program, location, v0, v1)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform2uiv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises:
-    return _glProgramUniform2uiv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform2uiv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glProgramUniform2uiv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform3d(program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble, v2: GLdouble) raises:
-    return _glProgramUniform3d_ptr.get_or_create_ptr()[](program, location, v0, v1, v2)
+fn program_uniform3d(program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble, v2: GLdouble):
+    try:
+        return _glProgramUniform3d_ptr.get_or_create_ptr()[](program, location, v0, v1, v2)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform3dv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniform3dv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform3dv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniform3dv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform3f(program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat) raises:
-    return _glProgramUniform3f_ptr.get_or_create_ptr()[](program, location, v0, v1, v2)
+fn program_uniform3f(program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat):
+    try:
+        return _glProgramUniform3f_ptr.get_or_create_ptr()[](program, location, v0, v1, v2)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform3fv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniform3fv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform3fv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniform3fv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform3i(program: GLuint, location: GLint, v0: GLint, v1: GLint, v2: GLint) raises:
-    return _glProgramUniform3i_ptr.get_or_create_ptr()[](program, location, v0, v1, v2)
+fn program_uniform3i(program: GLuint, location: GLint, v0: GLint, v1: GLint, v2: GLint):
+    try:
+        return _glProgramUniform3i_ptr.get_or_create_ptr()[](program, location, v0, v1, v2)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform3iv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises:
-    return _glProgramUniform3iv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform3iv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]):
+    try:
+        return _glProgramUniform3iv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform3ui(program: GLuint, location: GLint, v0: GLuint, v1: GLuint, v2: GLuint) raises:
-    return _glProgramUniform3ui_ptr.get_or_create_ptr()[](program, location, v0, v1, v2)
+fn program_uniform3ui(program: GLuint, location: GLint, v0: GLuint, v1: GLuint, v2: GLuint):
+    try:
+        return _glProgramUniform3ui_ptr.get_or_create_ptr()[](program, location, v0, v1, v2)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform3uiv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises:
-    return _glProgramUniform3uiv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform3uiv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glProgramUniform3uiv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform4d(program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble, v2: GLdouble, v3: GLdouble) raises:
-    return _glProgramUniform4d_ptr.get_or_create_ptr()[](program, location, v0, v1, v2, v3)
+fn program_uniform4d(program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble, v2: GLdouble, v3: GLdouble):
+    try:
+        return _glProgramUniform4d_ptr.get_or_create_ptr()[](program, location, v0, v1, v2, v3)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform4dv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniform4dv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform4dv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniform4dv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform4f(program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat, v3: GLfloat) raises:
-    return _glProgramUniform4f_ptr.get_or_create_ptr()[](program, location, v0, v1, v2, v3)
+fn program_uniform4f(program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat, v3: GLfloat):
+    try:
+        return _glProgramUniform4f_ptr.get_or_create_ptr()[](program, location, v0, v1, v2, v3)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform4fv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniform4fv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform4fv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniform4fv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform4i(program: GLuint, location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint) raises:
-    return _glProgramUniform4i_ptr.get_or_create_ptr()[](program, location, v0, v1, v2, v3)
+fn program_uniform4i(program: GLuint, location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint):
+    try:
+        return _glProgramUniform4i_ptr.get_or_create_ptr()[](program, location, v0, v1, v2, v3)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform4iv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises:
-    return _glProgramUniform4iv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform4iv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]):
+    try:
+        return _glProgramUniform4iv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform4ui(program: GLuint, location: GLint, v0: GLuint, v1: GLuint, v2: GLuint, v3: GLuint) raises:
-    return _glProgramUniform4ui_ptr.get_or_create_ptr()[](program, location, v0, v1, v2, v3)
+fn program_uniform4ui(program: GLuint, location: GLint, v0: GLuint, v1: GLuint, v2: GLuint, v3: GLuint):
+    try:
+        return _glProgramUniform4ui_ptr.get_or_create_ptr()[](program, location, v0, v1, v2, v3)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform4uiv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises:
-    return _glProgramUniform4uiv_ptr.get_or_create_ptr()[](program, location, count, value)
+fn program_uniform4uiv(program: GLuint, location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glProgramUniform4uiv_ptr.get_or_create_ptr()[](program, location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix2dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniformMatrix2dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix2dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniformMatrix2dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix2fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniformMatrix2fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix2fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniformMatrix2fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix2x3dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniformMatrix2x3dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix2x3dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniformMatrix2x3dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix2x3fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniformMatrix2x3fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix2x3fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniformMatrix2x3fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix2x4dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniformMatrix2x4dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix2x4dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniformMatrix2x4dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix2x4fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniformMatrix2x4fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix2x4fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniformMatrix2x4fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix3dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniformMatrix3dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix3dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniformMatrix3dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix3fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniformMatrix3fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix3fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniformMatrix3fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix3x2dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniformMatrix3x2dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix3x2dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniformMatrix3x2dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix3x2fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniformMatrix3x2fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix3x2fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniformMatrix3x2fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix3x4dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniformMatrix3x4dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix3x4dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniformMatrix3x4dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix3x4fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniformMatrix3x4fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix3x4fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniformMatrix3x4fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix4dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniformMatrix4dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix4dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniformMatrix4dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix4fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniformMatrix4fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix4fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniformMatrix4fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix4x2dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniformMatrix4x2dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix4x2dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniformMatrix4x2dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix4x2fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniformMatrix4x2fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix4x2fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniformMatrix4x2fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix4x3dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glProgramUniformMatrix4x3dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix4x3dv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glProgramUniformMatrix4x3dv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn program_uniform_matrix4x3fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glProgramUniformMatrix4x3fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+fn program_uniform_matrix4x3fv(program: GLuint, location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glProgramUniformMatrix4x3fv_ptr.get_or_create_ptr()[](program, location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn provoking_vertex(mode: VertexProvokingMode) raises:
-    return _glProvokingVertex_ptr.get_or_create_ptr()[](mode)
+fn provoking_vertex(mode: VertexProvokingMode):
+    try:
+        return _glProvokingVertex_ptr.get_or_create_ptr()[](mode)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn push_debug_group(source: DebugSource, id: GLuint, length: GLsizei, mut message: String) raises:
-    return _glPushDebugGroup_ptr.get_or_create_ptr()[](source, id, length, message.unsafe_cstr_ptr())
+fn push_debug_group(source: DebugSource, id: GLuint, length: GLsizei, mut message: String):
+    try:
+        return _glPushDebugGroup_ptr.get_or_create_ptr()[](source, id, length, message.unsafe_cstr_ptr())
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn query_counter(id: GLuint, target: QueryCounterTarget) raises:
-    return _glQueryCounter_ptr.get_or_create_ptr()[](id, target)
+fn query_counter(id: GLuint, target: QueryCounterTarget):
+    try:
+        return _glQueryCounter_ptr.get_or_create_ptr()[](id, target)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn read_buffer(src: ReadBufferMode) raises:
-    return _glReadBuffer_ptr.get_or_create_ptr()[](src)
+fn read_buffer(src: ReadBufferMode):
+    try:
+        return _glReadBuffer_ptr.get_or_create_ptr()[](src)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn read_pixels(x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]) raises:
-    return _glReadPixels_ptr.get_or_create_ptr()[](x, y, width, height, format, type, pixels)
+fn read_pixels(x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=True]):
+    try:
+        return _glReadPixels_ptr.get_or_create_ptr()[](x, y, width, height, format, type, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn readn_pixels(x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, data: Ptr[NoneType, mut=True]) raises:
-    return _glReadnPixels_ptr.get_or_create_ptr()[](x, y, width, height, format, type, buf_size, data)
+fn readn_pixels(x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, buf_size: GLsizei, data: Ptr[NoneType, mut=True]):
+    try:
+        return _glReadnPixels_ptr.get_or_create_ptr()[](x, y, width, height, format, type, buf_size, data)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn release_shader_compiler() raises:
-    return _glReleaseShaderCompiler_ptr.get_or_create_ptr()[]()
+fn release_shader_compiler():
+    try:
+        return _glReleaseShaderCompiler_ptr.get_or_create_ptr()[]()
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn renderbuffer_storage(target: RenderbufferTarget, internalformat: InternalFormat, width: GLsizei, height: GLsizei) raises:
-    return _glRenderbufferStorage_ptr.get_or_create_ptr()[](target, internalformat, width, height)
+fn renderbuffer_storage(target: RenderbufferTarget, internalformat: InternalFormat, width: GLsizei, height: GLsizei):
+    try:
+        return _glRenderbufferStorage_ptr.get_or_create_ptr()[](target, internalformat, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn renderbuffer_storage_multisample(target: RenderbufferTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei) raises:
-    return _glRenderbufferStorageMultisample_ptr.get_or_create_ptr()[](target, samples, internalformat, width, height)
+fn renderbuffer_storage_multisample(target: RenderbufferTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei):
+    try:
+        return _glRenderbufferStorageMultisample_ptr.get_or_create_ptr()[](target, samples, internalformat, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn resume_transform_feedback() raises:
-    return _glResumeTransformFeedback_ptr.get_or_create_ptr()[]()
+fn resume_transform_feedback():
+    try:
+        return _glResumeTransformFeedback_ptr.get_or_create_ptr()[]()
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn sample_coverage(value: GLfloat, invert: Bool) raises:
-    return _glSampleCoverage_ptr.get_or_create_ptr()[](value, GLboolean(Int(invert)))
+fn sample_coverage(value: GLfloat, invert: Bool):
+    try:
+        return _glSampleCoverage_ptr.get_or_create_ptr()[](value, GLboolean(Int(invert)))
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn sample_maski(mask_number: GLuint, mask: GLbitfield) raises:
-    return _glSampleMaski_ptr.get_or_create_ptr()[](mask_number, mask)
+fn sample_maski(mask_number: GLuint, mask: GLbitfield):
+    try:
+        return _glSampleMaski_ptr.get_or_create_ptr()[](mask_number, mask)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn sampler_parameter_iiv(sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint, mut=False]) raises:
-    return _glSamplerParameterIiv_ptr.get_or_create_ptr()[](sampler, pname, param)
+fn sampler_parameter_iiv(sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint, mut=False]):
+    try:
+        return _glSamplerParameterIiv_ptr.get_or_create_ptr()[](sampler, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn sampler_parameter_iuiv(sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLuint, mut=False]) raises:
-    return _glSamplerParameterIuiv_ptr.get_or_create_ptr()[](sampler, pname, param)
+fn sampler_parameter_iuiv(sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLuint, mut=False]):
+    try:
+        return _glSamplerParameterIuiv_ptr.get_or_create_ptr()[](sampler, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn sampler_parameterf(sampler: GLuint, pname: SamplerParameterF, param: GLfloat) raises:
-    return _glSamplerParameterf_ptr.get_or_create_ptr()[](sampler, pname, param)
+fn sampler_parameterf(sampler: GLuint, pname: SamplerParameterF, param: GLfloat):
+    try:
+        return _glSamplerParameterf_ptr.get_or_create_ptr()[](sampler, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn sampler_parameterfv(sampler: GLuint, pname: SamplerParameterF, param: Ptr[GLfloat, mut=False]) raises:
-    return _glSamplerParameterfv_ptr.get_or_create_ptr()[](sampler, pname, param)
+fn sampler_parameterfv(sampler: GLuint, pname: SamplerParameterF, param: Ptr[GLfloat, mut=False]):
+    try:
+        return _glSamplerParameterfv_ptr.get_or_create_ptr()[](sampler, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn sampler_parameteri(sampler: GLuint, pname: SamplerParameterI, param: GLint) raises:
-    return _glSamplerParameteri_ptr.get_or_create_ptr()[](sampler, pname, param)
+fn sampler_parameteri(sampler: GLuint, pname: SamplerParameterI, param: GLint):
+    try:
+        return _glSamplerParameteri_ptr.get_or_create_ptr()[](sampler, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn sampler_parameteriv(sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint, mut=False]) raises:
-    return _glSamplerParameteriv_ptr.get_or_create_ptr()[](sampler, pname, param)
+fn sampler_parameteriv(sampler: GLuint, pname: SamplerParameterI, param: Ptr[GLint, mut=False]):
+    try:
+        return _glSamplerParameteriv_ptr.get_or_create_ptr()[](sampler, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn scissor(x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises:
-    return _glScissor_ptr.get_or_create_ptr()[](x, y, width, height)
+fn scissor(x: GLint, y: GLint, width: GLsizei, height: GLsizei):
+    try:
+        return _glScissor_ptr.get_or_create_ptr()[](x, y, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn scissor_arrayv(first: GLuint, count: GLsizei, v: Ptr[GLint, mut=False]) raises:
-    return _glScissorArrayv_ptr.get_or_create_ptr()[](first, count, v)
+fn scissor_arrayv(first: GLuint, count: GLsizei, v: Ptr[GLint, mut=False]):
+    try:
+        return _glScissorArrayv_ptr.get_or_create_ptr()[](first, count, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn scissor_indexed(index: GLuint, left: GLint, bottom: GLint, width: GLsizei, height: GLsizei) raises:
-    return _glScissorIndexed_ptr.get_or_create_ptr()[](index, left, bottom, width, height)
+fn scissor_indexed(index: GLuint, left: GLint, bottom: GLint, width: GLsizei, height: GLsizei):
+    try:
+        return _glScissorIndexed_ptr.get_or_create_ptr()[](index, left, bottom, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn scissor_indexedv(index: GLuint, v: Ptr[GLint, mut=False]) raises:
-    return _glScissorIndexedv_ptr.get_or_create_ptr()[](index, v)
+fn scissor_indexedv(index: GLuint, v: Ptr[GLint, mut=False]):
+    try:
+        return _glScissorIndexedv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn secondary_color_p3ui(type: ColorPointerType, color: GLuint) raises:
-    return _glSecondaryColorP3ui_ptr.get_or_create_ptr()[](type, color)
+fn secondary_color_p3ui(type: ColorPointerType, color: GLuint):
+    try:
+        return _glSecondaryColorP3ui_ptr.get_or_create_ptr()[](type, color)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn secondary_color_p3uiv(type: ColorPointerType, color: Ptr[GLuint, mut=False]) raises:
-    return _glSecondaryColorP3uiv_ptr.get_or_create_ptr()[](type, color)
+fn secondary_color_p3uiv(type: ColorPointerType, color: Ptr[GLuint, mut=False]):
+    try:
+        return _glSecondaryColorP3uiv_ptr.get_or_create_ptr()[](type, color)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn shader_binary(count: GLsizei, shaders: Ptr[GLuint, mut=False], binary_format: ShaderBinaryFormat, binary: Ptr[NoneType, mut=False], length: GLsizei) raises:
-    return _glShaderBinary_ptr.get_or_create_ptr()[](count, shaders, binary_format, binary, length)
+fn shader_binary(count: GLsizei, shaders: Ptr[GLuint, mut=False], binary_format: ShaderBinaryFormat, binary: Ptr[NoneType, mut=False], length: GLsizei):
+    try:
+        return _glShaderBinary_ptr.get_or_create_ptr()[](count, shaders, binary_format, binary, length)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn shader_source(shader: GLuint, count: GLsizei, mut string: List[String], length: Ptr[GLint, mut=False]) raises:
+fn shader_source(shader: GLuint, count: GLsizei, mut string: List[String], length: Ptr[GLint, mut=False]):
     var c_list = [str.unsafe_cstr_ptr().unsafe_origin_cast[ImmutAnyOrigin]() for ref str in string]
-    return _glShaderSource_ptr.get_or_create_ptr()[](shader, count, c_list.steal_data(), length)
+    try:
+        return _glShaderSource_ptr.get_or_create_ptr()[](shader, count, c_list.steal_data(), length)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn shader_storage_block_binding(program: GLuint, storage_block_index: GLuint, storage_block_binding: GLuint) raises:
-    return _glShaderStorageBlockBinding_ptr.get_or_create_ptr()[](program, storage_block_index, storage_block_binding)
+fn shader_storage_block_binding(program: GLuint, storage_block_index: GLuint, storage_block_binding: GLuint):
+    try:
+        return _glShaderStorageBlockBinding_ptr.get_or_create_ptr()[](program, storage_block_index, storage_block_binding)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn specialize_shader(shader: GLuint, mut p_entry_point: String, num_specialization_constants: GLuint, p_constant_index: Ptr[GLuint, mut=False], p_constant_value: Ptr[GLuint, mut=False]) raises:
-    return _glSpecializeShader_ptr.get_or_create_ptr()[](shader, p_entry_point.unsafe_cstr_ptr(), num_specialization_constants, p_constant_index, p_constant_value)
+fn specialize_shader(shader: GLuint, mut p_entry_point: String, num_specialization_constants: GLuint, p_constant_index: Ptr[GLuint, mut=False], p_constant_value: Ptr[GLuint, mut=False]):
+    try:
+        return _glSpecializeShader_ptr.get_or_create_ptr()[](shader, p_entry_point.unsafe_cstr_ptr(), num_specialization_constants, p_constant_index, p_constant_value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn stencil_func(func: StencilFunction, ref_: GLint, mask: GLuint) raises:
-    return _glStencilFunc_ptr.get_or_create_ptr()[](func, ref_, mask)
+fn stencil_func(func: StencilFunction, ref_: GLint, mask: GLuint):
+    try:
+        return _glStencilFunc_ptr.get_or_create_ptr()[](func, ref_, mask)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn stencil_func_separate(face: TriangleFace, func: StencilFunction, ref_: GLint, mask: GLuint) raises:
-    return _glStencilFuncSeparate_ptr.get_or_create_ptr()[](face, func, ref_, mask)
+fn stencil_func_separate(face: TriangleFace, func: StencilFunction, ref_: GLint, mask: GLuint):
+    try:
+        return _glStencilFuncSeparate_ptr.get_or_create_ptr()[](face, func, ref_, mask)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn stencil_mask(mask: GLuint) raises:
-    return _glStencilMask_ptr.get_or_create_ptr()[](mask)
+fn stencil_mask(mask: GLuint):
+    try:
+        return _glStencilMask_ptr.get_or_create_ptr()[](mask)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn stencil_mask_separate(face: TriangleFace, mask: GLuint) raises:
-    return _glStencilMaskSeparate_ptr.get_or_create_ptr()[](face, mask)
+fn stencil_mask_separate(face: TriangleFace, mask: GLuint):
+    try:
+        return _glStencilMaskSeparate_ptr.get_or_create_ptr()[](face, mask)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn stencil_op(fail: StencilOp, zfail: StencilOp, zpass: StencilOp) raises:
-    return _glStencilOp_ptr.get_or_create_ptr()[](fail, zfail, zpass)
+fn stencil_op(fail: StencilOp, zfail: StencilOp, zpass: StencilOp):
+    try:
+        return _glStencilOp_ptr.get_or_create_ptr()[](fail, zfail, zpass)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn stencil_op_separate(face: TriangleFace, sfail: StencilOp, dpfail: StencilOp, dppass: StencilOp) raises:
-    return _glStencilOpSeparate_ptr.get_or_create_ptr()[](face, sfail, dpfail, dppass)
+fn stencil_op_separate(face: TriangleFace, sfail: StencilOp, dpfail: StencilOp, dppass: StencilOp):
+    try:
+        return _glStencilOpSeparate_ptr.get_or_create_ptr()[](face, sfail, dpfail, dppass)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_buffer(target: TextureTarget, internalformat: SizedInternalFormat, buffer: GLuint) raises:
-    return _glTexBuffer_ptr.get_or_create_ptr()[](target, internalformat, buffer)
+fn tex_buffer(target: TextureTarget, internalformat: SizedInternalFormat, buffer: GLuint):
+    try:
+        return _glTexBuffer_ptr.get_or_create_ptr()[](target, internalformat, buffer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_buffer_range(target: TextureTarget, internalformat: SizedInternalFormat, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) raises:
-    return _glTexBufferRange_ptr.get_or_create_ptr()[](target, internalformat, buffer, offset, size)
+fn tex_buffer_range(target: TextureTarget, internalformat: SizedInternalFormat, buffer: GLuint, offset: GLintptr, size: GLsizeiptr):
+    try:
+        return _glTexBufferRange_ptr.get_or_create_ptr()[](target, internalformat, buffer, offset, size)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_coord_p1ui(type: TexCoordPointerType, coords: GLuint) raises:
-    return _glTexCoordP1ui_ptr.get_or_create_ptr()[](type, coords)
+fn tex_coord_p1ui(type: TexCoordPointerType, coords: GLuint):
+    try:
+        return _glTexCoordP1ui_ptr.get_or_create_ptr()[](type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_coord_p1uiv(type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises:
-    return _glTexCoordP1uiv_ptr.get_or_create_ptr()[](type, coords)
+fn tex_coord_p1uiv(type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]):
+    try:
+        return _glTexCoordP1uiv_ptr.get_or_create_ptr()[](type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_coord_p2ui(type: TexCoordPointerType, coords: GLuint) raises:
-    return _glTexCoordP2ui_ptr.get_or_create_ptr()[](type, coords)
+fn tex_coord_p2ui(type: TexCoordPointerType, coords: GLuint):
+    try:
+        return _glTexCoordP2ui_ptr.get_or_create_ptr()[](type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_coord_p2uiv(type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises:
-    return _glTexCoordP2uiv_ptr.get_or_create_ptr()[](type, coords)
+fn tex_coord_p2uiv(type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]):
+    try:
+        return _glTexCoordP2uiv_ptr.get_or_create_ptr()[](type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_coord_p3ui(type: TexCoordPointerType, coords: GLuint) raises:
-    return _glTexCoordP3ui_ptr.get_or_create_ptr()[](type, coords)
+fn tex_coord_p3ui(type: TexCoordPointerType, coords: GLuint):
+    try:
+        return _glTexCoordP3ui_ptr.get_or_create_ptr()[](type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_coord_p3uiv(type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises:
-    return _glTexCoordP3uiv_ptr.get_or_create_ptr()[](type, coords)
+fn tex_coord_p3uiv(type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]):
+    try:
+        return _glTexCoordP3uiv_ptr.get_or_create_ptr()[](type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_coord_p4ui(type: TexCoordPointerType, coords: GLuint) raises:
-    return _glTexCoordP4ui_ptr.get_or_create_ptr()[](type, coords)
+fn tex_coord_p4ui(type: TexCoordPointerType, coords: GLuint):
+    try:
+        return _glTexCoordP4ui_ptr.get_or_create_ptr()[](type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_coord_p4uiv(type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]) raises:
-    return _glTexCoordP4uiv_ptr.get_or_create_ptr()[](type, coords)
+fn tex_coord_p4uiv(type: TexCoordPointerType, coords: Ptr[GLuint, mut=False]):
+    try:
+        return _glTexCoordP4uiv_ptr.get_or_create_ptr()[](type, coords)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_image_1d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises:
-    return _glTexImage1D_ptr.get_or_create_ptr()[](target, level, internalformat, width, border, format, type, pixels)
+fn tex_image_1d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+    try:
+        return _glTexImage1D_ptr.get_or_create_ptr()[](target, level, internalformat, width, border, format, type, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_image_2d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises:
-    return _glTexImage2D_ptr.get_or_create_ptr()[](target, level, internalformat, width, height, border, format, type, pixels)
+fn tex_image_2d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+    try:
+        return _glTexImage2D_ptr.get_or_create_ptr()[](target, level, internalformat, width, height, border, format, type, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_image2_d_multisample(target: TextureTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: Bool) raises:
-    return _glTexImage2DMultisample_ptr.get_or_create_ptr()[](target, samples, internalformat, width, height, GLboolean(Int(fixedsamplelocations)))
+fn tex_image2_d_multisample(target: TextureTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: Bool):
+    try:
+        return _glTexImage2DMultisample_ptr.get_or_create_ptr()[](target, samples, internalformat, width, height, GLboolean(Int(fixedsamplelocations)))
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_image_3d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises:
-    return _glTexImage3D_ptr.get_or_create_ptr()[](target, level, internalformat, width, height, depth, border, format, type, pixels)
+fn tex_image_3d(target: TextureTarget, level: GLint, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+    try:
+        return _glTexImage3D_ptr.get_or_create_ptr()[](target, level, internalformat, width, height, depth, border, format, type, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_image3_d_multisample(target: TextureTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: Bool) raises:
-    return _glTexImage3DMultisample_ptr.get_or_create_ptr()[](target, samples, internalformat, width, height, depth, GLboolean(Int(fixedsamplelocations)))
+fn tex_image3_d_multisample(target: TextureTarget, samples: GLsizei, internalformat: InternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: Bool):
+    try:
+        return _glTexImage3DMultisample_ptr.get_or_create_ptr()[](target, samples, internalformat, width, height, depth, GLboolean(Int(fixedsamplelocations)))
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_parameter_iiv(target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint, mut=False]) raises:
-    return _glTexParameterIiv_ptr.get_or_create_ptr()[](target, pname, params)
+fn tex_parameter_iiv(target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint, mut=False]):
+    try:
+        return _glTexParameterIiv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_parameter_iuiv(target: TextureTarget, pname: TextureParameterName, params: Ptr[GLuint, mut=False]) raises:
-    return _glTexParameterIuiv_ptr.get_or_create_ptr()[](target, pname, params)
+fn tex_parameter_iuiv(target: TextureTarget, pname: TextureParameterName, params: Ptr[GLuint, mut=False]):
+    try:
+        return _glTexParameterIuiv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_parameterf(target: TextureTarget, pname: TextureParameterName, param: GLfloat) raises:
-    return _glTexParameterf_ptr.get_or_create_ptr()[](target, pname, param)
+fn tex_parameterf(target: TextureTarget, pname: TextureParameterName, param: GLfloat):
+    try:
+        return _glTexParameterf_ptr.get_or_create_ptr()[](target, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_parameterfv(target: TextureTarget, pname: TextureParameterName, params: Ptr[GLfloat, mut=False]) raises:
-    return _glTexParameterfv_ptr.get_or_create_ptr()[](target, pname, params)
+fn tex_parameterfv(target: TextureTarget, pname: TextureParameterName, params: Ptr[GLfloat, mut=False]):
+    try:
+        return _glTexParameterfv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_parameteri(target: TextureTarget, pname: TextureParameterName, param: GLint) raises:
-    return _glTexParameteri_ptr.get_or_create_ptr()[](target, pname, param)
+fn tex_parameteri(target: TextureTarget, pname: TextureParameterName, param: GLint):
+    try:
+        return _glTexParameteri_ptr.get_or_create_ptr()[](target, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_parameteriv(target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint, mut=False]) raises:
-    return _glTexParameteriv_ptr.get_or_create_ptr()[](target, pname, params)
+fn tex_parameteriv(target: TextureTarget, pname: TextureParameterName, params: Ptr[GLint, mut=False]):
+    try:
+        return _glTexParameteriv_ptr.get_or_create_ptr()[](target, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_storage_1d(target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei) raises:
-    return _glTexStorage1D_ptr.get_or_create_ptr()[](target, levels, internalformat, width)
+fn tex_storage_1d(target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei):
+    try:
+        return _glTexStorage1D_ptr.get_or_create_ptr()[](target, levels, internalformat, width)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_storage_2d(target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei) raises:
-    return _glTexStorage2D_ptr.get_or_create_ptr()[](target, levels, internalformat, width, height)
+fn tex_storage_2d(target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei):
+    try:
+        return _glTexStorage2D_ptr.get_or_create_ptr()[](target, levels, internalformat, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_storage2_d_multisample(target: TextureTarget, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: Bool) raises:
-    return _glTexStorage2DMultisample_ptr.get_or_create_ptr()[](target, samples, internalformat, width, height, GLboolean(Int(fixedsamplelocations)))
+fn tex_storage2_d_multisample(target: TextureTarget, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: Bool):
+    try:
+        return _glTexStorage2DMultisample_ptr.get_or_create_ptr()[](target, samples, internalformat, width, height, GLboolean(Int(fixedsamplelocations)))
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_storage_3d(target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei) raises:
-    return _glTexStorage3D_ptr.get_or_create_ptr()[](target, levels, internalformat, width, height, depth)
+fn tex_storage_3d(target: TextureTarget, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei):
+    try:
+        return _glTexStorage3D_ptr.get_or_create_ptr()[](target, levels, internalformat, width, height, depth)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_storage3_d_multisample(target: TextureTarget, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: Bool) raises:
-    return _glTexStorage3DMultisample_ptr.get_or_create_ptr()[](target, samples, internalformat, width, height, depth, GLboolean(Int(fixedsamplelocations)))
+fn tex_storage3_d_multisample(target: TextureTarget, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: Bool):
+    try:
+        return _glTexStorage3DMultisample_ptr.get_or_create_ptr()[](target, samples, internalformat, width, height, depth, GLboolean(Int(fixedsamplelocations)))
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_sub_image_1d(target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises:
-    return _glTexSubImage1D_ptr.get_or_create_ptr()[](target, level, xoffset, width, format, type, pixels)
+fn tex_sub_image_1d(target: TextureTarget, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+    try:
+        return _glTexSubImage1D_ptr.get_or_create_ptr()[](target, level, xoffset, width, format, type, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_sub_image_2d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises:
-    return _glTexSubImage2D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, width, height, format, type, pixels)
+fn tex_sub_image_2d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+    try:
+        return _glTexSubImage2D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, width, height, format, type, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn tex_sub_image_3d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises:
-    return _glTexSubImage3D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
+fn tex_sub_image_3d(target: TextureTarget, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+    try:
+        return _glTexSubImage3D_ptr.get_or_create_ptr()[](target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_barrier() raises:
-    return _glTextureBarrier_ptr.get_or_create_ptr()[]()
+fn texture_barrier():
+    try:
+        return _glTextureBarrier_ptr.get_or_create_ptr()[]()
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_buffer(texture: GLuint, internalformat: SizedInternalFormat, buffer: GLuint) raises:
-    return _glTextureBuffer_ptr.get_or_create_ptr()[](texture, internalformat, buffer)
+fn texture_buffer(texture: GLuint, internalformat: SizedInternalFormat, buffer: GLuint):
+    try:
+        return _glTextureBuffer_ptr.get_or_create_ptr()[](texture, internalformat, buffer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_buffer_range(texture: GLuint, internalformat: SizedInternalFormat, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) raises:
-    return _glTextureBufferRange_ptr.get_or_create_ptr()[](texture, internalformat, buffer, offset, size)
+fn texture_buffer_range(texture: GLuint, internalformat: SizedInternalFormat, buffer: GLuint, offset: GLintptr, size: GLsizeiptr):
+    try:
+        return _glTextureBufferRange_ptr.get_or_create_ptr()[](texture, internalformat, buffer, offset, size)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_parameter_iiv(texture: GLuint, pname: TextureParameterName, params: Ptr[GLint, mut=False]) raises:
-    return _glTextureParameterIiv_ptr.get_or_create_ptr()[](texture, pname, params)
+fn texture_parameter_iiv(texture: GLuint, pname: TextureParameterName, params: Ptr[GLint, mut=False]):
+    try:
+        return _glTextureParameterIiv_ptr.get_or_create_ptr()[](texture, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_parameter_iuiv(texture: GLuint, pname: TextureParameterName, params: Ptr[GLuint, mut=False]) raises:
-    return _glTextureParameterIuiv_ptr.get_or_create_ptr()[](texture, pname, params)
+fn texture_parameter_iuiv(texture: GLuint, pname: TextureParameterName, params: Ptr[GLuint, mut=False]):
+    try:
+        return _glTextureParameterIuiv_ptr.get_or_create_ptr()[](texture, pname, params)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_parameterf(texture: GLuint, pname: TextureParameterName, param: GLfloat) raises:
-    return _glTextureParameterf_ptr.get_or_create_ptr()[](texture, pname, param)
+fn texture_parameterf(texture: GLuint, pname: TextureParameterName, param: GLfloat):
+    try:
+        return _glTextureParameterf_ptr.get_or_create_ptr()[](texture, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_parameterfv(texture: GLuint, pname: TextureParameterName, param: Ptr[GLfloat, mut=False]) raises:
-    return _glTextureParameterfv_ptr.get_or_create_ptr()[](texture, pname, param)
+fn texture_parameterfv(texture: GLuint, pname: TextureParameterName, param: Ptr[GLfloat, mut=False]):
+    try:
+        return _glTextureParameterfv_ptr.get_or_create_ptr()[](texture, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_parameteri(texture: GLuint, pname: TextureParameterName, param: GLint) raises:
-    return _glTextureParameteri_ptr.get_or_create_ptr()[](texture, pname, param)
+fn texture_parameteri(texture: GLuint, pname: TextureParameterName, param: GLint):
+    try:
+        return _glTextureParameteri_ptr.get_or_create_ptr()[](texture, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_parameteriv(texture: GLuint, pname: TextureParameterName, param: Ptr[GLint, mut=False]) raises:
-    return _glTextureParameteriv_ptr.get_or_create_ptr()[](texture, pname, param)
+fn texture_parameteriv(texture: GLuint, pname: TextureParameterName, param: Ptr[GLint, mut=False]):
+    try:
+        return _glTextureParameteriv_ptr.get_or_create_ptr()[](texture, pname, param)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_storage_1d(texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei) raises:
-    return _glTextureStorage1D_ptr.get_or_create_ptr()[](texture, levels, internalformat, width)
+fn texture_storage_1d(texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei):
+    try:
+        return _glTextureStorage1D_ptr.get_or_create_ptr()[](texture, levels, internalformat, width)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_storage_2d(texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei) raises:
-    return _glTextureStorage2D_ptr.get_or_create_ptr()[](texture, levels, internalformat, width, height)
+fn texture_storage_2d(texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei):
+    try:
+        return _glTextureStorage2D_ptr.get_or_create_ptr()[](texture, levels, internalformat, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_storage2_d_multisample(texture: GLuint, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: Bool) raises:
-    return _glTextureStorage2DMultisample_ptr.get_or_create_ptr()[](texture, samples, internalformat, width, height, GLboolean(Int(fixedsamplelocations)))
+fn texture_storage2_d_multisample(texture: GLuint, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, fixedsamplelocations: Bool):
+    try:
+        return _glTextureStorage2DMultisample_ptr.get_or_create_ptr()[](texture, samples, internalformat, width, height, GLboolean(Int(fixedsamplelocations)))
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_storage_3d(texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei) raises:
-    return _glTextureStorage3D_ptr.get_or_create_ptr()[](texture, levels, internalformat, width, height, depth)
+fn texture_storage_3d(texture: GLuint, levels: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei):
+    try:
+        return _glTextureStorage3D_ptr.get_or_create_ptr()[](texture, levels, internalformat, width, height, depth)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_storage3_d_multisample(texture: GLuint, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: Bool) raises:
-    return _glTextureStorage3DMultisample_ptr.get_or_create_ptr()[](texture, samples, internalformat, width, height, depth, GLboolean(Int(fixedsamplelocations)))
+fn texture_storage3_d_multisample(texture: GLuint, samples: GLsizei, internalformat: SizedInternalFormat, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: Bool):
+    try:
+        return _glTextureStorage3DMultisample_ptr.get_or_create_ptr()[](texture, samples, internalformat, width, height, depth, GLboolean(Int(fixedsamplelocations)))
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_sub_image_1d(texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises:
-    return _glTextureSubImage1D_ptr.get_or_create_ptr()[](texture, level, xoffset, width, format, type, pixels)
+fn texture_sub_image_1d(texture: GLuint, level: GLint, xoffset: GLint, width: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+    try:
+        return _glTextureSubImage1D_ptr.get_or_create_ptr()[](texture, level, xoffset, width, format, type, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_sub_image_2d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises:
-    return _glTextureSubImage2D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, width, height, format, type, pixels)
+fn texture_sub_image_2d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+    try:
+        return _glTextureSubImage2D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, width, height, format, type, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_sub_image_3d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]) raises:
-    return _glTextureSubImage3D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
+fn texture_sub_image_3d(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: PixelFormat, type: PixelType, pixels: Ptr[NoneType, mut=False]):
+    try:
+        return _glTextureSubImage3D_ptr.get_or_create_ptr()[](texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn texture_view(texture: GLuint, target: TextureTarget, origtexture: GLuint, internalformat: SizedInternalFormat, minlevel: GLuint, numlevels: GLuint, minlayer: GLuint, numlayers: GLuint) raises:
-    return _glTextureView_ptr.get_or_create_ptr()[](texture, target, origtexture, internalformat, minlevel, numlevels, minlayer, numlayers)
+fn texture_view(texture: GLuint, target: TextureTarget, origtexture: GLuint, internalformat: SizedInternalFormat, minlevel: GLuint, numlevels: GLuint, minlayer: GLuint, numlayers: GLuint):
+    try:
+        return _glTextureView_ptr.get_or_create_ptr()[](texture, target, origtexture, internalformat, minlevel, numlevels, minlayer, numlayers)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn transform_feedback_buffer_base(xfb: GLuint, index: GLuint, buffer: GLuint) raises:
-    return _glTransformFeedbackBufferBase_ptr.get_or_create_ptr()[](xfb, index, buffer)
+fn transform_feedback_buffer_base(xfb: GLuint, index: GLuint, buffer: GLuint):
+    try:
+        return _glTransformFeedbackBufferBase_ptr.get_or_create_ptr()[](xfb, index, buffer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn transform_feedback_buffer_range(xfb: GLuint, index: GLuint, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) raises:
-    return _glTransformFeedbackBufferRange_ptr.get_or_create_ptr()[](xfb, index, buffer, offset, size)
+fn transform_feedback_buffer_range(xfb: GLuint, index: GLuint, buffer: GLuint, offset: GLintptr, size: GLsizeiptr):
+    try:
+        return _glTransformFeedbackBufferRange_ptr.get_or_create_ptr()[](xfb, index, buffer, offset, size)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn transform_feedback_varyings(program: GLuint, count: GLsizei, mut varyings: List[String], buffer_mode: TransformFeedbackBufferMode) raises:
+fn transform_feedback_varyings(program: GLuint, count: GLsizei, mut varyings: List[String], buffer_mode: TransformFeedbackBufferMode):
     var c_list = [str.unsafe_cstr_ptr().unsafe_origin_cast[ImmutAnyOrigin]() for ref str in varyings]
-    return _glTransformFeedbackVaryings_ptr.get_or_create_ptr()[](program, count, c_list.steal_data(), buffer_mode)
+    try:
+        return _glTransformFeedbackVaryings_ptr.get_or_create_ptr()[](program, count, c_list.steal_data(), buffer_mode)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform1d(location: GLint, x: GLdouble) raises:
-    return _glUniform1d_ptr.get_or_create_ptr()[](location, x)
+fn uniform1d(location: GLint, x: GLdouble):
+    try:
+        return _glUniform1d_ptr.get_or_create_ptr()[](location, x)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform1dv(location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniform1dv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform1dv(location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniform1dv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform1f(location: GLint, v0: GLfloat) raises:
-    return _glUniform1f_ptr.get_or_create_ptr()[](location, v0)
+fn uniform1f(location: GLint, v0: GLfloat):
+    try:
+        return _glUniform1f_ptr.get_or_create_ptr()[](location, v0)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform1fv(location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniform1fv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform1fv(location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniform1fv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform1i(location: GLint, v0: GLint) raises:
-    return _glUniform1i_ptr.get_or_create_ptr()[](location, v0)
+fn uniform1i(location: GLint, v0: GLint):
+    try:
+        return _glUniform1i_ptr.get_or_create_ptr()[](location, v0)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform1iv(location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises:
-    return _glUniform1iv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform1iv(location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]):
+    try:
+        return _glUniform1iv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform1ui(location: GLint, v0: GLuint) raises:
-    return _glUniform1ui_ptr.get_or_create_ptr()[](location, v0)
+fn uniform1ui(location: GLint, v0: GLuint):
+    try:
+        return _glUniform1ui_ptr.get_or_create_ptr()[](location, v0)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform1uiv(location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises:
-    return _glUniform1uiv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform1uiv(location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glUniform1uiv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform2d(location: GLint, x: GLdouble, y: GLdouble) raises:
-    return _glUniform2d_ptr.get_or_create_ptr()[](location, x, y)
+fn uniform2d(location: GLint, x: GLdouble, y: GLdouble):
+    try:
+        return _glUniform2d_ptr.get_or_create_ptr()[](location, x, y)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform2dv(location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniform2dv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform2dv(location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniform2dv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform2f(location: GLint, v0: GLfloat, v1: GLfloat) raises:
-    return _glUniform2f_ptr.get_or_create_ptr()[](location, v0, v1)
+fn uniform2f(location: GLint, v0: GLfloat, v1: GLfloat):
+    try:
+        return _glUniform2f_ptr.get_or_create_ptr()[](location, v0, v1)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform2fv(location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniform2fv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform2fv(location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniform2fv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform2i(location: GLint, v0: GLint, v1: GLint) raises:
-    return _glUniform2i_ptr.get_or_create_ptr()[](location, v0, v1)
+fn uniform2i(location: GLint, v0: GLint, v1: GLint):
+    try:
+        return _glUniform2i_ptr.get_or_create_ptr()[](location, v0, v1)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform2iv(location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises:
-    return _glUniform2iv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform2iv(location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]):
+    try:
+        return _glUniform2iv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform2ui(location: GLint, v0: GLuint, v1: GLuint) raises:
-    return _glUniform2ui_ptr.get_or_create_ptr()[](location, v0, v1)
+fn uniform2ui(location: GLint, v0: GLuint, v1: GLuint):
+    try:
+        return _glUniform2ui_ptr.get_or_create_ptr()[](location, v0, v1)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform2uiv(location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises:
-    return _glUniform2uiv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform2uiv(location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glUniform2uiv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform3d(location: GLint, x: GLdouble, y: GLdouble, z: GLdouble) raises:
-    return _glUniform3d_ptr.get_or_create_ptr()[](location, x, y, z)
+fn uniform3d(location: GLint, x: GLdouble, y: GLdouble, z: GLdouble):
+    try:
+        return _glUniform3d_ptr.get_or_create_ptr()[](location, x, y, z)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform3dv(location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniform3dv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform3dv(location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniform3dv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform3f(location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat) raises:
-    return _glUniform3f_ptr.get_or_create_ptr()[](location, v0, v1, v2)
+fn uniform3f(location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat):
+    try:
+        return _glUniform3f_ptr.get_or_create_ptr()[](location, v0, v1, v2)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform3fv(location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniform3fv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform3fv(location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniform3fv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform3i(location: GLint, v0: GLint, v1: GLint, v2: GLint) raises:
-    return _glUniform3i_ptr.get_or_create_ptr()[](location, v0, v1, v2)
+fn uniform3i(location: GLint, v0: GLint, v1: GLint, v2: GLint):
+    try:
+        return _glUniform3i_ptr.get_or_create_ptr()[](location, v0, v1, v2)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform3iv(location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises:
-    return _glUniform3iv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform3iv(location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]):
+    try:
+        return _glUniform3iv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform3ui(location: GLint, v0: GLuint, v1: GLuint, v2: GLuint) raises:
-    return _glUniform3ui_ptr.get_or_create_ptr()[](location, v0, v1, v2)
+fn uniform3ui(location: GLint, v0: GLuint, v1: GLuint, v2: GLuint):
+    try:
+        return _glUniform3ui_ptr.get_or_create_ptr()[](location, v0, v1, v2)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform3uiv(location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises:
-    return _glUniform3uiv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform3uiv(location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glUniform3uiv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform4d(location: GLint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble) raises:
-    return _glUniform4d_ptr.get_or_create_ptr()[](location, x, y, z, w)
+fn uniform4d(location: GLint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble):
+    try:
+        return _glUniform4d_ptr.get_or_create_ptr()[](location, x, y, z, w)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform4dv(location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniform4dv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform4dv(location: GLint, count: GLsizei, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniform4dv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform4f(location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat, v3: GLfloat) raises:
-    return _glUniform4f_ptr.get_or_create_ptr()[](location, v0, v1, v2, v3)
+fn uniform4f(location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat, v3: GLfloat):
+    try:
+        return _glUniform4f_ptr.get_or_create_ptr()[](location, v0, v1, v2, v3)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform4fv(location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniform4fv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform4fv(location: GLint, count: GLsizei, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniform4fv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform4i(location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint) raises:
-    return _glUniform4i_ptr.get_or_create_ptr()[](location, v0, v1, v2, v3)
+fn uniform4i(location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint):
+    try:
+        return _glUniform4i_ptr.get_or_create_ptr()[](location, v0, v1, v2, v3)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform4iv(location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]) raises:
-    return _glUniform4iv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform4iv(location: GLint, count: GLsizei, value: Ptr[GLint, mut=False]):
+    try:
+        return _glUniform4iv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform4ui(location: GLint, v0: GLuint, v1: GLuint, v2: GLuint, v3: GLuint) raises:
-    return _glUniform4ui_ptr.get_or_create_ptr()[](location, v0, v1, v2, v3)
+fn uniform4ui(location: GLint, v0: GLuint, v1: GLuint, v2: GLuint, v3: GLuint):
+    try:
+        return _glUniform4ui_ptr.get_or_create_ptr()[](location, v0, v1, v2, v3)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform4uiv(location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]) raises:
-    return _glUniform4uiv_ptr.get_or_create_ptr()[](location, count, value)
+fn uniform4uiv(location: GLint, count: GLsizei, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glUniform4uiv_ptr.get_or_create_ptr()[](location, count, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_block_binding(program: GLuint, uniform_block_index: GLuint, uniform_block_binding: GLuint) raises:
-    return _glUniformBlockBinding_ptr.get_or_create_ptr()[](program, uniform_block_index, uniform_block_binding)
+fn uniform_block_binding(program: GLuint, uniform_block_index: GLuint, uniform_block_binding: GLuint):
+    try:
+        return _glUniformBlockBinding_ptr.get_or_create_ptr()[](program, uniform_block_index, uniform_block_binding)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix2dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniformMatrix2dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix2dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniformMatrix2dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix2fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniformMatrix2fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix2fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniformMatrix2fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix2x3dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniformMatrix2x3dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix2x3dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniformMatrix2x3dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix2x3fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniformMatrix2x3fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix2x3fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniformMatrix2x3fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix2x4dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniformMatrix2x4dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix2x4dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniformMatrix2x4dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix2x4fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniformMatrix2x4fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix2x4fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniformMatrix2x4fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix3dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniformMatrix3dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix3dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniformMatrix3dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix3fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniformMatrix3fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix3fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniformMatrix3fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix3x2dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniformMatrix3x2dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix3x2dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniformMatrix3x2dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix3x2fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniformMatrix3x2fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix3x2fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniformMatrix3x2fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix3x4dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniformMatrix3x4dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix3x4dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniformMatrix3x4dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix3x4fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniformMatrix3x4fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix3x4fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniformMatrix3x4fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix4dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniformMatrix4dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix4dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniformMatrix4dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix4fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniformMatrix4fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix4fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniformMatrix4fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix4x2dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniformMatrix4x2dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix4x2dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniformMatrix4x2dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix4x2fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniformMatrix4x2fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix4x2fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniformMatrix4x2fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix4x3dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]) raises:
-    return _glUniformMatrix4x3dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix4x3dv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLdouble, mut=False]):
+    try:
+        return _glUniformMatrix4x3dv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_matrix4x3fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]) raises:
-    return _glUniformMatrix4x3fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+fn uniform_matrix4x3fv(location: GLint, count: GLsizei, transpose: Bool, value: Ptr[GLfloat, mut=False]):
+    try:
+        return _glUniformMatrix4x3fv_ptr.get_or_create_ptr()[](location, count, GLboolean(Int(transpose)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn uniform_subroutinesuiv(shadertype: ShaderType, count: GLsizei, indices: Ptr[GLuint, mut=False]) raises:
-    return _glUniformSubroutinesuiv_ptr.get_or_create_ptr()[](shadertype, count, indices)
+fn uniform_subroutinesuiv(shadertype: ShaderType, count: GLsizei, indices: Ptr[GLuint, mut=False]):
+    try:
+        return _glUniformSubroutinesuiv_ptr.get_or_create_ptr()[](shadertype, count, indices)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn unmap_buffer(target: BufferTargetARB) raises -> GLboolean:
-    return _glUnmapBuffer_ptr.get_or_create_ptr()[](target)
+fn unmap_buffer(target: BufferTargetARB) -> GLboolean:
+    try:
+        return _glUnmapBuffer_ptr.get_or_create_ptr()[](target)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn unmap_named_buffer(buffer: GLuint) raises -> GLboolean:
-    return _glUnmapNamedBuffer_ptr.get_or_create_ptr()[](buffer)
+fn unmap_named_buffer(buffer: GLuint) -> GLboolean:
+    try:
+        return _glUnmapNamedBuffer_ptr.get_or_create_ptr()[](buffer)
+    except:
+        return abort[GLboolean]("Failed to load function")
 
 
 @always_inline
-fn use_program(program: GLuint) raises:
-    return _glUseProgram_ptr.get_or_create_ptr()[](program)
+fn use_program(program: GLuint):
+    try:
+        return _glUseProgram_ptr.get_or_create_ptr()[](program)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn use_program_stages(pipeline: GLuint, stages: UseProgramStageMask, program: GLuint) raises:
-    return _glUseProgramStages_ptr.get_or_create_ptr()[](pipeline, stages, program)
+fn use_program_stages(pipeline: GLuint, stages: UseProgramStageMask, program: GLuint):
+    try:
+        return _glUseProgramStages_ptr.get_or_create_ptr()[](pipeline, stages, program)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn validate_program(program: GLuint) raises:
-    return _glValidateProgram_ptr.get_or_create_ptr()[](program)
+fn validate_program(program: GLuint):
+    try:
+        return _glValidateProgram_ptr.get_or_create_ptr()[](program)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn validate_program_pipeline(pipeline: GLuint) raises:
-    return _glValidateProgramPipeline_ptr.get_or_create_ptr()[](pipeline)
+fn validate_program_pipeline(pipeline: GLuint):
+    try:
+        return _glValidateProgramPipeline_ptr.get_or_create_ptr()[](pipeline)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_array_attrib_binding(vaobj: GLuint, attribindex: GLuint, bindingindex: GLuint) raises:
-    return _glVertexArrayAttribBinding_ptr.get_or_create_ptr()[](vaobj, attribindex, bindingindex)
+fn vertex_array_attrib_binding(vaobj: GLuint, attribindex: GLuint, bindingindex: GLuint):
+    try:
+        return _glVertexArrayAttribBinding_ptr.get_or_create_ptr()[](vaobj, attribindex, bindingindex)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_array_attrib_format(vaobj: GLuint, attribindex: GLuint, size: GLint, type: VertexAttribType, normalized: Bool, relativeoffset: GLuint) raises:
-    return _glVertexArrayAttribFormat_ptr.get_or_create_ptr()[](vaobj, attribindex, size, type, GLboolean(Int(normalized)), relativeoffset)
+fn vertex_array_attrib_format(vaobj: GLuint, attribindex: GLuint, size: GLint, type: VertexAttribType, normalized: Bool, relativeoffset: GLuint):
+    try:
+        return _glVertexArrayAttribFormat_ptr.get_or_create_ptr()[](vaobj, attribindex, size, type, GLboolean(Int(normalized)), relativeoffset)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_array_attrib_i_format(vaobj: GLuint, attribindex: GLuint, size: GLint, type: VertexAttribIType, relativeoffset: GLuint) raises:
-    return _glVertexArrayAttribIFormat_ptr.get_or_create_ptr()[](vaobj, attribindex, size, type, relativeoffset)
+fn vertex_array_attrib_i_format(vaobj: GLuint, attribindex: GLuint, size: GLint, type: VertexAttribIType, relativeoffset: GLuint):
+    try:
+        return _glVertexArrayAttribIFormat_ptr.get_or_create_ptr()[](vaobj, attribindex, size, type, relativeoffset)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_array_attrib_l_format(vaobj: GLuint, attribindex: GLuint, size: GLint, type: VertexAttribLType, relativeoffset: GLuint) raises:
-    return _glVertexArrayAttribLFormat_ptr.get_or_create_ptr()[](vaobj, attribindex, size, type, relativeoffset)
+fn vertex_array_attrib_l_format(vaobj: GLuint, attribindex: GLuint, size: GLint, type: VertexAttribLType, relativeoffset: GLuint):
+    try:
+        return _glVertexArrayAttribLFormat_ptr.get_or_create_ptr()[](vaobj, attribindex, size, type, relativeoffset)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_array_binding_divisor(vaobj: GLuint, bindingindex: GLuint, divisor: GLuint) raises:
-    return _glVertexArrayBindingDivisor_ptr.get_or_create_ptr()[](vaobj, bindingindex, divisor)
+fn vertex_array_binding_divisor(vaobj: GLuint, bindingindex: GLuint, divisor: GLuint):
+    try:
+        return _glVertexArrayBindingDivisor_ptr.get_or_create_ptr()[](vaobj, bindingindex, divisor)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_array_element_buffer(vaobj: GLuint, buffer: GLuint) raises:
-    return _glVertexArrayElementBuffer_ptr.get_or_create_ptr()[](vaobj, buffer)
+fn vertex_array_element_buffer(vaobj: GLuint, buffer: GLuint):
+    try:
+        return _glVertexArrayElementBuffer_ptr.get_or_create_ptr()[](vaobj, buffer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_array_vertex_buffer(vaobj: GLuint, bindingindex: GLuint, buffer: GLuint, offset: GLintptr, stride: GLsizei) raises:
-    return _glVertexArrayVertexBuffer_ptr.get_or_create_ptr()[](vaobj, bindingindex, buffer, offset, stride)
+fn vertex_array_vertex_buffer(vaobj: GLuint, bindingindex: GLuint, buffer: GLuint, offset: GLintptr, stride: GLsizei):
+    try:
+        return _glVertexArrayVertexBuffer_ptr.get_or_create_ptr()[](vaobj, bindingindex, buffer, offset, stride)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_array_vertex_buffers(vaobj: GLuint, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False], offsets: Ptr[GLintptr, mut=False], strides: Ptr[GLsizei, mut=False]) raises:
-    return _glVertexArrayVertexBuffers_ptr.get_or_create_ptr()[](vaobj, first, count, buffers, offsets, strides)
+fn vertex_array_vertex_buffers(vaobj: GLuint, first: GLuint, count: GLsizei, buffers: Ptr[GLuint, mut=False], offsets: Ptr[GLintptr, mut=False], strides: Ptr[GLsizei, mut=False]):
+    try:
+        return _glVertexArrayVertexBuffers_ptr.get_or_create_ptr()[](vaobj, first, count, buffers, offsets, strides)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib1d(index: GLuint, x: GLdouble) raises:
-    return _glVertexAttrib1d_ptr.get_or_create_ptr()[](index, x)
+fn vertex_attrib1d(index: GLuint, x: GLdouble):
+    try:
+        return _glVertexAttrib1d_ptr.get_or_create_ptr()[](index, x)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib1dv(index: GLuint, v: Ptr[GLdouble, mut=False]) raises:
-    return _glVertexAttrib1dv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib1dv(index: GLuint, v: Ptr[GLdouble, mut=False]):
+    try:
+        return _glVertexAttrib1dv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib1f(index: GLuint, x: GLfloat) raises:
-    return _glVertexAttrib1f_ptr.get_or_create_ptr()[](index, x)
+fn vertex_attrib1f(index: GLuint, x: GLfloat):
+    try:
+        return _glVertexAttrib1f_ptr.get_or_create_ptr()[](index, x)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib1fv(index: GLuint, v: Ptr[GLfloat, mut=False]) raises:
-    return _glVertexAttrib1fv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib1fv(index: GLuint, v: Ptr[GLfloat, mut=False]):
+    try:
+        return _glVertexAttrib1fv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib1s(index: GLuint, x: GLshort) raises:
-    return _glVertexAttrib1s_ptr.get_or_create_ptr()[](index, x)
+fn vertex_attrib1s(index: GLuint, x: GLshort):
+    try:
+        return _glVertexAttrib1s_ptr.get_or_create_ptr()[](index, x)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib1sv(index: GLuint, v: Ptr[GLshort, mut=False]) raises:
-    return _glVertexAttrib1sv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib1sv(index: GLuint, v: Ptr[GLshort, mut=False]):
+    try:
+        return _glVertexAttrib1sv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib2d(index: GLuint, x: GLdouble, y: GLdouble) raises:
-    return _glVertexAttrib2d_ptr.get_or_create_ptr()[](index, x, y)
+fn vertex_attrib2d(index: GLuint, x: GLdouble, y: GLdouble):
+    try:
+        return _glVertexAttrib2d_ptr.get_or_create_ptr()[](index, x, y)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib2dv(index: GLuint, v: Ptr[GLdouble, mut=False]) raises:
-    return _glVertexAttrib2dv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib2dv(index: GLuint, v: Ptr[GLdouble, mut=False]):
+    try:
+        return _glVertexAttrib2dv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib2f(index: GLuint, x: GLfloat, y: GLfloat) raises:
-    return _glVertexAttrib2f_ptr.get_or_create_ptr()[](index, x, y)
+fn vertex_attrib2f(index: GLuint, x: GLfloat, y: GLfloat):
+    try:
+        return _glVertexAttrib2f_ptr.get_or_create_ptr()[](index, x, y)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib2fv(index: GLuint, v: Ptr[GLfloat, mut=False]) raises:
-    return _glVertexAttrib2fv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib2fv(index: GLuint, v: Ptr[GLfloat, mut=False]):
+    try:
+        return _glVertexAttrib2fv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib2s(index: GLuint, x: GLshort, y: GLshort) raises:
-    return _glVertexAttrib2s_ptr.get_or_create_ptr()[](index, x, y)
+fn vertex_attrib2s(index: GLuint, x: GLshort, y: GLshort):
+    try:
+        return _glVertexAttrib2s_ptr.get_or_create_ptr()[](index, x, y)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib2sv(index: GLuint, v: Ptr[GLshort, mut=False]) raises:
-    return _glVertexAttrib2sv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib2sv(index: GLuint, v: Ptr[GLshort, mut=False]):
+    try:
+        return _glVertexAttrib2sv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib3d(index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble) raises:
-    return _glVertexAttrib3d_ptr.get_or_create_ptr()[](index, x, y, z)
+fn vertex_attrib3d(index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble):
+    try:
+        return _glVertexAttrib3d_ptr.get_or_create_ptr()[](index, x, y, z)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib3dv(index: GLuint, v: Ptr[GLdouble, mut=False]) raises:
-    return _glVertexAttrib3dv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib3dv(index: GLuint, v: Ptr[GLdouble, mut=False]):
+    try:
+        return _glVertexAttrib3dv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib3f(index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat) raises:
-    return _glVertexAttrib3f_ptr.get_or_create_ptr()[](index, x, y, z)
+fn vertex_attrib3f(index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat):
+    try:
+        return _glVertexAttrib3f_ptr.get_or_create_ptr()[](index, x, y, z)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib3fv(index: GLuint, v: Ptr[GLfloat, mut=False]) raises:
-    return _glVertexAttrib3fv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib3fv(index: GLuint, v: Ptr[GLfloat, mut=False]):
+    try:
+        return _glVertexAttrib3fv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib3s(index: GLuint, x: GLshort, y: GLshort, z: GLshort) raises:
-    return _glVertexAttrib3s_ptr.get_or_create_ptr()[](index, x, y, z)
+fn vertex_attrib3s(index: GLuint, x: GLshort, y: GLshort, z: GLshort):
+    try:
+        return _glVertexAttrib3s_ptr.get_or_create_ptr()[](index, x, y, z)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib3sv(index: GLuint, v: Ptr[GLshort, mut=False]) raises:
-    return _glVertexAttrib3sv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib3sv(index: GLuint, v: Ptr[GLshort, mut=False]):
+    try:
+        return _glVertexAttrib3sv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4_nbv(index: GLuint, v: Ptr[GLbyte, mut=False]) raises:
-    return _glVertexAttrib4Nbv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4_nbv(index: GLuint, v: Ptr[GLbyte, mut=False]):
+    try:
+        return _glVertexAttrib4Nbv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4_niv(index: GLuint, v: Ptr[GLint, mut=False]) raises:
-    return _glVertexAttrib4Niv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4_niv(index: GLuint, v: Ptr[GLint, mut=False]):
+    try:
+        return _glVertexAttrib4Niv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4_nsv(index: GLuint, v: Ptr[GLshort, mut=False]) raises:
-    return _glVertexAttrib4Nsv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4_nsv(index: GLuint, v: Ptr[GLshort, mut=False]):
+    try:
+        return _glVertexAttrib4Nsv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4_nub(index: GLuint, x: GLubyte, y: GLubyte, z: GLubyte, w: GLubyte) raises:
-    return _glVertexAttrib4Nub_ptr.get_or_create_ptr()[](index, x, y, z, w)
+fn vertex_attrib4_nub(index: GLuint, x: GLubyte, y: GLubyte, z: GLubyte, w: GLubyte):
+    try:
+        return _glVertexAttrib4Nub_ptr.get_or_create_ptr()[](index, x, y, z, w)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4_nubv(index: GLuint, v: Ptr[GLubyte, mut=False]) raises:
-    return _glVertexAttrib4Nubv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4_nubv(index: GLuint, v: Ptr[GLubyte, mut=False]):
+    try:
+        return _glVertexAttrib4Nubv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4_nuiv(index: GLuint, v: Ptr[GLuint, mut=False]) raises:
-    return _glVertexAttrib4Nuiv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4_nuiv(index: GLuint, v: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexAttrib4Nuiv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4_nusv(index: GLuint, v: Ptr[GLushort, mut=False]) raises:
-    return _glVertexAttrib4Nusv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4_nusv(index: GLuint, v: Ptr[GLushort, mut=False]):
+    try:
+        return _glVertexAttrib4Nusv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4bv(index: GLuint, v: Ptr[GLbyte, mut=False]) raises:
-    return _glVertexAttrib4bv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4bv(index: GLuint, v: Ptr[GLbyte, mut=False]):
+    try:
+        return _glVertexAttrib4bv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4d(index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble) raises:
-    return _glVertexAttrib4d_ptr.get_or_create_ptr()[](index, x, y, z, w)
+fn vertex_attrib4d(index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble):
+    try:
+        return _glVertexAttrib4d_ptr.get_or_create_ptr()[](index, x, y, z, w)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4dv(index: GLuint, v: Ptr[GLdouble, mut=False]) raises:
-    return _glVertexAttrib4dv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4dv(index: GLuint, v: Ptr[GLdouble, mut=False]):
+    try:
+        return _glVertexAttrib4dv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4f(index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat, w: GLfloat) raises:
-    return _glVertexAttrib4f_ptr.get_or_create_ptr()[](index, x, y, z, w)
+fn vertex_attrib4f(index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat, w: GLfloat):
+    try:
+        return _glVertexAttrib4f_ptr.get_or_create_ptr()[](index, x, y, z, w)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4fv(index: GLuint, v: Ptr[GLfloat, mut=False]) raises:
-    return _glVertexAttrib4fv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4fv(index: GLuint, v: Ptr[GLfloat, mut=False]):
+    try:
+        return _glVertexAttrib4fv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4iv(index: GLuint, v: Ptr[GLint, mut=False]) raises:
-    return _glVertexAttrib4iv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4iv(index: GLuint, v: Ptr[GLint, mut=False]):
+    try:
+        return _glVertexAttrib4iv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4s(index: GLuint, x: GLshort, y: GLshort, z: GLshort, w: GLshort) raises:
-    return _glVertexAttrib4s_ptr.get_or_create_ptr()[](index, x, y, z, w)
+fn vertex_attrib4s(index: GLuint, x: GLshort, y: GLshort, z: GLshort, w: GLshort):
+    try:
+        return _glVertexAttrib4s_ptr.get_or_create_ptr()[](index, x, y, z, w)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4sv(index: GLuint, v: Ptr[GLshort, mut=False]) raises:
-    return _glVertexAttrib4sv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4sv(index: GLuint, v: Ptr[GLshort, mut=False]):
+    try:
+        return _glVertexAttrib4sv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4ubv(index: GLuint, v: Ptr[GLubyte, mut=False]) raises:
-    return _glVertexAttrib4ubv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4ubv(index: GLuint, v: Ptr[GLubyte, mut=False]):
+    try:
+        return _glVertexAttrib4ubv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4uiv(index: GLuint, v: Ptr[GLuint, mut=False]) raises:
-    return _glVertexAttrib4uiv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4uiv(index: GLuint, v: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexAttrib4uiv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib4usv(index: GLuint, v: Ptr[GLushort, mut=False]) raises:
-    return _glVertexAttrib4usv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib4usv(index: GLuint, v: Ptr[GLushort, mut=False]):
+    try:
+        return _glVertexAttrib4usv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_binding(attribindex: GLuint, bindingindex: GLuint) raises:
-    return _glVertexAttribBinding_ptr.get_or_create_ptr()[](attribindex, bindingindex)
+fn vertex_attrib_binding(attribindex: GLuint, bindingindex: GLuint):
+    try:
+        return _glVertexAttribBinding_ptr.get_or_create_ptr()[](attribindex, bindingindex)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_divisor(index: GLuint, divisor: GLuint) raises:
-    return _glVertexAttribDivisor_ptr.get_or_create_ptr()[](index, divisor)
+fn vertex_attrib_divisor(index: GLuint, divisor: GLuint):
+    try:
+        return _glVertexAttribDivisor_ptr.get_or_create_ptr()[](index, divisor)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_format(attribindex: GLuint, size: GLint, type: VertexAttribType, normalized: Bool, relativeoffset: GLuint) raises:
-    return _glVertexAttribFormat_ptr.get_or_create_ptr()[](attribindex, size, type, GLboolean(Int(normalized)), relativeoffset)
+fn vertex_attrib_format(attribindex: GLuint, size: GLint, type: VertexAttribType, normalized: Bool, relativeoffset: GLuint):
+    try:
+        return _glVertexAttribFormat_ptr.get_or_create_ptr()[](attribindex, size, type, GLboolean(Int(normalized)), relativeoffset)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i1i(index: GLuint, x: GLint) raises:
-    return _glVertexAttribI1i_ptr.get_or_create_ptr()[](index, x)
+fn vertex_attrib_i1i(index: GLuint, x: GLint):
+    try:
+        return _glVertexAttribI1i_ptr.get_or_create_ptr()[](index, x)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i1iv(index: GLuint, v: Ptr[GLint, mut=False]) raises:
-    return _glVertexAttribI1iv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_i1iv(index: GLuint, v: Ptr[GLint, mut=False]):
+    try:
+        return _glVertexAttribI1iv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i1ui(index: GLuint, x: GLuint) raises:
-    return _glVertexAttribI1ui_ptr.get_or_create_ptr()[](index, x)
+fn vertex_attrib_i1ui(index: GLuint, x: GLuint):
+    try:
+        return _glVertexAttribI1ui_ptr.get_or_create_ptr()[](index, x)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i1uiv(index: GLuint, v: Ptr[GLuint, mut=False]) raises:
-    return _glVertexAttribI1uiv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_i1uiv(index: GLuint, v: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexAttribI1uiv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i2i(index: GLuint, x: GLint, y: GLint) raises:
-    return _glVertexAttribI2i_ptr.get_or_create_ptr()[](index, x, y)
+fn vertex_attrib_i2i(index: GLuint, x: GLint, y: GLint):
+    try:
+        return _glVertexAttribI2i_ptr.get_or_create_ptr()[](index, x, y)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i2iv(index: GLuint, v: Ptr[GLint, mut=False]) raises:
-    return _glVertexAttribI2iv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_i2iv(index: GLuint, v: Ptr[GLint, mut=False]):
+    try:
+        return _glVertexAttribI2iv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i2ui(index: GLuint, x: GLuint, y: GLuint) raises:
-    return _glVertexAttribI2ui_ptr.get_or_create_ptr()[](index, x, y)
+fn vertex_attrib_i2ui(index: GLuint, x: GLuint, y: GLuint):
+    try:
+        return _glVertexAttribI2ui_ptr.get_or_create_ptr()[](index, x, y)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i2uiv(index: GLuint, v: Ptr[GLuint, mut=False]) raises:
-    return _glVertexAttribI2uiv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_i2uiv(index: GLuint, v: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexAttribI2uiv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i3i(index: GLuint, x: GLint, y: GLint, z: GLint) raises:
-    return _glVertexAttribI3i_ptr.get_or_create_ptr()[](index, x, y, z)
+fn vertex_attrib_i3i(index: GLuint, x: GLint, y: GLint, z: GLint):
+    try:
+        return _glVertexAttribI3i_ptr.get_or_create_ptr()[](index, x, y, z)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i3iv(index: GLuint, v: Ptr[GLint, mut=False]) raises:
-    return _glVertexAttribI3iv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_i3iv(index: GLuint, v: Ptr[GLint, mut=False]):
+    try:
+        return _glVertexAttribI3iv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i3ui(index: GLuint, x: GLuint, y: GLuint, z: GLuint) raises:
-    return _glVertexAttribI3ui_ptr.get_or_create_ptr()[](index, x, y, z)
+fn vertex_attrib_i3ui(index: GLuint, x: GLuint, y: GLuint, z: GLuint):
+    try:
+        return _glVertexAttribI3ui_ptr.get_or_create_ptr()[](index, x, y, z)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i3uiv(index: GLuint, v: Ptr[GLuint, mut=False]) raises:
-    return _glVertexAttribI3uiv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_i3uiv(index: GLuint, v: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexAttribI3uiv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i4bv(index: GLuint, v: Ptr[GLbyte, mut=False]) raises:
-    return _glVertexAttribI4bv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_i4bv(index: GLuint, v: Ptr[GLbyte, mut=False]):
+    try:
+        return _glVertexAttribI4bv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i4i(index: GLuint, x: GLint, y: GLint, z: GLint, w: GLint) raises:
-    return _glVertexAttribI4i_ptr.get_or_create_ptr()[](index, x, y, z, w)
+fn vertex_attrib_i4i(index: GLuint, x: GLint, y: GLint, z: GLint, w: GLint):
+    try:
+        return _glVertexAttribI4i_ptr.get_or_create_ptr()[](index, x, y, z, w)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i4iv(index: GLuint, v: Ptr[GLint, mut=False]) raises:
-    return _glVertexAttribI4iv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_i4iv(index: GLuint, v: Ptr[GLint, mut=False]):
+    try:
+        return _glVertexAttribI4iv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i4sv(index: GLuint, v: Ptr[GLshort, mut=False]) raises:
-    return _glVertexAttribI4sv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_i4sv(index: GLuint, v: Ptr[GLshort, mut=False]):
+    try:
+        return _glVertexAttribI4sv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i4ubv(index: GLuint, v: Ptr[GLubyte, mut=False]) raises:
-    return _glVertexAttribI4ubv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_i4ubv(index: GLuint, v: Ptr[GLubyte, mut=False]):
+    try:
+        return _glVertexAttribI4ubv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i4ui(index: GLuint, x: GLuint, y: GLuint, z: GLuint, w: GLuint) raises:
-    return _glVertexAttribI4ui_ptr.get_or_create_ptr()[](index, x, y, z, w)
+fn vertex_attrib_i4ui(index: GLuint, x: GLuint, y: GLuint, z: GLuint, w: GLuint):
+    try:
+        return _glVertexAttribI4ui_ptr.get_or_create_ptr()[](index, x, y, z, w)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i4uiv(index: GLuint, v: Ptr[GLuint, mut=False]) raises:
-    return _glVertexAttribI4uiv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_i4uiv(index: GLuint, v: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexAttribI4uiv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i4usv(index: GLuint, v: Ptr[GLushort, mut=False]) raises:
-    return _glVertexAttribI4usv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_i4usv(index: GLuint, v: Ptr[GLushort, mut=False]):
+    try:
+        return _glVertexAttribI4usv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i_format(attribindex: GLuint, size: GLint, type: VertexAttribIType, relativeoffset: GLuint) raises:
-    return _glVertexAttribIFormat_ptr.get_or_create_ptr()[](attribindex, size, type, relativeoffset)
+fn vertex_attrib_i_format(attribindex: GLuint, size: GLint, type: VertexAttribIType, relativeoffset: GLuint):
+    try:
+        return _glVertexAttribIFormat_ptr.get_or_create_ptr()[](attribindex, size, type, relativeoffset)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_i_pointer(index: GLuint, size: GLint, type: VertexAttribIType, stride: GLsizei, pointer: Ptr[NoneType, mut=False]) raises:
-    return _glVertexAttribIPointer_ptr.get_or_create_ptr()[](index, size, type, stride, pointer)
+fn vertex_attrib_i_pointer(index: GLuint, size: GLint, type: VertexAttribIType, stride: GLsizei, pointer: Ptr[NoneType, mut=False]):
+    try:
+        return _glVertexAttribIPointer_ptr.get_or_create_ptr()[](index, size, type, stride, pointer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_l1d(index: GLuint, x: GLdouble) raises:
-    return _glVertexAttribL1d_ptr.get_or_create_ptr()[](index, x)
+fn vertex_attrib_l1d(index: GLuint, x: GLdouble):
+    try:
+        return _glVertexAttribL1d_ptr.get_or_create_ptr()[](index, x)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_l1dv(index: GLuint, v: Ptr[GLdouble, mut=False]) raises:
-    return _glVertexAttribL1dv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_l1dv(index: GLuint, v: Ptr[GLdouble, mut=False]):
+    try:
+        return _glVertexAttribL1dv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_l2d(index: GLuint, x: GLdouble, y: GLdouble) raises:
-    return _glVertexAttribL2d_ptr.get_or_create_ptr()[](index, x, y)
+fn vertex_attrib_l2d(index: GLuint, x: GLdouble, y: GLdouble):
+    try:
+        return _glVertexAttribL2d_ptr.get_or_create_ptr()[](index, x, y)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_l2dv(index: GLuint, v: Ptr[GLdouble, mut=False]) raises:
-    return _glVertexAttribL2dv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_l2dv(index: GLuint, v: Ptr[GLdouble, mut=False]):
+    try:
+        return _glVertexAttribL2dv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_l3d(index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble) raises:
-    return _glVertexAttribL3d_ptr.get_or_create_ptr()[](index, x, y, z)
+fn vertex_attrib_l3d(index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble):
+    try:
+        return _glVertexAttribL3d_ptr.get_or_create_ptr()[](index, x, y, z)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_l3dv(index: GLuint, v: Ptr[GLdouble, mut=False]) raises:
-    return _glVertexAttribL3dv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_l3dv(index: GLuint, v: Ptr[GLdouble, mut=False]):
+    try:
+        return _glVertexAttribL3dv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_l4d(index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble) raises:
-    return _glVertexAttribL4d_ptr.get_or_create_ptr()[](index, x, y, z, w)
+fn vertex_attrib_l4d(index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble):
+    try:
+        return _glVertexAttribL4d_ptr.get_or_create_ptr()[](index, x, y, z, w)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_l4dv(index: GLuint, v: Ptr[GLdouble, mut=False]) raises:
-    return _glVertexAttribL4dv_ptr.get_or_create_ptr()[](index, v)
+fn vertex_attrib_l4dv(index: GLuint, v: Ptr[GLdouble, mut=False]):
+    try:
+        return _glVertexAttribL4dv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_l_format(attribindex: GLuint, size: GLint, type: VertexAttribLType, relativeoffset: GLuint) raises:
-    return _glVertexAttribLFormat_ptr.get_or_create_ptr()[](attribindex, size, type, relativeoffset)
+fn vertex_attrib_l_format(attribindex: GLuint, size: GLint, type: VertexAttribLType, relativeoffset: GLuint):
+    try:
+        return _glVertexAttribLFormat_ptr.get_or_create_ptr()[](attribindex, size, type, relativeoffset)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_l_pointer(index: GLuint, size: GLint, type: VertexAttribLType, stride: GLsizei, pointer: Ptr[NoneType, mut=False]) raises:
-    return _glVertexAttribLPointer_ptr.get_or_create_ptr()[](index, size, type, stride, pointer)
+fn vertex_attrib_l_pointer(index: GLuint, size: GLint, type: VertexAttribLType, stride: GLsizei, pointer: Ptr[NoneType, mut=False]):
+    try:
+        return _glVertexAttribLPointer_ptr.get_or_create_ptr()[](index, size, type, stride, pointer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_p1ui(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: GLuint) raises:
-    return _glVertexAttribP1ui_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+fn vertex_attrib_p1ui(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: GLuint):
+    try:
+        return _glVertexAttribP1ui_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_p1uiv(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: Ptr[GLuint, mut=False]) raises:
-    return _glVertexAttribP1uiv_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+fn vertex_attrib_p1uiv(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexAttribP1uiv_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_p2ui(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: GLuint) raises:
-    return _glVertexAttribP2ui_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+fn vertex_attrib_p2ui(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: GLuint):
+    try:
+        return _glVertexAttribP2ui_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_p2uiv(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: Ptr[GLuint, mut=False]) raises:
-    return _glVertexAttribP2uiv_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+fn vertex_attrib_p2uiv(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexAttribP2uiv_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_p3ui(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: GLuint) raises:
-    return _glVertexAttribP3ui_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+fn vertex_attrib_p3ui(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: GLuint):
+    try:
+        return _glVertexAttribP3ui_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_p3uiv(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: Ptr[GLuint, mut=False]) raises:
-    return _glVertexAttribP3uiv_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+fn vertex_attrib_p3uiv(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexAttribP3uiv_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_p4ui(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: GLuint) raises:
-    return _glVertexAttribP4ui_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+fn vertex_attrib_p4ui(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: GLuint):
+    try:
+        return _glVertexAttribP4ui_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_p4uiv(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: Ptr[GLuint, mut=False]) raises:
-    return _glVertexAttribP4uiv_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+fn vertex_attrib_p4uiv(index: GLuint, type: VertexAttribPointerType, normalized: Bool, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexAttribP4uiv_ptr.get_or_create_ptr()[](index, type, GLboolean(Int(normalized)), value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_attrib_pointer(index: GLuint, size: GLint, type: VertexAttribPointerType, normalized: Bool, stride: GLsizei, pointer: Ptr[NoneType, mut=False]) raises:
-    return _glVertexAttribPointer_ptr.get_or_create_ptr()[](index, size, type, GLboolean(Int(normalized)), stride, pointer)
+fn vertex_attrib_pointer(index: GLuint, size: GLint, type: VertexAttribPointerType, normalized: Bool, stride: GLsizei, pointer: Ptr[NoneType, mut=False]):
+    try:
+        return _glVertexAttribPointer_ptr.get_or_create_ptr()[](index, size, type, GLboolean(Int(normalized)), stride, pointer)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_binding_divisor(bindingindex: GLuint, divisor: GLuint) raises:
-    return _glVertexBindingDivisor_ptr.get_or_create_ptr()[](bindingindex, divisor)
+fn vertex_binding_divisor(bindingindex: GLuint, divisor: GLuint):
+    try:
+        return _glVertexBindingDivisor_ptr.get_or_create_ptr()[](bindingindex, divisor)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_p2ui(type: VertexPointerType, value: GLuint) raises:
-    return _glVertexP2ui_ptr.get_or_create_ptr()[](type, value)
+fn vertex_p2ui(type: VertexPointerType, value: GLuint):
+    try:
+        return _glVertexP2ui_ptr.get_or_create_ptr()[](type, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_p2uiv(type: VertexPointerType, value: Ptr[GLuint, mut=False]) raises:
-    return _glVertexP2uiv_ptr.get_or_create_ptr()[](type, value)
+fn vertex_p2uiv(type: VertexPointerType, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexP2uiv_ptr.get_or_create_ptr()[](type, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_p3ui(type: VertexPointerType, value: GLuint) raises:
-    return _glVertexP3ui_ptr.get_or_create_ptr()[](type, value)
+fn vertex_p3ui(type: VertexPointerType, value: GLuint):
+    try:
+        return _glVertexP3ui_ptr.get_or_create_ptr()[](type, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_p3uiv(type: VertexPointerType, value: Ptr[GLuint, mut=False]) raises:
-    return _glVertexP3uiv_ptr.get_or_create_ptr()[](type, value)
+fn vertex_p3uiv(type: VertexPointerType, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexP3uiv_ptr.get_or_create_ptr()[](type, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_p4ui(type: VertexPointerType, value: GLuint) raises:
-    return _glVertexP4ui_ptr.get_or_create_ptr()[](type, value)
+fn vertex_p4ui(type: VertexPointerType, value: GLuint):
+    try:
+        return _glVertexP4ui_ptr.get_or_create_ptr()[](type, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn vertex_p4uiv(type: VertexPointerType, value: Ptr[GLuint, mut=False]) raises:
-    return _glVertexP4uiv_ptr.get_or_create_ptr()[](type, value)
+fn vertex_p4uiv(type: VertexPointerType, value: Ptr[GLuint, mut=False]):
+    try:
+        return _glVertexP4uiv_ptr.get_or_create_ptr()[](type, value)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn viewport(x: GLint, y: GLint, width: GLsizei, height: GLsizei) raises:
-    return _glViewport_ptr.get_or_create_ptr()[](x, y, width, height)
+fn viewport(x: GLint, y: GLint, width: GLsizei, height: GLsizei):
+    try:
+        return _glViewport_ptr.get_or_create_ptr()[](x, y, width, height)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn viewport_arrayv(first: GLuint, count: GLsizei, v: Ptr[GLfloat, mut=False]) raises:
-    return _glViewportArrayv_ptr.get_or_create_ptr()[](first, count, v)
+fn viewport_arrayv(first: GLuint, count: GLsizei, v: Ptr[GLfloat, mut=False]):
+    try:
+        return _glViewportArrayv_ptr.get_or_create_ptr()[](first, count, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn viewport_indexedf(index: GLuint, x: GLfloat, y: GLfloat, w: GLfloat, h: GLfloat) raises:
-    return _glViewportIndexedf_ptr.get_or_create_ptr()[](index, x, y, w, h)
+fn viewport_indexedf(index: GLuint, x: GLfloat, y: GLfloat, w: GLfloat, h: GLfloat):
+    try:
+        return _glViewportIndexedf_ptr.get_or_create_ptr()[](index, x, y, w, h)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn viewport_indexedfv(index: GLuint, v: Ptr[GLfloat, mut=False]) raises:
-    return _glViewportIndexedfv_ptr.get_or_create_ptr()[](index, v)
+fn viewport_indexedfv(index: GLuint, v: Ptr[GLfloat, mut=False]):
+    try:
+        return _glViewportIndexedfv_ptr.get_or_create_ptr()[](index, v)
+    except:
+        return abort("Failed to load function")
 
 
 @always_inline
-fn wait_sync(sync: GLsync, flags: SyncBehaviorFlags, timeout: GLuint64) raises:
-    return _glWaitSync_ptr.get_or_create_ptr()[](sync, flags, timeout)
+fn wait_sync(sync: GLsync, flags: SyncBehaviorFlags, timeout: GLuint64):
+    try:
+        return _glWaitSync_ptr.get_or_create_ptr()[](sync, flags, timeout)
+    except:
+        return abort("Failed to load function")
 
 
 fn init_gl_version_1_0(load: LoadProc) raises:
